@@ -9,6 +9,11 @@
 */
 'use strict';
 
+// Load local config (.env) before anything reads process.env — keeps secrets
+// (DATABASE_URL, ADMIN_PASSWORD) out of the repo. On Render the same vars are
+// set in the dashboard, so this is a no-op there.
+require('dotenv').config({ quiet: true });
+
 const path = require('path');
 const express = require('express');
 const store = require('./lib/store');

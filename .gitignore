@@ -1,6 +1,9 @@
 node_modules/
 data/
 data/admin-credentials.txt
+# Local secrets — DATABASE_URL and friends. Never commit these.
+.env
+.env.local
 
 # NOTE: dist/tailwind.css is COMMITTED (pre-built) so the host can run
 # `npm start` with no build step. Rebuild locally with `npm run build`
