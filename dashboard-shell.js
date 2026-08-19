@@ -82,7 +82,7 @@
       '<div class="flex flex-col h-full">' +
         '<div class="flex items-center justify-between h-16 px-6 border-b border-white/10">' +
           '<a href="' + url('/pages/index.html') + '" class="flex items-center">' +
-            '<img src="' + url('/assets/logo.svg') + '" alt="Tesla XTeam FX Trade" class="h-6 w-auto filter brightness-0 invert" />' +
+            '<img src="' + url('/assets/logo.svg') + '" alt="Tesla XTeam FX Trade" class="h-2 w-auto filter brightness-0 invert" />' +
           '</a>' +
           '<button onclick="toggleSidebar()" class="p-1.5 rounded-full text-gray-400 transition hover:bg-white/10 lg:hidden" aria-label="Close menu">' +
             '<i data-lucide="x" class="w-4 h-4"></i>' +
@@ -125,7 +125,7 @@
             '<i data-lucide="menu" class="w-5 h-5"></i>' +
           '</button>' +
           '<a href="' + url('/pages/dashboard/dashboard.html') + '" class="mr-3 flex items-center" aria-label="Tesla XTeam FX Trade">' +
-            '<img src="' + url('/assets/logo.svg') + '" alt="Tesla XTeam FX Trade" class="h-4 w-auto filter brightness-0 invert" />' +
+            '<img src="' + url('/assets/logo.svg') + '" alt="Tesla XTeam FX Trade" class="h-2 w-auto filter brightness-0 invert" />' +
           '</a>' +
           '<div class="hidden text-lg font-medium text-white sm:block">' + TITLE + '</div>' +
         '</div>' +
