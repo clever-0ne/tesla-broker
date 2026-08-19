@@ -15,6 +15,7 @@
 require('dotenv').config({ quiet: true });
 
 const path = require('path');
+const crypto = require('crypto');
 const express = require('express');
 const store = require('./lib/store');
 const auth = require('./lib/auth');
@@ -23,6 +24,12 @@ const ROOT = __dirname;
 const PORT = process.env.PORT || 3000;
 
 const app = express();
+// Hide the Express fingerprint header.
+app.disable('x-powered-by');
+// Render sits behind a reverse proxy. Without this, req.ip is always the
+// proxy's address, so per-IP rate limiting would treat every visitor as one
+// user — a single attacker's 10 attempts would lock out the whole site.
+app.set('trust proxy', 1);
 
 /* ------------------------------ settings ------------------------------ */
 
@@ -57,6 +64,8 @@ function getSettings() {
 
 function round2(n) { return Math.round((Number(n) || 0) * 100) / 100; }
 function roundCoin(n) { return Math.round((Number(n) || 0) * 1e8) / 1e8; }
+// Record IDs — crypto bytes (not Math.random) so they can't be predicted.
+function uid() { return crypto.randomBytes(6).toString('hex'); }
 
 function publicUser(u) {
   return { id: u.id, name: u.name, email: u.email, role: u.role, balance: u.balance, kycStatus: u.kycStatus, createdAt: u.createdAt };
@@ -69,6 +78,8 @@ app.use(function (req, res, next) {
   res.set('X-Content-Type-Options', 'nosniff');
   res.set('X-Frame-Options', 'DENY');
   res.set('Referrer-Policy', 'strict-origin-when-cross-origin');
+  res.set('Permissions-Policy', 'camera=(), microphone=(), geolocation=()');
+  if (process.env.HTTPS === 'true') res.set('Strict-Transport-Security', 'max-age=31536000');
   if (req.path.startsWith('/api/')) res.set('Cache-Control', 'no-store');
   next();
 });
@@ -83,7 +94,11 @@ app.use(function (req, res, next) {
   if (origin && origin !== 'null' && host) {
     let originHost = origin;
     try { originHost = new URL(origin).host; } catch (e) { /* keep raw string */ }
-    if (originHost.toLowerCase().indexOf(host.toLowerCase()) === -1) {
+    // Exact match only — a substring check would let https://evil-example.com
+    // through when the site lives at example.com. Default ports are normalised
+    // so Origin: https://site.com still matches a Host header of site.com.
+    const stripPort = function (h) { return h.replace(/:(80|443)$/, ''); };
+    if (stripPort(originHost).toLowerCase() !== stripPort(host).toLowerCase()) {
       return res.status(403).json({ error: 'Cross-origin request blocked' });
     }
   }
@@ -95,6 +110,10 @@ const authHits = new Map();
 function rateLimit(req, res, next) {
   const ip = req.ip || 'local';
   const now = Date.now();
+  // Opportunistically prune expired buckets so the map can't grow forever.
+  if (authHits.size > 10000) {
+    authHits.forEach(function (rec, key) { if (rec.resetAt < now) authHits.delete(key); });
+  }
   let rec = authHits.get(ip);
   if (!rec || rec.resetAt < now) rec = { count: 0, resetAt: now + 60000 };
   rec.count++;
@@ -106,11 +125,11 @@ function rateLimit(req, res, next) {
 /* ------------------------------- static ------------------------------- */
 
 // Public marketing / auth pages only. Every other page requires login.
-const PUBLIC_PAGES = ['index.html'];
-
 app.use('/pages', function (req, res, next) {
-  const base = (req.path.split('/').pop() || '').toLowerCase();
-  if (PUBLIC_PAGES.indexOf(base) !== -1) return next();
+  // Only the real /pages/index.html is public. Matching the *basename* would
+  // let any nested index.html (e.g. /pages/dashboard/index.html) dodge auth.
+  const p = req.path.replace(/\/+$/, '').toLowerCase();
+  if (p === '/index.html') return next();
   const user = auth.authenticate(req);
   if (!user) return res.redirect('/pages/index.html#auth');
   // Admins may use the customer frontend too — the /admin guard below still
@@ -123,8 +142,8 @@ app.use('/pages', function (req, res, next) {
 // under /admin requires an admin account.
 const ADMIN_DIR = path.join(ROOT, 'admin');
 app.use('/admin', function (req, res, next) {
-  const base = (req.path.split('/').pop() || '').toLowerCase();
-  if (base === 'login.html' || base === 'favicon.ico') return next();
+  const p = req.path.replace(/\/+$/, '').toLowerCase();
+  if (p === '/login.html' || p === '/favicon.ico') return next();
   const user = auth.authenticate(req);
   if (!user || user.role !== 'admin') return res.redirect('/admin/login.html');
   next();
@@ -211,6 +230,7 @@ app.get('/api/deposits', auth.requireAuthApi, function (req, res) {
 });
 
 app.post('/api/deposits', auth.requireAuthApi, function (req, res) {
+  req.body = req.body || {};
   const amount = round2(req.body.amount);
   const coin = String(req.body.coin || '').toLowerCase();
   const txid = String(req.body.txid || '').slice(0, 200);
@@ -223,7 +243,7 @@ app.post('/api/deposits', auth.requireAuthApi, function (req, res) {
   const settings = getSettings();
   const rate = settings.coinRates[coin];
   const deposit = {
-    id: Math.random().toString(36).slice(2, 10),
+    id: uid(),
     userId: req.user.id,
     userName: req.user.name,
     amount: amount,
@@ -246,6 +266,7 @@ app.get('/api/orders', auth.requireAuthApi, function (req, res) {
 
 // Purchase / investment / crypto order — debits the balance immediately.
 app.post('/api/orders', auth.requireAuthApi, function (req, res) {
+  req.body = req.body || {};
   const type = String(req.body.type || '').toLowerCase();
   const item = String(req.body.item || '').slice(0, 200);
   const amount = round2(req.body.amount);
@@ -258,7 +279,7 @@ app.post('/api/orders', auth.requireAuthApi, function (req, res) {
   store.save('users');
 
   const order = {
-    id: Math.random().toString(36).slice(2, 10),
+    id: uid(),
     userId: req.user.id,
     userName: req.user.name,
     type: type,
@@ -278,7 +299,7 @@ app.post('/api/orders', auth.requireAuthApi, function (req, res) {
 
 function notify(userId, kind, title, message) {
   store.push('notifications', {
-    id: Math.random().toString(36).slice(2, 10),
+    id: uid(),
     userId: userId,
     kind: kind,
     title: title,
@@ -323,7 +344,7 @@ app.post('/api/withdrawals', auth.requireAuthApi, function (req, res) {
   if (address.length < 8) return res.status(400).json({ error: 'Enter a valid wallet address.' });
 
   const withdrawal = {
-    id: Math.random().toString(36).slice(2, 10),
+    id: uid(),
     userId: req.user.id,
     userName: req.user.name,
     amount: amount,
@@ -478,6 +499,16 @@ app.put('/api/admin/settings', auth.requireAdminApi, function (req, res) {
 /* ------------------------------ 404 / boot ---------------------------- */
 
 app.use('/api', function (req, res) { res.status(404).json({ error: 'Not found' }); });
+
+// Last line of defence: return JSON for API errors, never a stack trace or the
+// Express default HTML error page.
+app.use(function (err, req, res, next) {
+  if (res.headersSent) return next(err);
+  const status = err.status || err.statusCode || 500;
+  const msg = status >= 500 ? 'Internal server error' : (err.message || 'Error');
+  if (req.path.startsWith('/api/')) return res.status(status).json({ error: msg });
+  res.status(status).type('text/plain').send(msg);
+});
 
 // Await storage init before touching data (Postgres mode connects + hydrates
 // here; JSON mode is a no-op). A broken DATABASE_URL fails the boot loudly.
