@@ -475,8 +475,18 @@ app.put('/api/admin/settings', auth.requireAdminApi, function (req, res) {
 
 app.use('/api', function (req, res) { res.status(404).json({ error: 'Not found' }); });
 
-auth.hydrateSessions();
-auth.seedAdmin();
-app.listen(PORT, function () {
-  console.log('[server] Tesla XTeam FX Trade running at http://localhost:' + PORT);
-});
+// Await storage init before touching data (Postgres mode connects + hydrates
+// here; JSON mode is a no-op). A broken DATABASE_URL fails the boot loudly.
+store.init()
+  .then(function () {
+    auth.hydrateSessions();
+    auth.seedAdmin();
+    app.listen(PORT, function () {
+      const backend = process.env.DATABASE_URL ? 'Postgres' : 'JSON files';
+      console.log('[server] Tesla XTeam FX Trade running at http://localhost:' + PORT + ' (storage: ' + backend + ')');
+    });
+  })
+  .catch(function (err) {
+    console.error('[server] Failed to initialise storage: ' + err.message);
+    process.exit(1);
+  });

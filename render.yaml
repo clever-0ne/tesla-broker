@@ -2,12 +2,12 @@
 # Upload this folder (new-website/) as the repository root, or point Render
 # at a Git repo whose root is this folder. Render reads this file on deploy.
 #
-# IMPORTANT (storage): the app stores its data in JSON files. Render's
-# filesystem is EPHEMERAL on free/Starter instances — data resets on every
-# deploy and when free instances sleep. To keep accounts/balances across
-# deploys you MUST attach the persistent disk below (paid plan) and set
-# DATA_DIR to its mount path. Remove the `disk` block only if you accept
-# data being reset on every deploy.
+# DATABASE (Neon): storage is a Neon Postgres database. Create it from the
+# Render dashboard (New + -> PostgreSQL -> Neon), then paste the POOLED
+# connection string into the service's DATABASE_URL env var (see below).
+# With DATABASE_URL set the app stores everything in Postgres, so no
+# persistent disk is needed and data survives redeploys and free-tier
+# sleeps automatically.
 services:
   - type: web
     name: xteam-fx-trade
@@ -26,10 +26,9 @@ services:
       # if you don't want the default.
       - key: ADMIN_PASSWORD
         value: biggod
-      # Point storage at the persistent disk below.
-      - key: DATA_DIR
-        value: /var/data
-    disk:
-      name: xteam-data
-      mountPath: /var/data
-      sizeGB: 1
+      # Neon Postgres connection string — SECRET, set manually.
+      # sync: false tells Render to keep the value you paste in the dashboard
+      # instead of resetting it. Without DATABASE_URL the app falls back to
+      # local JSON files on Render's EPHEMERAL disk (data resets on deploy).
+      - key: DATABASE_URL
+        sync: false
