@@ -124,7 +124,10 @@
           '<button onclick="toggleSidebar()" class="mr-3 rounded-full p-1.5 text-gray-400 transition hover:bg-white/10 lg:hidden" aria-label="Open menu">' +
             '<i data-lucide="menu" class="w-5 h-5"></i>' +
           '</button>' +
-          '<div class="text-lg font-medium text-white">' + TITLE + '</div>' +
+          '<a href="' + url('/pages/dashboard/dashboard.html') + '" class="mr-3 flex items-center" aria-label="Tesla XTeam FX Trade">' +
+            '<img src="' + url('/assets/logo.svg') + '" alt="Tesla XTeam FX Trade" class="h-6 w-auto filter brightness-0 invert" />' +
+          '</a>' +
+          '<div class="hidden text-lg font-medium text-white sm:block">' + TITLE + '</div>' +
         '</div>' +
         '<div class="flex items-center space-x-3">' +
           '<button type="button" id="theme-toggle" class="rounded-full p-2 text-gray-400 transition hover:bg-white/10" aria-label="Toggle dark mode">' +

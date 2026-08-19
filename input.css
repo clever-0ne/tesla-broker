@@ -262,23 +262,43 @@
 }
 
 /*
-  Dark mode cards: dark grey with a subtle grid texture (user preference —
-  the card styling belongs to dark mode, not light mode). The default light
-  theme keeps its normal white cards. Scoped to card surfaces — a radius +
-  white surface, or `.t-card` — so plain buttons, inputs and hero CTAs are
-  untouched. Deliberately OUTSIDE any @layer so this beats Tailwind's utility
-  classes (`dark:bg-gray-900`, `bg-gradient-to-b from-white ...`).
+  Dark mode cards: lighter grey with a glossy top edge (user preference —
+  the card styling belongs to dark mode, not light mode; no grid, lighter
+  shade, clearer text). The default light theme keeps its normal white cards.
+  Scoped to card surfaces — a radius + white surface, or `.t-card` — so plain
+  buttons, inputs and hero CTAs are untouched. Deliberately OUTSIDE any
+  @layer so this beats Tailwind's utility classes (`dark:bg-gray-900`,
+  `bg-gradient-to-b from-white ...`).
 */
 .dark :is(
   :is(.rounded-2xl, .rounded-xl, .rounded-lg).bg-white,
   :is(.rounded-2xl, .rounded-xl, .rounded-lg).from-white,
   .t-card
 ):not(.bg-clip-text) {
-  background-image:
-    linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
-  background-size: 16px 16px;
-  background-color: #242f42;
-  border-color: #35435c;
-  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.06), 0 16px 40px -24px rgb(0 0 0 / 0.45);
+  background-image: none;
+  background-color: #3a4c68;
+  border-color: #4a5e7d;
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.1), 0 16px 40px -24px rgb(0 0 0 / 0.45);
+}
+/* Brighter card text on the lighter grey so everything stays readable. */
+.dark :is(
+  :is(.rounded-2xl, .rounded-xl, .rounded-lg).bg-white,
+  :is(.rounded-2xl, .rounded-xl, .rounded-lg).from-white,
+  .t-card
+):not(.bg-clip-text) :is(.text-black, .text-gray-900, .text-navy-950) {
+  color: #ffffff;
+}
+.dark :is(
+  :is(.rounded-2xl, .rounded-xl, .rounded-lg).bg-white,
+  :is(.rounded-2xl, .rounded-xl, .rounded-lg).from-white,
+  .t-card
+):not(.bg-clip-text) :is(.text-gray-700, .text-gray-600) {
+  color: #e8eef6;
+}
+.dark :is(
+  :is(.rounded-2xl, .rounded-xl, .rounded-lg).bg-white,
+  :is(.rounded-2xl, .rounded-xl, .rounded-lg).from-white,
+  .t-card
+):not(.bg-clip-text) :is(.text-gray-500, .text-gray-400) {
+  color: #c3d0e0;
 }
