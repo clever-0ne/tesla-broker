@@ -262,15 +262,14 @@
 }
 
 /*
-  Light mode keeps dark glossy cards with a subtle grid texture (user
-  preference: cards are dark grey with tiny grid lines, not white, even when
-  the site's light theme is active). Scoped to card surfaces — a radius +
-  white surface, or `.t-card` — so plain buttons, inputs and hero CTAs keep
-  their normal light-theme colours. These rules are deliberately OUTSIDE any
-  @layer so they beat Tailwind's utility classes (`bg-white`,
-  `bg-gradient-to-b from-white ...`) which live in the later `utilities` layer.
+  Dark mode cards: dark grey with a subtle grid texture (user preference —
+  the card styling belongs to dark mode, not light mode). The default light
+  theme keeps its normal white cards. Scoped to card surfaces — a radius +
+  white surface, or `.t-card` — so plain buttons, inputs and hero CTAs are
+  untouched. Deliberately OUTSIDE any @layer so this beats Tailwind's utility
+  classes (`dark:bg-gray-900`, `bg-gradient-to-b from-white ...`).
 */
-html:not(.dark) :is(
+.dark :is(
   :is(.rounded-2xl, .rounded-xl, .rounded-lg).bg-white,
   :is(.rounded-2xl, .rounded-xl, .rounded-lg).from-white,
   .t-card
@@ -282,53 +281,4 @@ html:not(.dark) :is(
   background-color: #242f42;
   border-color: #35435c;
   box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.06), 0 16px 40px -24px rgb(0 0 0 / 0.45);
-}
-html:not(.dark) :is(
-  :is(.rounded-2xl, .rounded-xl, .rounded-lg).bg-white,
-  :is(.rounded-2xl, .rounded-xl, .rounded-lg).from-white,
-  .t-card
-):not(.bg-clip-text) :is(.text-black, .text-gray-900, .text-navy-950) {
-  color: #e8eef6;
-}
-html:not(.dark) :is(
-  :is(.rounded-2xl, .rounded-xl, .rounded-lg).bg-white,
-  :is(.rounded-2xl, .rounded-xl, .rounded-lg).from-white,
-  .t-card
-):not(.bg-clip-text) :is(.text-gray-700, .text-gray-600) {
-  color: #aebdd2;
-}
-html:not(.dark) :is(
-  :is(.rounded-2xl, .rounded-xl, .rounded-lg).bg-white,
-  :is(.rounded-2xl, .rounded-xl, .rounded-lg).from-white,
-  .t-card
-):not(.bg-clip-text) :is(.text-gray-500, .text-gray-400) {
-  color: #8fa3bd;
-}
-html:not(.dark) :is(
-  :is(.rounded-2xl, .rounded-xl, .rounded-lg).bg-white,
-  :is(.rounded-2xl, .rounded-xl, .rounded-lg).from-white,
-  .t-card
-):not(.bg-clip-text) .text-tesla {
-  color: #9dc3ff;
-}
-html:not(.dark) :is(
-  :is(.rounded-2xl, .rounded-xl, .rounded-lg).bg-white,
-  :is(.rounded-2xl, .rounded-xl, .rounded-lg).from-white,
-  .t-card
-):not(.bg-clip-text) :is(.bg-gray-100, .bg-gray-50, .bg-white) {
-  background-color: #1c2637;
-}
-html:not(.dark) :is(
-  :is(.rounded-2xl, .rounded-xl, .rounded-lg).bg-white,
-  :is(.rounded-2xl, .rounded-xl, .rounded-lg).from-white,
-  .t-card
-):not(.bg-clip-text) :is(.border-gray-100, .border-gray-200) {
-  border-color: #2d3a50;
-}
-html:not(.dark) :is(
-  :is(.rounded-2xl, .rounded-xl, .rounded-lg).bg-white,
-  :is(.rounded-2xl, .rounded-xl, .rounded-lg).from-white,
-  .t-card
-):not(.bg-clip-text) .t-label {
-  color: rgb(255 255 255 / 0.55);
 }

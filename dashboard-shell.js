@@ -153,6 +153,9 @@
               '</div>' +
             '</div>' +
           '</div>' +
+          '<button type="button" onclick="logout()" class="rounded-full p-2 text-gray-400 transition hover:bg-white/10 lg:hidden" aria-label="Sign out">' +
+            '<i data-lucide="log-out" class="w-5 h-5"></i>' +
+          '</button>' +
         '</div>' +
       '</div>' +
     '</header>';
