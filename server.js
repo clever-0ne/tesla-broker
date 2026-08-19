@@ -113,9 +113,8 @@ app.use('/pages', function (req, res, next) {
   if (PUBLIC_PAGES.indexOf(base) !== -1) return next();
   const user = auth.authenticate(req);
   if (!user) return res.redirect('/pages/index.html#auth');
-  // Admin accounts don't use the customer frontend — send them to the console,
-  // so an admin session can never accidentally transact against the admin balance.
-  if (user.role === 'admin') return res.redirect('/admin/');
+  // Admins may use the customer frontend too — the /admin guard below still
+  // limits the console to admin accounts, so both areas work from one session.
   next();
 }, express.static(path.join(ROOT, 'pages'), { index: false }));
 

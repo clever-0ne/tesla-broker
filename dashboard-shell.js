@@ -261,9 +261,8 @@
       return api('/api/me').then(function (r) {
         if (!r.ok) { setBalance(0); return false; }
         ME = r.data.user;
-        // Admin accounts belong in the console, not the customer frontend —
-        // never show (or transact with) the admin's own balance here.
-        if (ME.role === 'admin') { window.location.href = url('/admin/'); return false; }
+        // Admins can browse the customer frontend too; the console stays
+        // gated to admins by the server, so both areas work from one session.
         setBalance(ME.balance);
         applyUserToSidebar();
         return true;
