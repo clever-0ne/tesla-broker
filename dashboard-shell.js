@@ -695,4 +695,98 @@
   document.addEventListener('DOMContentLoaded', function () {
     if (window.lucide) lucide.createIcons();
   });
+
+  /* ---- Pull-to-refresh (touch only): drag down from the top to reload ---- */
+  (function () {
+    // Only touch-capable devices get the gesture; desktop/trackpad is untouched.
+    if (!window.matchMedia || !matchMedia('(pointer: coarse)').matches) return;
+
+    var THRESHOLD = 70;      // px of pull that triggers a reload
+    var MAX_PULL = 110;      // cap on how far the bar follows the finger
+    var BAR_HEIGHT = 46;
+    var bar = null, started = false, pulling = false, startY = 0, dist = 0;
+
+    // Styles for the glossy navy pull bar (no blur, matches the design system).
+    var style = document.createElement('style');
+    style.textContent =
+      '#ptr-bar{' +
+        'position:fixed;top:0;left:0;right:0;height:' + BAR_HEIGHT + 'px;' +
+        'display:flex;align-items:center;justify-content:center;gap:8px;' +
+        'background:linear-gradient(180deg,#16283f,#0d1b2e);' +
+        'border-bottom:1px solid #2b4a6f;box-shadow:0 2px 10px rgba(0,0,0,.35);' +
+        'color:#e8eef6;font:600 13px/1 system-ui,-apple-system,"Segoe UI",sans-serif;' +
+        'letter-spacing:.02em;transform:translate3d(0,-' + BAR_HEIGHT + 'px,0);' +
+        'transition:transform .28s cubic-bezier(.2,.7,.2,1);' +
+        'z-index:9999;pointer-events:none;user-select:none;-webkit-user-select:none;' +
+      '}' +
+      '#ptr-bar .ptr-ico{color:#7dd3fc;font-size:15px;line-height:1;transition:transform .2s ease;}' +
+      '#ptr-bar .ptr-spin{animation:ptr-spin .7s linear infinite;}' +
+      '@keyframes ptr-spin{to{transform:rotate(360deg);}}';
+    document.head.appendChild(style);
+
+    function makeBar() {
+      var b = document.createElement('div');
+      b.id = 'ptr-bar';
+      b.innerHTML = '<span class="ptr-ico">&#x2193;</span><span class="ptr-txt">Pull to refresh</span>';
+      document.body.appendChild(b);
+      return b;
+    }
+
+    function setBar(y, msg, ready) {
+      if (!bar) bar = makeBar();
+      bar.querySelector('.ptr-txt').textContent = msg;
+      var ico = bar.querySelector('.ptr-ico');
+      ico.style.transform = ready ? 'rotate(180deg)' : 'rotate(0deg)';
+      bar.style.transform = 'translate3d(0,' + y + 'px,0)';
+    }
+
+    function endPull() {
+      pulling = false; started = false;
+      if (!bar) return;
+      bar.style.transition = '';
+      setBar(-BAR_HEIGHT, 'Pull to refresh', false);
+    }
+
+    function reload() {
+      pulling = false; started = false;
+      if (!bar) return;
+      bar.style.transition = '';
+      var ico = bar.querySelector('.ptr-ico');
+      ico.className = 'ptr-ico ptr-spin';
+      setBar(8, 'Refreshing…', false);
+      setTimeout(function () { window.location.reload(); }, 350);
+    }
+
+    document.addEventListener('touchstart', function (e) {
+      if (pulling || window.scrollY > 0) { started = false; return; }
+      startY = e.touches[0].clientY;
+      started = true;
+    }, { passive: true });
+
+    // passive:false so preventDefault() stops the native browser pull-to-refresh
+    // while our own gesture owns the touch.
+    document.addEventListener('touchmove', function (e) {
+      if (!started) return;
+      var dy = e.touches[0].clientY - startY;
+      if (dy <= 0 || window.scrollY > 0) { if (pulling) endPull(); return; }
+      if (!pulling) {
+        pulling = true;
+        if (bar) bar.style.transition = 'none'; // follow the finger, no easing
+      }
+      e.preventDefault();
+      dist = Math.min(MAX_PULL, dy * 0.45);
+      var ready = dist >= THRESHOLD;
+      setBar(dist - BAR_HEIGHT, ready ? 'Release to refresh' : 'Pull to refresh', ready);
+    }, { passive: false });
+
+    document.addEventListener('touchend', function () {
+      if (!started) { return; }
+      started = false;
+      if (!pulling) return;
+      if (dist >= THRESHOLD) reload();
+      else endPull();
+    });
+
+    document.addEventListener('touchcancel', function () { if (pulling) endPull(); });
+  })();
 })();
