@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Complete your order with a cryptocurrency payment." />
+    <title>Checkout — Tesla XTeam FX Trade</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.bunny.net" />
+    <link href="https://fonts.bunny.net/css?family=inter:300,400,500,600,700&display=swap" rel="stylesheet" />
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+
+    <!-- Tailwind CSS -->
+    <link rel="stylesheet" href="/dist/tailwind.css" />
+
+    <!-- Set theme before paint to avoid a flash of the wrong theme -->
+    <script>
+      (function () {
+        var stored = localStorage.getItem('theme');
+        var dark = stored === 'dark';
+        if (dark) document.documentElement.classList.add('dark');
+      })();
+    </script>
+  </head>
+
+  <body data-page="inventory" data-title="Checkout" class="font-sans antialiased bg-gray-300 text-black dark:bg-navy-950 dark:text-white">
+    <div id="app" class="min-h-screen flex">
+      <div id="page-content" class="flex-1 flex flex-col min-h-screen overflow-hidden lg:ml-72">
+        <main class="flex-1 overflow-y-auto p-4 pb-24 sm:p-6 lg:pb-6">
+          <div class="mx-auto max-w-5xl">
+            <!-- Breadcrumb -->
+            <div class="mb-4">
+              <a id="back-link" href="car-order.html?car=cybertruck" class="inline-flex items-center text-xs font-medium text-gray-500 transition hover:text-black dark:text-gray-400 dark:hover:text-white">
+                <i data-lucide="arrow-left" class="mr-1 w-3.5 h-3.5"></i>
+                Back to Order
+              </a>
+            </div>
+
+            <div class="relative mb-6 overflow-hidden rounded-2xl bg-navy-950 p-6 text-white">
+              <div class="pointer-events-none absolute inset-0" aria-hidden="true">
+                <div class="absolute inset-0 t-grid opacity-30"></div>
+                <div class="absolute -left-16 top-1/2 h-72 w-72 -translate-y-1/2 t-orb"></div>
+                <div class="absolute -right-16 top-0 h-80 w-80 -translate-y-1/3 t-orb"></div>
+              </div>
+              <div class="relative z-10">
+                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between">
+                  <div>
+                    <h1 class="mb-1 text-xl font-light">Checkout</h1>
+                    <p class="text-sm text-gray-300">Complete your order</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 gap-6 lg:grid-cols-3">
+              <!-- Left: contact + payment -->
+              <div class="space-y-6 lg:col-span-2">
+                <!-- Contact -->
+                <div class="rounded-2xl border border-gray-200 bg-gradient-to-b from-white to-gray-50 p-6 shadow-sm dark:border-white/10 dark:bg-gray-900">
+                  <div class="mb-4 flex items-center">
+                    <span class="mr-2 flex h-6 w-6 items-center justify-center rounded-full bg-black text-[11px] font-medium text-white dark:bg-white dark:text-black">1</span>
+                    <h2 class="text-base font-medium text-black dark:text-white">Contact Information</h2>
+                  </div>
+                  <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                    <div>
+                      <label for="co-name" class="mb-1.5 block text-xs font-medium text-gray-600 dark:text-gray-300">Full name</label>
+                      <input id="co-name" type="text" placeholder="Wilson" class="w-full rounded-xl border border-gray-200 bg-white px-3 py-2.5 text-sm text-black transition focus:border-black focus:outline-none dark:border-white/10 dark:bg-gray-900 dark:text-white" />
+                    </div>
+                    <div>
+                      <label for="co-email" class="mb-1.5 block text-xs font-medium text-gray-600 dark:text-gray-300">Email address</label>
+                      <input id="co-email" type="email" placeholder="you@example.com" class="w-full rounded-xl border border-gray-200 bg-white px-3 py-2.5 text-sm text-black transition focus:border-black focus:outline-none dark:border-white/10 dark:bg-gray-900 dark:text-white" />
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Billing address -->
+                <div class="rounded-2xl border border-gray-200 bg-gradient-to-b from-white to-gray-50 p-6 shadow-sm dark:border-white/10 dark:bg-gray-900">
+                  <div class="mb-4 flex items-center">
+                    <span class="mr-2 flex h-6 w-6 items-center justify-center rounded-full bg-black text-[11px] font-medium text-white dark:bg-white dark:text-black">2</span>
+                    <h2 class="text-base font-medium text-black dark:text-white">Billing Address</h2>
+                  </div>
+                  <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                    <div class="sm:col-span-2">
+                      <label for="co-street" class="mb-1.5 block text-xs font-medium text-gray-600 dark:text-gray-300">Street address</label>
+                      <input id="co-street" type="text" placeholder="1 Innovation Drive" class="w-full rounded-xl border border-gray-200 bg-white px-3 py-2.5 text-sm text-black transition focus:border-black focus:outline-none dark:border-white/10 dark:bg-gray-900 dark:text-white" />
+                    </div>
+                    <div>
+                      <label for="co-city" class="mb-1.5 block text-xs font-medium text-gray-600 dark:text-gray-300">City</label>
+                      <input id="co-city" type="text" placeholder="Austin" class="w-full rounded-xl border border-gray-200 bg-white px-3 py-2.5 text-sm text-black transition focus:border-black focus:outline-none dark:border-white/10 dark:bg-gray-900 dark:text-white" />
+                    </div>
+                    <div>
+                      <label for="co-state" class="mb-1.5 block text-xs font-medium text-gray-600 dark:text-gray-300">State / Province</label>
+                      <input id="co-state" type="text" placeholder="Texas" class="w-full rounded-xl border border-gray-200 bg-white px-3 py-2.5 text-sm text-black transition focus:border-black focus:outline-none dark:border-white/10 dark:bg-gray-900 dark:text-white" />
+                    </div>
+                    <div>
+                      <label for="co-zip" class="mb-1.5 block text-xs font-medium text-gray-600 dark:text-gray-300">ZIP / Postal code</label>
+                      <input id="co-zip" type="text" inputmode="numeric" placeholder="78725" class="w-full rounded-xl border border-gray-200 bg-white px-3 py-2.5 text-sm text-black transition focus:border-black focus:outline-none dark:border-white/10 dark:bg-gray-900 dark:text-white" />
+                    </div>
+                    <div>
+                      <label for="co-country" class="mb-1.5 block text-xs font-medium text-gray-600 dark:text-gray-300">Country</label>
+                      <select id="co-country" class="w-full appearance-none rounded-xl border border-gray-200 bg-white px-3 py-2.5 text-sm text-black transition focus:border-black focus:outline-none dark:border-white/10 dark:bg-gray-900 dark:text-white">
+                        <option>United States</option>
+                        <option>Canada</option>
+                        <option>United Kingdom</option>
+                        <option>Australia</option>
+                        <option>Germany</option>
+                        <option>France</option>
+                        <option>United Arab Emirates</option>
+                        <option>Nigeria</option>
+                        <option>South Africa</option>
+                        <option>Other</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Payment -->
+                <div class="rounded-2xl border border-gray-200 bg-gradient-to-b from-white to-gray-50 p-6 shadow-sm dark:border-white/10 dark:bg-gray-900">
+                  <div class="mb-4 flex items-center">
+                    <span class="mr-2 flex h-6 w-6 items-center justify-center rounded-full bg-black text-[11px] font-medium text-white dark:bg-white dark:text-black">3</span>
+                    <h2 class="text-base font-medium text-black dark:text-white">Payment Method</h2>
+                  </div>
+                  <div class="rounded-xl border border-[#bfe7cf] bg-[#e8f7ee] p-4 dark:border-[#22c55e]/25 dark:bg-[#22c55e]/10">
+                    <div class="flex items-start gap-3">
+                      <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-white/70 dark:bg-white/10">
+                        <i data-lucide="wallet" class="w-5 h-5 text-[#16a34a]"></i>
+                      </div>
+                      <div>
+                        <p class="text-sm font-medium text-[#166534] dark:text-[#7fe0a8]">Main balance</p>
+                        <p class="mt-0.5 text-xs text-[#2e8b57] dark:text-[#7fe0a8]">This order is paid directly from your main balance. No crypto payment needed.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Right: order summary -->
+              <div class="lg:col-span-1">
+                <div class="rounded-2xl border border-gray-200 bg-gradient-to-b from-white to-gray-50 p-6 shadow-sm lg:sticky lg:top-4 dark:border-white/10 dark:bg-gray-900">
+                  <h2 class="mb-4 text-base font-medium text-black dark:text-white">Order Summary</h2>
+
+                  <div class="mb-4 flex items-center gap-3">
+                    <img id="ck-img" src="" alt="" class="h-16 w-24 shrink-0 rounded-xl object-cover" />
+                    <div class="min-w-0">
+                      <p id="ck-name" class="truncate text-sm font-medium text-black dark:text-white">—</p>
+                      <p id="ck-sub" class="text-xs text-gray-500 dark:text-gray-400">—</p>
+                    </div>
+                  </div>
+
+                  <div class="space-y-2 text-sm">
+                    <div class="flex justify-between">
+                      <span class="text-gray-500 dark:text-gray-400">Vehicle price</span>
+                      <span class="font-medium text-black dark:text-white" id="ck-price">—</span>
+                    </div>
+                    <div class="flex justify-between">
+                      <span class="text-gray-500 dark:text-gray-400">Exterior color</span>
+                      <span class="font-medium text-black dark:text-white" id="ck-color">Pearl White</span>
+                    </div>
+                    <div class="flex justify-between">
+                      <span class="text-gray-500 dark:text-gray-400">Est. delivery</span>
+                      <span class="text-gray-500 dark:text-gray-400">2-4 weeks</span>
+                    </div>
+                    <div class="flex justify-between border-t border-gray-100 pt-3 font-medium text-black dark:border-white/10 dark:text-white">
+                      <span>Total due</span>
+                      <span id="ck-total">—</span>
+                    </div>
+                    <div class="flex justify-between border-t border-gray-100 pt-3 text-gray-500 dark:border-white/10 dark:text-gray-400">
+                      <span>Wallet balance</span>
+                      <span class="font-medium text-black dark:text-white" data-balance>$0.00</span>
+                    </div>
+                    <div class="flex justify-between">
+                      <span class="text-gray-500 dark:text-gray-400">After order</span>
+                      <span class="font-medium text-black dark:text-white" id="ck-remaining">—</span>
+                    </div>
+                  </div>
+
+                  <div class="mt-5 flex items-center gap-2 rounded-xl border border-gray-100 bg-gray-50 px-3 py-2.5 text-xs text-gray-500 dark:border-white/10 dark:bg-white/5 dark:text-gray-400">
+                    <i data-lucide="lock" class="w-3.5 h-3.5"></i>
+                    <span>The amount is debited from your main balance.</span>
+                  </div>
+
+                  <p id="co-insufficient" class="mt-4 hidden rounded-xl border border-[#fecaca] bg-[#fef2f2] px-3 py-2 text-xs text-[#dc2626] dark:border-[#ef4444]/20 dark:bg-[#ef4444]/10 dark:text-[#f87171]">
+                    Insufficient balance — <a href="/pages/deposit/deposit.html" class="font-medium underline">deposit funds</a> to place this order.
+                  </p>
+                  <button type="button" onclick="completeOrder()" class="mt-5 w-full rounded-full bg-tesla py-3 text-sm font-medium text-white transition hover:bg-tesla-600 dark:text-black">
+                    Complete Order
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+
+    <script src="/cars-data.js"></script>
+    <script src="/dashboard-shell.js"></script>
+    <script>
+      var checkoutCar = null;
+
+      function getParam(name) {
+        var m = new RegExp('[?&]' + name + '=([^&]*)').exec(window.location.search);
+        return m ? decodeURIComponent(m[1].replace(/\+/g, ' ')) : null;
+      }
+
+      function renderCheckout() {
+        var slug = getParam('car') || localStorage.getItem('carSlug') || 'cybertruck';
+        checkoutCar = findCar(slug);
+        var color = localStorage.getItem('carColor') || 'Pearl White';
+
+        document.getElementById('ck-img').src = checkoutCar.image;
+        document.getElementById('ck-img').alt = checkoutCar.name;
+        document.getElementById('ck-name').textContent = checkoutCar.name;
+        document.getElementById('ck-sub').textContent = checkoutCar.year + ' Tesla ' + checkoutCar.model;
+        document.getElementById('ck-price').textContent = checkoutCar.priceLabel;
+        document.getElementById('ck-total').textContent = checkoutCar.priceLabel;
+        document.getElementById('ck-color').textContent = color;
+
+        var back = document.getElementById('back-link');
+        back.href = 'car-order.html?car=' + checkoutCar.slug;
+
+        updateOrderBalance();
+      }
+
+      function currentBalance() {
+        return (window.FX && FX.balance) ? FX.balance() : 0;
+      }
+
+      function updateOrderBalance() {
+        if (!checkoutCar) return;
+        var balance = currentBalance();
+        var remaining = balance - checkoutCar.price;
+        var rem = document.getElementById('ck-remaining');
+        var note = document.getElementById('co-insufficient');
+        var btn = document.querySelector('button[onclick="completeOrder()"]');
+        if (rem) {
+          rem.textContent = '$' + Number(remaining).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+          rem.classList.toggle('text-[#ef4444]', remaining < 0);
+        }
+        var blocked = balance < checkoutCar.price;
+        if (note) note.classList.toggle('hidden', !blocked);
+        if (btn) {
+          btn.disabled = blocked;
+          btn.classList.toggle('opacity-50', blocked);
+          btn.classList.toggle('cursor-not-allowed', blocked);
+        }
+      }
+
+      function fmtMoney(n) {
+        return '$' + Number(n).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      }
+
+      function completeOrder() {
+        if (!checkoutCar) return;
+        if (checkoutCar.price > currentBalance()) return;
+
+        var btn = document.querySelector('button[onclick="completeOrder()"]');
+        btn.disabled = true;
+        btn.innerHTML = 'Processing…';
+
+        // Paid directly from the main balance — no crypto payment modal.
+        FX.debit(checkoutCar.price, 'vehicle', checkoutCar.name).then(function (r) {
+          if (r.ok) {
+            showOrderSuccess();
+          } else {
+            alert(r.data.error || 'Unable to complete your order.');
+            btn.disabled = false;
+            btn.innerHTML = 'Complete Order';
+          }
+        });
+      }
+
+      function showOrderSuccess() {
+        var main = document.querySelector('main');
+        main.innerHTML =
+          '<div class="mx-auto max-w-md pt-10">' +
+            '<div class="rounded-2xl border border-[#bfe7cf] bg-gradient-to-b from-[#f0fdf4] to-white p-8 text-center shadow-sm dark:border-[#22c55e]/30 dark:bg-gray-900">' +
+              '<div class="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-[#e8f7ee] dark:bg-[#22c55e]/10">' +
+                '<i data-lucide="check" class="w-7 h-7 text-[#16a34a]"></i>' +
+              '</div>' +
+              '<h3 class="mb-1 text-lg font-medium text-black dark:text-white">Order placed</h3>' +
+              '<p class="mb-2 text-sm text-gray-500 dark:text-gray-400">You paid <span class="font-medium text-[#16a34a]">' + fmtMoney(checkoutCar.price) + '</span> from your main balance.</p>' +
+              '<p class="mb-6 text-xs text-gray-400 dark:text-gray-500">Your updated balance is shown in the sidebar.</p>' +
+              '<a href="/pages/vehicles/inventory.html" class="inline-flex w-full items-center justify-center rounded-full bg-gray-200 px-6 py-2.5 text-sm font-medium text-navy-950 shadow-lg transition hover:bg-gray-300">Back to Inventory</a>' +
+            '</div>' +
+          '</div>';
+        if (window.lucide) lucide.createIcons();
+      }
+
+      document.addEventListener('DOMContentLoaded', function () {
+        renderCheckout();
+        window.addEventListener('fxbalancechange', updateOrderBalance);
+        if (window.lucide) lucide.createIcons();
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,35 @@
+# Render Blueprint — Tesla XTeam FX Trade
+# Upload this folder (new-website/) as the repository root, or point Render
+# at a Git repo whose root is this folder. Render reads this file on deploy.
+#
+# IMPORTANT (storage): the app stores its data in JSON files. Render's
+# filesystem is EPHEMERAL on free/Starter instances — data resets on every
+# deploy and when free instances sleep. To keep accounts/balances across
+# deploys you MUST attach the persistent disk below (paid plan) and set
+# DATA_DIR to its mount path. Remove the `disk` block only if you accept
+# data being reset on every deploy.
+services:
+  - type: web
+    name: xteam-fx-trade
+    runtime: node
+    rootDir: .
+    buildCommand: ""
+    startCommand: npm start
+    healthCheckPath: /api/settings
+    envVars:
+      - key: NODE_ENV
+        value: production
+      # Render serves HTTPS; this makes the session cookie Secure.
+      - key: HTTPS
+        value: "true"
+      # Admin console password (password-only login). Change before deploying
+      # if you don't want the default.
+      - key: ADMIN_PASSWORD
+        value: biggod
+      # Point storage at the persistent disk below.
+      - key: DATA_DIR
+        value: /var/data
+    disk:
+      name: xteam-data
+      mountPath: /var/data
+      sizeGB: 1

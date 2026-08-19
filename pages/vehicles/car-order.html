@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Vehicle specifications and order details." />
+    <title>Order — Tesla XTeam FX Trade</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.bunny.net" />
+    <link href="https://fonts.bunny.net/css?family=inter:300,400,500,600,700&display=swap" rel="stylesheet" />
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+
+    <!-- Tailwind CSS -->
+    <link rel="stylesheet" href="/dist/tailwind.css" />
+
+    <!-- Set theme before paint to avoid a flash of the wrong theme -->
+    <script>
+      (function () {
+        var stored = localStorage.getItem('theme');
+        var dark = stored === 'dark';
+        if (dark) document.documentElement.classList.add('dark');
+      })();
+    </script>
+  </head>
+
+  <body data-page="inventory" data-title="Order" class="font-sans antialiased bg-gray-300 text-black dark:bg-navy-950 dark:text-white">
+    <div id="app" class="min-h-screen flex">
+      <div id="page-content" class="flex-1 flex flex-col min-h-screen overflow-hidden lg:ml-72">
+        <main class="flex-1 overflow-y-auto p-4 pb-24 sm:p-6 lg:pb-6">
+          <div class="mx-auto max-w-7xl">
+            <!-- Breadcrumb -->
+            <div class="mb-4">
+              <a href="/pages/vehicles/inventory.html" class="inline-flex items-center text-xs font-medium text-gray-500 transition hover:text-black dark:text-gray-400 dark:hover:text-white">
+                <i data-lucide="arrow-left" class="mr-1 w-3.5 h-3.5"></i>
+                Back to Inventory
+              </a>
+            </div>
+
+            <!-- Hero -->
+            <div class="relative mb-6 overflow-hidden rounded-2xl bg-navy-950">
+              <img id="co-img" src="" alt="" class="h-72 w-full object-cover sm:h-96" />
+              <div class="absolute inset-0 bg-gradient-to-t from-navy-950/85 via-navy-900/20 to-transparent"></div>
+              <div class="pointer-events-none absolute inset-0" aria-hidden="true">
+                <div class="absolute -left-16 top-1/2 h-72 w-72 -translate-y-1/2 t-orb"></div>
+                <div class="absolute -right-16 top-0 h-80 w-80 -translate-y-1/3 t-orb"></div>
+              </div>
+              <div class="absolute bottom-0 left-0 p-6 sm:p-8">
+                <span id="co-badge" class="mb-2 inline-flex rounded-full bg-white px-2 py-0.5 text-xs font-medium text-black">Featured</span>
+                <h1 id="co-name" class="text-3xl font-light tracking-tight text-white">—</h1>
+                <p id="co-tagline" class="mt-1 text-sm text-gray-300">—</p>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 gap-6 lg:grid-cols-3">
+              <!-- Main column -->
+              <div class="space-y-6 lg:col-span-2">
+                <!-- Headline specs -->
+                <div class="grid grid-cols-3 gap-4">
+                  <div class="rounded-2xl border border-gray-200 bg-gradient-to-b from-white to-gray-50 p-4 text-center shadow-sm dark:border-white/10 dark:bg-gray-900">
+                    <p class="t-label mb-1 text-gray-400 dark:text-gray-500">Range</p>
+                    <p id="co-range" class="text-xl font-light text-[#2563eb] dark:text-[#93c5fd]">—</p>
+                  </div>
+                  <div class="rounded-2xl border border-gray-200 bg-gradient-to-b from-white to-gray-50 p-4 text-center shadow-sm dark:border-white/10 dark:bg-gray-900">
+                    <p class="t-label mb-1 text-gray-400 dark:text-gray-500">0-60 mph</p>
+                    <p id="co-accel" class="text-xl font-light text-[#2563eb] dark:text-[#93c5fd]">—</p>
+                  </div>
+                  <div class="rounded-2xl border border-gray-200 bg-gradient-to-b from-white to-gray-50 p-4 text-center shadow-sm dark:border-white/10 dark:bg-gray-900">
+                    <p class="t-label mb-1 text-gray-400 dark:text-gray-500">Top Speed</p>
+                    <p id="co-top" class="text-xl font-light text-[#2563eb] dark:text-[#93c5fd]">—</p>
+                  </div>
+                </div>
+
+                <!-- Overview -->
+                <div class="rounded-2xl border border-gray-200 bg-gradient-to-b from-white to-gray-50 p-6 shadow-sm dark:border-white/10 dark:bg-gray-900">
+                  <h2 class="mb-3 text-lg font-light text-black dark:text-white">Overview</h2>
+                  <p id="co-desc" class="text-sm leading-relaxed text-gray-600 dark:text-gray-400">—</p>
+                </div>
+
+                <!-- Full specifications -->
+                <div class="rounded-2xl border border-gray-200 bg-gradient-to-b from-white to-gray-50 p-6 shadow-sm dark:border-white/10 dark:bg-gray-900">
+                  <h2 class="mb-4 text-lg font-light text-black dark:text-white">Full Specifications</h2>
+                  <div id="co-specs" class="grid grid-cols-1 gap-x-10 gap-y-3 sm:grid-cols-2"></div>
+                </div>
+              </div>
+
+              <!-- Order summary -->
+              <div class="lg:col-span-1">
+                <div class="rounded-2xl border border-gray-200 bg-gradient-to-b from-white to-gray-50 p-6 shadow-sm lg:sticky lg:top-4 dark:border-white/10 dark:bg-gray-900">
+                  <h2 class="mb-1 text-lg font-light text-black dark:text-white">Order Summary</h2>
+                  <p id="co-sub" class="mb-4 text-sm text-gray-500 dark:text-gray-400">—</p>
+
+                  <div class="space-y-2 text-sm">
+                    <div class="flex justify-between">
+                      <span class="text-gray-500 dark:text-gray-400">Starting price</span>
+                      <span class="font-medium text-[#16a34a] dark:text-[#4ade80]" id="co-price">—</span>
+                    </div>
+                    <div class="flex justify-between">
+                      <span class="text-gray-500 dark:text-gray-400">After Est. Gas Savings</span>
+                      <span class="text-gray-500 dark:text-gray-400">Included</span>
+                    </div>
+                    <div class="flex justify-between border-t border-gray-100 pt-3 font-medium text-black dark:border-white/10 dark:text-white">
+                      <span>Total</span>
+                      <span id="co-total">—</span>
+                    </div>
+                  </div>
+
+                  <!-- Color selector -->
+                  <div class="mt-6">
+                    <p class="t-label mb-3 text-gray-400 dark:text-gray-500">Exterior Color</p>
+                    <div id="co-colors" class="flex flex-wrap gap-2"></div>
+                    <p id="co-color-name" class="mt-2 text-xs text-gray-500 dark:text-gray-400">—</p>
+                  </div>
+
+                  <button type="button" onclick="continueCheckout()" class="mt-6 w-full rounded-full bg-tesla py-3 text-sm font-medium text-white transition hover:bg-tesla-600 dark:text-black">
+                    Continue to Checkout
+                  </button>
+                  <p class="mt-3 text-center text-[11px] text-gray-400 dark:text-gray-500">Purchases are completed in cryptocurrency</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+
+    <script src="/cars-data.js"></script>
+    <script src="/dashboard-shell.js"></script>
+    <script>
+      var selectedColor = null;
+
+      function getParam(name) {
+        var m = new RegExp('[?&]' + name + '=([^&]*)').exec(window.location.search);
+        return m ? decodeURIComponent(m[1].replace(/\+/g, ' ')) : null;
+      }
+
+      function renderColorSwatches() {
+        var wrap = document.getElementById('co-colors');
+        var nameEl = document.getElementById('co-color-name');
+        if (!wrap) return;
+        wrap.innerHTML = '';
+        CAR_COLORS.forEach(function (c) {
+          var btn = document.createElement('button');
+          btn.type = 'button';
+          btn.title = c.name;
+          btn.setAttribute('aria-label', c.name);
+          btn.className = 'h-8 w-8 rounded-full border-2 border-gray-200 transition hover:scale-110 dark:border-white/20';
+          btn.style.backgroundColor = c.hex;
+          btn.onclick = function () {
+            selectedColor = c.name;
+            localStorage.setItem('carColor', c.name);
+            var dots = wrap.querySelectorAll('button');
+            dots.forEach(function (d) { d.classList.remove('ring-2', 'ring-black', 'ring-offset-2', 'dark:ring-white', 'dark:ring-offset-black'); });
+            btn.classList.add('ring-2', 'ring-black', 'ring-offset-2', 'dark:ring-white', 'dark:ring-offset-black');
+            nameEl.textContent = c.name;
+          };
+          if (c.name === selectedColor) btn.classList.add('ring-2', 'ring-black', 'ring-offset-2', 'dark:ring-white', 'dark:ring-offset-black');
+          wrap.appendChild(btn);
+        });
+        nameEl.textContent = selectedColor || 'Pearl White';
+      }
+
+      function renderCar() {
+        var slug = getParam('car') || localStorage.getItem('carSlug') || 'cybertruck';
+        var car = findCar(slug);
+        localStorage.setItem('carSlug', car.slug);
+
+        document.getElementById('co-img').src = car.image;
+        document.getElementById('co-img').alt = car.name;
+        document.getElementById('co-name').textContent = car.name;
+        document.getElementById('co-tagline').textContent = car.tagline;
+        document.getElementById('co-range').textContent = car.range;
+        document.getElementById('co-accel').textContent = car.accel;
+        document.getElementById('co-top').textContent = car.topSpeed;
+        document.getElementById('co-desc').textContent = car.description;
+        document.getElementById('co-sub').textContent = car.year + ' ' + car.name;
+        document.getElementById('co-price').textContent = car.priceLabel;
+        document.getElementById('co-total').textContent = car.priceLabel;
+
+        var badge = document.getElementById('co-badge');
+        if (badge) badge.style.display = car.badge ? 'inline-flex' : 'none';
+
+        var specsEl = document.getElementById('co-specs');
+        specsEl.innerHTML = '';
+        car.specs.forEach(function (s) {
+          var row = document.createElement('div');
+          row.className = 'flex items-baseline justify-between gap-4 border-b border-gray-100 py-2.5 dark:border-white/10';
+          var label = document.createElement('span');
+          label.className = 'text-xs text-gray-500 dark:text-gray-400';
+          label.textContent = s.label;
+          var value = document.createElement('span');
+          value.className = 'text-sm font-medium text-right text-black dark:text-white';
+          value.textContent = s.value;
+          row.appendChild(label);
+          row.appendChild(value);
+          specsEl.appendChild(row);
+        });
+      }
+
+      function continueCheckout() {
+        var car = findCar(getParam('car') || localStorage.getItem('carSlug') || 'cybertruck');
+        window.location.href = 'checkout.html?car=' + car.slug;
+      }
+
+      document.addEventListener('DOMContentLoaded', function () {
+        selectedColor = localStorage.getItem('carColor') || null;
+        renderCar();
+        renderColorSwatches();
+        if (window.lucide) lucide.createIcons();
+      });
+    </script>
+  </body>
+</html>

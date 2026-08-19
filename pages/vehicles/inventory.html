@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Browse premium Tesla vehicles ready for immediate delivery." />
+    <title>Inventory — Tesla XTeam FX Trade</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.bunny.net" />
+    <link href="https://fonts.bunny.net/css?family=inter:300,400,500,600,700&display=swap" rel="stylesheet" />
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+
+    <!-- Tailwind CSS -->
+    <link rel="stylesheet" href="/dist/tailwind.css" />
+
+    <!-- Set theme before paint to avoid a flash of the wrong theme -->
+    <script>
+      (function () {
+        var stored = localStorage.getItem('theme');
+        var dark = stored === 'dark';
+        if (dark) document.documentElement.classList.add('dark');
+      })();
+    </script>
+  </head>
+
+  <body data-page="inventory" data-title="Inventory" class="font-sans antialiased bg-gray-300 text-black dark:bg-navy-950 dark:text-white">
+    <div id="app" class="min-h-screen flex">
+      <div id="page-content" class="flex-1 flex flex-col min-h-screen overflow-hidden lg:ml-72">
+        <main class="flex-1 overflow-y-auto p-4 pb-24 sm:p-6 lg:pb-6">
+          <div class="mx-auto max-w-7xl">
+            <!-- Hero Header -->
+            <header class="relative mb-8 overflow-hidden rounded-2xl bg-navy-950 p-10 text-white sm:p-14 lg:p-16">
+              <div class="pointer-events-none absolute inset-0" aria-hidden="true">
+                <div class="absolute inset-0 t-grid opacity-40"></div>
+                <div class="absolute -left-16 top-1/2 h-80 w-80 -translate-y-1/2 t-orb"></div>
+                <div class="absolute -right-16 top-0 h-96 w-96 -translate-y-1/4 t-orb"></div>
+                <div class="absolute inset-0">
+                  <img src="/assets/cars/model-y.jpg" alt="" class="h-full w-full object-cover opacity-20" loading="eager" decoding="async" />
+                  <div class="absolute inset-0 bg-gradient-to-b from-navy-950/70 via-navy-900/60 to-navy-950/85"></div>
+                </div>
+                <svg class="absolute bottom-0 left-0 right-0 opacity-10" viewBox="0 0 1440 80" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"><path fill="#ffffff" fill-opacity="1" d="M0,64L48,69.3C96,75,192,85,288,85.3C384,85,480,75,576,53.3C672,32,768,0,864,0C960,0,1056,32,1152,53.3C1248,75,1344,85,1392,90.7L1440,96L1440,160L1392,160C1344,160,1248,160,1152,160C1050,160,960,160,864,160C768,160,672,160,576,160C480,160,384,160,288,160C192,160,96,160,48,160L0,160Z"></path></svg>
+              </div>
+
+              <div class="relative z-10 text-center">
+                <p class="t-label mb-3 text-[#8ab4f8]">Inventory</p>
+                <h1 class="text-3xl font-semibold tracking-tight sm:text-4xl lg:text-5xl">Browse Inventory</h1>
+                <p class="mx-auto mt-4 max-w-3xl text-base text-gray-300 sm:text-lg">
+                  Explore premium electric vehicles ready for immediate delivery.
+                </p>
+              </div>
+            </header>
+
+            <!-- Mobile Filter Toggle -->
+            <div class="mb-6 lg:hidden">
+              <button id="mobile-filter-toggle" type="button" class="flex w-full items-center justify-between rounded-xl border border-gray-200 bg-white px-4 py-3 font-medium text-gray-900 shadow-sm transition hover:bg-white/90 dark:border-white/10 dark:bg-gray-900 dark:text-white dark:hover:bg-white/5">
+                <span class="flex items-center">
+                  <i data-lucide="sliders-horizontal" class="mr-2 w-5 h-5"></i>
+                  Filters &amp; Sort
+                </span>
+                <i data-lucide="chevron-down" class="w-5 h-5 transition-transform duration-200"></i>
+              </button>
+            </div>
+
+            <div class="flex flex-col gap-8 lg:flex-row">
+              <!-- Filter Sidebar -->
+              <div class="lg:w-1/4">
+                <div id="filter-sidebar" class="hidden rounded-2xl border border-gray-200 bg-gradient-to-b from-white to-gray-50 p-6 shadow-sm lg:sticky lg:top-4 lg:block dark:border-white/10 dark:bg-gray-900">
+                  <div class="mb-6 flex items-center justify-between">
+                    <h2 class="text-lg font-medium text-black dark:text-white">Filters</h2>
+                    <button id="close-mobile-filters" type="button" class="rounded-lg p-2 text-gray-400 transition hover:bg-gray-100 hover:text-black lg:hidden dark:hover:bg-white/10 dark:hover:text-white">
+                      <i data-lucide="x" class="w-5 h-5"></i>
+                    </button>
+                  </div>
+
+                  <form id="filter-form" class="space-y-6" novalidate>
+                    <!-- Quick Filters -->
+                    <div>
+                      <h3 class="mb-3 text-sm font-medium text-gray-700 dark:text-gray-300">Quick Filters</h3>
+                      <div class="space-y-2">
+                        <label class="group flex cursor-pointer items-center">
+                          <input type="checkbox" name="available" value="true" class="h-4 w-4 rounded border-gray-300 text-black focus:ring-2 focus:ring-black dark:border-white/20 dark:bg-gray-900" />
+                          <span class="ml-3 text-sm text-gray-600 transition-colors duration-200 group-hover:text-black dark:text-gray-400 dark:group-hover:text-white">Available Only</span>
+                        </label>
+                        <label class="group flex cursor-pointer items-center">
+                          <input type="checkbox" name="featured" value="true" class="h-4 w-4 rounded border-gray-300 text-black focus:ring-2 focus:ring-black dark:border-white/20 dark:bg-gray-900" />
+                          <span class="ml-3 text-sm text-gray-600 transition-colors duration-200 group-hover:text-black dark:text-gray-400 dark:group-hover:text-white">Featured Vehicles</span>
+                        </label>
+                      </div>
+                    </div>
+
+                    <!-- Make Filter -->
+                    <div>
+                      <h3 class="mb-3 text-sm font-medium text-gray-700 dark:text-gray-300">Make</h3>
+                      <select name="make" class="w-full rounded-xl border border-gray-200 bg-white px-3 py-2 text-sm text-black focus:border-black focus:outline-none dark:border-white/10 dark:bg-gray-900 dark:text-white">
+                        <option value="">All Makes</option>
+                        <option value="Tesla">Tesla</option>
+                      </select>
+                    </div>
+
+                    <!-- Model Filter -->
+                    <div>
+                      <h3 class="mb-3 text-sm font-medium text-gray-700 dark:text-gray-300">Model</h3>
+                      <select name="model" class="w-full rounded-xl border border-gray-200 bg-white px-3 py-2 text-sm text-black focus:border-black focus:outline-none dark:border-white/10 dark:bg-gray-900 dark:text-white">
+                        <option value="">All Models</option>
+                        <option value="Cybertruck">Cybertruck</option>
+                        <option value="Model 3">Model 3</option>
+                        <option value="Model S">Model S</option>
+                        <option value="Model X">Model X</option>
+                        <option value="Model Y">Model Y</option>
+                      </select>
+                    </div>
+
+                    <!-- Year Filter -->
+                    <div>
+                      <h3 class="mb-3 text-sm font-medium text-gray-700 dark:text-gray-300">Year</h3>
+                      <select name="year" class="w-full rounded-xl border border-gray-200 bg-white px-3 py-2 text-sm text-black focus:border-black focus:outline-none dark:border-white/10 dark:bg-gray-900 dark:text-white">
+                        <option value="">All Years</option>
+                        <option value="2024">2024</option>
+                        <option value="2022">2022</option>
+                        <option value="2021">2021</option>
+                        <option value="2020">2020</option>
+                      </select>
+                    </div>
+
+                    <!-- Price Range Filter -->
+                    <div>
+                      <h3 class="mb-3 text-sm font-medium text-gray-700 dark:text-gray-300">Price Range</h3>
+                      <select name="price_range" class="w-full rounded-xl border border-gray-200 bg-white px-3 py-2 text-sm text-black focus:border-black focus:outline-none dark:border-white/10 dark:bg-gray-900 dark:text-white">
+                        <option value="">All Prices</option>
+                        <option value="0-50000">Under $50,000</option>
+                        <option value="50000-75000">$50,000 - $75,000</option>
+                        <option value="75000-100000">$75,000 - $100,000</option>
+                        <option value="100000-150000">$100,000 - $150,000</option>
+                        <option value="150000+">$150,000+</option>
+                      </select>
+                    </div>
+
+                    <!-- Sort Filter -->
+                    <div>
+                      <h3 class="mb-3 text-sm font-medium text-gray-700 dark:text-gray-300">Sort By</h3>
+                      <select name="sort" class="w-full rounded-xl border border-gray-200 bg-white px-3 py-2 text-sm text-black focus:border-black focus:outline-none dark:border-white/10 dark:bg-gray-900 dark:text-white">
+                        <option value="newest">Newest First</option>
+                        <option value="oldest">Oldest First</option>
+                        <option value="price_low">Price: Low to High</option>
+                        <option value="price_high">Price: High to Low</option>
+                      </select>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="flex flex-col space-y-3 border-t border-gray-200 pt-6 dark:border-white/10">
+                      <button type="submit" class="w-full rounded-xl bg-black py-3 text-sm font-medium text-white transition hover:bg-gray-800 dark:bg-white dark:text-black dark:hover:bg-gray-200">
+                        Apply Filters
+                      </button>
+                      <button type="button" id="reset-filters" class="w-full rounded-xl border border-white/60 py-3 text-sm font-medium text-gray-700 transition hover:bg-white/90 dark:border-white/15 dark:text-gray-300 dark:hover:bg-white/5">
+                        Reset All
+                      </button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+
+              <!-- Results Section -->
+              <div class="lg:w-3/4">
+                <!-- Results Header -->
+                <div class="mb-8 flex flex-col items-start justify-between sm:flex-row sm:items-center">
+                  <div>
+                    <h2 class="mb-2 text-2xl font-light text-black dark:text-white">Available Vehicles</h2>
+                    <p class="text-sm text-gray-500 dark:text-gray-400"><span id="showing-text">Showing 1 - 6 of 6 vehicles</span></p>
+                  </div>
+
+                  <!-- View Toggle -->
+                  <div class="mt-4 flex items-center gap-2 sm:mt-0">
+                    <span class="text-sm text-gray-500 dark:text-gray-400">View:</span>
+                    <button id="grid-view" type="button" class="view-toggle rounded-lg p-2 text-black transition-colors duration-200 hover:bg-gray-100 dark:text-white dark:hover:bg-white/10" title="Grid view">
+                      <i data-lucide="grid-3x3" class="w-5 h-5"></i>
+                    </button>
+                    <button id="list-view" type="button" class="view-toggle rounded-lg p-2 text-gray-400 transition-colors duration-200 hover:bg-gray-100 dark:hover:bg-white/10" title="List view">
+                      <i data-lucide="list" class="w-5 h-5"></i>
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Vehicles Grid -->
+                <div id="cars-container" class="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
+
+                  <!-- Tesla Cybertruck -->
+                  <article class="vehicle-card group overflow-hidden rounded-xl border border-gray-200 bg-gradient-to-b from-white to-gray-50 shadow-sm transition hover:shadow-md dark:border-white/10 dark:bg-gray-900" data-model="Cybertruck" data-year="2020" data-price="79990" data-featured="true" data-available="true" data-title="Tesla Cybertruck" data-sub="2020 Tesla Cybertruck" data-img="/assets/cars/cybertruck.jpg" data-range="410mi" data-accel="3.1s" data-top="130mph" data-price-label="$79,990.00" data-price-num="79990">
+                    <div class="image-wrap relative aspect-[16/9] overflow-hidden bg-gray-100 dark:bg-gray-900">
+                      <img src="/assets/cars/cybertruck.jpg" alt="Tesla Cybertruck" class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy" decoding="async" />
+                      <span class="absolute right-3 top-3 rounded-full bg-black px-2 py-0.5 text-xs font-medium text-white dark:bg-white dark:text-black">Featured</span>
+                    </div>
+                    <div class="card-body p-4">
+                      <h3 class="mb-1 text-base font-medium text-black sm:text-lg dark:text-white">Tesla Cybertruck</h3>
+                      <p class="text-sm text-gray-600 dark:text-gray-400">2020 Tesla Cybertruck</p>
+                      <div class="mb-3 mt-3 flex items-center gap-6 text-xs text-gray-600 dark:text-gray-400">
+                        <div><span class="font-medium text-[#2563eb] dark:text-[#93c5fd]">410mi</span><span class="block text-[10px]">Range</span></div>
+                        <div><span class="font-medium text-[#2563eb] dark:text-[#93c5fd]">3.1s</span><span class="block text-[10px]">0-60 mph</span></div>
+                        <div><span class="font-medium text-[#2563eb] dark:text-[#93c5fd]">130mph</span><span class="block text-[10px]">Top Speed</span></div>
+                      </div>
+                      <div class="flex items-center justify-between">
+                        <div>
+                          <p class="text-sm font-medium text-[#16a34a] dark:text-[#4ade80]">Starting at $79,990.00*</p>
+                          <p class="text-xs text-gray-500 dark:text-gray-400">After Est. Gas Savings</p>
+                        </div>
+                        <div class="flex items-center gap-2">
+                          <a href="car-order.html?car=cybertruck" class="rounded border border-gray-300 px-3 py-1.5 text-xs font-medium text-black transition hover:bg-gray-50 dark:border-white/15 dark:text-white dark:hover:bg-white/5">Learn</a>
+                          <a href="car-order.html?car=cybertruck" class="rounded bg-black px-3 py-1.5 text-xs font-medium text-white transition hover:bg-gray-800 dark:bg-white dark:text-black dark:hover:bg-gray-200">Order</a>
+                        </div>
+                      </div>
+                    </div>
+                  </article>
+
+                  <!-- Tesla Model S -->
+                  <article class="vehicle-card group overflow-hidden rounded-xl border border-gray-200 bg-gradient-to-b from-white to-gray-50 shadow-sm transition hover:shadow-md dark:border-white/10 dark:bg-gray-900" data-model="Model S" data-year="2022" data-price="74990" data-featured="true" data-available="true" data-title="Tesla Model S" data-sub="2022 Tesla Model S" data-img="/assets/cars/model-s.jpg" data-range="410mi" data-accel="3.1s" data-top="130mph" data-price-label="$74,990.00" data-price-num="74990">
+                    <div class="image-wrap relative aspect-[16/9] overflow-hidden bg-gray-100 dark:bg-gray-900">
+                      <img src="/assets/cars/model-s.jpg" alt="Tesla Model S" class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy" decoding="async" />
+                      <span class="absolute right-3 top-3 rounded-full bg-black px-2 py-0.5 text-xs font-medium text-white dark:bg-white dark:text-black">Featured</span>
+                    </div>
+                    <div class="card-body p-4">
+                      <h3 class="mb-1 text-base font-medium text-black sm:text-lg dark:text-white">Tesla Model S</h3>
+                      <p class="text-sm text-gray-600 dark:text-gray-400">2022 Tesla Model S</p>
+                      <div class="mb-3 mt-3 flex items-center gap-6 text-xs text-gray-600 dark:text-gray-400">
+                        <div><span class="font-medium text-[#2563eb] dark:text-[#93c5fd]">410mi</span><span class="block text-[10px]">Range</span></div>
+                        <div><span class="font-medium text-[#2563eb] dark:text-[#93c5fd]">3.1s</span><span class="block text-[10px]">0-60 mph</span></div>
+                        <div><span class="font-medium text-[#2563eb] dark:text-[#93c5fd]">130mph</span><span class="block text-[10px]">Top Speed</span></div>
+                      </div>
+                      <div class="flex items-center justify-between">
+                        <div>
+                          <p class="text-sm font-medium text-[#16a34a] dark:text-[#4ade80]">Starting at $74,990.00*</p>
+                          <p class="text-xs text-gray-500 dark:text-gray-400">After Est. Gas Savings</p>
+                        </div>
+                        <div class="flex items-center gap-2">
+                          <a href="car-order.html?car=model-s" class="rounded border border-gray-300 px-3 py-1.5 text-xs font-medium text-black transition hover:bg-gray-50 dark:border-white/15 dark:text-white dark:hover:bg-white/5">Learn</a>
+                          <a href="car-order.html?car=model-s" class="rounded bg-black px-3 py-1.5 text-xs font-medium text-white transition hover:bg-gray-800 dark:bg-white dark:text-black dark:hover:bg-gray-200">Order</a>
+                        </div>
+                      </div>
+                    </div>
+                  </article>
+
+                  <!-- 2024 Tesla Model Y -->
+                  <article class="vehicle-card group overflow-hidden rounded-xl border border-gray-200 bg-gradient-to-b from-white to-gray-50 shadow-sm transition hover:shadow-md dark:border-white/10 dark:bg-gray-900" data-model="Model Y" data-year="2024" data-price="42000" data-featured="false" data-available="true" data-title="2024 Tesla Model Y" data-sub="2024 Tesla Model Y" data-img="/assets/cars/model-y.jpg" data-range="410mi" data-accel="3.1s" data-top="130mph" data-price-label="$42,000.00" data-price-num="42000">
+                    <div class="image-wrap relative aspect-[16/9] overflow-hidden bg-gray-100 dark:bg-gray-900">
+                      <img src="/assets/cars/model-y.jpg" alt="2024 Tesla Model Y" class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy" decoding="async" />
+                    </div>
+                    <div class="card-body p-4">
+                      <h3 class="mb-1 text-base font-medium text-black sm:text-lg dark:text-white">2024 Tesla Model Y</h3>
+                      <p class="text-sm text-gray-600 dark:text-gray-400">2024 Tesla Model Y</p>
+                      <div class="mb-3 mt-3 flex items-center gap-6 text-xs text-gray-600 dark:text-gray-400">
+                        <div><span class="font-medium text-[#2563eb] dark:text-[#93c5fd]">410mi</span><span class="block text-[10px]">Range</span></div>
+                        <div><span class="font-medium text-[#2563eb] dark:text-[#93c5fd]">3.1s</span><span class="block text-[10px]">0-60 mph</span></div>
+                        <div><span class="font-medium text-[#2563eb] dark:text-[#93c5fd]">130mph</span><span class="block text-[10px]">Top Speed</span></div>
+                      </div>
+                      <div class="flex items-center justify-between">
+                        <div>
+                          <p class="text-sm font-medium text-[#16a34a] dark:text-[#4ade80]">Starting at $42,000.00*</p>
+                          <p class="text-xs text-gray-500 dark:text-gray-400">After Est. Gas Savings</p>
+                        </div>
+                        <div class="flex items-center gap-2">
+                          <a href="car-order.html?car=model-y" class="rounded border border-gray-300 px-3 py-1.5 text-xs font-medium text-black transition hover:bg-gray-50 dark:border-white/15 dark:text-white dark:hover:bg-white/5">Learn</a>
+                          <a href="car-order.html?car=model-y" class="rounded bg-black px-3 py-1.5 text-xs font-medium text-white transition hover:bg-gray-800 dark:bg-white dark:text-black dark:hover:bg-gray-200">Order</a>
+                        </div>
+                      </div>
+                    </div>
+                  </article>
+
+                  <!-- Tesla Model X -->
+                  <article class="vehicle-card group overflow-hidden rounded-xl border border-gray-200 bg-gradient-to-b from-white to-gray-50 shadow-sm transition hover:shadow-md dark:border-white/10 dark:bg-gray-900" data-model="Model X" data-year="2021" data-price="36000" data-featured="false" data-available="true" data-title="Tesla Model X" data-sub="2021 Tesla Model X" data-img="/assets/cars/model-x.jpg" data-range="410mi" data-accel="3.1s" data-top="130mph" data-price-label="$36,000.00" data-price-num="36000">
+                    <div class="image-wrap relative aspect-[16/9] overflow-hidden bg-gray-100 dark:bg-gray-900">
+                      <img src="/assets/cars/model-x.jpg" alt="Tesla Model X" class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy" decoding="async" />
+                    </div>
+                    <div class="card-body p-4">
+                      <h3 class="mb-1 text-base font-medium text-black sm:text-lg dark:text-white">Tesla Model X</h3>
+                      <p class="text-sm text-gray-600 dark:text-gray-400">2021 Tesla Model X</p>
+                      <div class="mb-3 mt-3 flex items-center gap-6 text-xs text-gray-600 dark:text-gray-400">
+                        <div><span class="font-medium text-[#2563eb] dark:text-[#93c5fd]">410mi</span><span class="block text-[10px]">Range</span></div>
+                        <div><span class="font-medium text-[#2563eb] dark:text-[#93c5fd]">3.1s</span><span class="block text-[10px]">0-60 mph</span></div>
+                        <div><span class="font-medium text-[#2563eb] dark:text-[#93c5fd]">130mph</span><span class="block text-[10px]">Top Speed</span></div>
+                      </div>
+                      <div class="flex items-center justify-between">
+                        <div>
+                          <p class="text-sm font-medium text-[#16a34a] dark:text-[#4ade80]">Starting at $36,000.00*</p>
+                          <p class="text-xs text-gray-500 dark:text-gray-400">After Est. Gas Savings</p>
+                        </div>
+                        <div class="flex items-center gap-2">
+                          <a href="car-order.html?car=model-x" class="rounded border border-gray-300 px-3 py-1.5 text-xs font-medium text-black transition hover:bg-gray-50 dark:border-white/15 dark:text-white dark:hover:bg-white/5">Learn</a>
+                          <a href="car-order.html?car=model-x" class="rounded bg-black px-3 py-1.5 text-xs font-medium text-white transition hover:bg-gray-800 dark:bg-white dark:text-black dark:hover:bg-gray-200">Order</a>
+                        </div>
+                      </div>
+                    </div>
+                  </article>
+
+                  <!-- Tesla Model 3 Long Range -->
+                  <article class="vehicle-card group overflow-hidden rounded-xl border border-gray-200 bg-gradient-to-b from-white to-gray-50 shadow-sm transition hover:shadow-md dark:border-white/10 dark:bg-gray-900" data-model="Model 3" data-year="2024" data-price="47240" data-featured="false" data-available="true" data-title="Tesla Model 3 Long Range" data-sub="2024 Tesla Model 3" data-img="/assets/cars/model-3.jpg" data-range="410mi" data-accel="3.1s" data-top="130mph" data-price-label="$47,240.00" data-price-num="47240">
+                    <div class="image-wrap relative aspect-[16/9] overflow-hidden bg-gray-100 dark:bg-gray-900">
+                      <img src="/assets/cars/model-3.jpg" alt="Tesla Model 3 Long Range" class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy" decoding="async" />
+                    </div>
+                    <div class="card-body p-4">
+                      <h3 class="mb-1 text-base font-medium text-black sm:text-lg dark:text-white">Tesla Model 3 Long Range</h3>
+                      <p class="text-sm text-gray-600 dark:text-gray-400">2024 Tesla Model 3</p>
+                      <div class="mb-3 mt-3 flex items-center gap-6 text-xs text-gray-600 dark:text-gray-400">
+                        <div><span class="font-medium text-[#2563eb] dark:text-[#93c5fd]">410mi</span><span class="block text-[10px]">Range</span></div>
+                        <div><span class="font-medium text-[#2563eb] dark:text-[#93c5fd]">3.1s</span><span class="block text-[10px]">0-60 mph</span></div>
+                        <div><span class="font-medium text-[#2563eb] dark:text-[#93c5fd]">130mph</span><span class="block text-[10px]">Top Speed</span></div>
+                      </div>
+                      <div class="flex items-center justify-between">
+                        <div>
+                          <p class="text-sm font-medium text-[#16a34a] dark:text-[#4ade80]">Starting at $47,240.00*</p>
+                          <p class="text-xs text-gray-500 dark:text-gray-400">After Est. Gas Savings</p>
+                        </div>
+                        <div class="flex items-center gap-2">
+                          <a href="car-order.html?car=model-3" class="rounded border border-gray-300 px-3 py-1.5 text-xs font-medium text-black transition hover:bg-gray-50 dark:border-white/15 dark:text-white dark:hover:bg-white/5">Learn</a>
+                          <a href="car-order.html?car=model-3" class="rounded bg-black px-3 py-1.5 text-xs font-medium text-white transition hover:bg-gray-800 dark:bg-white dark:text-black dark:hover:bg-gray-200">Order</a>
+                        </div>
+                      </div>
+                    </div>
+                  </article>
+
+                  <!-- Tesla Model X Plaid -->
+                  <article class="vehicle-card group overflow-hidden rounded-xl border border-gray-200 bg-gradient-to-b from-white to-gray-50 shadow-sm transition hover:shadow-md dark:border-white/10 dark:bg-gray-900" data-model="Model X" data-year="2024" data-price="94990" data-featured="true" data-available="true" data-title="Tesla Model X Plaid" data-sub="2024 Tesla Model X" data-img="/assets/cars/model-x-plaid.jpg" data-range="410mi" data-accel="3.1s" data-top="130mph" data-price-label="$94,990.00" data-price-num="94990">
+                    <div class="image-wrap relative aspect-[16/9] overflow-hidden bg-gray-100 dark:bg-gray-900">
+                      <img src="/assets/cars/model-x-plaid.jpg" alt="Tesla Model X Plaid" class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy" decoding="async" />
+                      <span class="absolute right-3 top-3 rounded-full bg-black px-2 py-0.5 text-xs font-medium text-white dark:bg-white dark:text-black">Featured</span>
+                    </div>
+                    <div class="card-body p-4">
+                      <h3 class="mb-1 text-base font-medium text-black sm:text-lg dark:text-white">Tesla Model X Plaid</h3>
+                      <p class="text-sm text-gray-600 dark:text-gray-400">2024 Tesla Model X</p>
+                      <div class="mb-3 mt-3 flex items-center gap-6 text-xs text-gray-600 dark:text-gray-400">
+                        <div><span class="font-medium text-[#2563eb] dark:text-[#93c5fd]">410mi</span><span class="block text-[10px]">Range</span></div>
+                        <div><span class="font-medium text-[#2563eb] dark:text-[#93c5fd]">3.1s</span><span class="block text-[10px]">0-60 mph</span></div>
+                        <div><span class="font-medium text-[#2563eb] dark:text-[#93c5fd]">130mph</span><span class="block text-[10px]">Top Speed</span></div>
+                      </div>
+                      <div class="flex items-center justify-between">
+                        <div>
+                          <p class="text-sm font-medium text-[#16a34a] dark:text-[#4ade80]">Starting at $94,990.00*</p>
+                          <p class="text-xs text-gray-500 dark:text-gray-400">After Est. Gas Savings</p>
+                        </div>
+                        <div class="flex items-center gap-2">
+                          <a href="car-order.html?car=model-x-plaid" class="rounded border border-gray-300 px-3 py-1.5 text-xs font-medium text-black transition hover:bg-gray-50 dark:border-white/15 dark:text-white dark:hover:bg-white/5">Learn</a>
+                          <a href="car-order.html?car=model-x-plaid" class="rounded bg-black px-3 py-1.5 text-xs font-medium text-white transition hover:bg-gray-800 dark:bg-white dark:text-black dark:hover:bg-gray-200">Order</a>
+                        </div>
+                      </div>
+                    </div>
+                  </article>
+
+                </div>
+
+                <!-- Empty state -->
+                <div id="no-vehicles" class="hidden rounded-2xl border border-dashed border-gray-300 p-12 text-center dark:border-white/15">
+                  <i data-lucide="car" class="mx-auto mb-3 w-8 h-8 text-gray-400"></i>
+                  <p class="text-base font-light text-black dark:text-white">No vehicles match your filters</p>
+                  <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">Try adjusting or resetting the filters.</p>
+                </div>
+
+                <!-- Pagination -->
+                <div class="mt-10 flex justify-center">
+                  <div class="inline-flex items-center gap-1 rounded-xl border border-gray-200 bg-gradient-to-b from-white to-gray-50 p-1 shadow-sm dark:border-white/10 dark:bg-gray-900">
+                    <button type="button" disabled class="rounded-lg px-3 py-1.5 text-xs font-medium text-gray-300 dark:text-gray-600">Prev</button>
+                    <button type="button" class="rounded-lg bg-black px-3 py-1.5 text-xs font-medium text-white dark:bg-white dark:text-black">1</button>
+                    <button type="button" disabled class="rounded-lg px-3 py-1.5 text-xs font-medium text-gray-300 dark:text-gray-600">Next</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+
+    <script src="/dashboard-shell.js"></script>
+    <script>
+      // ---- Mobile filter toggle ----
+      var filterSidebar = null;
+      var mobileFilterToggle = null;
+
+      function toggleMobileFilters() {
+        if (!filterSidebar || !mobileFilterToggle) return;
+        var isHidden = filterSidebar.classList.contains('hidden');
+        filterSidebar.classList.toggle('hidden', !isHidden);
+        var icon = mobileFilterToggle.querySelector('[data-lucide="chevron-down"]');
+        if (icon) icon.classList.toggle('rotate-180', isHidden);
+      }
+
+      // ---- Grid / List view ----
+      function setView(view) {
+        var container = document.getElementById('cars-container');
+        var cards = container.querySelectorAll('.vehicle-card');
+        var gridBtn = document.getElementById('grid-view');
+        var listBtn = document.getElementById('list-view');
+
+        var setBtn = function (btn, on) {
+          if (!btn) return;
+          if (on) {
+            btn.classList.add('bg-gray-100', 'text-black');
+            btn.classList.remove('text-gray-400');
+          } else {
+            btn.classList.remove('bg-gray-100', 'text-black');
+            btn.classList.add('text-gray-400');
+          }
+        };
+
+        if (view === 'list') {
+          container.className = 'flex flex-col gap-6';
+          cards.forEach(function (card) {
+            card.classList.add('md:flex-row', 'md:items-stretch');
+            var img = card.querySelector('.image-wrap');
+            var body = card.querySelector('.card-body');
+            if (img) img.classList.add('md:w-2/5', 'md:shrink-0', 'md:h-auto');
+            if (body) body.classList.add('md:flex-1', 'md:flex', 'md:flex-col', 'md:justify-between');
+          });
+          setBtn(listBtn, true); setBtn(gridBtn, false);
+        } else {
+          container.className = 'grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3';
+          cards.forEach(function (card) {
+            card.classList.remove('md:flex-row', 'md:items-stretch');
+            var img = card.querySelector('.image-wrap');
+            var body = card.querySelector('.card-body');
+            if (img) img.classList.remove('md:w-2/5', 'md:shrink-0', 'md:h-auto');
+            if (body) body.classList.remove('md:flex-1', 'md:flex', 'md:flex-col', 'md:justify-between');
+          });
+          setBtn(gridBtn, true); setBtn(listBtn, false);
+        }
+        localStorage.setItem('vehicleView', view);
+      }
+
+      // ---- Client-side filters ----
+      var vehicleCards = [];
+
+      function applyFilters() {
+        var form = document.getElementById('filter-form');
+        var container = document.getElementById('cars-container');
+        if (!form || !container) return;
+
+        var avail = form.available.checked;
+        var feat = form.featured.checked;
+        var model = form.model.value;
+        var year = form.year.value;
+        var range = form.price_range.value;
+        var sort = form.sort.value;
+
+        var visible = vehicleCards.filter(function (card) {
+          var d = card.dataset;
+          if (avail && d.available !== 'true') return false;
+          if (feat && d.featured !== 'true') return false;
+          if (model && d.model !== model) return false;
+          if (year && d.year !== year) return false;
+          if (range) {
+            var p = parseFloat(d.price);
+            if (range === '150000+') { if (p < 150000) return false; }
+            else {
+              var parts = range.split('-');
+              var lo = parseFloat(parts[0]), hi = parseFloat(parts[1]);
+              if (p < lo || p > hi) return false;
+            }
+          }
+          return true;
+        });
+
+        if (sort === 'newest') visible.sort(function (a, b) { return parseInt(b.dataset.year, 10) - parseInt(a.dataset.year, 10); });
+        else if (sort === 'oldest') visible.sort(function (a, b) { return parseInt(a.dataset.year, 10) - parseInt(b.dataset.year, 10); });
+        else if (sort === 'price_low') visible.sort(function (a, b) { return parseFloat(a.dataset.price) - parseFloat(b.dataset.price); });
+        else if (sort === 'price_high') visible.sort(function (a, b) { return parseFloat(b.dataset.price) - parseFloat(a.dataset.price); });
+
+        vehicleCards.forEach(function (card) {
+          card.classList.toggle('hidden', visible.indexOf(card) === -1);
+        });
+        visible.forEach(function (card) { container.appendChild(card); });
+
+        var showing = document.getElementById('showing-text');
+        var emptyEl = document.getElementById('no-vehicles');
+        if (showing) {
+          showing.textContent = visible.length === 0
+            ? 'No vehicles match your filters'
+            : 'Showing 1 - ' + visible.length + ' of ' + vehicleCards.length + ' vehicles';
+        }
+        if (emptyEl) emptyEl.classList.toggle('hidden', visible.length !== 0);
+      }
+
+      function initInventory() {
+        filterSidebar = document.getElementById('filter-sidebar');
+        mobileFilterToggle = document.getElementById('mobile-filter-toggle');
+        vehicleCards = Array.prototype.slice.call(document.querySelectorAll('.vehicle-card'));
+
+        // Mobile filter toggle
+        if (mobileFilterToggle) mobileFilterToggle.addEventListener('click', toggleMobileFilters);
+        var closeBtn = document.getElementById('close-mobile-filters');
+        if (closeBtn) closeBtn.addEventListener('click', toggleMobileFilters);
+
+        // View toggle
+        var gridBtn = document.getElementById('grid-view');
+        var listBtn = document.getElementById('list-view');
+        if (gridBtn) gridBtn.addEventListener('click', function () { setView('grid'); });
+        if (listBtn) listBtn.addEventListener('click', function () { setView('list'); });
+
+        var saved = localStorage.getItem('vehicleView');
+        setView(saved === 'list' ? 'list' : 'grid');
+
+        // Filters
+        var form = document.getElementById('filter-form');
+        if (form) {
+          form.addEventListener('submit', function (e) { e.preventDefault(); applyFilters(); });
+          form.sort.addEventListener('change', applyFilters);
+          form.model.addEventListener('change', applyFilters);
+          form.year.addEventListener('change', applyFilters);
+          form.price_range.addEventListener('change', applyFilters);
+          form.available.addEventListener('change', applyFilters);
+          form.featured.addEventListener('change', applyFilters);
+        }
+        var resetBtn = document.getElementById('reset-filters');
+        if (resetBtn && form) {
+          resetBtn.addEventListener('click', function () { form.reset(); applyFilters(); });
+        }
+
+        applyFilters();
+      }
+
+      document.addEventListener('DOMContentLoaded', initInventory);
+    </script>
+  </body>
+</html>

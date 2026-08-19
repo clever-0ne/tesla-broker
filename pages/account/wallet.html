@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Manage your funds, deposits, and withdrawals." />
+    <title>Wallet — Tesla XTeam FX Trade</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.bunny.net" />
+    <link href="https://fonts.bunny.net/css?family=inter:300,400,500,600,700&display=swap" rel="stylesheet" />
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+
+    <!-- Tailwind CSS -->
+    <link rel="stylesheet" href="/dist/tailwind.css" />
+
+    <!-- Set theme before paint to avoid a flash of the wrong theme -->
+    <script>
+      (function () {
+        var stored = localStorage.getItem('theme');
+        var dark = stored === 'dark';
+        if (dark) document.documentElement.classList.add('dark');
+      })();
+    </script>
+  </head>
+
+  <body data-page="wallet" data-title="Wallet" class="font-sans antialiased bg-gray-300 text-black dark:bg-navy-950 dark:text-white">
+    <div id="app" class="min-h-screen flex">
+      <div id="page-content" class="flex-1 flex flex-col min-h-screen overflow-hidden lg:ml-72">
+        <main class="flex-1 overflow-y-auto p-4 pb-24 sm:p-6 lg:pb-6">
+          <div class="mx-auto max-w-7xl">
+            <!-- Page heading -->
+            <div class="mb-6">
+              <h1 class="text-xl font-medium text-black dark:text-white">Wallet</h1>
+              <p class="text-sm text-gray-500 dark:text-gray-400">Manage your funds, deposits, and withdrawals.</p>
+            </div>
+
+            <!-- Balance -->
+            <div class="relative mb-6 overflow-hidden rounded-2xl bg-navy-950 p-6 text-white">
+              <div class="pointer-events-none absolute inset-0" aria-hidden="true">
+                <div class="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-transparent"></div>
+                <div class="absolute -left-12 top-1/2 h-56 w-56 -translate-y-1/2 t-orb"></div>
+                <div class="absolute -right-12 top-0 h-64 w-64 -translate-y-1/4 t-orb"></div>
+              </div>
+              <div class="relative z-10 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+                <div>
+                  <p class="mb-1 text-xs text-gray-300">Available Balance</p>
+                  <p class="text-3xl font-light" data-balance>$0.00</p>
+                  <p class="mt-1 text-xs text-gray-400">US Dollar</p>
+                </div>
+                <div class="flex space-x-2">
+                  <a href="/pages/deposit/deposit.html" class="flex-1 rounded-full bg-white/15 py-2 px-4 text-center text-sm font-medium text-white transition hover:bg-white/25 md:flex-none">
+                    <i data-lucide="plus" class="mr-1 inline w-4 h-4"></i>Deposit
+                  </a>
+                  <button type="button" onclick="openWithdraw()" class="flex-1 rounded-full bg-white/15 py-2 px-4 text-sm font-medium text-white transition hover:bg-white/25 md:flex-none">
+                    <i data-lucide="minus" class="mr-1 inline w-4 h-4"></i>Withdraw
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 gap-4 lg:grid-cols-3">
+              <!-- Recent Transactions -->
+              <div class="rounded-2xl border border-gray-200 bg-gradient-to-b from-white to-gray-50 p-5 shadow-sm lg:col-span-2 dark:border-white/10 dark:bg-gray-900">
+                <div class="mb-4 flex items-center justify-between">
+                  <div>
+                    <h2 class="text-lg font-medium text-black dark:text-white">Recent Transactions</h2>
+                    <p class="text-xs text-gray-500 dark:text-gray-400">Deposits, withdrawals, and payments</p>
+                  </div>
+                </div>
+
+                <div class="overflow-x-auto">
+                  <table class="w-full text-left text-sm">
+                    <thead>
+                      <tr class="border-b border-gray-200 text-xs uppercase tracking-wider text-gray-500 dark:border-white/10 dark:text-gray-400">
+                        <th class="pb-3 pr-4 font-medium">Date</th>
+                        <th class="pb-3 pr-4 font-medium">Type</th>
+                        <th class="pb-3 pr-4 font-medium">Amount</th>
+                        <th class="pb-3 font-medium">Status</th>
+                      </tr>
+                    </thead>
+                    <tbody id="transactions-body">
+                      <tr>
+                        <td colspan="4" class="pt-8 pb-8 text-center">
+                          <div class="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-gray-100 dark:bg-white/10">
+                            <i data-lucide="receipt" class="w-6 h-6 text-gray-400"></i>
+                          </div>
+                          <p class="text-base font-light text-black dark:text-white">No transactions yet</p>
+                          <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">Your deposits and withdrawals will appear here.</p>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <!-- Payment Methods -->
+              <div class="rounded-2xl border border-gray-200 bg-gradient-to-b from-white to-gray-50 p-5 shadow-sm dark:border-white/10 dark:bg-gray-900">
+                <div class="mb-4">
+                  <h2 class="text-lg font-medium text-black dark:text-white">Payment Methods</h2>
+                  <p class="text-xs text-gray-500 dark:text-gray-400">All deposits are made in cryptocurrency</p>
+                </div>
+
+                <div class="space-y-2">
+                  <div class="flex items-center justify-between rounded-xl border border-gray-100 px-3 py-2.5 dark:border-white/10">
+                    <div class="flex items-center space-x-2">
+                      <div class="flex h-8 w-8 items-center justify-center overflow-hidden rounded-lg">
+                        <img src="/assets/coins/btc.png" alt="BTC" class="h-full w-full object-cover" />
+                      </div>
+                      <span class="text-sm text-gray-700 dark:text-gray-300">Bitcoin</span>
+                    </div>
+                    <a href="deposit.html?coin=btc" class="rounded-full bg-tesla px-3 py-1 text-xs font-medium text-white transition hover:bg-tesla-600 dark:text-black">Deposit</a>
+                  </div>
+                  <div class="flex items-center justify-between rounded-xl border border-gray-100 px-3 py-2.5 dark:border-white/10">
+                    <div class="flex items-center space-x-2">
+                      <div class="flex h-8 w-8 items-center justify-center overflow-hidden rounded-lg">
+                        <img src="/assets/coins/eth.png" alt="ETH" class="h-full w-full object-cover" />
+                      </div>
+                      <span class="text-sm text-gray-700 dark:text-gray-300">Ethereum</span>
+                    </div>
+                    <a href="deposit.html?coin=eth" class="rounded-full bg-tesla px-3 py-1 text-xs font-medium text-white transition hover:bg-tesla-600 dark:text-black">Deposit</a>
+                  </div>
+                  <div class="flex items-center justify-between rounded-xl border border-gray-100 px-3 py-2.5 dark:border-white/10">
+                    <div class="flex items-center space-x-2">
+                      <div class="flex h-8 w-8 items-center justify-center overflow-hidden rounded-lg">
+                        <img src="/assets/coins/usdt.png" alt="USDT" class="h-full w-full object-cover" />
+                      </div>
+                      <span class="text-sm text-gray-700 dark:text-gray-300">Tether (USDT)</span>
+                    </div>
+                    <a href="deposit.html?coin=usdt" class="rounded-full bg-tesla px-3 py-1 text-xs font-medium text-white transition hover:bg-tesla-600 dark:text-black">Deposit</a>
+                  </div>
+                  <div class="flex items-center justify-between rounded-xl border border-gray-100 px-3 py-2.5 dark:border-white/10">
+                    <div class="flex items-center space-x-2">
+                      <div class="flex h-8 w-8 items-center justify-center overflow-hidden rounded-lg">
+                        <img src="/assets/coins/sol.png" alt="SOL" class="h-full w-full object-cover" />
+                      </div>
+                      <span class="text-sm text-gray-700 dark:text-gray-300">Solana</span>
+                    </div>
+                    <a href="deposit.html?coin=sol" class="rounded-full bg-tesla px-3 py-1 text-xs font-medium text-white transition hover:bg-tesla-600 dark:text-black">Deposit</a>
+                  </div>
+                </div>
+
+                <a href="/pages/deposit/deposit.html" class="mt-4 block w-full rounded-full bg-black py-2 text-center text-sm font-medium text-white transition hover:bg-gray-800 dark:bg-white dark:text-black dark:hover:bg-gray-200">
+                  <i data-lucide="plus" class="mr-1 inline w-4 h-4"></i>Deposit in Crypto
+                </a>
+              </div>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+
+    <!-- Withdraw Modal -->
+    <div id="withdraw-modal" class="fixed inset-0 z-[100] hidden items-center justify-center p-4">
+      <div class="absolute inset-0 bg-black/70" onclick="closeWithdraw()"></div>
+      <div class="relative w-full max-w-md overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-2xl dark:border-white/10 dark:bg-navy-900">
+        <div class="flex items-center justify-between border-b border-gray-200 px-5 py-4 dark:border-white/10">
+          <div>
+            <h3 class="text-base font-medium text-black dark:text-white">Withdraw Funds</h3>
+            <p class="text-xs text-gray-500 dark:text-gray-400">Requests are reviewed by an admin before processing</p>
+          </div>
+          <button type="button" onclick="closeWithdraw()" class="rounded-full p-1.5 text-gray-500 transition hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-white/10" aria-label="Close">
+            <i data-lucide="x" class="w-4 h-4"></i>
+          </button>
+        </div>
+        <div id="withdraw-body" class="p-5"></div>
+      </div>
+    </div>
+
+    <script src="/dashboard-shell.js"></script>
+
+    <script>
+      // ---- Server-backed transaction history (deposits + orders) ----
+      function fmtMoney(n) {
+        return Number(n).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      }
+      function fmtDate(ts) {
+        return ts ? new Date(ts).toLocaleString(undefined, { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }) : '—';
+      }
+      function esc(s) {
+        return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+          return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+        });
+      }
+      function statusBadge(status) {
+        var color = status === 'approved' ? 'bg-[#e8f7ee] text-[#166534]'
+          : status === 'pending' ? 'bg-[#fff3e7] text-[#9a3412]'
+          : status === 'rejected' ? 'bg-[#fceceb] text-[#b91c1c]'
+          : 'bg-[#e9f0fc] text-[#1e40af]';
+        return '<span class="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium ' + color + '">' + esc(status) + '</span>';
+      }
+
+      function loadTransactions() {
+        Promise.all([fetch('/api/deposits'), fetch('/api/orders'), fetch('/api/withdrawals')])
+          .then(function (resps) {
+            return Promise.all(resps.map(function (r) { return r.json().catch(function () { return {}; }); }));
+          })
+          .then(function (data) {
+            var deposits = (data[0].deposits || []).map(function (d) {
+              return {
+                createdAt: d.createdAt,
+                type: 'Deposit',
+                label: d.coin.toUpperCase() + ' deposit',
+                amount: d.amount,
+                sign: '+',
+                status: d.status
+              };
+            });
+            var orders = (data[1].orders || []).map(function (o) {
+              return {
+                createdAt: o.createdAt,
+                type: 'Purchase',
+                label: o.item,
+                amount: o.amount,
+                sign: '-',
+                status: 'completed'
+              };
+            });
+            var withdrawals = (data[2].withdrawals || []).map(function (w) {
+              return {
+                createdAt: w.createdAt,
+                type: 'Withdrawal',
+                label: w.coin.toUpperCase() + ' withdrawal',
+                amount: w.amount,
+                sign: '-',
+                status: w.status
+              };
+            });
+            var rows = deposits.concat(orders).concat(withdrawals).sort(function (a, b) { return b.createdAt - a.createdAt; }).slice(0, 12);
+
+            var body = document.getElementById('transactions-body');
+            if (body && rows.length) {
+              body.innerHTML = rows.map(function (t) {
+                return '<tr class="border-b border-gray-100 dark:border-white/5">' +
+                  '<td class="py-3 pr-4 text-xs text-gray-500 dark:text-gray-400">' + fmtDate(t.createdAt) + '</td>' +
+                  '<td class="py-3 pr-4"><span class="text-xs font-medium text-black dark:text-white">' + esc(t.type) + '</span><p class="text-xs text-gray-500 dark:text-gray-400">' + esc(t.label) + '</p></td>' +
+                  '<td class="py-3 pr-4 font-medium text-black dark:text-white">' + t.sign + '$' + fmtMoney(t.amount) + '</td>' +
+                  '<td class="py-3">' + statusBadge(t.status) + '</td></tr>';
+              }).join('');
+            }
+          });
+      }
+      loadTransactions();
+    </script>
+
+    <script>
+      // ---- Withdraw flow (pending request → admin approval debits balance) ----
+      var WITHDRAW_COINS = [
+        { id: 'btc', name: 'Bitcoin', network: 'BTC network' },
+        { id: 'eth', name: 'Ethereum', network: 'ERC-20' },
+        { id: 'usdt', name: 'Tether', network: 'TRC-20' },
+        { id: 'sol', name: 'Solana', network: 'Solana network' }
+      ];
+
+      function withdrawApi(url, opts) {
+        opts = opts || {};
+        opts.headers = Object.assign({ 'Content-Type': 'application/json' }, opts.headers || {});
+        return fetch(url, opts).then(function (res) {
+          return res.json().catch(function () { return {}; }).then(function (data) {
+            return { ok: res.ok, data: data };
+          });
+        });
+      }
+
+      function withdrawBalance() {
+        return (window.FX && FX.balance) ? FX.balance() : 0;
+      }
+
+      function openWithdraw() {
+        var bal = withdrawBalance();
+        document.getElementById('withdraw-body').innerHTML =
+          '<div class="space-y-4">' +
+            '<div class="rounded-xl border border-gray-100 bg-gray-50 p-3 text-xs text-gray-500 dark:border-white/10 dark:bg-white/5 dark:text-gray-400">' +
+              'Available balance: <span class="font-medium text-black dark:text-white">$' + fmtMoney(bal) + '</span>' +
+            '</div>' +
+            '<div>' +
+              '<label for="wd-amount" class="mb-1 block text-xs font-medium text-gray-600 dark:text-gray-300">Amount (USD)</label>' +
+              '<input id="wd-amount" type="number" min="1" step="0.01" placeholder="0.00" class="w-full rounded-xl border border-gray-200 bg-white px-3 py-2.5 text-sm text-black focus:border-tesla focus:outline-none dark:border-white/10 dark:bg-gray-900 dark:text-white dark:placeholder:text-gray-500" />' +
+            '</div>' +
+            '<div>' +
+              '<label for="wd-coin" class="mb-1 block text-xs font-medium text-gray-600 dark:text-gray-300">Cryptocurrency</label>' +
+              '<select id="wd-coin" class="w-full rounded-xl border border-gray-200 bg-white px-3 py-2.5 text-sm text-black focus:border-tesla focus:outline-none dark:border-white/10 dark:bg-gray-900 dark:text-white">' +
+                WITHDRAW_COINS.map(function (c) { return '<option value="' + c.id + '">' + c.name + ' (' + c.network + ')</option>'; }).join('') +
+              '</select>' +
+            '</div>' +
+            '<div>' +
+              '<label for="wd-address" class="mb-1 block text-xs font-medium text-gray-600 dark:text-gray-300">Destination address</label>' +
+              '<input id="wd-address" type="text" spellcheck="false" placeholder="Enter the address that will receive the funds" class="w-full rounded-xl border border-gray-200 bg-white px-3 py-2.5 text-sm text-black focus:border-tesla focus:outline-none dark:border-white/10 dark:bg-gray-900 dark:text-white dark:placeholder:text-gray-500" />' +
+            '</div>' +
+            '<div id="wd-msg" class="hidden rounded-xl px-3 py-2 text-xs"></div>' +
+            '<button type="button" onclick="submitWithdrawal()" class="w-full rounded-full bg-tesla py-2.5 text-sm font-medium text-white transition hover:bg-tesla-600 dark:text-black">Request Withdrawal</button>' +
+            '<p class="text-center text-[11px] text-gray-400 dark:text-gray-500">Your balance is debited once the request is approved.</p>' +
+          '</div>';
+        document.getElementById('withdraw-modal').classList.remove('hidden');
+        document.getElementById('withdraw-modal').classList.add('flex');
+        if (window.lucide) lucide.createIcons();
+      }
+
+      function closeWithdraw() {
+        document.getElementById('withdraw-modal').classList.add('hidden');
+        document.getElementById('withdraw-modal').classList.remove('flex');
+      }
+
+      function submitWithdrawal() {
+        var amount = parseFloat(document.getElementById('wd-amount').value) || 0;
+        var coin = document.getElementById('wd-coin').value;
+        var address = document.getElementById('wd-address').value.trim();
+        var msg = document.getElementById('wd-msg');
+
+        function showMsg(text, ok) {
+          msg.textContent = text;
+          msg.className = 'rounded-xl px-3 py-2 text-xs ' + (ok
+            ? 'bg-[#e8f7ee] text-[#166534] dark:bg-[#22c55e]/10 dark:text-[#4ade80]'
+            : 'bg-[#fef2f2] text-[#b91c1c] dark:bg-[#ef4444]/10 dark:text-[#f87171]');
+          msg.classList.remove('hidden');
+        }
+
+        if (!(amount > 0)) return showMsg('Enter a valid amount.', false);
+        if (amount > withdrawBalance()) return showMsg('Insufficient balance.', false);
+        if (address.length < 8) return showMsg('Enter a valid destination address.', false);
+
+        var btn = document.querySelector('#withdraw-body button[onclick="submitWithdrawal()"]');
+        if (btn) { btn.disabled = true; btn.textContent = 'Submitting…'; }
+
+        withdrawApi('/api/withdrawals', {
+          method: 'POST',
+          body: JSON.stringify({ amount: amount, coin: coin, address: address })
+        }).then(function (r) {
+          if (!r.ok) {
+            showMsg(r.data.error || 'Request failed.', false);
+            if (btn) { btn.disabled = false; btn.textContent = 'Request Withdrawal'; }
+            return;
+          }
+          document.getElementById('withdraw-body').innerHTML =
+            '<div class="py-8 text-center">' +
+              '<div class="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-tesla/10">' +
+                '<i data-lucide="check" class="w-7 h-7 text-tesla"></i>' +
+              '</div>' +
+              '<h4 class="mb-1 text-base font-medium text-black dark:text-white">Withdrawal requested</h4>' +
+              '<p class="mb-5 text-xs leading-relaxed text-gray-500 dark:text-gray-400">Your request of <span class="font-medium text-black dark:text-white">$' + fmtMoney(amount) + '</span> in ' + coin.toUpperCase() + ' is awaiting approval. You will be notified once it is reviewed.</p>' +
+              '<button type="button" onclick="closeWithdraw()" class="w-full rounded-full bg-navy-900 py-2.5 text-sm font-medium text-white transition hover:bg-navy-800 dark:bg-white dark:text-black dark:hover:bg-gray-200">Close</button>' +
+            '</div>';
+          if (window.lucide) lucide.createIcons();
+          if (window.FX) FX.refresh();
+          loadTransactions();
+          if (window.loadNotifications) window.loadNotifications();
+        });
+      }
+    </script>
+  </body>
+</html>

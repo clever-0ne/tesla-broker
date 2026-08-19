@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Add money to your wallet." />
+    <title>Deposit Funds — Tesla XTeam FX Trade</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.bunny.net" />
+    <link href="https://fonts.bunny.net/css?family=inter:300,400,500,600,700&display=swap" rel="stylesheet" />
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+
+    <!-- Tailwind CSS -->
+    <link rel="stylesheet" href="/dist/tailwind.css" />
+
+    <!-- Set theme before paint to avoid a flash of the wrong theme -->
+    <script>
+      (function () {
+        var stored = localStorage.getItem('theme');
+        var dark = stored === 'dark';
+        if (dark) document.documentElement.classList.add('dark');
+      })();
+    </script>
+  </head>
+
+  <body data-page="deposit" data-title="Deposit Funds" class="font-sans antialiased bg-gray-300 text-black dark:bg-navy-950 dark:text-white">
+    <div id="app" class="min-h-screen flex">
+      <div id="page-content" class="flex-1 flex flex-col min-h-screen overflow-hidden lg:ml-72">
+        <main class="flex-1 overflow-y-auto p-4 pb-24 sm:p-6 lg:pb-6">
+          <div class="mx-auto max-w-2xl">
+            <!-- Hero -->
+            <div class="relative mb-6 overflow-hidden rounded-2xl bg-navy-950 p-6 text-white">
+              <div class="pointer-events-none absolute inset-0" aria-hidden="true">
+                <div class="absolute inset-0 t-grid opacity-30"></div>
+                <div class="absolute inset-0 t-sheen"></div>
+                <div class="absolute -left-16 top-1/2 h-72 w-72 -translate-y-1/2 t-orb"></div>
+                <div class="absolute -right-16 top-0 h-80 w-80 -translate-y-1/3 t-orb"></div>
+              </div>
+
+              <div class="relative z-10">
+                <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between">
+                  <div class="mb-4 lg:mb-0 lg:flex-1">
+                    <p class="t-label mb-2 text-white/50">Tesla XTeam FX Trade</p>
+                    <h1 class="mb-1 text-xl font-light">Deposit Funds</h1>
+                    <p class="text-sm text-gray-300">Add money to your wallet using your preferred payment method</p>
+                  </div>
+
+                  <!-- Balance Card -->
+                  <div class="rounded-2xl border border-white/20 bg-white/10 p-4 shadow-xl lg:w-64">
+                    <div class="flex items-center justify-between">
+                      <div>
+                        <p class="mb-1 text-xs text-gray-300">Current Balance</p>
+                        <p class="text-lg font-light" data-balance>$0.00</p>
+                        <p class="mt-0.5 text-[11px] text-gray-400">US Dollar</p>
+                      </div>
+                      <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-white/20">
+                        <i data-lucide="wallet" class="w-5 h-5"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Deposit Form -->
+            <div class="rounded-2xl border border-gray-200 bg-gradient-to-b from-white to-gray-50 p-6 shadow-sm dark:border-white/10 dark:bg-gray-900">
+              <form onsubmit="return false;" class="space-y-6">
+                <!-- Amount Input -->
+                <div>
+                  <label for="amount" class="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300">Deposit Amount</label>
+                  <div class="relative">
+                    <span class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 dark:text-gray-400">$</span>
+                    <input type="number"
+                           id="amount"
+                           name="amount"
+                           step="0.01"
+                           min="1"
+                           max="100000"
+                           value=""
+                           class="w-full rounded-xl border border-gray-300 bg-white py-3 pl-8 pr-4 text-sm text-black transition focus:border-tesla focus:outline-none focus:ring-2 focus:ring-tesla/20 dark:border-white/10 dark:bg-gray-900 dark:text-white dark:placeholder:text-gray-500"
+                           placeholder="0.00"
+                           required />
+                  </div>
+                </div>
+
+                <!-- Payment Method Selection -->
+                <div>
+                  <label class="mb-3 block text-sm font-medium text-gray-700 dark:text-gray-300">Payment Method</label>
+                  <div class="grid grid-cols-1 gap-3 sm:grid-cols-2">
+                    <label class="group flex cursor-pointer items-center rounded-xl border border-white/60 p-4 transition hover:border-tesla/40 hover:bg-white/90 dark:border-white/10 dark:hover:bg-white/5">
+                      <input type="radio" name="deposit_coin" value="btc" class="h-4 w-4 border-gray-300 text-tesla focus:ring-tesla dark:bg-gray-900" checked />
+                      <div class="ml-3 flex flex-1 items-center">
+                        <img src="/assets/coins/btc.png" alt="Bitcoin" class="mr-3 h-8 w-8 rounded-full" />
+                        <div class="flex-1">
+                          <p class="text-sm font-medium text-black dark:text-white">Bitcoin</p>
+                          <p class="text-xs text-gray-500 dark:text-gray-400">BTC network</p>
+                        </div>
+                        <i data-lucide="arrow-right" class="h-4 w-4 text-gray-400 transition group-hover:text-tesla"></i>
+                      </div>
+                    </label>
+
+                    <label class="group flex cursor-pointer items-center rounded-xl border border-white/60 p-4 transition hover:border-tesla/40 hover:bg-white/90 dark:border-white/10 dark:hover:bg-white/5">
+                      <input type="radio" name="deposit_coin" value="eth" class="h-4 w-4 border-gray-300 text-tesla focus:ring-tesla dark:bg-gray-900" />
+                      <div class="ml-3 flex flex-1 items-center">
+                        <img src="/assets/coins/eth.png" alt="Ethereum" class="mr-3 h-8 w-8 rounded-full" />
+                        <div class="flex-1">
+                          <p class="text-sm font-medium text-black dark:text-white">Ethereum</p>
+                          <p class="text-xs text-gray-500 dark:text-gray-400">ERC-20 network</p>
+                        </div>
+                        <i data-lucide="arrow-right" class="h-4 w-4 text-gray-400 transition group-hover:text-tesla"></i>
+                      </div>
+                    </label>
+
+                    <label class="group flex cursor-pointer items-center rounded-xl border border-white/60 p-4 transition hover:border-tesla/40 hover:bg-white/90 dark:border-white/10 dark:hover:bg-white/5">
+                      <input type="radio" name="deposit_coin" value="usdt" class="h-4 w-4 border-gray-300 text-tesla focus:ring-tesla dark:bg-gray-900" />
+                      <div class="ml-3 flex flex-1 items-center">
+                        <img src="/assets/coins/usdt.png" alt="Tether" class="mr-3 h-8 w-8 rounded-full" />
+                        <div class="flex-1">
+                          <p class="text-sm font-medium text-black dark:text-white">Tether</p>
+                          <p class="text-xs text-gray-500 dark:text-gray-400">TRC-20 network</p>
+                        </div>
+                        <i data-lucide="arrow-right" class="h-4 w-4 text-gray-400 transition group-hover:text-tesla"></i>
+                      </div>
+                    </label>
+
+                    <label class="group flex cursor-pointer items-center rounded-xl border border-white/60 p-4 transition hover:border-tesla/40 hover:bg-white/90 dark:border-white/10 dark:hover:bg-white/5">
+                      <input type="radio" name="deposit_coin" value="sol" class="h-4 w-4 border-gray-300 text-tesla focus:ring-tesla dark:bg-gray-900" />
+                      <div class="ml-3 flex flex-1 items-center">
+                        <img src="/assets/coins/sol.png" alt="Solana" class="mr-3 h-8 w-8 rounded-full" />
+                        <div class="flex-1">
+                          <p class="text-sm font-medium text-black dark:text-white">Solana</p>
+                          <p class="text-xs text-gray-500 dark:text-gray-400">Solana network</p>
+                        </div>
+                        <i data-lucide="arrow-right" class="h-4 w-4 text-gray-400 transition group-hover:text-tesla"></i>
+                      </div>
+                    </label>
+                  </div>
+                  <p class="mt-3 flex items-start gap-2 rounded-xl border border-white/60 bg-gray-50 p-3 text-xs leading-relaxed text-gray-500 dark:border-white/10 dark:bg-white/5 dark:text-gray-400">
+                    <i data-lucide="lock" class="mt-0.5 h-3.5 w-3.5 shrink-0"></i>
+                    <span>Deposits appear in USD but are settled in cryptocurrency. You'll receive a one-time deposit address in the next step, and the equivalent amount is credited to your balance once confirmed.</span>
+                  </p>
+                </div>
+
+                <!-- Fee Information -->
+                <div class="rounded-xl border border-white/60 bg-gray-50 p-4 dark:border-white/10 dark:bg-white/5">
+                  <div class="mb-3 flex items-center justify-between">
+                    <span class="text-xs font-medium text-gray-700 dark:text-gray-300">Fee Breakdown</span>
+                    <div class="flex h-8 w-8 items-center justify-center">
+                      <i data-lucide="calculator" class="h-4 w-4 text-gray-500 dark:text-gray-400"></i>
+                    </div>
+                  </div>
+                  <div class="space-y-2">
+                    <div class="flex items-center justify-between">
+                      <span class="text-xs text-gray-500 dark:text-gray-400">Deposit Amount:</span>
+                      <span class="text-xs font-medium text-black dark:text-white" id="deposit-amount">$0.00</span>
+                    </div>
+                    <div class="flex items-center justify-between">
+                      <span class="text-xs text-gray-500 dark:text-gray-400">Processing Fee:</span>
+                      <span class="text-xs font-medium text-black dark:text-white" id="processing-fee">$0.00</span>
+                    </div>
+                    <div class="border-t border-gray-200 pt-2 dark:border-white/10">
+                      <div class="flex items-center justify-between">
+                        <span class="text-xs font-semibold text-gray-700 dark:text-gray-300">Total Amount:</span>
+                        <span class="text-xs font-bold text-black dark:text-white" id="total-amount">$0.00</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Error / success message -->
+                <p id="deposit-error" class="hidden rounded-xl border border-[#fecaca] bg-[#fef2f2] px-3 py-2 text-xs text-[#dc2626] dark:border-[#ef4444]/20 dark:bg-[#ef4444]/10 dark:text-[#f87171]"></p>
+
+                <!-- Submit Button -->
+                <div class="pt-2">
+                  <button type="button" onclick="submitDeposit()"
+                          class="flex w-full items-center justify-center rounded-full bg-tesla py-3 font-medium text-white transition hover:bg-tesla-600 dark:text-black">
+                    <i data-lucide="plus" class="mr-2 h-4 w-4"></i>
+                    Deposit Funds
+                  </button>
+                  <p class="mt-3 text-center text-[11px] text-gray-400 dark:text-gray-500">No fiat payment methods — deposits are processed in cryptocurrency only.</p>
+                </div>
+              </form>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+
+    <script src="/dashboard-shell.js"></script>
+    <script>
+      var amountInput = document.getElementById('amount');
+      var depositAmountEl = document.getElementById('deposit-amount');
+      var processingFeeEl = document.getElementById('processing-fee');
+      var totalAmountEl = document.getElementById('total-amount');
+      var errorEl = document.getElementById('deposit-error');
+
+      function fmt(n) {
+        return '$' + Number(n).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      }
+
+      function updateFeeCalculation() {
+        var amount = parseFloat(amountInput.value) || 0;
+        var fee = 0; // Processing fee is 0
+        var total = amount + fee;
+
+        depositAmountEl.textContent = fmt(amount);
+        processingFeeEl.textContent = fmt(fee);
+        totalAmountEl.textContent = fmt(total);
+      }
+
+      amountInput.addEventListener('input', updateFeeCalculation);
+
+      function getParam(name) {
+        var m = new RegExp('[?&]' + name + '=([^&]*)').exec(window.location.search);
+        return m ? decodeURIComponent(m[1].replace(/\+/g, ' ')) : null;
+      }
+
+      function submitDeposit() {
+        var amount = parseFloat(amountInput.value) || 0;
+        if (amount < 1 || amount > 100000) {
+          errorEl.textContent = 'Enter a valid deposit amount between $1 and $100,000.';
+          errorEl.classList.remove('hidden');
+          return;
+        }
+        var selected = document.querySelector('input[name="deposit_coin"]:checked');
+        var coin = selected ? selected.value : 'btc';
+        errorEl.classList.add('hidden');
+        openPayment({
+          context: 'Wallet deposit',
+          amount: amount,
+          coin: coin,
+          title: 'Deposit Funds',
+          effect: 'credit',
+          step: 'pay'
+        });
+      }
+
+      document.addEventListener('DOMContentLoaded', function () {
+        var qc = getParam('coin');
+        if (qc) {
+          var radio = document.querySelector('input[name="deposit_coin"][value="' + qc + '"]');
+          if (radio) radio.checked = true;
+        }
+        updateFeeCalculation();
+        if (window.lucide) lucide.createIcons();
+      });
+    </script>
+  </body>
+</html>

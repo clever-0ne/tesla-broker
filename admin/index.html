@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <title>Admin Console — Tesla XTeam FX Trade</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.bunny.net" />
+    <link href="https://fonts.bunny.net/css?family=inter:300,400,500,600,700&display=swap" rel="stylesheet" />
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+
+    <!-- Tailwind CSS (compiled locally) -->
+    <link rel="stylesheet" href="/dist/tailwind.css" />
+
+    <!-- Set theme before paint to avoid a flash of the wrong theme -->
+    <script>
+      (function () {
+        var stored = localStorage.getItem('theme');
+        var dark = stored === 'dark';
+        if (dark) document.documentElement.classList.add('dark');
+      })();
+    </script>
+  </head>
+
+  <body data-page="admin" class="font-sans antialiased bg-gray-300 text-black dark:bg-navy-950 dark:text-white">
+    <!-- Fixed background: grid lines -->
+    <div aria-hidden="true" class="pointer-events-none fixed inset-0 -z-10 t-gridlines"></div>
+
+    <!-- Top Navigation -->
+    <nav class="fixed top-0 left-0 right-0 z-50 border-b border-white/10 bg-navy-950">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center h-16">
+          <div class="flex items-center space-x-3">
+            <span class="flex items-center">
+              <img src="/assets/logo.svg" alt="Tesla XTeam FX Trade" class="h-6 w-auto filter brightness-0 invert" />
+            </span>
+            <span class="hidden sm:inline-flex items-center rounded-full bg-gray-200 px-3 py-1 text-xs font-medium text-navy-950">
+              <i data-lucide="shield" class="mr-1 h-3 w-3 text-[#7c3aed]"></i>Admin Console
+            </span>
+          </div>
+          <div class="flex items-center space-x-3">
+            <button type="button" id="theme-toggle" class="p-2 rounded-full text-gray-400 transition hover:bg-white/10" aria-label="Toggle dark mode">
+              <i data-lucide="sun" id="theme-sun" class="w-5 h-5 hidden"></i>
+              <i data-lucide="moon" id="theme-moon" class="w-5 h-5"></i>
+            </button>
+            <button type="button" onclick="logout()" class="rounded-full border border-white/20 px-4 py-2 text-sm font-medium text-white transition hover:bg-white/10">
+              Logout
+            </button>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-16">
+      <!-- Tabs -->
+      <div class="mb-6 flex items-center gap-2 overflow-x-auto rounded-2xl border border-gray-200 bg-white p-1.5 shadow-sm dark:border-white/10 dark:bg-navy-900">
+        <button type="button" data-tab="users" class="tab-btn flex-1 whitespace-nowrap rounded-xl px-4 py-2 text-sm font-medium transition">Users</button>
+        <button type="button" data-tab="settings" class="tab-btn flex-1 whitespace-nowrap rounded-xl px-4 py-2 text-sm font-medium transition">Settings</button>
+      </div>
+
+      <!-- ===================== Users ===================== -->
+      <section id="panel-users" class="hidden">
+        <!-- List view: click a user to manage them -->
+        <div id="user-list-view">
+          <div class="rounded-2xl border border-gray-200 bg-gradient-to-b from-white to-gray-50 p-6 shadow-sm dark:border-white/10 dark:bg-gray-900">
+            <div class="mb-4 flex items-center justify-between">
+              <div>
+                <h3 class="text-base font-medium text-black dark:text-white">User Accounts</h3>
+                <p class="text-xs text-gray-500 dark:text-gray-400">Pick a user and click Manage to view their full portfolio, balance, KYC, and activity.</p>
+              </div>
+              <span id="user-count" class="shrink-0 rounded-full bg-gray-100 px-3 py-1 text-xs font-medium text-gray-600 dark:bg-white/10 dark:text-gray-300">0 users</span>
+            </div>
+            <div id="user-list" class="space-y-2"></div>
+          </div>
+        </div>
+
+        <!-- Detail view: manage one user -->
+        <div id="user-detail-view" class="hidden">
+          <button type="button" onclick="closeUserDetail()" class="mb-4 inline-flex items-center text-xs font-medium text-gray-500 transition hover:text-black dark:text-gray-400 dark:hover:text-white">
+            <i data-lucide="arrow-left" class="mr-1 w-3.5 h-3.5"></i>
+            Back to Users
+          </button>
+
+          <div class="rounded-2xl border border-gray-200 bg-gradient-to-b from-white to-gray-50 p-6 shadow-sm dark:border-white/10 dark:bg-gray-900">
+            <!-- User header -->
+            <div class="mb-6 flex items-center gap-4">
+              <div id="u-avatar" class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-gray-100 text-base font-medium text-navy-950 dark:bg-white/10 dark:text-white">?</div>
+              <div class="min-w-0 flex-1">
+                <h3 id="u-name" class="truncate text-lg font-medium text-black dark:text-white">—</h3>
+                <p id="u-email" class="truncate text-sm text-gray-500 dark:text-gray-400">—</p>
+              </div>
+              <div class="shrink-0 text-right">
+                <p class="text-xs text-gray-500 dark:text-gray-400">Balance</p>
+                <p id="u-balance-big" class="text-lg font-medium text-[#16a34a]">$0.00</p>
+              </div>
+            </div>
+
+            <!-- Balance -->
+            <div class="rounded-xl border border-gray-200 bg-gray-50 p-4 dark:border-white/10 dark:bg-white/5">
+              <div class="mb-2 flex items-center justify-between">
+                <h4 class="text-sm font-medium text-black dark:text-white">Set Balance</h4>
+                <span id="u-created" class="text-xs text-gray-400"></span>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="text-sm text-gray-500">$</span>
+                <input id="u-balance-input" type="number" min="0" step="0.01" class="w-full rounded-xl border border-gray-300 bg-white px-3 py-2 text-sm text-black focus:border-tesla focus:outline-none dark:border-gray-600 dark:bg-gray-800 dark:text-white" />
+                <button type="button" onclick="saveUserBalance()" class="shrink-0 rounded-full bg-gray-200 px-5 py-2 text-xs font-medium text-navy-950 transition hover:bg-gray-300">Save</button>
+              </div>
+              <p id="u-balance-msg" class="mt-2 hidden text-xs text-[#16a34a]">Balance updated.</p>
+            </div>
+
+            <!-- Portfolio -->
+            <div class="mt-4 rounded-xl border border-gray-200 bg-gray-50 p-4 dark:border-white/10 dark:bg-white/5">
+              <div class="mb-3 flex items-center justify-between">
+                <h4 class="text-sm font-medium text-black dark:text-white">Portfolio</h4>
+                <div class="text-right">
+                  <p class="text-[11px] text-gray-400">Total invested</p>
+                  <p id="u-portfolio-total" class="text-sm font-medium text-[#16a34a]">$0.00</p>
+                </div>
+              </div>
+              <div id="u-holdings" class="space-y-1">
+                <p class="py-2 text-xs text-gray-400">Loading…</p>
+              </div>
+            </div>
+
+            <!-- KYC -->
+            <div class="mt-4 rounded-xl border border-gray-200 bg-gray-50 p-4 dark:border-white/10 dark:bg-white/5">
+              <h4 class="mb-2 text-sm font-medium text-black dark:text-white">KYC Status</h4>
+              <select id="u-kyc-select" onchange="saveUserKyc()" class="w-full rounded-xl border border-gray-300 bg-white px-3 py-2 text-sm text-black focus:border-tesla focus:outline-none dark:border-gray-600 dark:bg-gray-800 dark:text-white">
+                <option value="not_submitted">Not submitted</option>
+                <option value="submitted">Submitted</option>
+                <option value="approved">Approved</option>
+              </select>
+            </div>
+
+            <!-- Danger zone -->
+            <div class="mt-4 flex items-center justify-between rounded-xl border border-[#fecaca] bg-[#fff5f5] p-4 dark:border-[#ef4444]/30 dark:bg-[#ef4444]/5">
+              <div>
+                <p class="text-sm font-medium text-[#b91c1c] dark:text-[#f87171]">Delete user account</p>
+                <p class="text-xs text-gray-500 dark:text-gray-400">Removes the user, their sessions, deposits and orders.</p>
+              </div>
+              <button type="button" onclick="deleteUser()" class="shrink-0 rounded-full border border-[#fca5a5] px-5 py-2 text-xs font-medium text-[#b91c1c] transition hover:bg-[#fef2f2] dark:border-[#ef4444]/40 dark:text-[#f87171] dark:hover:bg-[#ef4444]/10">Delete User</button>
+            </div>
+
+            <!-- Transactions -->
+            <div class="mt-6 grid grid-cols-1 gap-4 lg:grid-cols-3">
+              <div class="rounded-xl border border-gray-200 bg-gray-50 p-4 dark:border-white/10 dark:bg-white/5">
+                <div class="mb-3 flex items-center justify-between">
+                  <h4 class="text-sm font-medium text-black dark:text-white">Deposits</h4>
+                  <div class="flex items-center gap-2">
+                    <span id="u-deposits-count" class="text-xs text-gray-400"></span>
+                    <button type="button" onclick="viewAllTransactions('deposits')" class="shrink-0 rounded-full bg-gray-200 px-3 py-1 text-[11px] font-medium text-navy-950 transition hover:bg-gray-300">View All</button>
+                  </div>
+                </div>
+                <div id="u-deposits" class="space-y-1"></div>
+              </div>
+              <div class="rounded-xl border border-gray-200 bg-gray-50 p-4 dark:border-white/10 dark:bg-white/5">
+                <div class="mb-3 flex items-center justify-between">
+                  <h4 class="text-sm font-medium text-black dark:text-white">Withdrawals</h4>
+                  <div class="flex items-center gap-2">
+                    <span id="u-withdrawals-count" class="text-xs text-gray-400"></span>
+                    <button type="button" onclick="viewAllTransactions('withdrawals')" class="shrink-0 rounded-full bg-gray-200 px-3 py-1 text-[11px] font-medium text-navy-950 transition hover:bg-gray-300">View All</button>
+                  </div>
+                </div>
+                <div id="u-withdrawals" class="space-y-1"></div>
+              </div>
+              <div class="rounded-xl border border-gray-200 bg-gray-50 p-4 dark:border-white/10 dark:bg-white/5">
+                <div class="mb-3 flex items-center justify-between">
+                  <h4 class="text-sm font-medium text-black dark:text-white">Purchases</h4>
+                  <div class="flex items-center gap-2">
+                    <span id="u-orders-count" class="text-xs text-gray-400"></span>
+                    <button type="button" onclick="viewAllTransactions('orders')" class="shrink-0 rounded-full bg-gray-200 px-3 py-1 text-[11px] font-medium text-navy-950 transition hover:bg-gray-300">View All</button>
+                  </div>
+                </div>
+                <div id="u-orders" class="space-y-1"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================== Settings ===================== -->
+      <section id="panel-settings" class="hidden">
+        <div class="rounded-2xl border border-gray-200 bg-gradient-to-b from-white to-gray-50 p-6 shadow-sm dark:border-white/10 dark:bg-gray-900">
+          <h3 class="mb-1 text-base font-medium text-black dark:text-white">Deposit Addresses &amp; Rates</h3>
+          <p class="mb-6 text-xs text-gray-500 dark:text-gray-400">
+            These addresses are shown to users in the deposit modal. Rates are used to compute the coin amount a user must send.
+          </p>
+
+          <div id="settings-message" class="mb-4 hidden rounded-xl border border-[#bbf7d0] bg-[#f0fdf4] px-4 py-3 text-sm text-[#15803d] dark:border-[#22c55e]/30 dark:bg-[#22c55e]/10 dark:text-[#4ade80]"></div>
+
+          <div id="settings-coins" class="grid grid-cols-1 gap-4 md:grid-cols-2"></div>
+
+          <button type="button" onclick="saveSettings()"
+                  class="mt-6 rounded-full bg-gray-200 px-6 py-2.5 text-sm font-medium text-navy-950 shadow-lg transition hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-tesla focus:ring-offset-2">
+            Save Settings
+          </button>
+        </div>
+      </section>
+    </main>
+
+    <!-- All-transactions modal -->
+    <div id="tx-modal" class="fixed inset-0 z-[100] hidden items-center justify-center p-4">
+      <div class="absolute inset-0 bg-black/70" onclick="closeTxModal()"></div>
+      <div class="relative flex max-h-[85vh] w-full max-w-2xl flex-col overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-2xl dark:border-white/10 dark:bg-navy-900">
+        <div class="flex items-center justify-between border-b border-gray-200 px-5 py-4 dark:border-white/10">
+          <div>
+            <h3 id="tx-modal-title" class="text-base font-medium text-black dark:text-white">All Transactions</h3>
+            <p id="tx-modal-sub" class="text-xs text-gray-500 dark:text-gray-400"></p>
+          </div>
+          <button type="button" onclick="closeTxModal()" class="rounded-full p-1.5 text-gray-500 transition hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-white/10" aria-label="Close">
+            <i data-lucide="x" class="w-4 h-4"></i>
+          </button>
+        </div>
+        <div id="tx-modal-body" class="flex-1 overflow-y-auto p-5"></div>
+      </div>
+    </div>
+
+    <script>
+      lucide.createIcons();
+
+      /* ---------------- theme (shared behaviour) ---------------- */
+      function applyTheme(theme) {
+        document.documentElement.classList.toggle('dark', theme === 'dark');
+        var sun = document.getElementById('theme-sun');
+        var moon = document.getElementById('theme-moon');
+        if (theme === 'dark') { sun.classList.remove('hidden'); moon.classList.add('hidden'); }
+        else { moon.classList.remove('hidden'); sun.classList.add('hidden'); }
+      }
+      function getInitialTheme() {
+        var stored = localStorage.getItem('theme');
+        if (stored === 'light' || stored === 'dark') return stored;
+        return 'light';
+      }
+      applyTheme(getInitialTheme());
+      document.getElementById('theme-toggle').addEventListener('click', function () {
+        var next = document.documentElement.classList.contains('dark') ? 'light' : 'dark';
+        localStorage.setItem('theme', next);
+        applyTheme(next);
+      });
+
+      /* ---------------- helpers ---------------- */
+      function api(url, opts) {
+        opts = opts || {};
+        opts.headers = Object.assign({ 'Content-Type': 'application/json' }, opts.headers || {});
+        return fetch(url, opts).then(function (res) {
+          return res.json().catch(function () { return {}; }).then(function (data) {
+            return { ok: res.ok, status: res.status, data: data };
+          });
+        });
+      }
+      function fmtMoney(n) {
+        return Number(n).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      }
+      function fmtDate(ts) {
+        return ts ? new Date(ts).toLocaleString(undefined, { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }) : '—';
+      }
+      function esc(s) {
+        return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+          return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+        });
+      }
+      function statusBadge(status) {
+        var color = status === 'approved' ? 'bg-[#e8f7ee] text-[#166534]'
+          : status === 'pending' ? 'bg-[#fff3e7] text-[#9a3412]'
+          : status === 'rejected' ? 'bg-[#fceceb] text-[#b91c1c]'
+          : 'bg-gray-100 text-gray-600 dark:bg-white/10 dark:text-gray-300';
+        return '<span class="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium ' + color + '">' + esc(status) + '</span>';
+      }
+      function typeBadge(type) {
+        var color = type === 'investment' ? 'bg-[#f3edfc] text-[#6d28d9]'
+          : type === 'crypto' ? 'bg-[#fff3e7] text-[#9a3412]'
+          : type === 'vehicle' ? 'bg-[#e9f0fc] text-[#1e40af]'
+          : 'bg-gray-100 text-gray-600 dark:bg-white/10 dark:text-gray-300';
+        return '<span class="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium ' + color + '">' + esc(type) + '</span>';
+      }
+      function logout() {
+        api('/api/auth/logout', { method: 'POST' }).then(function () {
+          window.location.href = '/admin/login.html';
+        }, function () {
+          window.location.href = '/admin/login.html';
+        });
+      }
+
+      /* ---------------- auth gate ---------------- */
+      api('/api/me').then(function (r) {
+        if (!r.ok || r.data.user.role !== 'admin') window.location.href = '/admin/login.html';
+      });
+
+      /* ---------------- tabs ---------------- */
+      var tabs = document.querySelectorAll('.tab-btn');
+      tabs.forEach(function (btn) {
+        btn.addEventListener('click', function () { setTab(btn.dataset.tab); });
+      });
+      function setTab(name) {
+        tabs.forEach(function (b) {
+          var active = b.dataset.tab === name;
+          b.classList.toggle('bg-gray-200', active);
+          b.classList.toggle('text-navy-950', active);
+          b.classList.toggle('text-gray-500', !active);
+          b.classList.toggle('dark:text-gray-300', !active);
+        });
+        ['users', 'settings'].forEach(function (p) {
+          document.getElementById('panel-' + p).classList.toggle('hidden', p !== name);
+        });
+        if (name === 'users') loadUsers();
+        if (name === 'settings') loadSettings();
+      }
+      setTab('users');
+
+      /* ---------------- users (list + management) ---------------- */
+      var usersCache = [];
+      var pendingCache = {};
+      var currentUser = null;
+
+      function loadUsers() {
+        Promise.all([
+          api('/api/admin/users'),
+          api('/api/admin/deposits'),
+          api('/api/admin/withdrawals')
+        ]).then(function (rs) {
+          if (!rs[0].ok) return;
+          // Admin accounts are excluded — only customer accounts are managed here.
+          usersCache = (rs[0].data.users || []).filter(function (u) { return u.role !== 'admin'; });
+          pendingCache = {};
+          (rs[1].data.deposits || []).forEach(function (d) {
+            if (d.status === 'pending') pendingCache[d.userId] = (pendingCache[d.userId] || 0) + 1;
+          });
+          (rs[2].data.withdrawals || []).forEach(function (w) {
+            if (w.status === 'pending') pendingCache[w.userId] = (pendingCache[w.userId] || 0) + 1;
+          });
+          renderUserList();
+        });
+      }
+
+      function renderUserList() {
+        var list = document.getElementById('user-list');
+        document.getElementById('user-count').textContent =
+          usersCache.length + (usersCache.length === 1 ? ' user' : ' users');
+        if (!usersCache.length) {
+          list.innerHTML = '<p class="py-8 text-center text-sm text-gray-500 dark:text-gray-400">No user accounts yet. They appear here once someone creates an account.</p>';
+          return;
+        }
+        list.innerHTML = usersCache.map(function (u) {
+          return '<div class="flex items-center gap-3 rounded-xl border border-gray-200 bg-white p-3 transition hover:border-gray-300 hover:bg-gray-50 dark:border-white/10 dark:bg-gray-900 dark:hover:bg-white/5">' +
+            '<button type="button" onclick="openUser(\'' + u.id + '\')" class="flex min-w-0 flex-1 items-center gap-3 text-left">' +
+              '<div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-gray-100 text-sm font-medium text-navy-950 dark:bg-white/10 dark:text-white">' + esc((u.name || '?').charAt(0).toUpperCase()) + '</div>' +
+              '<div class="min-w-0 flex-1">' +
+                '<p class="truncate text-sm font-medium text-black dark:text-white">' + esc(u.name) +
+                  (pendingCache[u.id] ? ' <span class="ml-1 inline-block rounded-full bg-[#fff3e7] px-2 py-0.5 text-[10px] font-semibold text-[#9a3412]">' + pendingCache[u.id] + ' pending</span>' : '') +
+                '</p>' +
+                '<p class="truncate text-xs text-gray-500 dark:text-gray-400">' + esc(u.email) + '</p>' +
+              '</div>' +
+              '<div class="shrink-0 text-right">' +
+                '<p class="text-sm font-medium text-[#16a34a]">$' + fmtMoney(u.balance) + '</p>' +
+                '<p class="text-xs text-gray-400">' + kycLabel(u.kycStatus) + '</p>' +
+              '</div>' +
+            '</button>' +
+            '<button type="button" onclick="openUser(\'' + u.id + '\')" class="shrink-0 rounded-full bg-tesla px-4 py-1.5 text-xs font-medium text-white transition hover:bg-tesla-600 dark:text-black">Manage User</button>' +
+          '</div>';
+        }).join('');
+        if (window.lucide) lucide.createIcons();
+      }
+
+      function kycLabel(status) {
+        if (status === 'approved') return 'KYC Approved';
+        if (status === 'submitted') return 'KYC Pending';
+        return 'KYC Not Submitted';
+      }
+
+      function openUser(id) {
+        currentUser = usersCache.find(function (u) { return u.id === id; });
+        if (!currentUser) return;
+        document.getElementById('user-list-view').classList.add('hidden');
+        document.getElementById('user-detail-view').classList.remove('hidden');
+        document.getElementById('u-avatar').textContent = (currentUser.name || '?').charAt(0).toUpperCase();
+        document.getElementById('u-name').textContent = currentUser.name;
+        document.getElementById('u-email').textContent = currentUser.email;
+        document.getElementById('u-created').textContent = 'Joined ' + fmtDate(currentUser.createdAt);
+        renderUserDetail();
+      }
+
+      function renderUserDetail() {
+        document.getElementById('u-balance-big').textContent = '$' + fmtMoney(currentUser.balance);
+        document.getElementById('u-balance-input').value = Number(currentUser.balance).toFixed(2);
+        document.getElementById('u-kyc-select').value = currentUser.kycStatus;
+        document.getElementById('u-balance-msg').classList.add('hidden');
+
+        var depositsEl = document.getElementById('u-deposits');
+        var withdrawalsEl = document.getElementById('u-withdrawals');
+        var ordersEl = document.getElementById('u-orders');
+        depositsEl.innerHTML = '<p class="py-2 text-xs text-gray-400">Loading…</p>';
+        withdrawalsEl.innerHTML = '<p class="py-2 text-xs text-gray-400">Loading…</p>';
+        ordersEl.innerHTML = '<p class="py-2 text-xs text-gray-400">Loading…</p>';
+
+        api('/api/admin/deposits').then(function (r) {
+          if (!r.ok) return;
+          var list = (r.data.deposits || []).filter(function (d) { return d.userId === currentUser.id; });
+          document.getElementById('u-deposits-count').textContent = list.length + (list.length === 1 ? ' deposit' : ' deposits');
+          depositsEl.innerHTML = list.length
+            ? list.map(function (d) {
+                var actions = d.status === 'pending'
+                  ? '<div class="flex shrink-0 gap-1">' +
+                    '<button type="button" onclick="reviewUserDeposit(\'' + d.id + '\', \'approved\')" class="rounded-full bg-[#16a34a] px-2.5 py-0.5 text-[11px] font-medium text-white transition hover:bg-[#15803d]">Approve</button>' +
+                    '<button type="button" onclick="reviewUserDeposit(\'' + d.id + '\', \'rejected\')" class="rounded-full border border-gray-300 px-2.5 py-0.5 text-[11px] font-medium text-black transition hover:bg-gray-50 dark:border-white/20 dark:text-white dark:hover:bg-white/10">Reject</button>' +
+                    '</div>'
+                  : '';
+                return '<div class="border-b border-gray-100 py-2 last:border-0 dark:border-white/5">' +
+                  '<div class="flex items-center justify-between gap-2">' +
+                    '<span class="min-w-0 truncate text-xs text-gray-500 dark:text-gray-400">' + fmtDate(d.createdAt) + ' &middot; ' + esc(d.coin).toUpperCase() + '</span>' +
+                    '<span class="shrink-0 text-xs font-medium text-black dark:text-white">$' + fmtMoney(d.amount) + '</span>' +
+                  '</div>' +
+                  '<div class="mt-1 flex items-center justify-between gap-2">' + statusBadge(d.status) + actions + '</div>' +
+                '</div>';
+              }).join('')
+            : '<p class="py-2 text-xs text-gray-400">No deposits.</p>';
+          if (window.lucide) lucide.createIcons();
+        });
+
+        api('/api/admin/withdrawals').then(function (r) {
+          if (!r.ok) return;
+          var list = (r.data.withdrawals || []).filter(function (w) { return w.userId === currentUser.id; });
+          document.getElementById('u-withdrawals-count').textContent = list.length + (list.length === 1 ? ' withdrawal' : ' withdrawals');
+          withdrawalsEl.innerHTML = list.length
+            ? list.map(function (w) {
+                var actions = w.status === 'pending'
+                  ? '<div class="flex shrink-0 gap-1">' +
+                    '<button type="button" onclick="reviewUserWithdrawal(\'' + w.id + '\', \'approved\')" class="rounded-full bg-[#16a34a] px-2.5 py-0.5 text-[11px] font-medium text-white transition hover:bg-[#15803d]">Approve</button>' +
+                    '<button type="button" onclick="reviewUserWithdrawal(\'' + w.id + '\', \'rejected\')" class="rounded-full border border-gray-300 px-2.5 py-0.5 text-[11px] font-medium text-black transition hover:bg-gray-50 dark:border-white/20 dark:text-white dark:hover:bg-white/10">Reject</button>' +
+                    '</div>'
+                  : '';
+                return '<div class="border-b border-gray-100 py-2 last:border-0 dark:border-white/5">' +
+                  '<div class="flex items-center justify-between gap-2">' +
+                    '<span class="min-w-0 truncate text-xs text-gray-500 dark:text-gray-400">' + fmtDate(w.createdAt) + ' &middot; ' + esc(w.coin).toUpperCase() + '</span>' +
+                    '<span class="shrink-0 text-xs font-medium text-black dark:text-white">$' + fmtMoney(w.amount) + '</span>' +
+                  '</div>' +
+                  '<div class="mt-1 truncate font-mono text-[10px] text-gray-400" title="' + esc(w.address) + '">' + esc(w.address) + '</div>' +
+                  '<div class="mt-1 flex items-center justify-between gap-2">' + statusBadge(w.status) + actions + '</div>' +
+                '</div>';
+              }).join('')
+            : '<p class="py-2 text-xs text-gray-400">No withdrawals.</p>';
+          if (window.lucide) lucide.createIcons();
+        });
+
+        api('/api/admin/orders').then(function (r) {
+          if (!r.ok) return;
+          var list = (r.data.orders || []).filter(function (o) { return o.userId === currentUser.id; });
+          document.getElementById('u-orders-count').textContent = list.length + (list.length === 1 ? ' purchase' : ' purchases');
+          ordersEl.innerHTML = list.length
+            ? list.map(function (o) {
+                return '<div class="flex items-center justify-between border-b border-gray-100 py-1.5 last:border-0 dark:border-white/5">' +
+                  '<span class="min-w-0 truncate text-xs text-gray-500 dark:text-gray-400">' + fmtDate(o.createdAt) + ' &middot; ' + esc(o.item) + '</span>' +
+                  '<span class="shrink-0 text-xs font-medium text-black dark:text-white">$' + fmtMoney(o.amount) + ' ' + typeBadge(o.type) + '</span></div>';
+              }).join('')
+            : '<p class="py-2 text-xs text-gray-400">No purchases.</p>';
+
+          // Portfolio: group holdings by type
+          var byType = {};
+          list.forEach(function (o) { (byType[o.type] = byType[o.type] || []).push(o); });
+          var total = list.reduce(function (s, o) { return s + (Number(o.amount) || 0); }, 0);
+          document.getElementById('u-portfolio-total').textContent = '$' + fmtMoney(total);
+          var typeLabels = { investment: 'Investments', crypto: 'Crypto', vehicle: 'Vehicles' };
+          var sections = Object.keys(typeLabels).filter(function (k) { return (byType[k] || []).length; });
+          var holdingsEl = document.getElementById('u-holdings');
+          holdingsEl.innerHTML = sections.length
+            ? sections.map(function (k) {
+                var rows = byType[k].map(function (o) {
+                  return '<div class="flex items-center justify-between py-1.5 last:pb-0">' +
+                    '<span class="min-w-0 truncate text-xs text-gray-500 dark:text-gray-400">' + esc(o.item) + '</span>' +
+                    '<span class="shrink-0 text-xs font-medium text-black dark:text-white">$' + fmtMoney(o.amount) + '</span></div>';
+                }).join('');
+                return '<div class="mb-3 last:mb-0"><p class="mb-1 text-[11px] font-medium uppercase tracking-wider text-gray-400">' + typeLabels[k] + '</p>' + rows + '</div>';
+              }).join('')
+            : '<p class="py-2 text-xs text-gray-400">No investments or purchases yet.</p>';
+          if (window.lucide) lucide.createIcons();
+        });
+      }
+
+      function closeUserDetail() {
+        currentUser = null;
+        document.getElementById('user-detail-view').classList.add('hidden');
+        document.getElementById('user-list-view').classList.remove('hidden');
+        loadUsers();
+      }
+
+      function saveUserBalance() {
+        var value = Number(document.getElementById('u-balance-input').value);
+        api('/api/admin/users/' + currentUser.id, {
+          method: 'PATCH',
+          body: JSON.stringify({ balance: value })
+        }).then(function (r) {
+          var msg = document.getElementById('u-balance-msg');
+          if (r.ok) {
+            currentUser.balance = value;
+            document.getElementById('u-balance-big').textContent = '$' + fmtMoney(value);
+            msg.textContent = 'Balance updated.';
+            msg.className = 'mt-2 text-xs text-[#16a34a]';
+          } else {
+            msg.textContent = r.data.error || 'Update failed.';
+            msg.className = 'mt-2 text-xs text-[#b91c1c]';
+          }
+          msg.classList.remove('hidden');
+        });
+      }
+
+      function saveUserKyc() {
+        var status = document.getElementById('u-kyc-select').value;
+        api('/api/admin/users/' + currentUser.id, {
+          method: 'PATCH',
+          body: JSON.stringify({ kycStatus: status })
+        }).then(function (r) {
+          if (r.ok) currentUser.kycStatus = status;
+          else alert(r.data.error || 'Update failed.');
+        });
+      }
+
+      function deleteUser() {
+        if (!confirm('Delete ' + currentUser.name + '? This removes the account, sessions, deposits and orders. This cannot be undone.')) return;
+        api('/api/admin/users/' + currentUser.id, { method: 'DELETE' }).then(function (r) {
+          if (r.ok) closeUserDetail();
+          else alert(r.data.error || 'Delete failed.');
+        });
+      }
+
+      /* ---------------- per-user review ---------------- */
+      function reviewUserDeposit(id, status) {
+        api('/api/admin/deposits/' + id, {
+          method: 'PATCH',
+          body: JSON.stringify({ status: status })
+        }).then(function (r) {
+          if (r.ok) renderUserDetail();
+          else alert(r.data.error || 'Review failed.');
+        });
+      }
+      function reviewUserWithdrawal(id, status) {
+        var verb = status === 'approved' ? 'Approve' : 'Reject';
+        if (!confirm(verb + ' this withdrawal? ' + (status === 'approved' ? 'The user’s balance will be debited.' : ''))) return;
+        api('/api/admin/withdrawals/' + id, {
+          method: 'PATCH',
+          body: JSON.stringify({ status: status })
+        }).then(function (r) {
+          if (r.ok) renderUserDetail();
+          else alert(r.data.error || 'Review failed.');
+        });
+      }
+
+      /* ---------------- view all transactions ---------------- */
+      function viewAllTransactions(kind) {
+        if (!currentUser) return;
+        var labels = { deposits: 'Deposits', withdrawals: 'Withdrawals', orders: 'Purchases' };
+        var plural = { deposits: 'deposits', withdrawals: 'withdrawals', orders: 'orders' }[kind];
+        document.getElementById('tx-modal-title').textContent = 'All ' + labels[kind];
+        document.getElementById('tx-modal-sub').textContent = currentUser.name + ' — ' + currentUser.email;
+        document.getElementById('tx-modal-body').innerHTML = '<p class="py-8 text-center text-sm text-gray-500 dark:text-gray-400">Loading…</p>';
+        document.getElementById('tx-modal').classList.remove('hidden');
+        document.getElementById('tx-modal').classList.add('flex');
+        if (window.lucide) lucide.createIcons();
+
+        api('/api/admin/' + plural).then(function (r) {
+          if (!r.ok) return;
+          var list = (r.data[plural] || []).filter(function (x) { return x.userId === currentUser.id; });
+          var body = document.getElementById('tx-modal-body');
+          if (!list.length) {
+            body.innerHTML = '<p class="py-8 text-center text-sm text-gray-500 dark:text-gray-400">No ' + labels[kind].toLowerCase() + ' yet.</p>';
+            if (window.lucide) lucide.createIcons();
+            return;
+          }
+          if (kind === 'orders') {
+            body.innerHTML = list.map(function (o) {
+              return '<div class="flex items-center justify-between border-b border-gray-100 py-2.5 last:border-0 dark:border-white/5">' +
+                '<div class="min-w-0">' +
+                  '<p class="truncate text-sm font-medium text-black dark:text-white">' + esc(o.item) + '</p>' +
+                  '<p class="text-xs text-gray-500 dark:text-gray-400">' + fmtDate(o.createdAt) + '</p>' +
+                '</div>' +
+                '<div class="shrink-0 text-right">' +
+                  '<p class="text-sm font-medium text-black dark:text-white">$' + fmtMoney(o.amount) + '</p>' +
+                  typeBadge(o.type) +
+                '</div>' +
+              '</div>';
+            }).join('');
+            if (window.lucide) lucide.createIcons();
+            return;
+          }
+          var isWithdrawal = kind === 'withdrawals';
+          var reviewFn = isWithdrawal ? 'reviewUserWithdrawal' : 'reviewUserDeposit';
+          body.innerHTML = list.map(function (x) {
+            var review = x.status === 'pending'
+              ? '<div class="mt-1.5 flex gap-1">' +
+                '<button type="button" onclick="' + reviewFn + '(\'' + x.id + '\', \'approved\')" class="rounded-full bg-[#16a34a] px-3 py-1 text-xs font-medium text-white transition hover:bg-[#15803d]">Approve</button>' +
+                '<button type="button" onclick="' + reviewFn + '(\'' + x.id + '\', \'rejected\')" class="rounded-full border border-gray-300 px-3 py-1 text-xs font-medium text-black transition hover:bg-gray-50 dark:border-white/20 dark:text-white dark:hover:bg-white/10">Reject</button>' +
+              '</div>'
+              : '';
+            var extra = isWithdrawal
+              ? ' &middot; <span class="font-mono">' + esc(x.address) + '</span>'
+              : (x.txid ? ' &middot; ' + esc(x.txid) : '');
+            return '<div class="border-b border-gray-100 py-2.5 last:border-0 dark:border-white/5">' +
+              '<div class="flex items-center justify-between gap-2">' +
+                '<div class="min-w-0">' +
+                  '<p class="truncate text-sm font-medium text-black dark:text-white">$' + fmtMoney(x.amount) + ' <span class="uppercase text-xs font-normal text-gray-400">' + esc(x.coin) + '</span></p>' +
+                  '<p class="truncate text-xs text-gray-500 dark:text-gray-400">' + fmtDate(x.createdAt) + extra + '</p>' +
+                '</div>' +
+                '<div class="shrink-0 text-right">' + statusBadge(x.status) + '</div>' +
+              '</div>' + review +
+            '</div>';
+          }).join('');
+          if (window.lucide) lucide.createIcons();
+        });
+      }
+
+      function closeTxModal() {
+        document.getElementById('tx-modal').classList.add('hidden');
+        document.getElementById('tx-modal').classList.remove('flex');
+      }
+
+      /* ---------------- settings ---------------- */
+      var SETTINGS_COINS = [
+        { id: 'btc', name: 'Bitcoin', network: 'BTC network' },
+        { id: 'eth', name: 'Ethereum', network: 'ERC-20' },
+        { id: 'usdt', name: 'Tether', network: 'TRC-20' },
+        { id: 'sol', name: 'Solana', network: 'Solana' }
+      ];
+
+      function loadSettings() {
+        api('/api/settings').then(function (r) {
+          var settings = r.ok ? r.data : {};
+          var addresses = settings.depositAddresses || {};
+          var rates = settings.coinRates || {};
+          document.getElementById('settings-coins').innerHTML = SETTINGS_COINS.map(function (c) {
+            return '<div class="rounded-2xl border border-gray-200 bg-gray-50 p-4 dark:border-white/10 dark:bg-white/5">' +
+              '<div class="mb-3 flex items-center space-x-3">' +
+                '<img src="../assets/coins/' + c.id + '.png" alt="' + c.name + '" class="h-8 w-8 rounded-full" />' +
+                '<div><p class="text-sm font-medium text-black dark:text-white">' + c.name + '</p>' +
+                '<p class="text-xs text-gray-500 dark:text-gray-400">' + c.network + '</p></div>' +
+              '</div>' +
+              '<label class="mb-1 block text-xs font-medium text-gray-600 dark:text-gray-300">Deposit address</label>' +
+              '<input id="addr-' + c.id + '" type="text" value="' + esc(addresses[c.id] || '') + '" spellcheck="false" class="mb-3 w-full rounded-xl border border-gray-300 bg-white px-3 py-2 font-mono text-xs text-black focus:border-tesla focus:outline-none dark:border-gray-600 dark:bg-gray-800 dark:text-white" />' +
+              '<label class="mb-1 block text-xs font-medium text-gray-600 dark:text-gray-300">USD rate (1 ' + c.id.toUpperCase() + ' = $)</label>' +
+              '<input id="rate-' + c.id + '" type="number" min="0.00000001" step="any" value="' + (rates[c.id] || '') + '" class="w-full rounded-xl border border-gray-300 bg-white px-3 py-2 text-sm text-black focus:border-tesla focus:outline-none dark:border-gray-600 dark:bg-gray-800 dark:text-white" />' +
+              '</div>';
+          }).join('');
+        });
+      }
+
+      function saveSettings() {
+        var depositAddresses = {};
+        var coinRates = {};
+        var ok = true;
+        SETTINGS_COINS.forEach(function (c) {
+          var addr = document.getElementById('addr-' + c.id).value.trim();
+          var rate = Number(document.getElementById('rate-' + c.id).value);
+          if (!addr) { alert('Enter a deposit address for ' + c.name + '.'); ok = false; return; }
+          if (!(rate > 0)) { alert('Enter a valid rate for ' + c.name + '.'); ok = false; return; }
+          depositAddresses[c.id] = addr;
+          coinRates[c.id] = rate;
+        });
+        if (!ok) return;
+
+        api('/api/admin/settings', {
+          method: 'PUT',
+          body: JSON.stringify({ depositAddresses: depositAddresses, coinRates: coinRates })
+        }).then(function (r) {
+          var msg = document.getElementById('settings-message');
+          if (r.ok) {
+            msg.textContent = 'Settings saved. The deposit modal now shows the updated addresses and rates.';
+            msg.className = 'mb-4 rounded-xl border border-[#bbf7d0] bg-[#f0fdf4] px-4 py-3 text-sm text-[#15803d] dark:border-[#22c55e]/30 dark:bg-[#22c55e]/10 dark:text-[#4ade80]';
+          } else {
+            msg.textContent = r.data.error || 'Save failed.';
+            msg.className = 'mb-4 rounded-xl border border-[#fecaca] bg-[#fef2f2] px-4 py-3 text-sm text-[#b91c1c] dark:border-[#ef4444]/30 dark:bg-[#ef4444]/10 dark:text-[#f87171]';
+          }
+          msg.classList.remove('hidden');
+        });
+      }
+    </script>
+  </body>
+</html>

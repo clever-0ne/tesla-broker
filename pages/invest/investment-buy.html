@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Review the investment details, calculate the breakdown, and pay directly from your main balance." />
+    <title>Buy Investment — Tesla XTeam FX Trade</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.bunny.net" />
+    <link href="https://fonts.bunny.net/css?family=inter:300,400,500,600,700&display=swap" rel="stylesheet" />
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+
+    <!-- Tailwind CSS -->
+    <link rel="stylesheet" href="/dist/tailwind.css" />
+
+    <!-- Set theme before paint to avoid a flash of the wrong theme -->
+    <script>
+      (function () {
+        var stored = localStorage.getItem('theme');
+        var dark = stored === 'dark';
+        if (dark) document.documentElement.classList.add('dark');
+      })();
+    </script>
+  </head>
+
+  <body data-page="investments" data-title="Buy Investment" class="font-sans antialiased bg-gray-300 text-black dark:bg-navy-950 dark:text-white">
+    <div id="app" class="min-h-screen flex">
+      <div id="page-content" class="flex-1 flex flex-col min-h-screen overflow-hidden lg:ml-72">
+        <main class="flex-1 overflow-y-auto p-4 pb-24 sm:p-6 lg:pb-6">
+          <div class="mx-auto max-w-2xl">
+            <!-- Back -->
+            <div class="mb-4">
+              <a href="/pages/invest/investments.html" class="inline-flex items-center text-xs font-medium text-gray-500 transition hover:text-black dark:text-gray-400 dark:hover:text-white">
+                <i data-lucide="arrow-left" class="mr-1 w-3.5 h-3.5"></i>
+                Back to Plans
+              </a>
+            </div>
+
+            <!-- Hero -->
+            <div class="relative mb-6 overflow-hidden rounded-2xl bg-navy-950 p-6 text-white">
+              <div class="pointer-events-none absolute inset-0" aria-hidden="true">
+                <div class="absolute inset-0 t-grid opacity-30"></div>
+                <div class="absolute -left-16 top-1/2 h-72 w-72 -translate-y-1/2 t-orb"></div>
+                <div class="absolute -right-16 top-0 h-80 w-80 -translate-y-1/3 t-orb"></div>
+                <div class="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-transparent"></div>
+              </div>
+
+              <div class="relative z-10">
+                <div class="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+                  <div class="lg:flex-1">
+                    <p class="t-label mb-2 text-white/50">Investing</p>
+                    <h1 id="fund-name" class="mb-1 text-2xl font-light tracking-tight">Buy Tesla Growth Fund</h1>
+                    <p id="fund-sub" class="text-sm text-gray-300">Tesla-Focused &bull; High Risk</p>
+                  </div>
+
+                  <!-- Current NAV -->
+                  <div class="rounded-2xl border border-white/20 bg-white/10 p-4 lg:w-64">
+                    <div class="flex items-center justify-between">
+                      <div>
+                        <p class="mb-1 text-xs text-gray-300">Current NAV</p>
+                        <p id="nav-value" class="text-lg font-light">$900,000.0000</p>
+                      </div>
+                      <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-white/20">
+                        <i data-lucide="trending-up" class="w-5 h-5"></i>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Buy form -->
+            <div id="buy-card" class="rounded-2xl border border-gray-200 bg-gradient-to-b from-white to-gray-50 p-5 shadow-sm dark:border-white/10 dark:bg-gray-900">
+              <!-- Investment Amount -->
+              <div class="mb-5">
+                <label for="amount" class="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300">Investment Amount</label>
+                <div class="relative">
+                  <span class="absolute left-3 top-1/2 -translate-y-1/2 text-sm text-gray-500">$</span>
+                  <input type="number"
+                         id="amount"
+                         step="0.01"
+                         placeholder="0.00"
+                         class="w-full rounded-xl border border-gray-200 bg-white py-3 pl-8 pr-4 text-sm text-black transition focus:border-black focus:outline-none focus:ring-2 focus:ring-black/10 dark:border-white/10 dark:bg-gray-900 dark:text-white dark:focus:border-white dark:focus:ring-white/10"
+                         required />
+                </div>
+                <p id="amount-hint" class="mt-1 text-xs text-gray-500 dark:text-gray-400">Minimum investment: $100.00</p>
+              </div>
+
+              <!-- Plan Information -->
+              <div class="mb-5 rounded-xl border border-[#d7e4fa] bg-[#e9f0fc] p-4 dark:border-[#2563eb]/25 dark:bg-[#2563eb]/10">
+                <div class="mb-3 flex items-center justify-between">
+                  <span class="text-xs font-medium text-[#1e40af] dark:text-[#93b4f8]">Plan Information</span>
+                  <div class="flex h-8 w-8 items-center justify-center rounded-lg bg-white/70 dark:bg-white/10">
+                    <i data-lucide="info" class="w-4 h-4 text-[#2563eb]"></i>
+                  </div>
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                  <div>
+                    <p class="mb-1 text-xs text-[#3b6bd0] dark:text-[#a9c4f6]">Current NAV</p>
+                    <p id="info-nav" class="text-sm font-medium text-[#1e40af] dark:text-[#d6e4ff]">$900,000.0000</p>
+                  </div>
+                  <div>
+                    <p class="mb-1 text-xs text-[#3b6bd0] dark:text-[#a9c4f6]">1Y Return</p>
+                    <p id="info-return" class="text-sm font-medium text-[#16a34a]">+28.57%</p>
+                  </div>
+                  <div>
+                    <p class="mb-1 text-xs text-[#3b6bd0] dark:text-[#a9c4f6]">Management Fee</p>
+                    <p id="info-fee" class="text-sm font-medium text-[#1e40af] dark:text-[#d6e4ff]">0.85%</p>
+                  </div>
+                  <div>
+                    <p class="mb-1 text-xs text-[#3b6bd0] dark:text-[#a9c4f6]">Risk Level</p>
+                    <p id="info-risk" class="text-sm font-medium text-[#1e40af] dark:text-[#d6e4ff]">High</p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Investment Breakdown -->
+              <div class="mb-5 rounded-xl border border-[#bfe7cf] bg-[#e8f7ee] p-4 dark:border-[#22c55e]/25 dark:bg-[#22c55e]/10">
+                <div class="mb-3 flex items-center justify-between">
+                  <span class="text-xs font-medium text-[#166534] dark:text-[#7fe0a8]">Investment Breakdown</span>
+                  <div class="flex h-8 w-8 items-center justify-center rounded-lg bg-white/70 dark:bg-white/10">
+                    <i data-lucide="calculator" class="w-4 h-4 text-[#16a34a]"></i>
+                  </div>
+                </div>
+                <div class="space-y-2">
+                  <div class="flex items-center justify-between">
+                    <span class="text-xs text-[#2e8b57] dark:text-[#7fe0a8]">Investment Amount:</span>
+                    <span id="calc-amount" class="text-xs font-medium text-[#166534] dark:text-[#baf0ce]">$0.00</span>
+                  </div>
+                  <div class="flex items-center justify-between">
+                    <span class="text-xs text-[#2e8b57] dark:text-[#7fe0a8]">Units to Buy:</span>
+                    <span id="calc-units" class="text-xs font-medium text-[#166534] dark:text-[#baf0ce]">0.0000</span>
+                  </div>
+                  <div class="flex items-center justify-between">
+                    <span class="text-xs text-[#2e8b57] dark:text-[#7fe0a8]">Processing Fee:</span>
+                    <span id="calc-fee" class="text-xs font-medium text-[#166534] dark:text-[#baf0ce]">$0.00</span>
+                  </div>
+                  <div class="border-t border-[#bfe7cf] pt-2 dark:border-[#22c55e]/30">
+                    <div class="flex items-center justify-between">
+                      <span class="text-xs font-semibold text-[#166534] dark:text-[#7fe0a8]">Total Cost:</span>
+                      <span id="calc-total" class="text-xs font-bold text-[#14532d] dark:text-[#d9f7e4]">$0.00</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Wallet Balance -->
+              <div class="mb-5 rounded-xl border border-gray-200 bg-gray-50 p-4 dark:border-white/10 dark:bg-white/5">
+                <div class="mb-3 flex items-center justify-between">
+                  <span class="text-xs font-medium text-gray-800 dark:text-gray-300">Wallet Balance</span>
+                  <div class="flex h-8 w-8 items-center justify-center rounded-lg bg-white dark:bg-white/10">
+                    <i data-lucide="wallet" class="w-4 h-4 text-gray-600 dark:text-gray-400"></i>
+                  </div>
+                </div>
+                <div class="flex items-center justify-between">
+                  <span class="text-xs text-gray-600 dark:text-gray-400">Available Balance:</span>
+                  <span id="balance-available" class="text-xs font-medium text-gray-800 dark:text-gray-300">$0.00</span>
+                </div>
+                <div class="mt-1 flex items-center justify-between">
+                  <span class="text-xs text-gray-600 dark:text-gray-400">After Purchase:</span>
+                  <span id="balance-remaining" class="text-xs font-medium text-gray-800 dark:text-gray-300">$0.00</span>
+                </div>
+              </div>
+
+              <!-- Submit -->
+              <div class="pt-1">
+                <button type="button" id="buy-btn" onclick="completeInvestment()" class="t-btn w-full">
+                  <i data-lucide="plus" class="w-4 h-4"></i>
+                  Buy Investment
+                </button>
+                <p class="mt-3 text-center text-[11px] text-gray-400 dark:text-gray-500">Paid directly from your main balance.</p>
+              </div>
+            </div>
+
+            <!-- Success state (paid from main balance) -->
+            <div id="buy-success" class="hidden rounded-2xl border border-[#bfe7cf] bg-gradient-to-b from-[#f0fdf4] to-white p-8 text-center shadow-sm dark:border-[#22c55e]/30 dark:bg-gray-900">
+              <div class="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-[#e8f7ee] dark:bg-[#22c55e]/10">
+                <i data-lucide="check" class="w-7 h-7 text-[#16a34a]"></i>
+              </div>
+              <h3 class="mb-1 text-lg font-medium text-black dark:text-white">Investment purchased</h3>
+              <p class="mb-2 text-sm text-gray-500 dark:text-gray-400">
+                You paid <span id="success-amount" class="font-medium text-[#16a34a]">$0.00</span> from your main balance.
+              </p>
+              <p class="mb-6 text-xs text-gray-400 dark:text-gray-500">Your updated balance is shown in the sidebar.</p>
+              <a href="/pages/invest/investments.html" class="inline-flex w-full items-center justify-center rounded-full bg-gray-200 px-6 py-2.5 text-sm font-medium text-navy-950 shadow-lg transition hover:bg-gray-300">
+                Back to Plans
+              </a>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+
+    <script src="/dashboard-shell.js"></script>
+    <script>
+      // ---- Query params ----
+      function getParam(name) {
+        var m = new RegExp('[?&]' + name + '=([^&]*)').exec(window.location.search);
+        return m ? decodeURIComponent(m[1].replace(/\+/g, ' ')) : null;
+      }
+
+      // ---- Plan data (defaults to the Tesla Growth Fund when opened directly) ----
+      var plan = {
+        name: getParam('name') || 'Tesla Growth Fund',
+        category: getParam('cat') || 'Tesla-Focused',
+        risk: getParam('risk') || 'High',
+        nav: Number(getParam('nav')) || 900000,
+        ret: Number(getParam('ret')) || 0,
+        min: Number(getParam('min')) || 100,
+        max: Number(getParam('max')) || 100000,
+        fee: Number(getParam('fee')) || 0.85
+      };
+
+      function fmtMoney(n) {
+        return '$' + Number(n).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      }
+      function fmtNav(n) {
+        return '$' + Number(n).toLocaleString('en-US', { minimumFractionDigits: 4, maximumFractionDigits: 4 });
+      }
+
+      function currentBalance() {
+        return (window.FX && FX.balance) ? FX.balance() : 0;
+      }
+
+      function renderPlan() {
+        document.getElementById('fund-name').textContent = plan.name;
+        document.getElementById('fund-sub').textContent = plan.category + ' • ' + plan.risk;
+        document.getElementById('nav-value').textContent = fmtNav(plan.nav);
+        document.getElementById('info-nav').textContent = fmtNav(plan.nav);
+        document.getElementById('info-return').textContent = '+' + Number(plan.ret).toFixed(2) + '%';
+        document.getElementById('info-fee').textContent = Number(plan.fee).toFixed(2) + '%';
+        document.getElementById('info-risk').textContent = plan.risk;
+        document.getElementById('amount-hint').textContent =
+          'Minimum investment: ' + fmtMoney(plan.min) + ' • Maximum: ' + fmtMoney(plan.max);
+
+        var input = document.getElementById('amount');
+        input.min = plan.min;
+        input.max = plan.max;
+      }
+
+      function updateCalc() {
+        var amount = parseFloat(document.getElementById('amount').value) || 0;
+        var units = amount / plan.nav;
+        var feeAmt = amount * (plan.fee / 100);
+        var total = amount + feeAmt;
+        var balance = currentBalance();
+        var remaining = balance - total;
+
+        document.getElementById('calc-amount').textContent = fmtMoney(amount);
+        document.getElementById('calc-units').textContent = Number(units).toFixed(4);
+        document.getElementById('calc-fee').textContent = fmtMoney(feeAmt);
+        document.getElementById('calc-total').textContent = fmtMoney(total);
+        document.getElementById('balance-available').textContent = fmtMoney(balance);
+        document.getElementById('balance-remaining').textContent = fmtMoney(remaining);
+
+        var blocked = amount < plan.min || amount > plan.max || total > balance;
+        var btn = document.getElementById('buy-btn');
+        btn.disabled = blocked;
+        btn.classList.toggle('opacity-50', blocked);
+        btn.classList.toggle('cursor-not-allowed', blocked);
+        if (blocked && amount > 0) {
+          btn.innerHTML = '<i data-lucide="alert-circle" class="w-4 h-4"></i>Insufficient Funds';
+        } else {
+          btn.innerHTML = '<i data-lucide="plus" class="w-4 h-4"></i>Buy Investment';
+        }
+        if (window.lucide) lucide.createIcons();
+      }
+
+      function completeInvestment() {
+        var amount = parseFloat(document.getElementById('amount').value) || 0;
+        var total = amount + amount * (plan.fee / 100);
+        if (total > currentBalance()) return;
+
+        var btn = document.getElementById('buy-btn');
+        btn.disabled = true;
+        btn.innerHTML = '<i data-lucide="loader" class="w-4 h-4 animate-spin"></i>Processing…';
+        if (window.lucide) lucide.createIcons();
+
+        // Paid directly from the main balance — no crypto payment modal.
+        FX.debit(total, 'investment', plan.name).then(function (r) {
+          if (r.ok) {
+            showBuySuccess(total);
+          } else {
+            alert(r.data.error || 'Unable to complete your investment.');
+            btn.disabled = false;
+            btn.innerHTML = '<i data-lucide="plus" class="w-4 h-4"></i>Buy Investment';
+            if (window.lucide) lucide.createIcons();
+          }
+        });
+      }
+
+      function showBuySuccess(total) {
+        document.getElementById('buy-card').classList.add('hidden');
+        document.getElementById('success-amount').textContent = fmtMoney(total);
+        document.getElementById('buy-success').classList.remove('hidden');
+        if (window.lucide) lucide.createIcons();
+      }
+
+      document.addEventListener('DOMContentLoaded', function () {
+        renderPlan();
+        updateCalc();
+        document.getElementById('amount').addEventListener('input', updateCalc);
+        window.addEventListener('fxbalancechange', updateCalc);
+      });
+    </script>
+  </body>
+</html>

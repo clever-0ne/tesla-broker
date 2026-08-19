@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="All-in-one platform for crypto wallet funding, automated investments, live stocks, and premium EV inventory." />
+
+    <title>Tesla XTeam FX Trade</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.bunny.net" />
+    <link href="https://fonts.bunny.net/css?family=inter:300,400,500,600,700&display=swap" rel="stylesheet" />
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+
+    <!-- Tailwind CSS (compiled locally — rebuild with `npm run build` or `npm run dev`) -->
+    <link rel="stylesheet" href="/dist/tailwind.css" />
+
+    <!-- Set theme before paint to avoid a flash of the wrong theme -->
+    <script>
+      (function () {
+        var stored = localStorage.getItem('theme');
+        var dark = stored === 'dark';
+        if (dark) document.documentElement.classList.add('dark');
+      })();
+    </script>
+  </head>
+
+  <body class="font-sans antialiased bg-gray-300 text-black dark:bg-navy-950 dark:text-white">
+    <!-- Fixed background: grid lines -->
+    <div aria-hidden="true" class="pointer-events-none fixed inset-0 -z-10 t-gridlines"></div>
+    <!-- ============ Top Navigation ============ -->
+    <nav class="fixed top-0 left-0 right-0 z-50 border-b border-white/10 bg-navy-950">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center h-16">
+          <!-- Logo -->
+          <div class="flex items-center">
+            <a href="#top" class="flex items-center">
+              <img src="/assets/logo.svg" alt="Tesla XTeam FX Trade" class="h-6 w-auto filter brightness-0 invert" />
+            </a>
+          </div>
+
+          <!-- Primary Nav -->
+          <div class="hidden md:flex items-center space-x-8">
+            <a href="#inventory" class="text-sm font-medium text-gray-400 transition hover:text-white">Inventory</a>
+            <a href="#auth" data-open="signup" class="text-sm font-medium text-gray-400 transition hover:text-white">Invest</a>
+            <a href="#crypto" class="text-sm font-medium text-gray-400 transition hover:text-white">Crypto</a>
+            <a href="#auth" class="text-sm font-medium text-gray-400 transition hover:text-white">Portfolio</a>
+          </div>
+
+          <!-- Right Side -->
+          <div class="flex items-center space-x-3">
+            <!-- Theme toggle -->
+            <button type="button" id="theme-toggle" class="p-2 rounded-full text-gray-400 transition hover:bg-white/10" aria-label="Toggle dark mode">
+              <i data-lucide="sun" id="theme-sun" class="w-5 h-5 hidden"></i>
+              <i data-lucide="moon" id="theme-moon" class="w-5 h-5"></i>
+            </button>
+
+            <a href="#auth" id="nav-signin" class="rounded-full bg-gray-200 px-5 py-2 text-sm font-medium text-navy-950 shadow-lg transition hover:bg-gray-300">
+              Sign In
+            </a>
+
+            <!-- Mobile menu button -->
+            <button type="button" class="md:hidden p-2 text-gray-400 rounded-full transition hover:bg-white/10" id="mobile-menu-button" aria-label="Open menu">
+              <i data-lucide="menu" class="w-5 h-5" id="menu-icon"></i>
+              <i data-lucide="x" class="w-5 h-5 hidden" id="close-icon"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mobile Menu -->
+      <div class="md:hidden hidden bg-navy-950 border-t border-white/10" id="mobile-menu">
+        <div class="px-4 pt-2 pb-4 space-y-1">
+          <a href="#inventory" class="block px-3 py-2 text-sm font-medium text-gray-300 rounded hover:bg-white/10">Inventory</a>
+          <a href="#auth" data-open="signup" class="block px-3 py-2 text-sm font-medium text-gray-300 rounded hover:bg-white/10">Invest</a>
+          <a href="#crypto" class="block px-3 py-2 text-sm font-medium text-gray-300 rounded hover:bg-white/10">Crypto</a>
+          <a href="#auth" class="block px-3 py-2 text-sm font-medium text-gray-300 rounded hover:bg-white/10">Portfolio</a>
+          <div class="border-t border-white/10 mt-2 pt-2">
+            <a href="#auth" class="block px-3 py-2 text-sm font-medium text-gray-300 rounded hover:bg-white/10">Sign In</a>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- ============ Hero ============ -->
+    <main id="top">
+      <header class="relative overflow-hidden bg-navy-950 text-white">
+        <!-- Background grid pattern -->
+        <svg class="absolute inset-0 opacity-[0.06] z-0 pointer-events-none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+          <defs>
+            <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+              <path d="M 40 0 L 0 0 0 40" fill="none" stroke="white" stroke-width="1" />
+            </pattern>
+          </defs>
+          <rect width="100%" height="100%" fill="url(#grid)" />
+        </svg>
+
+        <!-- Background image -->
+        <div class="absolute inset-0 z-0 pointer-events-none" aria-hidden="true">
+          <img src="/assets/tesla-hero.jpg" alt="" class="h-full w-full object-cover opacity-20" loading="eager" decoding="async" />
+          <div class="absolute inset-0 bg-gradient-to-b from-navy-950/80 via-navy-900/70 to-navy-950/90"></div>
+          <div class="absolute -left-24 top-1/4 h-96 w-96 t-orb"></div>
+          <div class="absolute -right-20 bottom-0 h-[28rem] w-[28rem] t-orb"></div>
+        </div>
+
+        <!-- Glossy sheen -->
+        <div class="absolute inset-0 z-0 pointer-events-none" aria-hidden="true">
+          <div class="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-transparent"></div>
+        </div>
+
+        <div class="relative z-10">
+          <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 lg:py-24">
+            <div class="grid grid-cols-1 items-center gap-10 lg:grid-cols-2 lg:gap-16">
+              <div>
+                <h1 class="text-4xl font-bold tracking-tight sm:text-6xl bg-gradient-to-b from-white via-white to-gray-400 bg-clip-text text-transparent">
+                  Invest. Trade. Drive.
+                </h1>
+                <p class="mt-4 max-w-xl text-base text-gray-300 sm:text-lg">
+                  All-in-one platform for crypto wallet funding, automated investments, live stocks, and premium EV inventory.
+                </p>
+
+                <div class="mt-8 flex flex-col gap-3 sm:flex-row">
+                  <a href="#auth" data-open="signup" class="inline-flex items-center justify-center rounded-full bg-white px-6 py-3 text-sm font-medium text-black shadow-lg transition hover:bg-gray-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60 focus-visible:ring-offset-2 focus-visible:ring-offset-black">
+                    <i data-lucide="trending-up" class="mr-2 h-4 w-4" aria-hidden="true"></i>
+                    Start Investing
+                  </a>
+                  <a href="#crypto" class="inline-flex items-center justify-center rounded-full border border-white/30 px-6 py-3 text-sm font-medium text-white transition hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60 focus-visible:ring-offset-2 focus-visible:ring-offset-black">
+                    <i data-lucide="bitcoin" class="mr-2 h-4 w-4" aria-hidden="true"></i>
+                    Explore Crypto
+                  </a>
+                  <a href="#inventory" class="inline-flex items-center justify-center rounded-full border border-white/30 px-6 py-3 text-sm font-medium text-white transition hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60 focus-visible:ring-offset-2 focus-visible:ring-offset-black">
+                    <i data-lucide="car" class="mr-2 h-4 w-4" aria-hidden="true"></i>
+                    View Inventory
+                  </a>
+                </div>
+
+                <div class="mt-8 grid grid-cols-1 gap-3 sm:grid-cols-3">
+                  <div class="rounded-xl border border-white/10 bg-white/5 p-4">
+                    <p class="text-xs text-gray-300">Live Crypto</p>
+                    <p class="mt-1 text-lg font-semibold text-white">Realtime</p>
+                  </div>
+                  <div class="rounded-xl border border-white/10 bg-white/5 p-4">
+                    <p class="text-xs text-gray-300">Wallet</p>
+                    <p class="mt-1 text-lg font-semibold text-white">Crypto</p>
+                  </div>
+                  <div class="rounded-xl border border-white/10 bg-white/5 p-4">
+                    <p class="text-xs text-gray-300">EV Inventory</p>
+                    <p class="mt-1 text-lg font-semibold text-white">Premium</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="grid grid-cols-2 gap-4">
+                <article class="rounded-2xl border border-white/10 bg-white/5 p-4 shadow transition hover:bg-white/10">
+                  <h3 class="text-xs text-gray-300">Investments</h3>
+                  <p class="mt-2 text-2xl font-semibold text-white">Automated</p>
+                  <p class="mt-1 text-sm text-gray-300">Flexible plans, recurring contributions.</p>
+                </article>
+                <article class="rounded-2xl border border-white/10 bg-white/5 p-4 shadow transition hover:bg-white/10">
+                  <h3 class="text-xs text-gray-300">Stocks</h3>
+                  <p class="mt-2 text-2xl font-semibold text-white">Realtime</p>
+                  <p class="mt-1 text-sm text-gray-300">Quotes, news, and watchlists.</p>
+                </article>
+                <article class="rounded-2xl border border-white/10 bg-white/5 p-4 shadow transition hover:bg-white/10">
+                  <h3 class="text-xs text-gray-300">Wallet</h3>
+                  <p class="mt-2 text-2xl font-semibold text-white">Crypto</p>
+                  <p class="mt-1 text-sm text-gray-300">Deposit and withdraw easily.</p>
+                </article>
+                <article class="rounded-2xl border border-white/10 bg-white/5 p-4 shadow transition hover:bg-white/10">
+                  <h3 class="text-xs text-gray-300">Marketplace</h3>
+                  <p class="mt-2 text-2xl font-semibold text-white">Tesla</p>
+                  <p class="mt-1 text-sm text-gray-300">Curated EV selection.</p>
+                </article>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Wave divider -->
+        <div class="absolute bottom-0 left-0 right-0 translate-y-[1px]" aria-hidden="true">
+          <svg viewBox="0 0 1440 80" xmlns="http://www.w3.org/2000/svg">
+            <path fill="#0d1b2e" fill-opacity="1" d="M0,64L48,69.3C96,75,192,85,288,85.3C384,85,480,75,576,53.3C672,32,768,0,864,0C960,0,1056,32,1152,53.3C1248,75,1344,85,1392,90.7L1440,96L1440,160L1392,160C1344,160,1248,160,1152,160C1050,160,960,160,864,160C768,160,672,160,576,160C480,160,384,160,288,160C192,160,96,160,48,160L0,160Z"></path>
+          </svg>
+        </div>
+      </header>
+
+      <!-- ============ Quick Actions ============ -->
+      <section class="bg-gray-50 dark:bg-navy-950" aria-labelledby="quick-actions-heading">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
+          <h2 id="quick-actions-heading" class="sr-only">Quick actions</h2>
+
+          <nav class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4" aria-label="Quick actions">
+            <a href="#auth" class="group rounded-2xl border border-gray-200 bg-gradient-to-b from-white to-gray-50 p-5 shadow-sm transition hover:shadow-xl hover:shadow-tesla/10 dark:border-white/10 dark:bg-gray-900 dark:hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-tesla/60">
+              <div class="flex items-center justify-between">
+                <div>
+                  <p class="text-xs text-gray-500 dark:text-gray-400">Wallet</p>
+                  <p class="mt-1 text-sm font-medium text-black dark:text-white">Fund or withdraw</p>
+                </div>
+                <span class="inline-flex h-8 w-8 items-center justify-center rounded-full bg-gray-100 text-gray-700 transition group-hover:bg-tesla group-hover:text-white dark:bg-white/10 dark:text-white dark:group-hover:text-black">
+                  <i data-lucide="wallet" class="h-4 w-4" aria-hidden="true"></i>
+                </span>
+              </div>
+            </a>
+
+            <a href="#auth" data-open="signup" class="group rounded-2xl border border-gray-200 bg-gradient-to-b from-white to-gray-50 p-5 shadow-sm transition hover:shadow-xl hover:shadow-tesla/10 dark:border-white/10 dark:bg-gray-900 dark:hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-tesla/60">
+              <div class="flex items-center justify-between">
+                <div>
+                  <p class="text-xs text-gray-500 dark:text-gray-400">Investments</p>
+                  <p class="mt-1 text-sm font-medium text-black dark:text-white">Create a plan</p>
+                </div>
+                <span class="inline-flex h-8 w-8 items-center justify-center rounded-full bg-gray-100 text-gray-700 transition group-hover:bg-tesla group-hover:text-white dark:bg-white/10 dark:text-white dark:group-hover:text-black">
+                  <i data-lucide="trending-up" class="h-4 w-4" aria-hidden="true"></i>
+                </span>
+              </div>
+            </a>
+
+            <a href="#crypto" class="group rounded-2xl border border-gray-200 bg-gradient-to-b from-white to-gray-50 p-5 shadow-sm transition hover:shadow-xl hover:shadow-tesla/10 dark:border-white/10 dark:bg-gray-900 dark:hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-tesla/60">
+              <div class="flex items-center justify-between">
+                <div>
+                  <p class="text-xs text-gray-500 dark:text-gray-400">Crypto</p>
+                  <p class="mt-1 text-sm font-medium text-black dark:text-white">Market overview</p>
+                </div>
+                <span class="inline-flex h-8 w-8 items-center justify-center rounded-full bg-gray-100 text-gray-700 transition group-hover:bg-tesla group-hover:text-white dark:bg-white/10 dark:text-white dark:group-hover:text-black">
+                  <i data-lucide="bitcoin" class="h-4 w-4" aria-hidden="true"></i>
+                </span>
+              </div>
+            </a>
+
+            <a href="#auth" class="group rounded-2xl border border-gray-200 bg-gradient-to-b from-white to-gray-50 p-5 shadow-sm transition hover:shadow-xl hover:shadow-tesla/10 dark:border-white/10 dark:bg-gray-900 dark:hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-tesla/60">
+              <div class="flex items-center justify-between">
+                <div>
+                  <p class="text-xs text-gray-500 dark:text-gray-400">Portfolio</p>
+                  <p class="mt-1 text-sm font-medium text-black dark:text-white">Track performance</p>
+                </div>
+                <span class="inline-flex h-8 w-8 items-center justify-center rounded-full bg-gray-100 text-gray-700 transition group-hover:bg-tesla group-hover:text-white dark:bg-white/10 dark:text-white dark:group-hover:text-black">
+                  <i data-lucide="pie-chart" class="h-4 w-4" aria-hidden="true"></i>
+                </span>
+              </div>
+            </a>
+          </nav>
+        </div>
+      </section>
+
+      <!-- ============ Featured Inventory ============ -->
+      <section id="inventory" class="bg-white py-16 dark:bg-navy-950" aria-labelledby="inventory-heading">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div class="mb-8 flex items-center justify-between">
+            <div>
+              <h2 id="inventory-heading" class="text-xl font-semibold text-black sm:text-2xl dark:text-white">Available Inventory</h2>
+              <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">Explore a curated selection ready for delivery.</p>
+            </div>
+            <a href="#inventory" class="text-sm font-medium text-tesla underline-offset-4 hover:underline">View all</a>
+          </div>
+
+          <div class="grid grid-cols-1 gap-6 lg:grid-cols-2 xl:grid-cols-3 lg:gap-8">
+            <!-- Car: Cybertruck -->
+            <article class="group cursor-pointer rounded-2xl border border-gray-200 bg-gradient-to-b from-white to-gray-50 shadow-sm transition hover:shadow-xl hover:shadow-black/10 dark:border-white/10 dark:bg-gray-900 dark:hover:shadow-black/40 focus-within:ring-2 focus-within:ring-tesla/40">
+              <a href="#inventory" class="block overflow-hidden rounded-t-2xl">
+                <div class="relative aspect-[16/9]">
+                  <img
+                    src="/assets/cars/cybertruck.jpg"
+                    alt="Tesla Cybertruck"
+                    class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    loading="lazy"
+                    decoding="async"
+                    sizes="(min-width: 1280px) 384px, (min-width: 1024px) 50vw, 100vw"
+                  />
+                </div>
+              </a>
+
+              <div class="p-4">
+                <h3 class="mb-1 text-base font-medium text-black group-hover:text-black/80 sm:text-lg dark:text-white dark:group-hover:text-white/80">
+                  <a href="#inventory" class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-tesla/40">Tesla Cybertruck</a>
+                </h3>
+
+                <div class="mb-3 flex items-center gap-6 text-xs text-gray-600 dark:text-gray-400">
+                  <div>
+                    <span class="font-medium">410mi</span>
+                    <span class="block text-[10px]">Range</span>
+                  </div>
+                  <div>
+                    <span class="font-medium">3.1s</span>
+                    <span class="block text-[10px]">0-60 mph</span>
+                  </div>
+                  <div>
+                    <span class="font-medium">130mph</span>
+                    <span class="block text-[10px]">Top Speed</span>
+                  </div>
+                </div>
+
+                <div class="flex items-center justify-between">
+                  <div>
+                    <p class="text-sm font-medium text-[#16a34a] dark:text-[#4ade80]">Starting at $79,990.00*</p>
+                    <p class="text-xs text-gray-500 dark:text-gray-400">After Est. Gas Savings</p>
+                  </div>
+                  <div class="flex items-center gap-2">
+                    <a href="#inventory" class="rounded-full border border-gray-300 px-4 py-1.5 text-xs font-medium text-black transition hover:bg-gray-50 dark:border-white/20 dark:text-white dark:hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-tesla/40">Learn</a>
+                    <a href="#auth" data-open="signup" class="rounded-full bg-tesla px-4 py-1.5 text-xs font-medium text-white dark:text-black shadow-md shadow-tesla/30 transition hover:bg-tesla-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-tesla/40">Order</a>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <!-- Car: Model S -->
+            <article class="group cursor-pointer rounded-2xl border border-gray-200 bg-gradient-to-b from-white to-gray-50 shadow-sm transition hover:shadow-xl hover:shadow-black/10 dark:border-white/10 dark:bg-gray-900 dark:hover:shadow-black/40 focus-within:ring-2 focus-within:ring-tesla/40">
+              <a href="#inventory" class="block overflow-hidden rounded-t-2xl">
+                <div class="relative aspect-[16/9]">
+                  <img
+                    src="/assets/cars/model-s.jpg"
+                    alt="Tesla Model S"
+                    class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    loading="lazy"
+                    decoding="async"
+                    sizes="(min-width: 1280px) 384px, (min-width: 1024px) 50vw, 100vw"
+                  />
+                </div>
+              </a>
+
+              <div class="p-4">
+                <h3 class="mb-1 text-base font-medium text-black group-hover:text-black/80 sm:text-lg dark:text-white dark:group-hover:text-white/80">
+                  <a href="#inventory" class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-tesla/40">Tesla Model S</a>
+                </h3>
+
+                <div class="mb-3 flex items-center gap-6 text-xs text-gray-600 dark:text-gray-400">
+                  <div>
+                    <span class="font-medium">410mi</span>
+                    <span class="block text-[10px]">Range</span>
+                  </div>
+                  <div>
+                    <span class="font-medium">3.1s</span>
+                    <span class="block text-[10px]">0-60 mph</span>
+                  </div>
+                  <div>
+                    <span class="font-medium">130mph</span>
+                    <span class="block text-[10px]">Top Speed</span>
+                  </div>
+                </div>
+
+                <div class="flex items-center justify-between">
+                  <div>
+                    <p class="text-sm font-medium text-[#16a34a] dark:text-[#4ade80]">Starting at $74,990.00*</p>
+                    <p class="text-xs text-gray-500 dark:text-gray-400">After Est. Gas Savings</p>
+                  </div>
+                  <div class="flex items-center gap-2">
+                    <a href="#inventory" class="rounded-full border border-gray-300 px-4 py-1.5 text-xs font-medium text-black transition hover:bg-gray-50 dark:border-white/20 dark:text-white dark:hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-tesla/40">Learn</a>
+                    <a href="#auth" data-open="signup" class="rounded-full bg-tesla px-4 py-1.5 text-xs font-medium text-white dark:text-black shadow-md shadow-tesla/30 transition hover:bg-tesla-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-tesla/40">Order</a>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <!-- Car: Model Y -->
+            <article class="group cursor-pointer rounded-2xl border border-gray-200 bg-gradient-to-b from-white to-gray-50 shadow-sm transition hover:shadow-xl hover:shadow-black/10 dark:border-white/10 dark:bg-gray-900 dark:hover:shadow-black/40 focus-within:ring-2 focus-within:ring-tesla/40">
+              <a href="#inventory" class="block overflow-hidden rounded-t-2xl">
+                <div class="relative aspect-[16/9]">
+                  <img
+                    src="/assets/cars/model-y.jpg"
+                    alt="2024 Tesla Model Y"
+                    class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    loading="lazy"
+                    decoding="async"
+                    sizes="(min-width: 1280px) 384px, (min-width: 1024px) 50vw, 100vw"
+                  />
+                </div>
+              </a>
+
+              <div class="p-4">
+                <h3 class="mb-1 text-base font-medium text-black group-hover:text-black/80 sm:text-lg dark:text-white dark:group-hover:text-white/80">
+                  <a href="#inventory" class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-tesla/40">2024 Tesla Model Y</a>
+                </h3>
+
+                <div class="mb-3 flex items-center gap-6 text-xs text-gray-600 dark:text-gray-400">
+                  <div>
+                    <span class="font-medium">410mi</span>
+                    <span class="block text-[10px]">Range</span>
+                  </div>
+                  <div>
+                    <span class="font-medium">3.1s</span>
+                    <span class="block text-[10px]">0-60 mph</span>
+                  </div>
+                  <div>
+                    <span class="font-medium">130mph</span>
+                    <span class="block text-[10px]">Top Speed</span>
+                  </div>
+                </div>
+
+                <div class="flex items-center justify-between">
+                  <div>
+                    <p class="text-sm font-medium text-[#16a34a] dark:text-[#4ade80]">Starting at $42,000.00*</p>
+                    <p class="text-xs text-gray-500 dark:text-gray-400">After Est. Gas Savings</p>
+                  </div>
+                  <div class="flex items-center gap-2">
+                    <a href="#inventory" class="rounded-full border border-gray-300 px-4 py-1.5 text-xs font-medium text-black transition hover:bg-gray-50 dark:border-white/20 dark:text-white dark:hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-tesla/40">Learn</a>
+                    <a href="#auth" data-open="signup" class="rounded-full bg-tesla px-4 py-1.5 text-xs font-medium text-white dark:text-black shadow-md shadow-tesla/30 transition hover:bg-tesla-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-tesla/40">Order</a>
+                  </div>
+                </div>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ Crypto Markets ============ -->
+      <section id="crypto" class="bg-navy-950 py-16 text-white" aria-labelledby="markets-heading">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div class="mb-8 flex items-center justify-between">
+            <div>
+              <h2 id="markets-heading" class="text-xl font-semibold sm:text-2xl">Crypto Markets</h2>
+              <p class="mt-1 text-sm text-gray-400">Featured picks, top gainers, losers, and most active.</p>
+            </div>
+            <a href="#crypto" class="text-sm font-medium text-white underline-offset-4 hover:underline">Open markets</a>
+          </div>
+
+          <div class="grid grid-cols-1 gap-6 lg:grid-cols-3">
+            <!-- Featured -->
+            <div class="lg:col-span-1">
+              <div class="rounded-xl border border-white/10 from-white/5 to-white/0 bg-gradient-to-br p-4">
+                <div class="mb-3 flex items-center justify-between">
+                  <h3 class="text-sm font-semibold">Featured</h3>
+                  <a href="#crypto" class="text-xs text-gray-300 hover:text-white">See all</a>
+                </div>
+
+                <div class="space-y-3">
+                  <a href="#" class="flex items-center justify-between rounded-lg p-3 transition hover:bg-white/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60">
+                    <div class="min-w-0 flex items-center gap-3">
+                      <img src="/assets/coins/btc.png" alt="BTC-USD logo" class="h-6 w-6 rounded bg-white" loading="lazy" decoding="async" />
+                      <div class="min-w-0">
+                        <p class="truncate text-sm font-medium">BTC-USD <span class="font-normal text-gray-400">• Bitcoin</span></p>
+                        <p class="text-xs text-gray-400">Currency</p>
+                      </div>
+                    </div>
+                    <div class="text-right">
+                      <p class="text-sm font-semibold text-[#f97316]">$95,000.00</p>
+                      <p class="text-xs text-[#16a34a]">+$1,000.00 (+1.06%)</p>
+                    </div>
+                  </a>
+
+                  <a href="#" class="flex items-center justify-between rounded-lg p-3 transition hover:bg-white/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60">
+                    <div class="min-w-0 flex items-center gap-3">
+                      <img src="/assets/coins/eth.png" alt="ETH-USD logo" class="h-6 w-6 rounded bg-white" loading="lazy" decoding="async" />
+                      <div class="min-w-0">
+                        <p class="truncate text-sm font-medium">ETH-USD <span class="font-normal text-gray-400">• Ethereum</span></p>
+                        <p class="text-xs text-gray-400">Smart Contract Platform</p>
+                      </div>
+                    </div>
+                    <div class="text-right">
+                      <p class="text-sm font-semibold text-[#f97316]">$3,500.00</p>
+                      <p class="text-xs text-[#16a34a]">+$50.00 (+1.45%)</p>
+                    </div>
+                  </a>
+
+                  <a href="#" class="flex items-center justify-between rounded-lg p-3 transition hover:bg-white/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60">
+                    <div class="min-w-0 flex items-center gap-3">
+                      <img src="/assets/coins/bnb.png" alt="BNB-USD logo" class="h-6 w-6 rounded bg-white" loading="lazy" decoding="async" />
+                      <div class="min-w-0">
+                        <p class="truncate text-sm font-medium">BNB-USD <span class="font-normal text-gray-400">• Binance Coin</span></p>
+                        <p class="text-xs text-gray-400">Exchange Token</p>
+                      </div>
+                    </div>
+                    <div class="text-right">
+                      <p class="text-sm font-semibold text-[#f97316]">$650.00</p>
+                      <p class="text-xs text-[#16a34a]">+$10.00 (+1.56%)</p>
+                    </div>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Gainers / Losers / Active -->
+            <div class="lg:col-span-2 grid grid-cols-1 gap-6 md:grid-cols-3">
+              <!-- Top Gainers -->
+              <div class="rounded-xl border border-white/10 from-white/5 to-white/0 bg-gradient-to-br p-4">
+                <h3 class="mb-3 text-sm font-semibold">Top Gainers</h3>
+                <div class="space-y-3">
+                  <a href="#" class="flex items-center justify-between rounded-lg p-3 transition hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60">
+                    <div class="min-w-0 flex items-center gap-3">
+                      <img src="/assets/coins/doge.png" alt="DOGE-USD logo" class="h-5 w-5 rounded bg-white" loading="lazy" decoding="async" />
+                      <span class="truncate text-sm font-medium">DOGE-USD</span>
+                    </div>
+                    <span class="text-xs font-semibold text-[#4ade80]">+7.14%</span>
+                  </a>
+
+                  <a href="#" class="flex items-center justify-between rounded-lg p-3 transition hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60">
+                    <div class="min-w-0 flex items-center gap-3">
+                      <img src="/assets/coins/algo.png" alt="ALGO-USD logo" class="h-5 w-5 rounded bg-white" loading="lazy" decoding="async" />
+                      <span class="truncate text-sm font-medium">ALGO-USD</span>
+                    </div>
+                    <span class="text-xs font-semibold text-[#4ade80]">+4.17%</span>
+                  </a>
+
+                  <a href="#" class="flex items-center justify-between rounded-lg p-3 transition hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60">
+                    <div class="min-w-0 flex items-center gap-3">
+                      <img src="/assets/coins/xrp.png" alt="XRP-USD logo" class="h-5 w-5 rounded bg-white" loading="lazy" decoding="async" />
+                      <span class="truncate text-sm font-medium">XRP-USD</span>
+                    </div>
+                    <span class="text-xs font-semibold text-[#4ade80]">+3.17%</span>
+                  </a>
+
+                  <a href="#" class="flex items-center justify-between rounded-lg p-3 transition hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60">
+                    <div class="min-w-0 flex items-center gap-3">
+                      <img src="/assets/coins/sol.png" alt="SOL-USD logo" class="h-5 w-5 rounded bg-white" loading="lazy" decoding="async" />
+                      <span class="truncate text-sm font-medium">SOL-USD</span>
+                    </div>
+                    <span class="text-xs font-semibold text-[#4ade80]">+2.86%</span>
+                  </a>
+
+                  <a href="#" class="flex items-center justify-between rounded-lg p-3 transition hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60">
+                    <div class="min-w-0 flex items-center gap-3">
+                      <img src="/assets/coins/avax.png" alt="AVAX-USD logo" class="h-5 w-5 rounded bg-white" loading="lazy" decoding="async" />
+                      <span class="truncate text-sm font-medium">AVAX-USD</span>
+                    </div>
+                    <span class="text-xs font-semibold text-[#4ade80]">+2.70%</span>
+                  </a>
+                </div>
+              </div>
+
+              <!-- Top Losers -->
+              <div class="rounded-xl border border-white/10 from-white/5 to-white/0 bg-gradient-to-br p-4">
+                <h3 class="mb-3 text-sm font-semibold">Top Losers</h3>
+                <div class="space-y-3">
+                  <p class="text-sm text-gray-300">No data</p>
+                </div>
+              </div>
+
+              <!-- Most Active -->
+              <div class="rounded-xl border border-white/10 from-white/5 to-white/0 bg-gradient-to-br p-4">
+                <h3 class="mb-3 text-sm font-semibold">Most Active</h3>
+                <div class="space-y-3">
+                  <a href="#" class="flex items-center justify-between rounded-lg p-3 transition hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60">
+                    <div class="min-w-0 flex items-center gap-3">
+                      <img src="/assets/coins/btc.png" alt="BTC-USD logo" class="h-5 w-5 rounded bg-white" loading="lazy" decoding="async" />
+                      <span class="truncate text-sm font-medium">BTC-USD</span>
+                    </div>
+                    <span class="text-xs text-gray-300">Vol $25.00B</span>
+                  </a>
+
+                  <a href="#" class="flex items-center justify-between rounded-lg p-3 transition hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60">
+                    <div class="min-w-0 flex items-center gap-3">
+                      <img src="/assets/coins/eth.png" alt="ETH-USD logo" class="h-5 w-5 rounded bg-white" loading="lazy" decoding="async" />
+                      <span class="truncate text-sm font-medium">ETH-USD</span>
+                    </div>
+                    <span class="text-xs text-gray-300">Vol $12.00B</span>
+                  </a>
+
+                  <a href="#" class="flex items-center justify-between rounded-lg p-3 transition hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60">
+                    <div class="min-w-0 flex items-center gap-3">
+                      <img src="/assets/coins/sol.png" alt="SOL-USD logo" class="h-5 w-5 rounded bg-white" loading="lazy" decoding="async" />
+                      <span class="truncate text-sm font-medium">SOL-USD</span>
+                    </div>
+                    <span class="text-xs text-gray-300">Vol $3.00B</span>
+                  </a>
+
+                  <a href="#" class="flex items-center justify-between rounded-lg p-3 transition hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60">
+                    <div class="min-w-0 flex items-center gap-3">
+                      <img src="/assets/coins/bnb.png" alt="BNB-USD logo" class="h-5 w-5 rounded bg-white" loading="lazy" decoding="async" />
+                      <span class="truncate text-sm font-medium">BNB-USD</span>
+                    </div>
+                    <span class="text-xs text-gray-300">Vol $2.00B</span>
+                  </a>
+
+                  <a href="#" class="flex items-center justify-between rounded-lg p-3 transition hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60">
+                    <div class="min-w-0 flex items-center gap-3">
+                      <img src="/assets/coins/xrp.png" alt="XRP-USD logo" class="h-5 w-5 rounded bg-white" loading="lazy" decoding="async" />
+                      <span class="truncate text-sm font-medium">XRP-USD</span>
+                    </div>
+                    <span class="text-xs text-gray-300">Vol $1.50B</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- TradingView BTC Chart -->
+          <div class="mt-12">
+            <div id="tradingview_d8291" style="height: 600px;"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ Market News ============ -->
+      <section id="news" class="mt-12 bg-navy-900 py-16" aria-labelledby="news-heading">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div class="mb-8 flex items-center justify-between">
+            <div>
+              <h2 id="news-heading" class="text-xl font-semibold text-white sm:text-2xl">Market News</h2>
+              <p class="mt-1 text-sm text-gray-400">Latest headlines impacting your watchlist.</p>
+            </div>
+            <a href="#crypto" class="text-sm font-medium text-white underline-offset-4 hover:underline">View crypto</a>
+          </div>
+
+          <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+            <p class="text-sm text-gray-300">No news available yet.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ Sign In / Sign Up ============ -->
+      <section id="auth" class="bg-navy-950 py-16 text-white" aria-labelledby="auth-heading">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div class="mb-8 text-center">
+            <h2 id="auth-heading" class="text-xl font-semibold sm:text-2xl">Your account</h2>
+            <p class="mt-1 text-sm text-gray-400">Sign in or create a new account to get started.</p>
+          </div>
+
+          <div class="mx-auto max-w-md">
+            <div class="overflow-hidden rounded-2xl bg-gradient-to-b from-white to-gray-50 text-black shadow-2xl dark:bg-gray-900 dark:text-white">
+              <!-- Tabs -->
+              <div class="flex border-b border-gray-200 dark:border-white/10" role="tablist" aria-label="Authentication tabs">
+                <button type="button" role="tab" data-tab="login" aria-selected="true" aria-controls="tab-login"
+                        class="flex-1 py-4 text-sm font-medium border-b-2 border-tesla text-tesla transition-colors">
+                  Sign In
+                </button>
+                <button type="button" role="tab" data-tab="signup" aria-selected="false" aria-controls="tab-signup"
+                        class="flex-1 py-4 text-sm font-medium border-b-2 border-transparent text-gray-400 transition-colors hover:text-gray-600 dark:hover:text-gray-200">
+                  Create Account
+                </button>
+              </div>
+
+              <!-- Login form -->
+              <form id="tab-login" class="p-8 space-y-5" novalidate>
+                <div>
+                  <h3 class="text-lg font-semibold">Welcome back</h3>
+                  <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Sign in to access your account.</p>
+                </div>
+
+                <div id="login-error" class="hidden rounded-xl border border-[#fecaca] bg-[#fef2f2] px-4 py-3 text-sm text-[#b91c1c] dark:border-[#ef4444]/30 dark:bg-[#ef4444]/10 dark:text-[#f87171]"></div>
+
+                <div>
+                  <label for="login-email" class="mb-1.5 block text-xs font-medium text-gray-700 dark:text-gray-300">Email address</label>
+                  <input type="email" id="login-email" name="email" required autocomplete="email" placeholder="you@example.com"
+                         class="w-full rounded-xl border border-gray-300 px-3 py-2.5 text-sm text-black placeholder-gray-400 focus:border-tesla focus:outline-none focus:ring-1 focus:ring-tesla dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:placeholder-gray-500" />
+                </div>
+
+                <div>
+                  <label for="login-password" class="mb-1.5 block text-xs font-medium text-gray-700 dark:text-gray-300">Password</label>
+                  <input type="password" id="login-password" name="password" required autocomplete="current-password" placeholder="••••••••"
+                         class="w-full rounded-xl border border-gray-300 px-3 py-2.5 text-sm text-black placeholder-gray-400 focus:border-tesla focus:outline-none focus:ring-1 focus:ring-tesla dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:placeholder-gray-500" />
+                </div>
+
+                <div class="flex items-center justify-between">
+                  <label class="flex items-center text-sm text-gray-600 dark:text-gray-400">
+                    <input type="checkbox" name="remember" class="mr-2 rounded border-gray-300 text-tesla focus:ring-tesla dark:border-gray-600 dark:bg-gray-800" />
+                    Remember me
+                  </label>
+                  <a href="/pages/support/support.html" class="text-sm font-medium text-[#2563eb] hover:underline">Forgot password?</a>
+                </div>
+
+                <button type="submit" id="login-submit"
+                        class="w-full rounded-full bg-gray-200 px-4 py-2.5 text-sm font-medium text-navy-950 shadow-lg transition hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-tesla focus:ring-offset-2">
+                  Sign In
+                </button>
+              </form>
+
+              <!-- Sign up form -->
+              <form id="tab-signup" class="hidden p-8 space-y-5" novalidate>
+                <div>
+                  <h3 class="text-lg font-semibold">Create your account</h3>
+                  <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Join and start building your portfolio.</p>
+                </div>
+
+                <div id="signup-error" class="hidden rounded-xl border border-[#fecaca] bg-[#fef2f2] px-4 py-3 text-sm text-[#b91c1c] dark:border-[#ef4444]/30 dark:bg-[#ef4444]/10 dark:text-[#f87171]"></div>
+
+                <div>
+                  <label for="signup-name" class="mb-1.5 block text-xs font-medium text-gray-700 dark:text-gray-300">Full name</label>
+                  <input type="text" id="signup-name" name="name" required autocomplete="name" placeholder="Wilson Jefferson"
+                         class="w-full rounded-xl border border-gray-300 px-3 py-2.5 text-sm text-black placeholder-gray-400 focus:border-tesla focus:outline-none focus:ring-1 focus:ring-tesla dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:placeholder-gray-500" />
+                </div>
+
+                <div>
+                  <label for="signup-email" class="mb-1.5 block text-xs font-medium text-gray-700 dark:text-gray-300">Email address</label>
+                  <input type="email" id="signup-email" name="email" required autocomplete="email" placeholder="you@example.com"
+                         class="w-full rounded-xl border border-gray-300 px-3 py-2.5 text-sm text-black placeholder-gray-400 focus:border-tesla focus:outline-none focus:ring-1 focus:ring-tesla dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:placeholder-gray-500" />
+                </div>
+
+                <div>
+                  <label for="signup-password" class="mb-1.5 block text-xs font-medium text-gray-700 dark:text-gray-300">Password</label>
+                  <input type="password" id="signup-password" name="password" required autocomplete="new-password" placeholder="At least 8 characters"
+                         class="w-full rounded-xl border border-gray-300 px-3 py-2.5 text-sm text-black placeholder-gray-400 focus:border-tesla focus:outline-none focus:ring-1 focus:ring-tesla dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:placeholder-gray-500" />
+                  <p class="mt-1 text-xs text-gray-400 dark:text-gray-500">8–72 characters. Store it somewhere safe — it cannot be recovered.</p>
+                </div>
+
+                <div>
+                  <label for="signup-password-confirm" class="mb-1.5 block text-xs font-medium text-gray-700 dark:text-gray-300">Confirm password</label>
+                  <input type="password" id="signup-password-confirm" name="password_confirmation" required autocomplete="new-password" placeholder="Re-enter your password"
+                         class="w-full rounded-xl border border-gray-300 px-3 py-2.5 text-sm text-black placeholder-gray-400 focus:border-tesla focus:outline-none focus:ring-1 focus:ring-tesla dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:placeholder-gray-500" />
+                </div>
+
+                <label class="flex items-start text-sm text-gray-600 dark:text-gray-400">
+                  <input type="checkbox" id="signup-terms" required class="mt-0.5 mr-2 rounded border-gray-300 text-tesla focus:ring-tesla dark:border-gray-600 dark:bg-gray-800" />
+                  <span>
+                    I agree to the
+                    <a href="#" class="font-medium text-[#2563eb] hover:underline">Terms</a>
+                    and
+                    <a href="#" class="font-medium text-[#2563eb] hover:underline">Privacy Policy</a>.
+                  </span>
+                </label>
+
+                <button type="submit" id="signup-submit"
+                        class="w-full rounded-full bg-gray-200 px-4 py-2.5 text-sm font-medium text-navy-950 shadow-lg transition hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-tesla focus:ring-offset-2">
+                  Create Account
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ Footer ============ -->
+      <footer class="mt-12 bg-navy-950 text-white">
+        <div class="max-w-7xl mx-auto px-6 sm:px-10 py-12">
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-10 text-sm">
+            <div class="col-span-2 md:col-span-1">
+              <img src="/assets/logo.svg" alt="Tesla XTeam FX Trade" class="h-4 w-auto filter brightness-0 invert mb-6" />
+              <p class="text-gray-400 mt-3">© 2026 Tesla XTeam FX Trade</p>
+            </div>
+
+            <div>
+              <h4 class="font-medium text-base mb-4">Company</h4>
+              <ul class="space-y-3 text-gray-400">
+                <li><a href="#" class="transition-colors duration-200 hover:text-tesla">About</a></li>
+                <li><a href="#" class="transition-colors duration-200 hover:text-tesla">Contact</a></li>
+              </ul>
+            </div>
+
+            <div>
+              <h4 class="font-medium text-base mb-4">Support</h4>
+              <ul class="space-y-3 text-gray-400">
+                <li><a href="#" class="transition-colors duration-200 hover:text-tesla">Help Center</a></li>
+                <li><a href="#" class="transition-colors duration-200 hover:text-tesla">Terms</a></li>
+              </ul>
+            </div>
+
+            <div>
+              <h4 class="font-medium text-base mb-4">Legal</h4>
+              <ul class="space-y-4 text-gray-400">
+                <li><a href="#" class="transition-colors duration-200 hover:text-tesla">Privacy &amp; Legal</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </main>
+
+    <!-- ============ Page Scripts ============ -->
+    <script src="https://s3.tradingview.com/tv.js"></script>
+    <script type="text/javascript">
+      new TradingView.widget({
+        autosize: true,
+        symbol: "BITSTAMP:BTCUSD",
+        interval: "1",
+        timezone: "Etc/UTC",
+        theme: "dark",
+        style: "3",
+        locale: "en",
+        toolbar_bg: "#f1f3f6",
+        enable_publishing: false,
+        hide_top_toolbar: true,
+        save_image: false,
+        container_id: "tradingview_d8291"
+      });
+    </script>
+
+    <script>
+      // Initialize Lucide icons
+      lucide.createIcons();
+
+      // Dark mode toggle
+      function applyTheme(theme) {
+        document.documentElement.classList.toggle('dark', theme === 'dark');
+        updateThemeIcon(theme);
+      }
+
+      function setTheme(theme) {
+        applyTheme(theme);
+        localStorage.setItem('theme', theme);
+      }
+
+      function updateThemeIcon(theme) {
+        var sun = document.getElementById('theme-sun');
+        var moon = document.getElementById('theme-moon');
+        if (theme === 'dark') {
+          sun.classList.remove('hidden');
+          moon.classList.add('hidden');
+        } else {
+          moon.classList.remove('hidden');
+          sun.classList.add('hidden');
+        }
+      }
+
+      function getInitialTheme() {
+        var stored = localStorage.getItem('theme');
+        if (stored === 'light' || stored === 'dark') return stored;
+        return 'light';
+      }
+
+      document.addEventListener('DOMContentLoaded', function () {
+        applyTheme(getInitialTheme());
+
+        var themeToggle = document.getElementById('theme-toggle');
+        if (themeToggle) {
+          themeToggle.addEventListener('click', function () {
+            var isDark = document.documentElement.classList.contains('dark');
+            setTheme(isDark ? 'light' : 'dark');
+          });
+        }
+
+        // Mobile menu toggle
+        var mobileMenuButton = document.getElementById('mobile-menu-button');
+        var mobileMenu = document.getElementById('mobile-menu');
+        var menuIcon = document.getElementById('menu-icon');
+        var closeIcon = document.getElementById('close-icon');
+
+        if (mobileMenuButton && mobileMenu) {
+          mobileMenuButton.addEventListener('click', function () {
+            var isOpen = !mobileMenu.classList.contains('hidden');
+
+            if (isOpen) {
+              mobileMenu.classList.add('hidden');
+              menuIcon.classList.remove('hidden');
+              closeIcon.classList.add('hidden');
+            } else {
+              mobileMenu.classList.remove('hidden');
+              menuIcon.classList.add('hidden');
+              closeIcon.classList.remove('hidden');
+            }
+          });
+        }
+
+        // Auth tabs (Sign In / Create Account)
+        var tabButtons = document.querySelectorAll('[data-tab]');
+        tabButtons.forEach(function (button) {
+          button.addEventListener('click', function () {
+            var tab = button.dataset.tab;
+            tabButtons.forEach(function (btn) {
+              var isActive = btn === button;
+              btn.classList.toggle('border-tesla', isActive);
+              btn.classList.toggle('text-tesla', isActive);
+              btn.classList.toggle('border-transparent', !isActive);
+              btn.classList.toggle('text-gray-400', !isActive);
+              btn.setAttribute('aria-selected', isActive ? 'true' : 'false');
+            });
+            document.getElementById('tab-login').classList.toggle('hidden', tab !== 'login');
+            document.getElementById('tab-signup').classList.toggle('hidden', tab !== 'signup');
+          });
+        });
+
+        // CTAs marked data-open="signup" open the Create Account tab.
+        document.querySelectorAll('[data-open="signup"]').forEach(function (link) {
+          link.addEventListener('click', function () {
+            var btn = document.querySelector('[data-tab="signup"]');
+            if (btn) btn.click();
+          });
+        });
+
+        // Sign-in / sign-up forms talk to the backend.
+        var loginForm = document.getElementById('tab-login');
+        var signupForm = document.getElementById('tab-signup');
+        var loginError = document.getElementById('login-error');
+        var signupError = document.getElementById('signup-error');
+        var loginSubmit = document.getElementById('login-submit');
+        var signupSubmit = document.getElementById('signup-submit');
+
+        function postAuth(url, body) {
+          return fetch(url, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(body)
+          }).then(function (res) {
+            return res.json().catch(function () {
+              return { error: 'The server returned an unexpected response. Please try again.' };
+            }).then(function (data) { return { ok: res.ok, data: data }; });
+          }).catch(function () {
+            // Fetch itself failed — the server is not reachable from this page.
+            return { ok: false, data: { error: 'Can’t reach the server. Make sure you opened this site at http://localhost:3000 and the server is running (npm start).' } };
+          });
+        }
+        function showError(el, message) {
+          el.textContent = message;
+          el.classList.remove('hidden');
+        }
+
+        loginForm.addEventListener('submit', function (event) {
+          event.preventDefault();
+          loginError.classList.add('hidden');
+          loginSubmit.disabled = true;
+          loginSubmit.textContent = 'Signing in…';
+          postAuth('/api/auth/login', {
+            email: document.getElementById('login-email').value.trim(),
+            password: document.getElementById('login-password').value
+          }).then(function (r) {
+            if (r.ok) { window.location.href = '/pages/dashboard/dashboard.html'; return; }
+            showError(loginError, r.data.error || 'Unable to sign in.');
+            loginSubmit.disabled = false;
+            loginSubmit.textContent = 'Sign In';
+          }).catch(function () {
+            showError(loginError, 'Network error. Please try again.');
+            loginSubmit.disabled = false;
+            loginSubmit.textContent = 'Sign In';
+          });
+        });
+
+        signupForm.addEventListener('submit', function (event) {
+          event.preventDefault();
+          signupError.classList.add('hidden');
+          var name = document.getElementById('signup-name').value.trim();
+          var email = document.getElementById('signup-email').value.trim();
+          var password = document.getElementById('signup-password').value;
+          var confirm = document.getElementById('signup-password-confirm').value;
+          if (name.length < 2) { showError(signupError, 'Please enter your full name.'); return; }
+          if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) { showError(signupError, 'Please enter a valid email address.'); return; }
+          if (password.length < 8) { showError(signupError, 'Password must be at least 8 characters.'); return; }
+          if (password !== confirm) { showError(signupError, 'Passwords do not match.'); return; }
+          if (!document.getElementById('signup-terms').checked) { showError(signupError, 'Please accept the Terms and Privacy Policy.'); return; }
+          signupSubmit.disabled = true;
+          signupSubmit.textContent = 'Creating account…';
+          postAuth('/api/auth/signup', { name: name, email: email, password: password }).then(function (r) {
+            if (r.ok) { window.location.href = '/pages/dashboard/dashboard.html'; return; }
+            showError(signupError, r.data.error || 'Unable to create your account.');
+            signupSubmit.disabled = false;
+            signupSubmit.textContent = 'Create Account';
+          }).catch(function () {
+            showError(signupError, 'Network error. Please try again.');
+            signupSubmit.disabled = false;
+            signupSubmit.textContent = 'Create Account';
+          });
+        });
+
+        // Already signed in? Swap the nav button for a Dashboard shortcut.
+        fetch('/api/me').then(function (r) { return r.json(); }).then(function (d) {
+          if (!d.user) return;
+          var btn = document.getElementById('nav-signin');
+          if (btn) { btn.href = '/pages/dashboard/dashboard.html'; btn.textContent = 'Dashboard'; }
+        }).catch(function () {});
+      });
+    </script>
+  </body>
+</html>

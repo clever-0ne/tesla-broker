@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <title>Admin Login — Tesla XTeam FX Trade</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.bunny.net" />
+    <link
+      href="https://fonts.bunny.net/css?family=inter:300,400,500,600,700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Tailwind CSS (compiled locally) -->
+    <link rel="stylesheet" href="/dist/tailwind.css" />
+  </head>
+
+  <body class="font-sans antialiased bg-navy-950 text-white">
+    <!-- Fixed background: grid lines -->
+    <div
+      aria-hidden="true"
+      class="pointer-events-none fixed inset-0 -z-10 t-gridlines"
+    ></div>
+
+    <main class="flex min-h-screen items-center justify-center p-6">
+      <div
+        class="w-full max-w-md rounded-2xl border border-white/10 bg-gradient-to-b from-navy-800 to-navy-900 p-8 shadow-2xl shadow-black/40"
+      >
+        <div class="mb-8 text-center">
+          <img
+            src="/assets/logo.svg"
+            alt="Tesla XTeam FX Trade"
+            class="mx-auto mb-4 h-10 w-auto filter brightness-0 invert"
+          />
+          <div
+            class="mb-2 inline-flex items-center rounded-full bg-gray-200 px-3 py-1 text-xs font-medium text-navy-950"
+          >
+            <i data-lucide="shield" class="mr-1 h-3 w-3 text-[#7c3aed]"></i
+            >Admin Console
+          </div>
+          <h1 class="text-xl font-medium">Admin sign in</h1>
+          <p class="mt-1 text-sm text-gray-400">
+            Enter the admin password to access the console.
+          </p>
+        </div>
+
+        <div
+          id="login-error"
+          class="hidden mb-4 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700 dark:border-red-500/30 dark:bg-red-500/10 dark:text-red-400"
+        ></div>
+
+        <form id="login-form" class="space-y-5" novalidate>
+          <div>
+            <label
+              for="login-password"
+              class="mb-1.5 block text-xs font-medium text-gray-300"
+              >Password</label
+            >
+            <input
+              type="password"
+              id="login-password"
+              name="password"
+              required
+              autocomplete="current-password"
+              placeholder="Admin password"
+              class="w-full rounded-xl border border-gray-600 bg-navy-950 px-4 py-3 text-sm text-white placeholder-gray-500 focus:border-tesla focus:outline-none focus:ring-2 focus:ring-tesla/30"
+            />
+          </div>
+
+          <button
+            type="submit"
+            id="login-submit"
+            class="w-full rounded-full bg-gray-200 px-6 py-3 text-sm font-medium text-navy-950 shadow-lg shadow-black/30 transition hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 focus:ring-offset-navy-900"
+          >
+            Sign In
+          </button>
+        </form>
+      </div>
+    </main>
+
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <script>
+      lucide.createIcons();
+
+      var form = document.getElementById("login-form");
+      var errorEl = document.getElementById("login-error");
+      var submit = document.getElementById("login-submit");
+
+      function showError(message) {
+        errorEl.textContent = message;
+        errorEl.classList.remove("hidden");
+      }
+
+      form.addEventListener("submit", function (event) {
+        event.preventDefault();
+        errorEl.classList.add("hidden");
+        submit.disabled = true;
+        submit.textContent = "Signing in…";
+
+        fetch("/api/admin/login", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            password: document.getElementById("login-password").value,
+          }),
+        })
+          .then(function (res) {
+            return res.json().catch(function () {
+              return {
+                error:
+                  "The server returned an unexpected response. Please try again.",
+              };
+            });
+          })
+          .then(function (data) {
+            if (data.user && data.user.role === "admin") {
+              window.location.href = "/admin/";
+              return;
+            }
+            showError(data.error || "Invalid admin password.");
+            submit.disabled = false;
+            submit.textContent = "Sign In";
+          })
+          .catch(function () {
+            showError(
+              "Can’t reach the server. Make sure it’s running (npm start) and you’re on http://localhost:3000.",
+            );
+            submit.disabled = false;
+            submit.textContent = "Sign In";
+          });
+      });
+    </script>
+  </body>
+</html>

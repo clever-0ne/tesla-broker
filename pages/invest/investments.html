@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Featured and all investment plans — Tesla-focused funds and ETFs." />
+    <title>Investments — Tesla XTeam FX Trade</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.bunny.net" />
+    <link href="https://fonts.bunny.net/css?family=inter:300,400,500,600,700&display=swap" rel="stylesheet" />
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+
+    <!-- Tailwind CSS -->
+    <link rel="stylesheet" href="/dist/tailwind.css" />
+
+    <!-- Set theme before paint to avoid a flash of the wrong theme -->
+    <script>
+      (function () {
+        var stored = localStorage.getItem('theme');
+        var dark = stored === 'dark';
+        if (dark) document.documentElement.classList.add('dark');
+      })();
+    </script>
+  </head>
+
+  <body data-page="investments" data-title="Investments" class="font-sans antialiased bg-gray-300 text-black dark:bg-navy-950 dark:text-white">
+    <div id="app" class="min-h-screen flex">
+      <div id="page-content" class="flex-1 flex flex-col min-h-screen overflow-hidden lg:ml-72">
+        <main class="flex-1 overflow-y-auto p-4 pb-24 sm:p-6 lg:pb-6">
+          <div class="mx-auto max-w-7xl">
+            <!-- Enhanced Header -->
+            <div class="relative mb-6 overflow-hidden rounded-2xl bg-navy-950 p-6 text-white">
+              <div class="pointer-events-none absolute inset-0" aria-hidden="true">
+                <div class="absolute inset-0 t-grid opacity-40"></div>
+                <div class="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-transparent"></div>
+                <div class="absolute -left-16 top-1/2 h-72 w-72 -translate-y-1/2 t-orb"></div>
+                <div class="absolute -right-16 top-0 h-80 w-80 -translate-y-1/3 t-orb"></div>
+              </div>
+
+              <div class="relative z-10">
+                <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between">
+                  <div class="mb-4 lg:mb-0 lg:flex-1">
+                    <p class="t-label mb-2 text-[#c4b5fd]">Investing</p>
+                    <h1 class="mb-1 text-2xl font-light tracking-tight">Investment Plans</h1>
+                    <p class="text-sm text-gray-300">Discover and invest in diversified portfolios designed for growth</p>
+                  </div>
+
+                  <!-- Stats Card -->
+                  <div class="rounded-2xl border border-white/20 bg-white/10 p-4 shadow-xl lg:w-80">
+                    <div class="mb-3 flex items-center justify-between">
+                      <div>
+                        <p class="mb-1 text-xs text-gray-300">Available Plans</p>
+                        <p class="text-lg font-light text-[#c4b5fd]">10</p>
+                      </div>
+                      <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-white/20">
+                        <i data-lucide="trending-up" class="w-5 h-5"></i>
+                      </div>
+                    </div>
+                    <div class="flex space-x-4 text-xs">
+                      <div class="flex-1 text-center">
+                        <p class="text-gray-300">Categories</p>
+                        <p class="font-medium text-[#c4b5fd]">6</p>
+                      </div>
+                      <div class="flex-1 text-center">
+                        <p class="text-gray-300">Featured</p>
+                        <p class="font-medium text-[#c4b5fd]">3</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Collapsible Search and Filters -->
+            <div class="t-card mb-6">
+              <div class="p-4">
+                <button type="button" onclick="toggleFilters()" class="flex w-full items-center justify-between text-left">
+                  <div class="flex items-center">
+                    <i data-lucide="filter" class="mr-2 w-4 h-4 text-gray-600 dark:text-gray-300"></i>
+                    <span class="text-sm font-medium text-black dark:text-white">Search &amp; Filters</span>
+                  </div>
+                  <i data-lucide="chevron-down" id="filterIcon" class="w-4 h-4 text-gray-600 transition-transform duration-200 dark:text-gray-300"></i>
+                </button>
+              </div>
+
+              <div id="filterSection" class="hidden border-t border-gray-100 dark:border-white/10">
+                <form id="plan-filters" class="p-6" novalidate>
+                  <div class="grid grid-cols-1 gap-4 md:grid-cols-4">
+                    <!-- Search -->
+                    <div class="md:col-span-2">
+                      <label for="search" class="mb-2 block text-xs font-medium text-gray-600 dark:text-gray-300">Search Plans</label>
+                      <div class="relative">
+                        <i data-lucide="search" class="absolute left-3 top-1/2 w-4 h-4 -translate-y-1/2 text-gray-400"></i>
+                        <input type="text" id="search" name="search" placeholder="Search by name, category, or description"
+                          class="w-full rounded-xl border border-gray-200 bg-white py-2.5 pl-10 pr-4 text-sm text-black transition focus:border-black focus:outline-none dark:border-white/10 dark:bg-gray-900 dark:text-white dark:focus:border-white" />
+                      </div>
+                    </div>
+
+                    <!-- Category Filter -->
+                    <div>
+                      <label for="category" class="mb-2 block text-xs font-medium text-gray-600 dark:text-gray-300">Category</label>
+                      <select id="category" name="category" class="w-full rounded-xl border border-gray-200 bg-white px-3 py-2.5 text-sm text-black focus:border-black focus:outline-none dark:border-white/10 dark:bg-gray-900 dark:text-white">
+                        <option value="">All Categories</option>
+                        <option value="Conservative">Conservative</option>
+                        <option value="Income">Income</option>
+                        <option value="Balanced">Balanced</option>
+                        <option value="Tesla-Focused">Tesla-Focused</option>
+                        <option value="Growth">Growth</option>
+                        <option value="ESG">ESG</option>
+                      </select>
+                    </div>
+
+                    <!-- Risk Level Filter -->
+                    <div>
+                      <label for="risk_level" class="mb-2 block text-xs font-medium text-gray-600 dark:text-gray-300">Risk Level</label>
+                      <select id="risk_level" name="risk_level" class="w-full rounded-xl border border-gray-200 bg-white px-3 py-2.5 text-sm text-black focus:border-black focus:outline-none dark:border-white/10 dark:bg-gray-900 dark:text-white">
+                        <option value="">All Risk Levels</option>
+                        <option value="conservative">Conservative</option>
+                        <option value="moderate">Moderate</option>
+                        <option value="aggressive">Aggressive</option>
+                      </select>
+                    </div>
+
+                    <!-- Sort By -->
+                    <div>
+                      <label for="sort" class="mb-2 block text-xs font-medium text-gray-600 dark:text-gray-300">Sort By</label>
+                      <select id="sort" name="sort" class="w-full rounded-xl border border-gray-200 bg-white px-3 py-2.5 text-sm text-black focus:border-black focus:outline-none dark:border-white/10 dark:bg-gray-900 dark:text-white">
+                        <option value="name">Name A-Z</option>
+                        <option value="performance">Best Performance</option>
+                        <option value="nav">Lowest NAV</option>
+                        <option value="risk">Risk Level</option>
+                      </select>
+                    </div>
+
+                    <!-- Filter Buttons -->
+                    <div class="flex gap-2 md:col-span-4">
+                      <button type="submit" class="t-btn">
+                        <i data-lucide="filter" class="w-4 h-4"></i>
+                        Apply Filters
+                      </button>
+                      <button type="button" id="clear-filters" class="t-btn-ghost">
+                        <i data-lucide="refresh-cw" class="w-4 h-4"></i>
+                        Clear Filters
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+
+            <!-- Featured Plans -->
+            <div class="mb-8">
+              <div class="mb-4 flex items-center justify-between">
+                <div>
+                  <h2 class="text-lg font-light text-black dark:text-white">Featured Plans</h2>
+                  <p class="text-xs text-gray-500 dark:text-gray-400">Curated funds aligned with Tesla's mission</p>
+                </div>
+                <button type="button" onclick="document.getElementById('all-plans').scrollIntoView({ behavior: 'smooth' })" class="inline-flex items-center text-xs font-medium text-black hover:underline dark:text-white">
+                  View All Featured
+                  <i data-lucide="arrow-right" class="ml-1 inline w-3 h-3"></i>
+                </button>
+              </div>
+
+              <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3" id="featured-plans">
+                <!-- Tesla Growth Fund -->
+                <div class="t-card flex flex-col p-6" data-plan data-name="Tesla Growth Fund" data-min="100" data-category="Tesla-Focused" data-risk="High" data-nav="900000" data-return="28.57">
+                  <div class="mb-4 flex items-start justify-between gap-3">
+                    <div class="flex items-center gap-3">
+                      <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-[#f3edfc]">
+                        <i data-lucide="rocket" class="w-5 h-5 text-[#7c3aed]"></i>
+                      </div>
+                      <div>
+                        <h3 class="font-medium text-black dark:text-white">Tesla Growth Fund</h3>
+                        <p class="text-sm text-gray-600 dark:text-gray-400">Tesla-Focused</p>
+                      </div>
+                    </div>
+                    <span class="shrink-0 rounded-full bg-black px-2.5 py-0.5 text-[11px] font-medium text-white dark:bg-white dark:text-black">High</span>
+                  </div>
+
+                  <div class="mb-4 space-y-3">
+                    <div class="flex justify-between"><span class="text-sm text-gray-500 dark:text-gray-400">Current NAV:</span><span class="text-sm font-medium text-[#7c3aed] dark:text-[#c4b5fd]">$900,000.0000</span></div>
+                    <div class="flex justify-between"><span class="text-sm text-gray-500 dark:text-gray-400">1Y Return:</span><span class="text-sm font-medium text-[#16a34a] dark:text-[#4ade80]">+28.57%</span></div>
+                    <div class="flex justify-between"><span class="text-sm text-gray-500 dark:text-gray-400">Min Investment:</span><span class="text-sm font-medium text-black dark:text-white">$100.00</span></div>
+                  </div>
+
+                  <div class="mt-auto flex items-center justify-between gap-3">
+                    <button type="button" onclick="toggleFundDetails('details-21')" class="inline-flex items-center text-xs font-medium text-black transition hover:opacity-70 dark:text-white">
+                      <span>View Details</span>
+                      <i data-lucide="arrow-right" class="ml-1 w-3 h-3"></i>
+                    </button>
+                    <button type="button" onclick="goToInvestment(this)" class="rounded-full bg-black px-3 py-1.5 text-xs font-medium text-white transition hover:bg-gray-700 dark:bg-white dark:text-black dark:hover:bg-gray-200">Invest Now</button>
+                  </div>
+
+                  <div id="details-21" class="mt-4 hidden space-y-2 rounded-xl bg-gray-50 p-4 text-xs text-gray-500 dark:bg-white/5 dark:text-gray-400">
+                    <div class="flex justify-between"><span>Fund type</span><span class="font-medium text-gray-700 dark:text-gray-300">Tesla-Focused</span></div>
+                    <div class="flex justify-between"><span>Risk profile</span><span class="font-medium text-gray-700 dark:text-gray-300">High</span></div>
+                    <div class="flex justify-between"><span>Investment term</span><span class="font-medium text-gray-700 dark:text-gray-300">Flexible</span></div>
+                  </div>
+                </div>
+
+                <!-- Sustainable Energy ETF -->
+                <div class="t-card flex flex-col p-6" data-plan data-name="Sustainable Energy ETF" data-min="50" data-category="ESG" data-risk="Medium" data-nav="18.75" data-return="0">
+                  <div class="mb-4 flex items-start justify-between gap-3">
+                    <div class="flex items-center gap-3">
+                      <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-[#f3edfc]">
+                        <i data-lucide="leaf" class="w-5 h-5 text-[#7c3aed]"></i>
+                      </div>
+                      <div>
+                        <h3 class="font-medium text-black dark:text-white">Sustainable Energy ETF</h3>
+                        <p class="text-sm text-gray-600 dark:text-gray-400">ESG</p>
+                      </div>
+                    </div>
+                    <span class="shrink-0 rounded-full border border-gray-300 px-2.5 py-0.5 text-[11px] font-medium text-gray-600 dark:border-white/15 dark:text-gray-300">Medium</span>
+                  </div>
+
+                  <div class="mb-4 space-y-3">
+                    <div class="flex justify-between"><span class="text-sm text-gray-500 dark:text-gray-400">Current NAV:</span><span class="text-sm font-medium text-[#7c3aed] dark:text-[#c4b5fd]">$18.7500</span></div>
+                    <div class="flex justify-between"><span class="text-sm text-gray-500 dark:text-gray-400">1Y Return:</span><span class="text-sm font-medium text-[#16a34a] dark:text-[#4ade80]">+0.00%</span></div>
+                    <div class="flex justify-between"><span class="text-sm text-gray-500 dark:text-gray-400">Min Investment:</span><span class="text-sm font-medium text-black dark:text-white">$50.00</span></div>
+                  </div>
+
+                  <div class="mt-auto flex items-center justify-between gap-3">
+                    <button type="button" onclick="toggleFundDetails('details-22')" class="inline-flex items-center text-xs font-medium text-black transition hover:opacity-70 dark:text-white">
+                      <span>View Details</span>
+                      <i data-lucide="arrow-right" class="ml-1 w-3 h-3"></i>
+                    </button>
+                    <button type="button" onclick="goToInvestment(this)" class="rounded-full bg-black px-3 py-1.5 text-xs font-medium text-white transition hover:bg-gray-700 dark:bg-white dark:text-black dark:hover:bg-gray-200">Invest Now</button>
+                  </div>
+
+                  <div id="details-22" class="mt-4 hidden space-y-2 rounded-xl bg-gray-50 p-4 text-xs text-gray-500 dark:bg-white/5 dark:text-gray-400">
+                    <div class="flex justify-between"><span>Fund type</span><span class="font-medium text-gray-700 dark:text-gray-300">ESG</span></div>
+                    <div class="flex justify-between"><span>Risk profile</span><span class="font-medium text-gray-700 dark:text-gray-300">Medium</span></div>
+                    <div class="flex justify-between"><span>Investment term</span><span class="font-medium text-gray-700 dark:text-gray-300">Flexible</span></div>
+                  </div>
+                </div>
+
+                <!-- Aggressive Growth Fund -->
+                <div class="t-card flex flex-col p-6" data-plan data-name="Aggressive Growth Fund" data-min="200" data-category="Growth" data-risk="High" data-nav="30.456" data-return="0">
+                  <div class="mb-4 flex items-start justify-between gap-3">
+                    <div class="flex items-center gap-3">
+                      <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-[#f3edfc]">
+                        <i data-lucide="trending-up" class="w-5 h-5 text-[#7c3aed]"></i>
+                      </div>
+                      <div>
+                        <h3 class="font-medium text-black dark:text-white">Aggressive Growth Fund</h3>
+                        <p class="text-sm text-gray-600 dark:text-gray-400">Growth</p>
+                      </div>
+                    </div>
+                    <span class="shrink-0 rounded-full bg-black px-2.5 py-0.5 text-[11px] font-medium text-white dark:bg-white dark:text-black">High</span>
+                  </div>
+
+                  <div class="mb-4 space-y-3">
+                    <div class="flex justify-between"><span class="text-sm text-gray-500 dark:text-gray-400">Current NAV:</span><span class="text-sm font-medium text-[#7c3aed] dark:text-[#c4b5fd]">$30.4560</span></div>
+                    <div class="flex justify-between"><span class="text-sm text-gray-500 dark:text-gray-400">1Y Return:</span><span class="text-sm font-medium text-[#16a34a] dark:text-[#4ade80]">+0.00%</span></div>
+                    <div class="flex justify-between"><span class="text-sm text-gray-500 dark:text-gray-400">Min Investment:</span><span class="text-sm font-medium text-black dark:text-white">$200.00</span></div>
+                  </div>
+
+                  <div class="mt-auto flex items-center justify-between gap-3">
+                    <button type="button" onclick="toggleFundDetails('details-25')" class="inline-flex items-center text-xs font-medium text-black transition hover:opacity-70 dark:text-white">
+                      <span>View Details</span>
+                      <i data-lucide="arrow-right" class="ml-1 w-3 h-3"></i>
+                    </button>
+                    <button type="button" onclick="goToInvestment(this)" class="rounded-full bg-black px-3 py-1.5 text-xs font-medium text-white transition hover:bg-gray-700 dark:bg-white dark:text-black dark:hover:bg-gray-200">Invest Now</button>
+                  </div>
+
+                  <div id="details-25" class="mt-4 hidden space-y-2 rounded-xl bg-gray-50 p-4 text-xs text-gray-500 dark:bg-white/5 dark:text-gray-400">
+                    <div class="flex justify-between"><span>Fund type</span><span class="font-medium text-gray-700 dark:text-gray-300">Growth</span></div>
+                    <div class="flex justify-between"><span>Risk profile</span><span class="font-medium text-gray-700 dark:text-gray-300">High</span></div>
+                    <div class="flex justify-between"><span>Investment term</span><span class="font-medium text-gray-700 dark:text-gray-300">Flexible</span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- All Investment Plans -->
+            <div id="all-plans" class="t-card p-5">
+              <div class="mb-4 flex items-center justify-between">
+                <div>
+                  <h3 class="mb-1 text-lg font-light text-black dark:text-white">All Investment Plans</h3>
+                  <p class="text-xs text-gray-500 dark:text-gray-400">Showing <span id="plan-count">0</span> of <span id="plan-total">0</span> plans</p>
+                </div>
+                <span class="rounded-full bg-gray-100 px-2 py-0.5 text-xs font-medium text-gray-500 dark:bg-white/10 dark:text-gray-400">Black &amp; White theme</span>
+              </div>
+
+              <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3" id="all-plans-grid">
+                <!-- Aggressive Growth Fund -->
+                <div class="rounded-xl border border-white/60 bg-gray-50 p-4 transition hover:bg-gray-100 dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10" data-plan data-name="Aggressive Growth Fund" data-min="200" data-category="Growth" data-risk="High" data-nav="30.456" data-return="0">
+                  <div class="mb-3 flex items-start justify-between gap-2">
+                    <div class="flex-1">
+                      <h4 class="mb-1 text-sm font-medium text-black dark:text-white">Aggressive Growth Fund</h4>
+                      <p class="text-xs text-gray-600 dark:text-gray-400">Growth</p>
+                    </div>
+                    <span class="inline-flex shrink-0 items-center rounded-full bg-black px-2 py-0.5 text-[11px] font-medium text-white dark:bg-white dark:text-black">High</span>
+                  </div>
+                  <div class="mb-3 space-y-2">
+                    <div class="flex justify-between"><span class="text-xs text-gray-500 dark:text-gray-400">NAV:</span><span class="text-xs font-medium text-black dark:text-white">$30.4560</span></div>
+                    <div class="flex justify-between"><span class="text-xs text-gray-500 dark:text-gray-400">Return:</span><span class="text-xs font-medium text-black dark:text-white">+0.00%</span></div>
+                    <div class="flex justify-between"><span class="text-xs text-gray-500 dark:text-gray-400">Min:</span><span class="text-xs font-medium text-black dark:text-white">$200</span></div>
+                  </div>
+                  <div class="flex items-center justify-between">
+                    <button type="button" onclick="toggleFundDetails('mini-25')" class="text-xs text-black transition hover:opacity-70 dark:text-white">View Details</button>
+                    <button type="button" onclick="goToInvestment(this)" class="rounded-full bg-black px-2.5 py-1 text-xs font-medium text-white transition hover:bg-gray-700 dark:bg-white dark:text-black dark:hover:bg-gray-200">Invest</button>
+                  </div>
+                  <div id="mini-25" class="mt-3 hidden space-y-1.5 border-t border-gray-200 pt-3 text-xs text-gray-500 dark:border-white/10 dark:text-gray-400">
+                    <p>Category: <span class="font-medium text-gray-700 dark:text-gray-300">Growth</span></p>
+                    <p>Risk profile: <span class="font-medium text-gray-700 dark:text-gray-300">High</span></p>
+                    <p>Investment term: <span class="font-medium text-gray-700 dark:text-gray-300">Flexible</span></p>
+                  </div>
+                </div>
+
+                <!-- Conservative Bond Fund -->
+                <div class="rounded-xl border border-white/60 bg-gray-50 p-4 transition hover:bg-gray-100 dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10" data-plan data-name="Conservative Bond Fund" data-min="750" data-category="Conservative" data-risk="Low" data-nav="10.45" data-return="0">
+                  <div class="mb-3 flex items-start justify-between gap-2">
+                    <div class="flex-1">
+                      <h4 class="mb-1 text-sm font-medium text-black dark:text-white">Conservative Bond Fund</h4>
+                      <p class="text-xs text-gray-600 dark:text-gray-400">Conservative</p>
+                    </div>
+                    <span class="inline-flex shrink-0 items-center rounded-full bg-gray-200 px-2 py-0.5 text-[11px] font-medium text-gray-700 dark:bg-white/15 dark:text-gray-300">Low</span>
+                  </div>
+                  <div class="mb-3 space-y-2">
+                    <div class="flex justify-between"><span class="text-xs text-gray-500 dark:text-gray-400">NAV:</span><span class="text-xs font-medium text-black dark:text-white">$10.4500</span></div>
+                    <div class="flex justify-between"><span class="text-xs text-gray-500 dark:text-gray-400">Return:</span><span class="text-xs font-medium text-black dark:text-white">+0.00%</span></div>
+                    <div class="flex justify-between"><span class="text-xs text-gray-500 dark:text-gray-400">Min:</span><span class="text-xs font-medium text-black dark:text-white">$750</span></div>
+                  </div>
+                  <div class="flex items-center justify-between">
+                    <button type="button" onclick="toggleFundDetails('mini-30')" class="text-xs text-black transition hover:opacity-70 dark:text-white">View Details</button>
+                    <button type="button" onclick="goToInvestment(this)" class="rounded-full bg-black px-2.5 py-1 text-xs font-medium text-white transition hover:bg-gray-700 dark:bg-white dark:text-black dark:hover:bg-gray-200">Invest</button>
+                  </div>
+                  <div id="mini-30" class="mt-3 hidden space-y-1.5 border-t border-gray-200 pt-3 text-xs text-gray-500 dark:border-white/10 dark:text-gray-400">
+                    <p>Category: <span class="font-medium text-gray-700 dark:text-gray-300">Conservative</span></p>
+                    <p>Risk profile: <span class="font-medium text-gray-700 dark:text-gray-300">Low</span></p>
+                    <p>Investment term: <span class="font-medium text-gray-700 dark:text-gray-300">Flexible</span></p>
+                  </div>
+                </div>
+
+                <!-- Conservative Income Fund -->
+                <div class="rounded-xl border border-white/60 bg-gray-50 p-4 transition hover:bg-gray-100 dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10" data-plan data-name="Conservative Income Fund" data-min="500" data-category="Income" data-risk="Low" data-nav="12.8" data-return="0">
+                  <div class="mb-3 flex items-start justify-between gap-2">
+                    <div class="flex-1">
+                      <h4 class="mb-1 text-sm font-medium text-black dark:text-white">Conservative Income Fund</h4>
+                      <p class="text-xs text-gray-600 dark:text-gray-400">Income</p>
+                    </div>
+                    <span class="inline-flex shrink-0 items-center rounded-full bg-gray-200 px-2 py-0.5 text-[11px] font-medium text-gray-700 dark:bg-white/15 dark:text-gray-300">Low</span>
+                  </div>
+                  <div class="mb-3 space-y-2">
+                    <div class="flex justify-between"><span class="text-xs text-gray-500 dark:text-gray-400">NAV:</span><span class="text-xs font-medium text-black dark:text-white">$12.8000</span></div>
+                    <div class="flex justify-between"><span class="text-xs text-gray-500 dark:text-gray-400">Return:</span><span class="text-xs font-medium text-black dark:text-white">+0.00%</span></div>
+                    <div class="flex justify-between"><span class="text-xs text-gray-500 dark:text-gray-400">Min:</span><span class="text-xs font-medium text-black dark:text-white">$500</span></div>
+                  </div>
+                  <div class="flex items-center justify-between">
+                    <button type="button" onclick="toggleFundDetails('mini-24')" class="text-xs text-black transition hover:opacity-70 dark:text-white">View Details</button>
+                    <button type="button" onclick="goToInvestment(this)" class="rounded-full bg-black px-2.5 py-1 text-xs font-medium text-white transition hover:bg-gray-700 dark:bg-white dark:text-black dark:hover:bg-gray-200">Invest</button>
+                  </div>
+                  <div id="mini-24" class="mt-3 hidden space-y-1.5 border-t border-gray-200 pt-3 text-xs text-gray-500 dark:border-white/10 dark:text-gray-400">
+                    <p>Category: <span class="font-medium text-gray-700 dark:text-gray-300">Income</span></p>
+                    <p>Risk profile: <span class="font-medium text-gray-700 dark:text-gray-300">Low</span></p>
+                    <p>Investment term: <span class="font-medium text-gray-700 dark:text-gray-300">Flexible</span></p>
+                  </div>
+                </div>
+
+                <!-- Dividend Income Fund -->
+                <div class="rounded-xl border border-white/60 bg-gray-50 p-4 transition hover:bg-gray-100 dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10" data-plan data-name="Dividend Income Fund" data-min="1000" data-category="Income" data-risk="Medium" data-nav="14.6" data-return="0">
+                  <div class="mb-3 flex items-start justify-between gap-2">
+                    <div class="flex-1">
+                      <h4 class="mb-1 text-sm font-medium text-black dark:text-white">Dividend Income Fund</h4>
+                      <p class="text-xs text-gray-600 dark:text-gray-400">Income</p>
+                    </div>
+                    <span class="inline-flex shrink-0 items-center rounded-full border border-gray-300 px-2 py-0.5 text-[11px] font-medium text-gray-600 dark:border-white/15 dark:text-gray-300">Medium</span>
+                  </div>
+                  <div class="mb-3 space-y-2">
+                    <div class="flex justify-between"><span class="text-xs text-gray-500 dark:text-gray-400">NAV:</span><span class="text-xs font-medium text-black dark:text-white">$14.6000</span></div>
+                    <div class="flex justify-between"><span class="text-xs text-gray-500 dark:text-gray-400">Return:</span><span class="text-xs font-medium text-black dark:text-white">+0.00%</span></div>
+                    <div class="flex justify-between"><span class="text-xs text-gray-500 dark:text-gray-400">Min:</span><span class="text-xs font-medium text-black dark:text-white">$1,000</span></div>
+                  </div>
+                  <div class="flex items-center justify-between">
+                    <button type="button" onclick="toggleFundDetails('mini-28')" class="text-xs text-black transition hover:opacity-70 dark:text-white">View Details</button>
+                    <button type="button" onclick="goToInvestment(this)" class="rounded-full bg-black px-2.5 py-1 text-xs font-medium text-white transition hover:bg-gray-700 dark:bg-white dark:text-black dark:hover:bg-gray-200">Invest</button>
+                  </div>
+                  <div id="mini-28" class="mt-3 hidden space-y-1.5 border-t border-gray-200 pt-3 text-xs text-gray-500 dark:border-white/10 dark:text-gray-400">
+                    <p>Category: <span class="font-medium text-gray-700 dark:text-gray-300">Income</span></p>
+                    <p>Risk profile: <span class="font-medium text-gray-700 dark:text-gray-300">Medium</span></p>
+                    <p>Investment term: <span class="font-medium text-gray-700 dark:text-gray-300">Flexible</span></p>
+                  </div>
+                </div>
+
+                <!-- ESG Balanced Fund -->
+                <div class="rounded-xl border border-white/60 bg-gray-50 p-4 transition hover:bg-gray-100 dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10" data-plan data-name="ESG Balanced Fund" data-min="150" data-category="Balanced" data-risk="Medium" data-nav="22.15" data-return="0">
+                  <div class="mb-3 flex items-start justify-between gap-2">
+                    <div class="flex-1">
+                      <h4 class="mb-1 text-sm font-medium text-black dark:text-white">ESG Balanced Fund</h4>
+                      <p class="text-xs text-gray-600 dark:text-gray-400">Balanced</p>
+                    </div>
+                    <span class="inline-flex shrink-0 items-center rounded-full border border-gray-300 px-2 py-0.5 text-[11px] font-medium text-gray-600 dark:border-white/15 dark:text-gray-300">Medium</span>
+                  </div>
+                  <div class="mb-3 space-y-2">
+                    <div class="flex justify-between"><span class="text-xs text-gray-500 dark:text-gray-400">NAV:</span><span class="text-xs font-medium text-black dark:text-white">$22.1500</span></div>
+                    <div class="flex justify-between"><span class="text-xs text-gray-500 dark:text-gray-400">Return:</span><span class="text-xs font-medium text-black dark:text-white">+0.00%</span></div>
+                    <div class="flex justify-between"><span class="text-xs text-gray-500 dark:text-gray-400">Min:</span><span class="text-xs font-medium text-black dark:text-white">$150</span></div>
+                  </div>
+                  <div class="flex items-center justify-between">
+                    <button type="button" onclick="toggleFundDetails('mini-26')" class="text-xs text-black transition hover:opacity-70 dark:text-white">View Details</button>
+                    <button type="button" onclick="goToInvestment(this)" class="rounded-full bg-black px-2.5 py-1 text-xs font-medium text-white transition hover:bg-gray-700 dark:bg-white dark:text-black dark:hover:bg-gray-200">Invest</button>
+                  </div>
+                  <div id="mini-26" class="mt-3 hidden space-y-1.5 border-t border-gray-200 pt-3 text-xs text-gray-500 dark:border-white/10 dark:text-gray-400">
+                    <p>Category: <span class="font-medium text-gray-700 dark:text-gray-300">Balanced</span></p>
+                    <p>Risk profile: <span class="font-medium text-gray-700 dark:text-gray-300">Medium</span></p>
+                    <p>Investment term: <span class="font-medium text-gray-700 dark:text-gray-300">Flexible</span></p>
+                  </div>
+                </div>
+
+                <!-- Global Growth Fund -->
+                <div class="rounded-xl border border-white/60 bg-gray-50 p-4 transition hover:bg-gray-100 dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10" data-plan data-name="Global Growth Fund" data-min="400" data-category="Growth" data-risk="Medium" data-nav="19.8" data-return="0">
+                  <div class="mb-3 flex items-start justify-between gap-2">
+                    <div class="flex-1">
+                      <h4 class="mb-1 text-sm font-medium text-black dark:text-white">Global Growth Fund</h4>
+                      <p class="text-xs text-gray-600 dark:text-gray-400">Growth</p>
+                    </div>
+                    <span class="inline-flex shrink-0 items-center rounded-full border border-gray-300 px-2 py-0.5 text-[11px] font-medium text-gray-600 dark:border-white/15 dark:text-gray-300">Medium</span>
+                  </div>
+                  <div class="mb-3 space-y-2">
+                    <div class="flex justify-between"><span class="text-xs text-gray-500 dark:text-gray-400">NAV:</span><span class="text-xs font-medium text-black dark:text-white">$19.8000</span></div>
+                    <div class="flex justify-between"><span class="text-xs text-gray-500 dark:text-gray-400">Return:</span><span class="text-xs font-medium text-black dark:text-white">+0.00%</span></div>
+                    <div class="flex justify-between"><span class="text-xs text-gray-500 dark:text-gray-400">Min:</span><span class="text-xs font-medium text-black dark:text-white">$400</span></div>
+                  </div>
+                  <div class="flex items-center justify-between">
+                    <button type="button" onclick="toggleFundDetails('mini-29')" class="text-xs text-black transition hover:opacity-70 dark:text-white">View Details</button>
+                    <button type="button" onclick="goToInvestment(this)" class="rounded-full bg-black px-2.5 py-1 text-xs font-medium text-white transition hover:bg-gray-700 dark:bg-white dark:text-black dark:hover:bg-gray-200">Invest</button>
+                  </div>
+                  <div id="mini-29" class="mt-3 hidden space-y-1.5 border-t border-gray-200 pt-3 text-xs text-gray-500 dark:border-white/10 dark:text-gray-400">
+                    <p>Category: <span class="font-medium text-gray-700 dark:text-gray-300">Growth</span></p>
+                    <p>Risk profile: <span class="font-medium text-gray-700 dark:text-gray-300">Medium</span></p>
+                    <p>Investment term: <span class="font-medium text-gray-700 dark:text-gray-300">Flexible</span></p>
+                  </div>
+                </div>
+
+                <!-- Sustainable Energy ETF -->
+                <div class="rounded-xl border border-white/60 bg-gray-50 p-4 transition hover:bg-gray-100 dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10" data-plan data-name="Sustainable Energy ETF" data-min="50" data-category="ESG" data-risk="Medium" data-nav="18.75" data-return="0">
+                  <div class="mb-3 flex items-start justify-between gap-2">
+                    <div class="flex-1">
+                      <h4 class="mb-1 text-sm font-medium text-black dark:text-white">Sustainable Energy ETF</h4>
+                      <p class="text-xs text-gray-600 dark:text-gray-400">ESG</p>
+                    </div>
+                    <span class="inline-flex shrink-0 items-center rounded-full border border-gray-300 px-2 py-0.5 text-[11px] font-medium text-gray-600 dark:border-white/15 dark:text-gray-300">Medium</span>
+                  </div>
+                  <div class="mb-3 space-y-2">
+                    <div class="flex justify-between"><span class="text-xs text-gray-500 dark:text-gray-400">NAV:</span><span class="text-xs font-medium text-black dark:text-white">$18.7500</span></div>
+                    <div class="flex justify-between"><span class="text-xs text-gray-500 dark:text-gray-400">Return:</span><span class="text-xs font-medium text-black dark:text-white">+0.00%</span></div>
+                    <div class="flex justify-between"><span class="text-xs text-gray-500 dark:text-gray-400">Min:</span><span class="text-xs font-medium text-black dark:text-white">$50</span></div>
+                  </div>
+                  <div class="flex items-center justify-between">
+                    <button type="button" onclick="toggleFundDetails('mini-22')" class="text-xs text-black transition hover:opacity-70 dark:text-white">View Details</button>
+                    <button type="button" onclick="goToInvestment(this)" class="rounded-full bg-black px-2.5 py-1 text-xs font-medium text-white transition hover:bg-gray-700 dark:bg-white dark:text-black dark:hover:bg-gray-200">Invest</button>
+                  </div>
+                  <div id="mini-22" class="mt-3 hidden space-y-1.5 border-t border-gray-200 pt-3 text-xs text-gray-500 dark:border-white/10 dark:text-gray-400">
+                    <p>Category: <span class="font-medium text-gray-700 dark:text-gray-300">ESG</span></p>
+                    <p>Risk profile: <span class="font-medium text-gray-700 dark:text-gray-300">Medium</span></p>
+                    <p>Investment term: <span class="font-medium text-gray-700 dark:text-gray-300">Flexible</span></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+
+    <script src="/dashboard-shell.js"></script>
+    <script>
+      // ---- Collapsible filters ----
+      function toggleFilters() {
+        var section = document.getElementById('filterSection');
+        var icon = document.getElementById('filterIcon');
+        if (!section) return;
+        section.classList.toggle('hidden');
+        if (icon) {
+          if (section.classList.contains('hidden')) {
+            icon.classList.remove('rotate-180');
+          } else {
+            icon.classList.add('rotate-180');
+          }
+        }
+        if (window.lucide) lucide.createIcons();
+      }
+
+      // ---- Plan details expanders ----
+      function toggleFundDetails(id) {
+        var panel = document.getElementById(id);
+        if (panel) panel.classList.toggle('hidden');
+      }
+
+      // ---- Open the investment checkout screen with this plan's details ----
+      function goToInvestment(btn) {
+        var card = btn.closest('[data-plan]');
+        if (!card) return;
+        var q = [
+          'name=' + encodeURIComponent(card.getAttribute('data-name')),
+          'cat=' + encodeURIComponent(card.getAttribute('data-category')),
+          'risk=' + encodeURIComponent(card.getAttribute('data-risk')),
+          'nav=' + card.getAttribute('data-nav'),
+          'ret=' + card.getAttribute('data-return'),
+          'min=' + (card.getAttribute('data-min') || 100)
+        ].join('&');
+        window.location.href = 'investment-buy.html?' + q;
+      }
+
+      // ---- Client-side search / filter / sort ----
+      function initPlanFilters() {
+        var form = document.getElementById('plan-filters');
+        var grid = document.getElementById('all-plans-grid');
+        if (!form || !grid) return;
+
+        var cards = Array.prototype.slice.call(document.querySelectorAll('#all-plans-grid [data-plan]'));
+        var countEl = document.getElementById('plan-count');
+        var totalEl = document.getElementById('plan-total');
+        var total = cards.length;
+        if (totalEl) totalEl.textContent = total;
+
+        var riskToLabel = { conservative: 'Low', moderate: 'Medium', aggressive: 'High' };
+        var riskOrder = { Low: 0, Medium: 1, High: 2 };
+
+        function apply() {
+          var q = (form.search.value || '').toLowerCase().trim();
+          var cat = form.category.value;
+          var risk = form.risk_level.value;
+          var sort = form.sort.value;
+
+          var visible = cards.filter(function (card) {
+            var name = card.getAttribute('data-name').toLowerCase();
+            var category = card.getAttribute('data-category').toLowerCase();
+            var riskLabel = card.getAttribute('data-risk');
+            var okText = !q || (name + ' ' + category).indexOf(q) !== -1;
+            var okCat = !cat || card.getAttribute('data-category') === cat;
+            var okRisk = !risk || riskLabel === (riskToLabel[risk] || '');
+            return okText && okCat && okRisk;
+          });
+
+          if (sort === 'name') visible.sort(function (a, b) { return a.getAttribute('data-name').localeCompare(b.getAttribute('data-name')); });
+          else if (sort === 'performance') visible.sort(function (a, b) { return parseFloat(b.getAttribute('data-return')) - parseFloat(a.getAttribute('data-return')); });
+          else if (sort === 'nav') visible.sort(function (a, b) { return parseFloat(a.getAttribute('data-nav')) - parseFloat(b.getAttribute('data-nav')); });
+          else if (sort === 'risk') visible.sort(function (a, b) { return riskOrder[a.getAttribute('data-risk')] - riskOrder[b.getAttribute('data-risk')]; });
+
+          cards.forEach(function (card) {
+            card.classList.toggle('hidden', visible.indexOf(card) === -1);
+          });
+          if (countEl) countEl.textContent = visible.length;
+        }
+
+        form.addEventListener('submit', function (e) { e.preventDefault(); apply(); });
+        form.sort.addEventListener('change', apply);
+
+        var clearBtn = document.getElementById('clear-filters');
+        if (clearBtn) {
+          clearBtn.addEventListener('click', function () { form.reset(); apply(); });
+        }
+
+        apply();
+      }
+
+      document.addEventListener('DOMContentLoaded', initPlanFilters);
+    </script>
+  </body>
+</html>

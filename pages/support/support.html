@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Get in touch with our support team." />
+    <title>Support — Tesla XTeam FX Trade</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.bunny.net" />
+    <link href="https://fonts.bunny.net/css?family=inter:300,400,500,600,700&display=swap" rel="stylesheet" />
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+
+    <!-- Tailwind CSS -->
+    <link rel="stylesheet" href="/dist/tailwind.css" />
+
+    <!-- Set theme before paint to avoid a flash of the wrong theme -->
+    <script>
+      (function () {
+        var stored = localStorage.getItem('theme');
+        var dark = stored === 'dark';
+        if (dark) document.documentElement.classList.add('dark');
+      })();
+    </script>
+  </head>
+
+  <body data-page="support" data-title="Support" class="font-sans antialiased bg-gray-300 text-black dark:bg-navy-950 dark:text-white">
+    <div id="app" class="min-h-screen flex">
+      <div id="page-content" class="flex-1 flex flex-col min-h-screen overflow-hidden lg:ml-72">
+        <main class="flex-1 overflow-y-auto p-4 pb-24 sm:p-6 lg:pb-6">
+          <div class="mx-auto max-w-7xl">
+            <div class="relative mb-6 overflow-hidden rounded-2xl bg-navy-950 p-6 text-white">
+              <div class="pointer-events-none absolute inset-0" aria-hidden="true">
+                <div class="absolute inset-0 t-grid opacity-30"></div>
+                <div class="absolute -left-16 top-1/2 h-72 w-72 -translate-y-1/2 t-orb"></div>
+                <div class="absolute -right-16 top-0 h-80 w-80 -translate-y-1/3 t-orb"></div>
+              </div>
+              <div class="relative z-10">
+                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between">
+                  <div>
+                    <h1 class="mb-1 text-xl font-light">Support</h1>
+                    <p class="text-sm text-gray-300">We're here to help, 24/7.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Contact channels -->
+            <div class="mb-6 grid grid-cols-1 gap-4 sm:grid-cols-3">
+              <div class="rounded-2xl border border-gray-200 bg-gradient-to-b from-white to-gray-50 p-4 shadow-sm dark:border-white/10 dark:bg-gray-900">
+                <div class="mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-tesla/10">
+                  <i data-lucide="message-circle" class="w-5 h-5 text-tesla"></i>
+                </div>
+                <h3 class="mb-1 text-sm font-medium text-black dark:text-white">Live Chat</h3>
+                <p class="mb-3 text-xs text-gray-500 dark:text-gray-400">Chat with an agent in real time.</p>
+                <button type="button" class="w-full rounded-full bg-tesla py-2 text-xs font-medium text-white dark:text-black transition hover:bg-tesla-600">Start Chat</button>
+              </div>
+              <div class="rounded-2xl border border-gray-200 bg-gradient-to-b from-white to-gray-50 p-4 shadow-sm dark:border-white/10 dark:bg-gray-900">
+                <div class="mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-[#eff6ff] dark:bg-white/10">
+                  <i data-lucide="mail" class="w-5 h-5 text-[#2563eb]"></i>
+                </div>
+                <h3 class="mb-1 text-sm font-medium text-black dark:text-white">Email</h3>
+                <p class="mb-3 text-xs text-gray-500 dark:text-gray-400">We reply within 24 hours.</p>
+                <a href="mailto:support@xteamfxtrade.com" class="block w-full rounded-full bg-gray-100 py-2 text-center text-xs font-medium text-gray-700 transition hover:bg-gray-200 dark:bg-white/10 dark:text-gray-300 dark:hover:bg-white/20">
+                  support@xteamfxtrade.com
+                </a>
+              </div>
+              <div class="rounded-2xl border border-gray-200 bg-gradient-to-b from-white to-gray-50 p-4 shadow-sm dark:border-white/10 dark:bg-gray-900">
+                <div class="mb-3 flex h-10 w-10 items-center justify-center rounded-xl bg-[#f0fdf4] dark:bg-white/10">
+                  <i data-lucide="phone" class="w-5 h-5 text-[#16a34a]"></i>
+                </div>
+                <h3 class="mb-1 text-sm font-medium text-black dark:text-white">Phone</h3>
+                <p class="mb-3 text-xs text-gray-500 dark:text-gray-400">Mon–Fri, 9:00–18:00 UTC.</p>
+                <a href="tel:+15550000000" class="block w-full rounded-full bg-gray-100 py-2 text-center text-xs font-medium text-gray-700 transition hover:bg-gray-200 dark:bg-white/10 dark:text-gray-300 dark:hover:bg-white/20">
+                  +1 555 000 0000
+                </a>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 gap-4 lg:grid-cols-2">
+              <!-- Contact form -->
+              <div class="rounded-2xl border border-gray-200 bg-gradient-to-b from-white to-gray-50 p-5 shadow-sm dark:border-white/10 dark:bg-gray-900">
+                <h2 class="mb-1 text-lg font-medium text-black dark:text-white">Send a Message</h2>
+                <p class="mb-4 text-xs text-gray-500 dark:text-gray-400">Tell us how we can help</p>
+
+                <div class="space-y-4">
+                  <div>
+                    <label for="support-subject" class="mb-1 block text-xs font-medium text-gray-600 dark:text-gray-300">Subject</label>
+                    <select id="support-subject" class="w-full rounded-xl border border-gray-200 bg-white px-3 py-2.5 text-sm text-black focus:border-tesla focus:outline-none dark:border-white/10 dark:bg-gray-900 dark:text-white">
+                      <option>General question</option>
+                      <option>Deposit issue</option>
+                      <option>Withdrawal issue</option>
+                      <option>Order support</option>
+                      <option>Account issue</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label for="support-message" class="mb-1 block text-xs font-medium text-gray-600 dark:text-gray-300">Message</label>
+                    <textarea id="support-message" rows="5" placeholder="Describe your issue..." class="w-full resize-none rounded-xl border border-gray-200 bg-white px-3 py-2.5 text-sm text-black focus:border-tesla focus:outline-none dark:border-white/10 dark:bg-gray-900 dark:text-white dark:placeholder:text-gray-500"></textarea>
+                  </div>
+                </div>
+
+                <button type="button" class="mt-5 w-full rounded-full bg-tesla py-2.5 text-sm font-medium text-white dark:text-black transition hover:bg-tesla-600">
+                  Send Message
+                </button>
+              </div>
+
+              <!-- FAQ -->
+              <div class="rounded-2xl border border-gray-200 bg-gradient-to-b from-white to-gray-50 p-5 shadow-sm dark:border-white/10 dark:bg-gray-900">
+                <h2 class="mb-4 text-lg font-medium text-black dark:text-white">Frequently Asked Questions</h2>
+
+                <div class="space-y-3">
+                  <details class="group rounded-xl border border-gray-100 px-4 py-3 dark:border-white/10">
+                    <summary class="flex cursor-pointer items-center justify-between text-sm font-medium text-gray-800 dark:text-gray-200">
+                      How long do withdrawals take?
+                      <i data-lucide="chevron-down" class="h-4 w-4 text-gray-400 transition-transform duration-200 group-open:rotate-180"></i>
+                    </summary>
+                    <p class="mt-2 text-xs leading-relaxed text-gray-500 dark:text-gray-400">Withdrawals are usually processed within 24 hours of approval. Crypto withdrawals depend on network confirmation.</p>
+                  </details>
+
+                  <details class="group rounded-xl border border-gray-100 px-4 py-3 dark:border-white/10">
+                    <summary class="flex cursor-pointer items-center justify-between text-sm font-medium text-gray-800 dark:text-gray-200">
+                      How do I get my funds verified?
+                      <i data-lucide="chevron-down" class="h-4 w-4 text-gray-400 transition-transform duration-200 group-open:rotate-180"></i>
+                    </summary>
+                    <p class="mt-2 text-xs leading-relaxed text-gray-500 dark:text-gray-400">Complete the KYC verification on the KYC Verification page. Documents are reviewed within 24–48 hours.</p>
+                  </details>
+
+                  <details class="group rounded-xl border border-gray-100 px-4 py-3 dark:border-white/10">
+                    <summary class="flex cursor-pointer items-center justify-between text-sm font-medium text-gray-800 dark:text-gray-200">
+                      What are the minimum investment amounts?
+                      <i data-lucide="chevron-down" class="h-4 w-4 text-gray-400 transition-transform duration-200 group-open:rotate-180"></i>
+                    </summary>
+                    <p class="mt-2 text-xs leading-relaxed text-gray-500 dark:text-gray-400">Plans start at $100 for the Starter plan, $500 for Growth, and $1,000 for Premium. See the Investments page for details.</p>
+                  </details>
+
+                  <details class="group rounded-xl border border-gray-100 px-4 py-3 dark:border-white/10">
+                    <summary class="flex cursor-pointer items-center justify-between text-sm font-medium text-gray-800 dark:text-gray-200">
+                      Can I change my delivery address after ordering?
+                      <i data-lucide="chevron-down" class="h-4 w-4 text-gray-400 transition-transform duration-200 group-open:rotate-180"></i>
+                    </summary>
+                    <p class="mt-2 text-xs leading-relaxed text-gray-500 dark:text-gray-400">Yes — contact support before your order reaches the delivery stage and we'll update it for you.</p>
+                  </details>
+                </div>
+              </div>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+
+    <script src="/dashboard-shell.js"></script>
+  </body>
+</html>
