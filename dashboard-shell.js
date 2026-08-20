@@ -105,12 +105,9 @@
           '</div>' +
         '</div>' +
         '<nav class="flex-1 px-4 py-4 space-y-1 overflow-y-auto">' + NAV.map(navLink).join('') + '</nav>' +
-        '<div class="px-4 py-2 border-t border-white/10">' +
-          '<div id="sidebar-lang-container"></div>' +
-        '</div>' +
         '<div class="p-4 border-t border-white/10">' +
           '<div class="flex items-center justify-between">' +
-            '<span class="text-sm font-medium text-gray-300" data-i18n="logout">Logout</span>' +
+            '<span class="text-sm font-medium text-gray-300">Logout</span>' +
             '<button type="button" onclick="logout()" class="flex items-center rounded-full p-2 text-gray-300 transition hover:bg-white/10" title="Sign Out">' +
               '<i data-lucide="log-out" class="w-4 h-4"></i>' +
             '</button>' +
@@ -119,60 +116,12 @@
       '</div>' +
     '</aside>';
 
-  function langSwitcherHtml(root) {
-    var el = (root && root.querySelector && root.querySelector('#sidebar-lang-container')) || document.querySelector('#sidebar-lang-container');
-    if (!el) return;
-    var base = (document.currentScript && document.currentScript.src || '').slice(0, (document.currentScript && document.currentScript.src || '').lastIndexOf('/') + 1);
-    var langs = [
-      { code: 'en', label: '🇺🇸 English' },
-      { code: 'es', label: '🇪🇸 Español' },
-      { code: 'fr', label: '🇫🇷 Français' },
-      { code: 'de', label: '🇩🇪 Deutsch' },
-      { code: 'pt', label: '🇧🇷 Português' },
-      { code: 'zh', label: '🇨🇳 中文' },
-      { code: 'ar', label: '🇸🇦 العربية' },
-      { code: 'ru', label: '🇷🇺 Русский' }
-    ];
-    var current = localStorage.getItem('i18n_lang') || 'en';
-    var curLabel = (langs.find(function(l){return l.code === current;}) || langs[0]).label;
-    el.innerHTML =
-      '<div class="relative">' +
-        '<button type="button" id="sidebar-lang-btn" class="w-full inline-flex items-center justify-between rounded-full border border-white/20 px-3 py-1.5 text-sm font-medium text-white transition hover:bg-white/10">' +
-          '<span id="sidebar-lang-btn-label">' + curLabel + '</span>' +
-          '<i data-lucide="chevron-down" class="w-3 h-3"></i>' +
-        '</button>' +
-        '<div id="sidebar-lang-menu" class="hidden absolute left-0 z-50 bottom-full mb-2 w-40 overflow-hidden rounded-xl border border-white/10 bg-navy-950 shadow-xl">' +
-          langs.map(function(l) {
-            var cls = l.code === current ? 'bg-white/20' : 'hover:bg-white/10';
-            return '<button type="button" data-i18n-lang="' + l.code + '" class="w-full text-left px-3 py-1.5 text-sm text-white transition ' + cls + '">' + l.label + '</button>';
-          }).join('') +
-        '</div>' +
-      '</div>';
-
-    var btn = el.querySelector('#sidebar-lang-btn');
-    var menu = el.querySelector('#sidebar-lang-menu');
-    var labelEl = el.querySelector('#sidebar-lang-btn-label');
-    if (!btn || !menu) return;
-
-    btn.addEventListener('click', function (e) {
-      e.stopPropagation();
-      menu.classList.toggle('hidden');
+  window.logout = function () {
+    api('/api/auth/logout', { method: 'POST' }).then(function () {
+      window.location.href = url('/pages/index.html#auth');
+    }, function () {
+      window.location.href = url('/pages/index.html#auth');
     });
-
-    menu.addEventListener('click', function (e) {
-      var b = e.target.closest('[data-i18n-lang]');
-      if (!b) return;
-      var code = b.getAttribute('data-i18n-lang');
-      if (window.setLanguage) window.setLanguage(code);
-      var match = langs.find(function(l){return l.code === code;});
-      if (match && labelEl) labelEl.textContent = match.label;
-      menu.classList.add('hidden');
-      document.dispatchEvent(new CustomEvent('i18n:changed', { detail: { lang: code } }));
-    });
-  }
-
-  window.__initSidebarLangSwitcher = function () {
-    langSwitcherHtml(document);
   };
 
   /* ---- Top bar markup ---- */
@@ -779,11 +728,6 @@
     console.error('[dashboard] FX.refresh error', err);
     window.location.href = url('/pages/index.html#auth');
   });
-
-  /* ---- Initialize sidebar language switcher ---- */
-  if (typeof window.__initSidebarLangSwitcher === 'function') {
-    window.__initSidebarLangSwitcher();
-  }
 
   /* ---- Lucide icons (runs twice safely; only <i data-lucide> are converted) ---- */
   if (window.lucide) lucide.createIcons();
