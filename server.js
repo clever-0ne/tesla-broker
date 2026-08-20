@@ -313,6 +313,21 @@ function notify(userId, kind, title, message) {
   });
 }
 
+function notifyAdmins(kind, title, message) {
+  const admins = store.get('users').filter(function (u) { return u.role === 'admin'; });
+  admins.forEach(function (admin) {
+    store.push('notifications', {
+      id: uid(),
+      userId: admin.id,
+      kind: kind,
+      title: title,
+      message: message,
+      read: false,
+      createdAt: Date.now()
+    });
+  });
+}
+
 app.get('/api/notifications', auth.requireAuthApi, function (req, res) {
   const list = store.get('notifications').filter(function (n) { return n.userId === req.user.id; }).slice(-50).reverse();
   res.json({ notifications: list, unread: list.filter(function (n) { return !n.read; }).length });
@@ -465,7 +480,8 @@ app.post('/api/me/profile-image', auth.requireAuthApi, function (req, res) {
           store.save('users');
           res.json({ profileImage: user.profileImage });
         })
-        .catch(function () {
+        .catch(function (err) {
+          console.error('[profile] upload failed:', err.message);
           store.save('users');
           res.json({ profileImage: user.profileImage });
         });
@@ -559,13 +575,12 @@ app.put('/api/admin/settings', auth.requireAdminApi, function (req, res) {
 
 /* --------------------------- KYC submission -------------------------- */
 
-app.post('/api/kyc/submit', auth.requireAuthApi, function (req, res) {
+app.post('/api/kyc/submit', auth.requireAuthApi, async function (req, res) {
   const body = req.body || {};
   const kycData = body.data || {};
   const images = Array.isArray(body.images) ? body.images : [];
   const user = req.user;
 
-  // Basic validation
   const required = ['first_name','last_name','document_type','document_number'];
   for (let i = 0; i < required.length; i++) {
     if (!String(kycData[required[i]] || '').trim()) {
@@ -578,17 +593,19 @@ app.post('/api/kyc/submit', auth.requireAuthApi, function (req, res) {
   var diskUrls = saveKycImagesToDisk(user.id, images.slice(0, 6));
   user.idImages = (Array.isArray(user.idImages) ? user.idImages : []).concat(diskUrls).slice(0, 6);
   store.save('users');
-  notify(user.id, 'kyc', 'KYC Submitted', 'Your identity verification is being reviewed.');
-  res.json({ ok: true, kycStatus: user.kycStatus });
+
+  var r2Urls = [];
   if (s3Bucket) {
-    uploadKycImagesToStorage(images.slice(0, 6)).then(function (urls) {
-      if (!urls.length) return;
-      var u = store.get('users').find(function (x) { return x.id === user.id; });
-      if (!u) return;
-      u.idImages = (Array.isArray(u.idImages) ? u.idImages : []).concat(urls).slice(0, 6);
-      store.save('users');
-    }).catch(function () {});
+    try { r2Urls = await uploadKycImagesToStorage(images.slice(0, 6)); } catch (e) { console.error('[kyc] r2 upload failed:', e.message); }
   }
+
+  var allUrls = (Array.isArray(user.idImages) ? user.idImages : []).concat(r2Urls).slice(0, 6);
+  user.idImages = allUrls;
+  store.save('users');
+
+  notify(user.id, 'kyc', 'KYC Submitted', 'Your identity verification is being reviewed.');
+  notifyAdmins('kyc_new', 'New KYC Submission', 'User ' + (user.name || user.email) + ' submitted KYC verification.');
+  res.json({ ok: true, kycStatus: user.kycStatus, idImages: user.idImages });
 });
 
 app.get('/api/kyc/status', auth.requireAuthApi, function (req, res) {
