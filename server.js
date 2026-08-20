@@ -68,7 +68,7 @@ function roundCoin(n) { return Math.round((Number(n) || 0) * 1e8) / 1e8; }
 function uid() { return crypto.randomBytes(6).toString('hex'); }
 
 function publicUser(u) {
-  return { id: u.id, name: u.name, email: u.email, role: u.role, balance: u.balance, kycStatus: u.kycStatus, createdAt: u.createdAt, profileImage: u.profileImage, blocked: u.blocked };
+  return { id: u.id, name: u.name, email: u.email, role: u.role, balance: u.balance, kycStatus: u.kycStatus, createdAt: u.createdAt, profileImage: u.profileImage, blocked: u.blocked, kycData: u.kycData || null, idImages: Array.isArray(u.idImages) ? u.idImages.slice(0, 6) : [] };
 }
 
 /* ----------------------------- middleware ----------------------------- */

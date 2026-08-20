@@ -136,6 +136,23 @@
                 <option value="submitted">Submitted</option>
                 <option value="approved">Approved</option>
               </select>
+
+              <!-- KYC Details -->
+              <div id="u-kyc-details" class="mt-3 hidden space-y-2">
+                <div class="rounded-xl border border-gray-200 bg-white p-3 dark:border-white/10 dark:bg-gray-800">
+                  <p class="text-xs font-medium text-gray-500 dark:text-gray-400 mb-1">Submitted Identity</p>
+                  <p id="u-kyc-name" class="text-sm font-medium text-black dark:text-white">—</p>
+                  <p id="u-kyc-doc" class="text-xs text-gray-500 dark:text-gray-400 mt-1">—</p>
+                  <p id="u-kyc-submitted" class="text-[10px] text-gray-400 mt-1"></p>
+                </div>
+                <div class="flex items-center justify-between">
+                  <p class="text-xs font-medium text-gray-600 dark:text-gray-300">ID Documents</p>
+                  <a id="u-kyc-view-all" href="#" class="hidden text-[11px] font-medium text-tesla hover:underline">View all images</a>
+                </div>
+                <div id="u-kyc-images" class="flex flex-wrap gap-2">
+                  <p class="py-1 text-xs text-gray-400">No ID images uploaded.</p>
+                </div>
+              </div>
             </div>
 
             <!-- Account Status -->
@@ -425,6 +442,29 @@
         document.getElementById('u-balance-input').value = Number(currentUser.balance).toFixed(2);
         document.getElementById('u-kyc-select').value = currentUser.kycStatus;
         document.getElementById('u-balance-msg').classList.add('hidden');
+        var kycDetails = document.getElementById('u-kyc-details');
+        if (kycDetails) {
+          var kycData = currentUser.kycData || {};
+          var submitted = kycData.submittedAt ? fmtDate(kycData.submittedAt) : '';
+          var fullName = [kycData.first_name, kycData.last_name].filter(Boolean).join(' ');
+          document.getElementById('u-kyc-name').textContent = fullName || '—';
+          document.getElementById('u-kyc-doc').textContent = [kycData.document_type, kycData.document_number].filter(Boolean).join(' · ') || '—';
+          document.getElementById('u-kyc-submitted').textContent = submitted ? 'Submitted ' + submitted : '';
+          var imgs = Array.isArray(currentUser.idImages) ? currentUser.idImages.slice(0, 6) : [];
+          var imagesEl = document.getElementById('u-kyc-images');
+          var viewAll = document.getElementById('u-kyc-view-all');
+          if (imgs.length) {
+            imagesEl.innerHTML = imgs.map(function (src, i) {
+              return '<img src="' + esc(src) + '" class="h-20 w-20 cursor-pointer rounded-lg border border-gray-200 object-cover dark:border-white/10" onclick="window.open(this.src)" title="Click to enlarge" />';
+            }).join('');
+            if (viewAll) { viewAll.classList.remove('hidden'); viewAll.href = imgs[0]; }
+          } else {
+            imagesEl.innerHTML = '<p class="py-1 text-xs text-gray-400">No ID images uploaded.</p>';
+            if (viewAll) viewAll.classList.add('hidden');
+          }
+          kycDetails.classList.toggle('hidden', currentUser.kycStatus === 'not_submitted');
+        }
+        if (window.lucide) lucide.createIcons();
         var blockBtn = document.getElementById('u-block-btn');
         var blockBadge = document.getElementById('u-blocked-badge');
         if (blockBtn) {
@@ -571,8 +611,12 @@
           method: 'PATCH',
           body: JSON.stringify({ kycStatus: status })
         }).then(function (r) {
-          if (r.ok) currentUser.kycStatus = status;
-          else alert(r.data.error || 'Update failed.');
+          if (r.ok) {
+            currentUser = r.data.user || currentUser;
+            renderUserDetail();
+          } else {
+            alert(r.data.error || 'Update failed.');
+          }
         });
       }
 

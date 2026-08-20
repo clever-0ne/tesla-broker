@@ -98,6 +98,26 @@
     root = root || document;
     var switcher = root.querySelector('#lang-switcher');
     if (!switcher) return;
+    if (!switcher.querySelector('#lang-btn')) {
+      switcher.innerHTML = (function () {
+        var items = LANGS.map(function (l) {
+          var cls = l.code === currentLang ? 'bg-white/20' : 'hover:bg-white/10';
+          return '<button type="button" data-i18n-lang="' + l.code + '" class="w-full text-left px-3 py-1.5 text-sm text-white transition ' + cls + '">' + l.label + '</button>';
+        }).join('');
+        return (
+          '<button type="button" id="lang-btn" class="inline-flex items-center rounded-full border border-white/20 px-3 py-1.5 text-sm font-medium text-white transition hover:bg-white/10">' +
+            '<span id="lang-btn-label">' + (function () {
+              var l = LANGS.find(function (x) { return x.code === currentLang; }) || LANGS[0];
+              return l.label;
+            })() + '</span>' +
+            '<i data-lucide="chevron-down" class="ml-1 w-3 h-3"></i>' +
+          '</button>' +
+          '<div id="lang-menu" class="hidden absolute right-0 z-50 mt-2 w-40 overflow-hidden rounded-xl border border-white/10 bg-navy-950 shadow-xl">' +
+            items +
+          '</div>'
+        );
+      })();
+    }
     var btn = switcher.querySelector('#lang-btn');
     var menu = switcher.querySelector('#lang-menu');
     var label = switcher.querySelector('#lang-btn-label');

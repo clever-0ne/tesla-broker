@@ -765,8 +765,12 @@
 
   // Resolve the session; no valid session means we must log in first.
   FX.refresh().then(function (ok) {
+    console.log('[dashboard] FX.refresh ok=', ok, 'ME=', ME);
     if (!ok) window.location.href = url('/pages/index.html#auth');
     else window.loadNotifications();
+  }).catch(function (err) {
+    console.error('[dashboard] FX.refresh error', err);
+    window.location.href = url('/pages/index.html#auth');
   });
 
   /* ---- Initialize sidebar language switcher ---- */

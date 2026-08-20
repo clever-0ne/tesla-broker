@@ -691,9 +691,9 @@
                   <input type="checkbox" id="signup-terms" required class="mt-0.5 mr-2 rounded border-gray-300 text-tesla focus:ring-tesla dark:border-gray-600 dark:bg-gray-800" />
                   <span>
                     I agree to the
-                    <a href="#" class="font-medium text-[#2563eb] hover:underline">Terms</a>
+                    <a href="/pages/terms.html" class="font-medium text-[#2563eb] hover:underline">Terms</a>
                     and
-                    <a href="#" class="font-medium text-[#2563eb] hover:underline">Privacy Policy</a>.
+                    <a href="/pages/privacy.html" class="font-medium text-[#2563eb] hover:underline">Privacy Policy</a>.
                   </span>
                 </label>
 
@@ -886,15 +886,18 @@
           loginError.classList.add('hidden');
           loginSubmit.disabled = true;
           loginSubmit.textContent = 'Signing in…';
+          console.log('[login] submit handler fired');
           postAuth('/api/auth/login', {
             email: document.getElementById('login-email').value.trim(),
             password: document.getElementById('login-password').value
           }).then(function (r) {
+            console.log('[login] response', r);
             if (r.ok) { window.location.href = '/pages/dashboard/dashboard.html'; return; }
             showError(loginError, r.data.error || 'Unable to sign in.');
             loginSubmit.disabled = false;
             loginSubmit.textContent = 'Sign In';
-          }).catch(function () {
+          }).catch(function (err) {
+            console.error('[login] network error', err);
             showError(loginError, 'Network error. Please try again.');
             loginSubmit.disabled = false;
             loginSubmit.textContent = 'Sign In';
