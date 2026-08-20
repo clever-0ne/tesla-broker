@@ -190,6 +190,9 @@ app.post('/api/auth/login', rateLimit, function (req, res) {
   if (!user || !auth.verifyPassword(user, password)) {
     return res.status(401).json({ error: 'Invalid email or password.' });
   }
+  if (user.blocked) {
+    return res.status(403).json({ error: 'Your account has been blocked. Please contact support for assistance.' });
+  }
   auth.setSessionCookie(res, auth.createSession(user.id));
   res.json({ user: publicUser(user) });
 });
