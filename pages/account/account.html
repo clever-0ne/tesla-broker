@@ -268,7 +268,13 @@
             body: JSON.stringify(payload)
           }).then(function (r) {
             if (r.ok) {
-              finish(r.data.profileImage || dataUrl || null);
+              if (dataUrl && window.FX && window.FX.refresh) {
+                window.FX.refresh().then(function () {
+                  finish(r.data.profileImage || dataUrl || null);
+                });
+              } else {
+                finish(r.data.profileImage || dataUrl || null);
+              }
             } else {
               alert(r.data.error || 'Failed to save profile.');
             }
