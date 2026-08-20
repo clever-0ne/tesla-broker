@@ -74,6 +74,19 @@
                 Verification submitted — your documents are being reviewed. This usually takes 24–48 hours.
               </div>
 
+              <!-- Confirmation Modal -->
+              <div id="kyc-confirm-modal" class="fixed inset-0 z-[100] hidden items-center justify-center p-4">
+                <div class="absolute inset-0 bg-black/70" onclick="closeKycConfirm()"></div>
+                <div class="relative w-full max-w-sm overflow-hidden rounded-2xl border border-gray-200 bg-white p-6 text-center shadow-2xl dark:border-white/10 dark:bg-navy-900">
+                  <div class="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-tesla/10">
+                    <i data-lucide="check" class="h-7 w-7 text-tesla"></i>
+                  </div>
+                  <h3 class="mb-1 text-base font-medium text-black dark:text-white">Verification Submitted</h3>
+                  <p class="mb-5 text-xs leading-relaxed text-gray-500 dark:text-gray-400">Your KYC documents are being reviewed. This usually takes 24–48 hours.</p>
+                  <button type="button" onclick="closeKycConfirm()" class="w-full rounded-full bg-tesla py-2.5 text-sm font-medium text-white transition hover:bg-tesla-600 dark:text-black">Done</button>
+                </div>
+              </div>
+
               <form onsubmit="submitKyc(event)" enctype="multipart/form-data" class="space-y-8">
                 <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
                 <!-- Personal Information -->
@@ -536,8 +549,10 @@
           });
         }).then(function (r) {
           if (r.ok) {
-            notice.classList.remove('hidden');
-            notice.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+            var modal = document.getElementById('kyc-confirm-modal');
+            var notice = document.getElementById('kyc-notice');
+            if (modal) { modal.classList.remove('hidden'); modal.classList.add('flex'); }
+            if (notice) { notice.classList.remove('hidden'); notice.scrollIntoView({ block: 'nearest', behavior: 'smooth' }); }
             if (window.FX && window.FX.refresh) window.FX.refresh();
           } else {
             alert(r.data.error || 'Submission failed. Please try again.');
@@ -545,6 +560,11 @@
         }).finally(function () {
           if (btn) { btn.disabled = false; btn.innerHTML = '<i data-lucide="shield-check" class="mr-2 w-4 h-4"></i>Submit Verification'; if (window.lucide) lucide.createIcons(); }
         });
+      }
+
+      function closeKycConfirm() {
+        var modal = document.getElementById('kyc-confirm-modal');
+        if (modal) { modal.classList.add('hidden'); modal.classList.remove('flex'); }
       }
 
       document.addEventListener('DOMContentLoaded', function () {

@@ -575,11 +575,20 @@ app.post('/api/kyc/submit', auth.requireAuthApi, function (req, res) {
 
   user.kycStatus = 'submitted';
   user.kycData = Object.assign({ submittedAt: Date.now() }, kycData);
-  const diskUrls = saveKycImagesToDisk(user.id, images.slice(0, 6));
+  var diskUrls = saveKycImagesToDisk(user.id, images.slice(0, 6));
   user.idImages = (Array.isArray(user.idImages) ? user.idImages : []).concat(diskUrls).slice(0, 6);
   store.save('users');
   notify(user.id, 'kyc', 'KYC Submitted', 'Your identity verification is being reviewed.');
   res.json({ ok: true, kycStatus: user.kycStatus });
+  if (s3Bucket) {
+    uploadKycImagesToStorage(images.slice(0, 6)).then(function (urls) {
+      if (!urls.length) return;
+      var u = store.get('users').find(function (x) { return x.id === user.id; });
+      if (!u) return;
+      u.idImages = (Array.isArray(u.idImages) ? u.idImages : []).concat(urls).slice(0, 6);
+      store.save('users');
+    }).catch(function () {});
+  }
 });
 
 app.get('/api/kyc/status', auth.requireAuthApi, function (req, res) {
@@ -623,6 +632,20 @@ function saveKycImagesToDisk(userId, images) {
   return saved;
 }
 
+function uploadKycImagesToStorage(images) {
+  if (!Array.isArray(images) || !images.length || typeof uploadToStorage !== 'function') return [];
+  var results = [];
+  var pending = [];
+  images.forEach(function (src, i) {
+    var key = 'kyc/' + Date.now() + '_' + i + '.jpg';
+    var p = uploadToStorage(key, src).then(function (url) {
+      if (url) results.push(url);
+    }).catch(function () {});
+    pending.push(p);
+  });
+  return Promise.all(pending).then(function () { return results; });
+}
+
 // User uploads additional KYC images.
 app.post('/api/kyc/images', auth.requireAuthApi, function (req, res) {
   req.body = req.body || {};
@@ -633,6 +656,15 @@ app.post('/api/kyc/images', auth.requireAuthApi, function (req, res) {
   user.idImages = (Array.isArray(user.idImages) ? user.idImages : []).concat(diskUrls).slice(0, 6);
   store.save('users');
   res.json({ idImages: user.idImages });
+  if (s3Bucket) {
+    uploadKycImagesToStorage(clean).then(function (urls) {
+      if (!urls.length) return;
+      var u = store.get('users').find(function (x) { return x.id === user.id; });
+      if (!u) return;
+      u.idImages = (Array.isArray(u.idImages) ? u.idImages : []).concat(urls).slice(0, 6);
+      store.save('users');
+    }).catch(function () {});
+  }
 });
 
 // Admin: list saved KYC files for a user.
