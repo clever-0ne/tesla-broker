@@ -538,6 +538,7 @@
           if (r.ok) {
             notice.classList.remove('hidden');
             notice.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+            if (window.FX && window.FX.refresh) window.FX.refresh();
           } else {
             alert(r.data.error || 'Submission failed. Please try again.');
           }

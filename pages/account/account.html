@@ -51,7 +51,7 @@
                       <div>
                         <p class="mb-1 text-xs text-gray-300">Profile Image</p>
                         <div class="flex h-16 w-16 items-center justify-center rounded-xl bg-gradient-to-br from-tesla to-tesla-700 shadow-sm">
-                          <span class="js-profile-initial text-lg font-medium text-white dark:text-black">&bull;</span>
+                          <span id="sidebar-avatar-initial" class="text-lg font-medium text-white dark:text-black">&bull;</span>
                         </div>
                       </div>
                       <div class="flex h-10 w-10 items-center justify-center">
@@ -209,31 +209,62 @@
         var notice = document.getElementById('saved-notice');
         if (!notice) return;
 
-        if (input && input.files && input.files[0]) {
-          var reader = new FileReader();
-          reader.onload = function (e) {
-            api('/api/me/profile-image', {
-              method: 'POST',
-              body: JSON.stringify({ image: e.target.result })
-            }).then(function (r) {
-              if (r.ok) {
-                // Update sidebar avatar
-                var sidebarInitial = document.getElementById('sidebar-avatar-initial');
-                if (sidebarInitial && r.data.profileImage) {
-                  sidebarInitial.parentElement.innerHTML = '<img src="' + r.data.profileImage + '" class="h-12 w-12 rounded-xl object-cover" />';
-                  if (window.lucide) lucide.createIcons();
-                }
-                notice.classList.remove('hidden');
-                setTimeout(function () { notice.classList.add('hidden'); }, 3000);
-              } else {
-                alert(r.data.error || 'Failed to save profile image.');
-              }
-            });
-          };
-          reader.readAsDataURL(input.files[0]);
-        } else {
+        var nameEl = document.getElementById('name');
+        var emailEl = document.getElementById('email');
+        var payload = {
+          name: nameEl ? nameEl.value : '',
+          email: emailEl ? emailEl.value : ''
+        };
+
+        var finish = function (dataUrl) {
+          var a = document.getElementById('sidebar-avatar-initial');
+          if (a) {
+            if (dataUrl) {
+              a.outerHTML = '<img src="' + dataUrl + '" class="h-12 w-12 rounded-xl object-cover" />';
+            } else {
+              a.textContent = ((payload.name || 'U').trim().charAt(0) || 'U').toUpperCase();
+            }
+            if (window.lucide) lucide.createIcons();
+          }
+          var img = document.getElementById('image-preview');
+          var txt = document.getElementById('image-preview-text');
+          if (img && txt) {
+            if (dataUrl) {
+              img.src = dataUrl;
+              img.classList.remove('hidden');
+              txt.classList.add('hidden');
+            } else {
+              img.classList.add('hidden');
+              txt.classList.remove('hidden');
+              txt.textContent = ((payload.name || 'U').trim().charAt(0) || 'U').toUpperCase();
+            }
+          }
           notice.classList.remove('hidden');
           setTimeout(function () { notice.classList.add('hidden'); }, 3000);
+        };
+
+        var send = function (dataUrl) {
+          if (dataUrl) payload.image = dataUrl;
+          api('/api/me/profile-image', {
+            method: 'POST',
+            body: JSON.stringify(payload)
+          }).then(function (r) {
+            if (r.ok) {
+              finish(r.data.profileImage || dataUrl || null);
+            } else {
+              alert(r.data.error || 'Failed to save profile.');
+            }
+          }).catch(function () {
+            alert('Network error. Please try again.');
+          });
+        };
+
+        if (input && input.files && input.files[0]) {
+          var reader = new FileReader();
+          reader.onload = function (e) { send(e.target.result); };
+          reader.readAsDataURL(input.files[0]);
+        } else {
+          send(null);
         }
       }
 

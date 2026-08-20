@@ -447,13 +447,15 @@ app.delete('/api/admin/users/:id', auth.requireAdminApi, function (req, res) {
   res.json({ ok: true });
 });
 
-// Upload profile image (base64, max 2MB)
+// Upload profile image + basic info (base64, max 2MB image)
 app.post('/api/me/profile-image', auth.requireAuthApi, function (req, res) {
   req.body = req.body || {};
   const dataUrl = String(req.body.image || '').slice(0, 5 * 1024 * 1024);
-  if (!dataUrl.startsWith('data:image/')) return res.status(400).json({ error: 'Invalid image.' });
+  if (dataUrl && !dataUrl.startsWith('data:image/')) return res.status(400).json({ error: 'Invalid image.' });
   const user = req.user;
-  user.profileImage = dataUrl;
+  if (String(req.body.name || '').trim()) user.name = String(req.body.name).trim();
+  if (String(req.body.email || '').trim()) user.email = String(req.body.email).trim();
+  if (dataUrl) user.profileImage = dataUrl;
   store.save('users');
   res.json({ profileImage: user.profileImage });
 });
