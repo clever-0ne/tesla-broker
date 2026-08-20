@@ -141,7 +141,7 @@
           '<span id="sidebar-lang-btn-label">' + curLabel + '</span>' +
           '<i data-lucide="chevron-down" class="w-3 h-3"></i>' +
         '</button>' +
-        '<div id="sidebar-lang-menu" class="hidden absolute left-0 z-50 mt-2 w-40 overflow-hidden rounded-xl border border-white/10 bg-navy-950 shadow-xl">' +
+        '<div id="sidebar-lang-menu" class="hidden absolute left-0 z-50 bottom-full mb-2 w-40 overflow-hidden rounded-xl border border-white/10 bg-navy-950 shadow-xl">' +
           langs.map(function(l) {
             var cls = l.code === current ? 'bg-white/20' : 'hover:bg-white/10';
             return '<button type="button" data-i18n-lang="' + l.code + '" class="w-full text-left px-3 py-1.5 text-sm text-white transition ' + cls + '">' + l.label + '</button>';
@@ -745,7 +745,14 @@
     var a = document.getElementById('sidebar-avatar-initial');
     if (n) n.textContent = ME.name || 'Account';
     if (e) e.textContent = ME.email || '';
-    if (a) a.textContent = (ME.name || '?').charAt(0).toUpperCase();
+    if (a) {
+      if (ME.profileImage) {
+        a.outerHTML = '<img src="' + ME.profileImage + '" class="h-12 w-12 rounded-xl object-cover" />';
+        if (window.lucide) lucide.createIcons();
+      } else {
+        a.textContent = (ME.name || '?').charAt(0).toUpperCase();
+      }
+    }
     var label = 'KYC Not Submitted';
     if (ME.kycStatus === 'submitted') label = 'KYC Pending';
     if (ME.kycStatus === 'approved') label = 'KYC Approved';

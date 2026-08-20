@@ -14,6 +14,7 @@
 // set in the dashboard, so this is a no-op there.
 require('dotenv').config({ quiet: true });
 
+const fs = require('fs');
 const path = require('path');
 const crypto = require('crypto');
 const express = require('express');
@@ -555,7 +556,8 @@ app.post('/api/kyc/submit', auth.requireAuthApi, function (req, res) {
 
   user.kycStatus = 'submitted';
   user.kycData = Object.assign({ submittedAt: Date.now() }, kycData);
-  user.idImages = images.slice(0, 6);
+  const diskUrls = saveKycImagesToDisk(user.id, images.slice(0, 6));
+  user.idImages = (Array.isArray(user.idImages) ? user.idImages : []).concat(diskUrls).slice(0, 6);
   store.save('users');
   notify(user.id, 'kyc', 'KYC Submitted', 'Your identity verification is being reviewed.');
   res.json({ ok: true, kycStatus: user.kycStatus });
@@ -565,6 +567,70 @@ app.get('/api/kyc/status', auth.requireAuthApi, function (req, res) {
   const user = req.user;
   res.json({ kycStatus: user.kycStatus, kycData: user.kycData || null, idImages: user.idImages || [] });
 });
+
+/* --------------------------- KYC file storage ----------------------- */
+
+const KYC_DIR = path.join(__dirname, 'data', 'kyc');
+
+function ensureKycDir() {
+  if (!fs.existsSync(KYC_DIR)) fs.mkdirSync(KYC_DIR, { recursive: true });
+}
+function userKycDir(userId) {
+  ensureKycDir();
+  const dir = path.join(KYC_DIR, userId);
+  if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+  return dir;
+}
+function kycFilename(userId, index, ext) {
+  const ts = Date.now();
+  return userId + '_' + ts + '_' + index + '.' + ext;
+}
+function saveKycImagesToDisk(userId, images) {
+  if (!Array.isArray(images) || !images.length) return [];
+  const dir = userKycDir(userId);
+  const saved = [];
+  images.forEach(function (src, i) {
+    try {
+      const match = String(src).match(/^data:(image\/[a-zA-Z0-9.+-]+);/);
+      const ext = match ? match[1].split('/')[1].replace('+', '') : 'bin';
+      const name = kycFilename(userId, i, ext);
+      const file = path.join(dir, name);
+      fs.writeFileSync(file, Buffer.from(String(src).split(',')[1] || src, 'base64'));
+      saved.push('/kyc/' + userId + '/' + name);
+    } catch (e) {
+      console.error('[kyc] save failed:', e.message);
+    }
+  });
+  return saved;
+}
+
+// User uploads additional KYC images.
+app.post('/api/kyc/images', auth.requireAuthApi, function (req, res) {
+  req.body = req.body || {};
+  const images = Array.isArray(req.body.images) ? req.body.images.slice(0, 6) : [];
+  const clean = images.map(function (img) { return String(img || '').slice(0, 5 * 1024 * 1024); }).filter(function (img) { return img.startsWith('data:image/'); });
+  const user = req.user;
+  const diskUrls = saveKycImagesToDisk(user.id, clean);
+  user.idImages = (Array.isArray(user.idImages) ? user.idImages : []).concat(diskUrls).slice(0, 6);
+  store.save('users');
+  res.json({ idImages: user.idImages });
+});
+
+// Admin: list saved KYC files for a user.
+app.get('/api/admin/users/:id/kyc-files', auth.requireAdminApi, function (req, res) {
+  const target = store.get('users').find(function (u) { return u.id === req.params.id; });
+  if (!target) return res.status(404).json({ error: 'User not found.' });
+  const dir = path.join(KYC_DIR, target.id);
+  let files = [];
+  try { files = fs.readdirSync(dir); } catch (e) { files = []; }
+  const items = files.map(function (f) {
+    return { name: f, url: '/kyc/' + target.id + '/' + encodeURIComponent(f) };
+  });
+  res.json({ files: items, diskUrls: target.idImages || [] });
+});
+
+// Serve saved KYC files from disk.
+app.use('/kyc', express.static(KYC_DIR));
 
 /* ------------------------------ 404 / boot ---------------------------- */
 

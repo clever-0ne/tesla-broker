@@ -87,7 +87,7 @@
           })() + '</span>' +
           '<i data-lucide="chevron-down" class="ml-1 w-3 h-3"></i>' +
         '</button>' +
-        '<div id="lang-menu" class="hidden absolute right-0 z-50 mt-2 w-40 overflow-hidden rounded-xl border border-white/10 bg-navy-950 shadow-xl">' +
+        '<div id="lang-menu" class="hidden absolute bottom-full right-0 z-50 mb-2 w-40 overflow-hidden rounded-xl border border-white/10 bg-navy-950 shadow-xl">' +
           items +
         '</div>' +
       '</div>'
@@ -112,7 +112,7 @@
             })() + '</span>' +
             '<i data-lucide="chevron-down" class="ml-1 w-3 h-3"></i>' +
           '</button>' +
-          '<div id="lang-menu" class="hidden absolute right-0 z-50 mt-2 w-40 overflow-hidden rounded-xl border border-white/10 bg-navy-950 shadow-xl">' +
+          '<div id="lang-menu" class="hidden absolute bottom-full right-0 z-50 mb-2 w-40 overflow-hidden rounded-xl border border-white/10 bg-navy-950 shadow-xl">' +
             items +
           '</div>'
         );
