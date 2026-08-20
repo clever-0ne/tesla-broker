@@ -455,7 +455,24 @@ app.post('/api/me/profile-image', auth.requireAuthApi, function (req, res) {
   const user = req.user;
   if (String(req.body.name || '').trim()) user.name = String(req.body.name).trim();
   if (String(req.body.email || '').trim()) user.email = String(req.body.email).trim();
-  if (dataUrl) user.profileImage = dataUrl;
+
+  if (dataUrl) {
+    user.profileImage = dataUrl;
+    if (typeof uploadToStorage === 'function') {
+      uploadToStorage('profiles/' + user.id + '/' + Date.now() + '.jpg', dataUrl)
+        .then(function (url) {
+          if (url) user.profileImage = url;
+          store.save('users');
+          res.json({ profileImage: user.profileImage });
+        })
+        .catch(function () {
+          store.save('users');
+          res.json({ profileImage: user.profileImage });
+        });
+      return;
+    }
+  }
+
   store.save('users');
   res.json({ profileImage: user.profileImage });
 });
@@ -637,6 +654,65 @@ app.use('/kyc', express.static(KYC_DIR));
 /* ------------------------------ 404 / boot ---------------------------- */
 
 app.use('/api', function (req, res) { res.status(404).json({ error: 'Not found' }); });
+
+// Optional S3-compatible storage for user images (profile + KYC).
+// Enabled only when S3_BUCKET is set; otherwise local disk is used.
+let S3Client = null;
+let s3Bucket = '';
+let s3PublicBase = '';
+if (process.env.S3_BUCKET && process.env.S3_ACCESS_KEY && process.env.S3_SECRET_KEY) {
+  try {
+    S3Client = require('@aws-sdk/client-s3').S3Client;
+    s3Bucket = process.env.S3_BUCKET;
+    s3PublicBase = (process.env.S3_PUBLIC_BASE_URL || '').replace(/\/+$/, '');
+    console.log('[s3] storage enabled for bucket=' + s3Bucket);
+  } catch (e) {
+    console.warn('[s3] client init failed:', e.message);
+  }
+}
+
+function buildS3Client() {
+  if (!S3Client) return null;
+  var endpoint = process.env.S3_ENDPOINT || undefined;
+  return new S3Client({
+    endpoint: endpoint,
+    region: 'auto',
+    credentials: {
+      accessKeyId: process.env.S3_ACCESS_KEY,
+      secretAccessKey: process.env.S3_SECRET_KEY
+    },
+    forcePathStyle: !!endpoint
+  });
+}
+
+function uploadToStorage(key, dataUrl) {
+  if (!s3Bucket || !dataUrl) return Promise.resolve(null);
+  var client = buildS3Client();
+  if (!client) return Promise.resolve(null);
+  var match = String(dataUrl).match(/^data:([^;]+);/);
+  var contentType = match ? match[1] : 'application/octet-stream';
+  var body = Buffer.from(String(dataUrl).split(',')[1] || dataUrl, 'base64');
+  var putCmd = {
+    Bucket: s3Bucket,
+    Key: key,
+    Body: body,
+    ContentType: contentType,
+    ACL: 'public-read'
+  };
+  return client.send(require('@aws-sdk/client-s3').PutObjectCommand, putCmd)
+    .then(function () {
+      if (s3PublicBase) return s3PublicBase + '/' + encodeURIComponent(key);
+      if (process.env.S3_ENDPOINT) {
+        var base = process.env.S3_ENDPOINT.replace(/\/+$/, '');
+        return base + '/' + s3Bucket + '/' + encodeURIComponent(key);
+      }
+      return null;
+    })
+    .catch(function (e) {
+      console.error('[s3] upload failed:', e.message);
+      return null;
+    });
+}
 
 // Last line of defence: return JSON for API errors, never a stack trace or the
 // Express default HTML error page.
