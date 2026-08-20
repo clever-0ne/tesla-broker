@@ -38,9 +38,10 @@
             <span class="flex items-center">
               <img src="/assets/logo.svg" alt="Tesla XTeam FX Trade" class="h-2 w-auto filter brightness-0 invert" />
             </span>
-            <span class="hidden sm:inline-flex items-center rounded-full bg-gray-200 px-3 py-1 text-xs font-medium text-navy-950">
-              <i data-lucide="shield" class="mr-1 h-3 w-3 text-[#7c3aed]"></i>Admin Console
+            <span class="hidden sm:inline-flex items-center rounded-full bg-gray-200 px-3 py-1 text-xs font-medium text-navy-950" id="lang-switcher-anchor">
+              <i data-lucide="shield" class="mr-1 h-3 w-3 text-[#7c3aed]"></i><span data-i18n="admin_title">Admin Console</span>
             </span>
+            <div id="lang-switcher" class="relative ml-3"></div>
           </div>
           <div class="flex items-center space-x-3">
             <button type="button" id="theme-toggle" class="p-2 rounded-full text-gray-400 transition hover:bg-white/10" aria-label="Toggle dark mode">
@@ -48,13 +49,13 @@
               <i data-lucide="moon" id="theme-moon" class="w-5 h-5"></i>
             </button>
             <button type="button" onclick="logout()" class="rounded-full border border-white/20 px-4 py-2 text-sm font-medium text-white transition hover:bg-white/10">
-              Logout
+              <span data-i18n="logout">Logout</span>
             </button>
           </div>
         </div>
       </div>
     </nav>
-
+    <script src="/i18n.js"></script>
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-16">
       <!-- Tabs -->
       <div class="mb-6 flex items-center gap-2 overflow-x-auto rounded-2xl border border-gray-200 bg-white p-1.5 shadow-sm dark:border-white/10 dark:bg-navy-900">
@@ -135,6 +136,26 @@
                 <option value="submitted">Submitted</option>
                 <option value="approved">Approved</option>
               </select>
+            </div>
+
+            <!-- Account Status -->
+            <div class="mt-4 rounded-xl border border-gray-200 bg-gray-50 p-4 dark:border-white/10 dark:bg-white/5">
+              <div class="mb-2 flex items-center justify-between">
+                <h4 class="text-sm font-medium text-black dark:text-white">Account Status</h4>
+                <span id="u-blocked-badge" class="hidden rounded-full bg-[#fecaca] px-2 py-0.5 text-[10px] font-semibold text-[#b91c1c]">Blocked</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <button type="button" id="u-block-btn" onclick="toggleUserBlock()" class="rounded-full bg-gray-200 px-5 py-2 text-xs font-medium text-navy-950 transition hover:bg-gray-300">Block User</button>
+                <span id="u-block-msg" class="text-xs text-gray-400"></span>
+              </div>
+            </div>
+
+            <!-- ID Images -->
+            <div class="mt-4 rounded-xl border border-gray-200 bg-gray-50 p-4 dark:border-white/10 dark:bg-white/5">
+              <h4 class="mb-2 text-sm font-medium text-black dark:text-white">ID Documents</h4>
+              <div id="u-id-images" class="flex flex-wrap gap-3">
+                <p class="py-2 text-xs text-gray-400">No ID images uploaded.</p>
+              </div>
             </div>
 
             <!-- Danger zone -->
@@ -314,7 +335,8 @@
 
       /* ---------------- users (list + management) ---------------- */
       var usersCache = [];
-      var pendingCache = {};
+      var pendingDeposits = {};
+      var pendingWithdrawals = {};
       var currentUser = null;
 
       function loadUsers() {
@@ -324,17 +346,25 @@
           api('/api/admin/withdrawals')
         ]).then(function (rs) {
           if (!rs[0].ok) return;
-          // Admin accounts are excluded — only customer accounts are managed here.
           usersCache = (rs[0].data.users || []).filter(function (u) { return u.role !== 'admin'; });
-          pendingCache = {};
+          pendingDeposits = {};
+          pendingWithdrawals = {};
           (rs[1].data.deposits || []).forEach(function (d) {
-            if (d.status === 'pending') pendingCache[d.userId] = (pendingCache[d.userId] || 0) + 1;
+            if (d.status === 'pending') pendingDeposits[d.userId] = (pendingDeposits[d.userId] || 0) + 1;
           });
           (rs[2].data.withdrawals || []).forEach(function (w) {
-            if (w.status === 'pending') pendingCache[w.userId] = (pendingCache[w.userId] || 0) + 1;
+            if (w.status === 'pending') pendingWithdrawals[w.userId] = (pendingWithdrawals[w.userId] || 0) + 1;
           });
           renderUserList();
         });
+      }
+
+      function pendingBadge(userId) {
+        var d = pendingDeposits[userId] || 0;
+        var w = pendingWithdrawals[userId] || 0;
+        var total = d + w;
+        if (!total) return '';
+        return ' <span class="ml-1 inline-block rounded-full bg-[#fff3e7] px-2 py-0.5 text-[10px] font-semibold text-[#9a3412]">' + total + ' pending</span>';
       }
 
       function renderUserList() {
@@ -346,13 +376,14 @@
           return;
         }
         list.innerHTML = usersCache.map(function (u) {
+          var blockedLabel = u.blocked ? '<span class="ml-1 inline-block rounded-full bg-[#fecaca] px-2 py-0.5 text-[10px] font-semibold text-[#b91c1c]">Blocked</span>' : '';
           return '<div class="flex items-center gap-3 rounded-xl border border-gray-200 bg-white p-3 transition hover:border-gray-300 hover:bg-gray-50 dark:border-white/10 dark:bg-gray-900 dark:hover:bg-white/5">' +
             '<button type="button" onclick="openUser(\'' + u.id + '\')" class="flex min-w-0 flex-1 items-center gap-3 text-left">' +
-              '<div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-gray-100 text-sm font-medium text-navy-950 dark:bg-white/10 dark:text-white">' + esc((u.name || '?').charAt(0).toUpperCase()) + '</div>' +
+              '<div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-gray-100 text-sm font-medium text-navy-950 dark:bg-white/10 dark:text-white">' +
+                (u.profileImage ? '<img src="' + esc(u.profileImage) + '" class="h-full w-full rounded-full object-cover" />' : esc((u.name || '?').charAt(0).toUpperCase())) +
+              '</div>' +
               '<div class="min-w-0 flex-1">' +
-                '<p class="truncate text-sm font-medium text-black dark:text-white">' + esc(u.name) +
-                  (pendingCache[u.id] ? ' <span class="ml-1 inline-block rounded-full bg-[#fff3e7] px-2 py-0.5 text-[10px] font-semibold text-[#9a3412]">' + pendingCache[u.id] + ' pending</span>' : '') +
-                '</p>' +
+                '<p class="truncate text-sm font-medium text-black dark:text-white">' + esc(u.name) + pendingBadge(u.id) + blockedLabel + '</p>' +
                 '<p class="truncate text-xs text-gray-500 dark:text-gray-400">' + esc(u.email) + '</p>' +
               '</div>' +
               '<div class="shrink-0 text-right">' +
@@ -377,7 +408,12 @@
         if (!currentUser) return;
         document.getElementById('user-list-view').classList.add('hidden');
         document.getElementById('user-detail-view').classList.remove('hidden');
-        document.getElementById('u-avatar').textContent = (currentUser.name || '?').charAt(0).toUpperCase();
+        var avatarEl = document.getElementById('u-avatar');
+        if (currentUser.profileImage) {
+          avatarEl.innerHTML = '<img src="' + esc(currentUser.profileImage) + '" class="h-full w-full rounded-full object-cover" />';
+        } else {
+          avatarEl.textContent = (currentUser.name || '?').charAt(0).toUpperCase();
+        }
         document.getElementById('u-name').textContent = currentUser.name;
         document.getElementById('u-email').textContent = currentUser.email;
         document.getElementById('u-created').textContent = 'Joined ' + fmtDate(currentUser.createdAt);
@@ -389,6 +425,28 @@
         document.getElementById('u-balance-input').value = Number(currentUser.balance).toFixed(2);
         document.getElementById('u-kyc-select').value = currentUser.kycStatus;
         document.getElementById('u-balance-msg').classList.add('hidden');
+        var blockBtn = document.getElementById('u-block-btn');
+        var blockBadge = document.getElementById('u-blocked-badge');
+        if (blockBtn) {
+          blockBtn.textContent = currentUser.blocked ? 'Unblock User' : 'Block User';
+          blockBtn.className = currentUser.blocked
+            ? 'rounded-full bg-[#16a34a] px-5 py-2 text-xs font-medium text-white transition hover:bg-[#15803d]'
+            : 'rounded-full bg-gray-200 px-5 py-2 text-xs font-medium text-navy-950 transition hover:bg-gray-300';
+        }
+        if (blockBadge) blockBadge.classList.toggle('hidden', !currentUser.blocked);
+
+        var idImagesEl = document.getElementById('u-id-images');
+        if (idImagesEl) {
+          var imgs = currentUser.idImages || [];
+          if (imgs.length) {
+            idImagesEl.innerHTML = imgs.map(function (src, i) {
+              return '<img src="' + esc(src) + '" class="h-24 w-24 cursor-pointer rounded-lg border border-gray-200 object-cover dark:border-white/10" onclick="window.open(this.src)" title="Click to enlarge" />';
+            }).join('');
+            if (window.lucide) lucide.createIcons();
+          } else {
+            idImagesEl.innerHTML = '<p class="py-2 text-xs text-gray-400">No ID images uploaded.</p>';
+          }
+        }
 
         var depositsEl = document.getElementById('u-deposits');
         var withdrawalsEl = document.getElementById('u-withdrawals');
@@ -523,6 +581,32 @@
         api('/api/admin/users/' + currentUser.id, { method: 'DELETE' }).then(function (r) {
           if (r.ok) closeUserDetail();
           else alert(r.data.error || 'Delete failed.');
+        });
+      }
+
+      function toggleUserBlock() {
+        var btn = document.getElementById('u-block-btn');
+        var msg = document.getElementById('u-block-msg');
+        var badge = document.getElementById('u-blocked-badge');
+        var willBlock = !currentUser.blocked;
+        api('/api/admin/users/' + currentUser.id + '/block', {
+          method: 'PATCH',
+          body: JSON.stringify({ blocked: willBlock })
+        }).then(function (r) {
+          if (r.ok) {
+            currentUser.blocked = willBlock;
+            btn.textContent = willBlock ? 'Unblock User' : 'Block User';
+            btn.className = willBlock
+              ? 'rounded-full bg-[#16a34a] px-5 py-2 text-xs font-medium text-white transition hover:bg-[#15803d]'
+              : 'rounded-full bg-gray-200 px-5 py-2 text-xs font-medium text-navy-950 transition hover:bg-gray-300';
+            if (badge) badge.classList.toggle('hidden', !willBlock);
+            msg.textContent = willBlock ? 'User blocked. Their sessions were terminated.' : 'User unblocked.';
+            msg.className = 'text-xs text-[#16a34a]';
+            renderUserList();
+          } else {
+            msg.textContent = r.data.error || 'Action failed.';
+            msg.className = 'text-xs text-[#b91c1c]';
+          }
         });
       }
 

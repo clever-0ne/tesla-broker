@@ -502,8 +502,48 @@
         event.preventDefault();
         var notice = document.getElementById('kyc-notice');
         if (!notice) return;
-        notice.classList.remove('hidden');
-        notice.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+
+        var btn = event.submitter || document.querySelector('[type="submit"]');
+        if (btn) { btn.disabled = true; btn.innerHTML = '<i data-lucide="loader-2" class="mr-2 w-4 h-4 animate-spin"></i>Submitting…'; if (window.lucide) lucide.createIcons(); }
+
+        // Collect form data
+        var formData = {};
+        var fields = ['first_name','last_name','date_of_birth','nationality','address_country','address_street','address_city','address_state','address_zip','document_type','document_number'];
+        fields.forEach(function (f) {
+          var el = document.getElementById(f);
+          if (el) formData[f] = el.value.trim();
+        });
+
+        // Read document images as base64
+        var promises = [];
+        ['document_front','document_back'].forEach(function (id) {
+          var input = document.getElementById(id);
+          if (input && input.files && input.files[0]) {
+            promises.push(new Promise(function (resolve) {
+              var reader = new FileReader();
+              reader.onload = function (e) { resolve(e.target.result); };
+              reader.readAsDataURL(input.files[0]);
+            }));
+          } else {
+            promises.push(Promise.resolve(null));
+          }
+        });
+
+        Promise.all(promises).then(function (images) {
+          return api('/api/kyc/submit', {
+            method: 'POST',
+            body: JSON.stringify({ data: formData, images: images.filter(function (x) { return x; }) })
+          });
+        }).then(function (r) {
+          if (r.ok) {
+            notice.classList.remove('hidden');
+            notice.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+          } else {
+            alert(r.data.error || 'Submission failed. Please try again.');
+          }
+        }).finally(function () {
+          if (btn) { btn.disabled = false; btn.innerHTML = '<i data-lucide="shield-check" class="mr-2 w-4 h-4"></i>Submit Verification'; if (window.lucide) lucide.createIcons(); }
+        });
       }
 
       document.addEventListener('DOMContentLoaded', function () {

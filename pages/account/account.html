@@ -205,10 +205,36 @@
 
       function saveProfile(event) {
         event.preventDefault();
+        var input = document.getElementById('profile_image');
         var notice = document.getElementById('saved-notice');
         if (!notice) return;
-        notice.classList.remove('hidden');
-        setTimeout(function () { notice.classList.add('hidden'); }, 3000);
+
+        if (input && input.files && input.files[0]) {
+          var reader = new FileReader();
+          reader.onload = function (e) {
+            api('/api/me/profile-image', {
+              method: 'POST',
+              body: JSON.stringify({ image: e.target.result })
+            }).then(function (r) {
+              if (r.ok) {
+                // Update sidebar avatar
+                var sidebarInitial = document.getElementById('sidebar-avatar-initial');
+                if (sidebarInitial && r.data.profileImage) {
+                  sidebarInitial.parentElement.innerHTML = '<img src="' + r.data.profileImage + '" class="h-12 w-12 rounded-xl object-cover" />';
+                  if (window.lucide) lucide.createIcons();
+                }
+                notice.classList.remove('hidden');
+                setTimeout(function () { notice.classList.add('hidden'); }, 3000);
+              } else {
+                alert(r.data.error || 'Failed to save profile image.');
+              }
+            });
+          };
+          reader.readAsDataURL(input.files[0]);
+        } else {
+          notice.classList.remove('hidden');
+          setTimeout(function () { notice.classList.add('hidden'); }, 3000);
+        }
       }
 
       // Populate name/email from the logged-in account — no hard-coded values.

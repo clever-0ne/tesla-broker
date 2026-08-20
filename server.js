@@ -68,7 +68,7 @@ function roundCoin(n) { return Math.round((Number(n) || 0) * 1e8) / 1e8; }
 function uid() { return crypto.randomBytes(6).toString('hex'); }
 
 function publicUser(u) {
-  return { id: u.id, name: u.name, email: u.email, role: u.role, balance: u.balance, kycStatus: u.kycStatus, createdAt: u.createdAt };
+  return { id: u.id, name: u.name, email: u.email, role: u.role, balance: u.balance, kycStatus: u.kycStatus, createdAt: u.createdAt, profileImage: u.profileImage, blocked: u.blocked };
 }
 
 /* ----------------------------- middleware ----------------------------- */
@@ -443,6 +443,44 @@ app.delete('/api/admin/users/:id', auth.requireAdminApi, function (req, res) {
   res.json({ ok: true });
 });
 
+// Upload profile image (base64, max 2MB)
+app.post('/api/me/profile-image', auth.requireAuthApi, function (req, res) {
+  req.body = req.body || {};
+  const dataUrl = String(req.body.image || '').slice(0, 5 * 1024 * 1024);
+  if (!dataUrl.startsWith('data:image/')) return res.status(400).json({ error: 'Invalid image.' });
+  const user = req.user;
+  user.profileImage = dataUrl;
+  store.save('users');
+  res.json({ profileImage: user.profileImage });
+});
+
+// Upload ID document images (base64 array, max 5MB each)
+app.post('/api/me/id-images', auth.requireAuthApi, function (req, res) {
+  req.body = req.body || {};
+  const images = Array.isArray(req.body.images) ? req.body.images.slice(0, 6) : [];
+  const clean = images.map(function (img) {
+    return String(img || '').slice(0, 5 * 1024 * 1024);
+  }).filter(function (img) { return img.startsWith('data:image/'); });
+  const user = req.user;
+  user.idImages = clean;
+  store.save('users');
+  res.json({ idImages: user.idImages });
+});
+
+// Admin: toggle user block
+app.patch('/api/admin/users/:id/block', auth.requireAdminApi, function (req, res) {
+  const user = store.get('users').find(function (u) { return u.id === req.params.id; });
+  if (!user) return res.status(404).json({ error: 'User not found.' });
+  if (user.role === 'admin') return res.status(400).json({ error: 'You cannot block an admin account.' });
+  const body = req.body || {};
+  const blocked = body.blocked === true;
+  if (blocked && user.id === req.user.id) return res.status(400).json({ error: 'You cannot block yourself.' });
+  user.blocked = blocked;
+  if (blocked) auth.destroyUserSessions(user.id);
+  store.save('users');
+  res.json({ user: publicUser(user) });
+});
+
 app.get('/api/admin/deposits', auth.requireAdminApi, function (req, res) {
   res.json({ deposits: store.get('deposits').slice().reverse() });
 });
@@ -494,6 +532,35 @@ app.put('/api/admin/settings', auth.requireAdminApi, function (req, res) {
 
   store.set('settings', { siteName: DEFAULT_SETTINGS.siteName, depositAddresses: clean.depositAddresses, coinRates: clean.coinRates });
   res.json(getSettings());
+});
+
+/* --------------------------- KYC submission -------------------------- */
+
+app.post('/api/kyc/submit', auth.requireAuthApi, function (req, res) {
+  const body = req.body || {};
+  const kycData = body.data || {};
+  const images = Array.isArray(body.images) ? body.images : [];
+  const user = req.user;
+
+  // Basic validation
+  const required = ['first_name','last_name','document_type','document_number'];
+  for (let i = 0; i < required.length; i++) {
+    if (!String(kycData[required[i]] || '').trim()) {
+      return res.status(400).json({ error: 'Please fill all required fields.' });
+    }
+  }
+
+  user.kycStatus = 'submitted';
+  user.kycData = Object.assign({ submittedAt: Date.now() }, kycData);
+  user.idImages = images.slice(0, 6);
+  store.save('users');
+  notify(user.id, 'kyc', 'KYC Submitted', 'Your identity verification is being reviewed.');
+  res.json({ ok: true, kycStatus: user.kycStatus });
+});
+
+app.get('/api/kyc/status', auth.requireAuthApi, function (req, res) {
+  const user = req.user;
+  res.json({ kycStatus: user.kycStatus, kycData: user.kycData || null, idImages: user.idImages || [] });
 });
 
 /* ------------------------------ 404 / boot ---------------------------- */
