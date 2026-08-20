@@ -42,14 +42,14 @@
               <div class="relative z-10">
                 <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between">
                   <div class="mb-4 lg:mb-0 lg:flex-1">
-                    <h1 class="mb-1 text-xl font-light">Profile Settings</h1>
-                    <p class="text-sm text-gray-300">Manage your account information and preferences</p>
+                    <h1 class="mb-1 text-xl font-light" data-i18n="account_title">Profile Settings</h1>
+                    <p class="text-sm text-gray-300" data-i18n="account_subtitle">Manage your account information and preferences</p>
                   </div>
 
                   <div class="rounded-2xl border border-white/20 bg-white/10 p-4 shadow-xl lg:w-64">
                     <div class="flex items-center justify-between">
                       <div>
-                        <p class="mb-1 text-xs text-gray-300">Profile Image</p>
+                        <p class="mb-1 text-xs text-gray-300" data-i18n="profile_image_heading" data-i18n="profile_image_label">Profile Image</p>
                         <div class="flex h-16 w-16 items-center justify-center rounded-xl bg-gradient-to-br from-tesla to-tesla-700 shadow-sm">
                           <span class="js-profile-initial text-lg font-medium text-white dark:text-black">&bull;</span>
                         </div>
@@ -76,8 +76,8 @@
                 <div class="space-y-4">
                   <div class="mb-4 flex items-center justify-between">
                     <div>
-                      <h3 class="mb-1 text-lg font-light text-black dark:text-white">Personal Information</h3>
-                      <p class="text-xs text-gray-500 dark:text-gray-400">Update your basic account details</p>
+                      <h3 class="mb-1 text-lg font-light text-black dark:text-white" data-i18n="personal_info_heading">Personal Information</h3>
+                      <p class="text-xs text-gray-500 dark:text-gray-400" data-i18n="personal_info_subtitle">Update your basic account details</p>
                     </div>
                     <div class="flex h-8 w-8 items-center justify-center">
                       <i data-lucide="user" class="w-4 h-4 text-[#2563eb] dark:text-[#93c5fd]"></i>
@@ -86,13 +86,13 @@
 
                   <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
                     <div>
-                      <label for="name" class="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300">Full Name</label>
+                      <label for="name" class="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300" data-i18n="full_name_label">Full Name</label>
                       <input type="text" id="name" name="name" placeholder="Enter your full name" required
                         class="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm text-black transition focus:border-tesla focus:outline-none dark:border-white/10 dark:bg-gray-900 dark:text-white dark:placeholder:text-gray-500 dark:focus:border-white" />
                     </div>
 
                     <div>
-                      <label for="email" class="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300">Email Address</label>
+                      <label for="email" class="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300" data-i18n="email_label">Email Address</label>
                       <input type="email" id="email" name="email" placeholder="you@email.com" required
                         class="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm text-black transition focus:border-tesla focus:outline-none dark:border-white/10 dark:bg-gray-900 dark:text-white dark:focus:border-white" />
                     </div>
@@ -103,8 +103,8 @@
                 <div class="space-y-4">
                   <div class="mb-4 flex items-center justify-between">
                     <div>
-                      <h3 class="mb-1 text-lg font-light text-black dark:text-white">Profile Image</h3>
-                      <p class="text-xs text-gray-500 dark:text-gray-400">Upload a new profile picture</p>
+                      <h3 class="mb-1 text-lg font-light text-black dark:text-white" data-i18n="profile_image_heading" data-i18n="profile_image_label">Profile Image</h3>
+                      <p class="text-xs text-gray-500 dark:text-gray-400" data-i18n="profile_image_subtitle">Upload a new profile picture</p>
                     </div>
                     <div class="flex h-8 w-8 items-center justify-center">
                       <i data-lucide="image" class="w-4 h-4 text-[#2563eb] dark:text-[#93c5fd]"></i>
@@ -112,7 +112,7 @@
                   </div>
 
                   <div>
-                    <label for="profile_image" class="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300">Profile Image</label>
+                    <label for="profile_image" class="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300" data-i18n="profile_image_heading" data-i18n="profile_image_label">Profile Image</label>
                     <div class="flex items-center space-x-4">
                       <div class="flex h-20 w-20 shrink-0 items-center justify-center overflow-hidden rounded-xl bg-gradient-to-br from-tesla to-tesla-700 shadow-sm">
                         <img id="image-preview" src="" alt="Profile preview" class="hidden h-full w-full object-cover" />
@@ -125,7 +125,7 @@
                                accept="image/*"
                                onchange="previewImage(this)"
                                class="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm text-black transition focus:border-tesla focus:outline-none file:mr-3 file:rounded-full file:border-0 file:bg-tesla file:px-4 file:py-1.5 file:text-xs file:font-medium file:text-white dark:border-white/10 dark:bg-gray-900 dark:text-white dark:focus:border-white dark:file:text-black" />
-                        <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">JPG, PNG or GIF. Max 2MB.</p>
+                        <p class="mt-1 text-xs text-gray-500 dark:text-gray-400" data-i18n="profile_image_hint">JPG, PNG or GIF. Max 2MB.</p>
                       </div>
                     </div>
                   </div>
@@ -135,8 +135,8 @@
                 <div class="space-y-4">
                   <div class="mb-4 flex items-center justify-between">
                     <div>
-                      <h3 class="mb-1 text-lg font-light text-black dark:text-white">Security Settings</h3>
-                      <p class="text-xs text-gray-500 dark:text-gray-400">Update your password</p>
+                      <h3 class="mb-1 text-lg font-light text-black dark:text-white" data-i18n="security_heading">Security Settings</h3>
+                      <p class="text-xs text-gray-500 dark:text-gray-400" data-i18n="security_subtitle">Update your password</p>
                     </div>
                     <div class="flex h-8 w-8 items-center justify-center">
                       <i data-lucide="shield" class="w-4 h-4 text-[#2563eb] dark:text-[#93c5fd]"></i>
@@ -145,20 +145,20 @@
 
                   <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
                     <div>
-                      <label for="current_password" class="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300">Current Password</label>
+                      <label for="current_password" class="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300" data-i18n="current_password_label">Current Password</label>
                       <input type="password" id="current_password" name="current_password" placeholder="••••••••"
                         class="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm text-black transition focus:border-tesla focus:outline-none dark:border-white/10 dark:bg-gray-900 dark:text-white dark:placeholder:text-gray-500 dark:focus:border-white" />
                     </div>
 
                     <div>
-                      <label for="password" class="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300">New Password</label>
+                      <label for="password" class="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300" data-i18n="new_password_label">New Password</label>
                       <input type="password" id="password" name="password" placeholder="••••••••"
                         class="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm text-black transition focus:border-tesla focus:outline-none dark:border-white/10 dark:bg-gray-900 dark:text-white dark:placeholder:text-gray-500 dark:focus:border-white" />
                     </div>
                   </div>
 
                   <div>
-                    <label for="password_confirmation" class="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300">Confirm New Password</label>
+                    <label for="password_confirmation" class="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300" data-i18n="confirm_password_label">Confirm New Password</label>
                     <input type="password" id="password_confirmation" name="password_confirmation" placeholder="••••••••"
                       class="w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm text-black transition focus:border-tesla focus:outline-none dark:border-white/10 dark:bg-gray-900 dark:text-white dark:placeholder:text-gray-500 dark:focus:border-white" />
                   </div>
