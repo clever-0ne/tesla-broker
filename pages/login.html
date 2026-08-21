@@ -32,36 +32,36 @@
       </header>
 
       <!-- Main -->
-      <main class="flex flex-1 items-center justify-center px-4 py-12">
-        <div class="w-full max-w-md">
-          <div class="rounded-2xl border border-white/10 bg-navy-900/50 p-8 shadow-2xl backdrop-blur">
-            <div class="mb-8 text-center">
-              <h1 class="text-2xl font-bold tracking-tight">Sign In</h1>
-              <p class="mt-2 text-sm text-gray-400">Welcome back. Please enter your details.</p>
+      <main class="flex flex-1 items-center justify-center px-4 py-10">
+        <div class="w-full max-w-sm">
+          <div class="rounded-2xl border border-white/10 bg-navy-900/50 p-6 shadow-2xl backdrop-blur">
+            <div class="mb-6 text-center">
+              <h1 class="text-xl font-bold tracking-tight">Sign In</h1>
+              <p class="mt-1 text-xs text-gray-400">Welcome back. Please enter your details.</p>
             </div>
 
-            <form id="login-form" class="space-y-5" novalidate>
+            <form id="login-form" class="space-y-4" novalidate>
               <div>
-                <label for="login-email" class="mb-1.5 block text-sm font-medium text-gray-300">Email</label>
+                <label for="login-email" class="mb-1 block text-xs font-medium text-gray-300">Email</label>
                 <input id="login-email" type="email" required autocomplete="email" placeholder="you@example.com"
-                  class="w-full rounded-lg border border-white/10 bg-navy-950 px-4 py-2.5 text-sm text-white placeholder-gray-500 outline-none transition focus:border-tesla focus:ring-2 focus:ring-tesla/40" />
+                  class="w-full rounded-lg border border-white/10 bg-navy-950 px-3 py-2 text-xs text-white placeholder-gray-500 outline-none transition focus:border-tesla focus:ring-2 focus:ring-tesla/40" />
               </div>
 
               <div>
-                <label for="login-password" class="mb-1.5 block text-sm font-medium text-gray-300">Password</label>
+                <label for="login-password" class="mb-1 block text-xs font-medium text-gray-300">Password</label>
                 <input id="login-password" type="password" required autocomplete="current-password" placeholder="••••••••"
-                  class="w-full rounded-lg border border-white/10 bg-navy-950 px-4 py-2.5 text-sm text-white placeholder-gray-500 outline-none transition focus:border-tesla focus:ring-2 focus:ring-tesla/40" />
+                  class="w-full rounded-lg border border-white/10 bg-navy-950 px-3 py-2 text-xs text-white placeholder-gray-500 outline-none transition focus:border-tesla focus:ring-2 focus:ring-tesla/40" />
               </div>
 
-              <div id="login-error" class="hidden rounded-lg border border-red-500/30 bg-red-500/10 px-4 py-3 text-sm text-red-200"></div>
+              <div id="login-error" class="hidden rounded-lg border border-red-500/30 bg-red-500/10 px-3 py-2 text-xs text-red-200"></div>
 
               <button type="submit" id="login-submit"
-                class="w-full rounded-full bg-tesla px-4 py-2.5 text-sm font-semibold text-navy-950 shadow-lg transition hover:brightness-110 focus:outline-none focus:ring-2 focus:ring-tesla focus:ring-offset-2 focus:ring-offset-navy-950">
+                class="w-full rounded-full bg-tesla px-4 py-2 text-xs font-semibold text-navy-950 shadow-lg transition hover:brightness-110 focus:outline-none focus:ring-2 focus:ring-tesla focus:ring-offset-2 focus:ring-offset-navy-950">
                 Sign In
               </button>
             </form>
 
-            <p class="mt-6 text-center text-sm text-gray-400">
+            <p class="mt-4 text-center text-xs text-gray-400">
               Don't have an account?
               <a href="/pages/index.html#auth" class="font-medium text-tesla hover:underline">Create Account</a>
             </p>
