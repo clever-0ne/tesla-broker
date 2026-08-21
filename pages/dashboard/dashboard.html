@@ -27,48 +27,44 @@
     </script>
   </head>
 
-  <body data-page="dashboard" data-title="Dashboard" class="font-sans antialiased bg-gray-300 text-black dark:bg-navy-950 dark:text-white">
+  <body data-page="dashboard" data-title="Dashboard" class="font-sans antialiased bg-gray-200 text-slate-900 dark:bg-gray-200 dark:text-slate-900">
     <div id="app" class="min-h-screen flex">
       <div id="page-content" class="flex-1 flex flex-col min-h-screen overflow-hidden lg:ml-72">
         <!-- Sidebar, top bar, and bottom nav are injected by dashboard-shell.js -->
         <main class="flex-1 overflow-y-auto p-4 pb-24 sm:p-6 lg:pb-6">
           <div class="mx-auto max-w-7xl">
             <!-- Welcome -->
-            <div class="relative mb-6 overflow-hidden rounded-2xl bg-navy-950 p-6 text-white">
+            <div class="relative mb-6 overflow-hidden rounded-[20px] border border-white/60 bg-white/85 p-6 shadow-[0_20px_40px_-15px_rgba(0,0,0,0.07)]">
               <div class="pointer-events-none absolute inset-0" aria-hidden="true">
-                <div class="absolute inset-0 t-grid opacity-40"></div>
-                <div class="absolute inset-0 t-sheen"></div>
-                <div class="absolute -left-16 top-1/2 h-72 w-72 -translate-y-1/2 t-orb"></div>
-                <div class="absolute -right-16 top-0 h-80 w-80 -translate-y-1/3 t-orb"></div>
-                <div class="absolute bottom-0 left-0 h-24 w-24 translate-x-[-1rem] translate-y-3 rounded-full bg-white opacity-10"></div>
+                <div class="absolute inset-0 bg-gradient-to-br from-slate-100/60 via-transparent to-transparent"></div>
               </div>
 
               <div class="relative z-10">
                 <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between">
                   <div class="mb-4 lg:mb-0 lg:flex-1">
-                    <p class="t-label mb-2 text-white/50">Tesla XTeam FX Trade</p>
-                    <h1 class="mb-1 text-2xl font-light tracking-tight">Welcome back, <span id="user-name">there</span></h1>
-                    <p class="text-sm text-gray-300">Track your investments, manage your portfolio, and explore opportunities.</p>
+                    <p class="mb-2 text-[11px] font-semibold tracking-widest uppercase text-slate-500">Tesla XTeam FX Trade</p>
+                    <h1 class="mb-1 text-2xl font-semibold tracking-tight text-slate-900">Welcome back, <span id="user-name">there</span></h1>
+                    <p class="text-sm text-slate-500">Track your investments, manage your portfolio, and explore opportunities.</p>
                   </div>
 
                   <!-- Wallet Card -->
-                  <div class="rounded-2xl border border-white/20 bg-white/10 p-4 shadow-xl lg:w-80">
+                  <div class="glass-card p-4 lg:w-80">
                     <div class="mb-3 flex items-center justify-between">
                       <div>
-                        <p class="mb-1 text-xs text-gray-300">Available Balance</p>
-                        <p class="text-xl font-light" data-balance>$0.00</p>
+                        <p class="mb-1 text-xs font-medium text-slate-500">Available Balance</p>
+                        <p class="text-xl font-semibold text-slate-900" data-balance>$0.00</p>
                       </div>
-                      <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-white/20">
-                        <i data-lucide="wallet" class="w-5 h-5"></i>
+                      <div class="flex h-10 w-10 items-center justify-center rounded-xl glass-chip">
+                        <i data-lucide="wallet" class="w-5 h-5 text-slate-700"></i>
                       </div>
                     </div>
-                    <div class="flex space-x-2">
-                      <a href="/pages/deposit/deposit.html" class="flex-1 rounded-full bg-white/15 py-1.5 px-3 text-center text-xs font-medium text-white transition hover:bg-white/25">
-                        <i data-lucide="plus" class="mr-1 inline w-3 h-3"></i>
+                    <div class="flex gap-2">
+                      <a href="/pages/deposit/deposit.html" class="flex-1 rounded-full bg-slate-900 px-3 py-1.5 text-center text-xs font-medium text-white transition hover:bg-slate-800">
+                        <i data-lucide="plus" class="mr-1 inline h-3 w-3"></i>
                         Deposit
                       </a>
-                      <a href="/pages/account/wallet.html" class="flex-1 rounded-full bg-white/15 py-1.5 px-3 text-xs font-medium text-white transition hover:bg-white/25">
-                        <i data-lucide="minus" class="mr-1 inline w-3 h-3"></i>
+                      <a href="/pages/account/wallet.html" class="flex-1 rounded-full bg-slate-100 px-3 py-1.5 text-xs font-medium text-slate-700 transition hover:bg-slate-200">
+                        <i data-lucide="minus" class="mr-1 inline h-3 w-3"></i>
                         Withdraw
                       </a>
                     </div>
@@ -82,54 +78,54 @@
               <p class="t-label">Portfolio Overview</p>
             </div>
             <div class="mb-6 grid grid-cols-2 gap-4 lg:grid-cols-4">
-              <div class="group rounded-2xl border border-gray-200 bg-gradient-to-b from-white to-gray-50 p-4 shadow-sm transition hover:shadow-xl hover:shadow-black/5 dark:border-white/10 dark:bg-gray-900">
+              <div class="glass-card p-4">
                 <div class="flex items-center justify-between">
                   <div class="flex-1">
-                    <p class="mb-1 text-xs font-medium text-gray-500 dark:text-gray-400">Portfolio Value</p>
-                    <p class="mb-1 text-lg font-light text-black dark:text-white" id="stat-portfolio">$0</p>
-                    <p class="text-xs text-[#16a34a]">+0.0% this month</p>
+                    <p class="mb-1 text-xs font-medium text-slate-500">Portfolio Value</p>
+                    <p class="mb-1 text-lg font-semibold text-slate-900" id="stat-portfolio">$0</p>
+                    <p class="text-xs font-medium text-emerald-600">+0.0% this month</p>
                   </div>
-                  <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-[#e8f7ee] transition group-hover:scale-110 dark:bg-white/10">
-                    <i data-lucide="trending-up" class="w-5 h-5 text-[#16a34a]"></i>
+                  <div class="flex h-10 w-10 items-center justify-center rounded-xl glass-chip">
+                    <i data-lucide="trending-up" class="w-5 h-5 text-emerald-600"></i>
                   </div>
                 </div>
               </div>
 
-              <div class="group rounded-2xl border border-gray-200 bg-gradient-to-b from-white to-gray-50 p-4 shadow-sm transition hover:shadow-xl hover:shadow-black/5 dark:border-white/10 dark:bg-gray-900">
+              <div class="glass-card p-4">
                 <div class="flex items-center justify-between">
                   <div class="flex-1">
-                    <p class="mb-1 text-xs font-medium text-gray-500 dark:text-gray-400">Investments</p>
-                    <p class="mb-1 text-lg font-light text-black dark:text-white" id="stat-invested">$0</p>
-                    <p class="text-xs text-[#2563eb]">0 active investments</p>
+                    <p class="mb-1 text-xs font-medium text-slate-500">Investments</p>
+                    <p class="mb-1 text-lg font-semibold text-slate-900" id="stat-invested">$0</p>
+                    <p class="text-xs font-medium text-blue-600">0 active investments</p>
                   </div>
-                  <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-[#e9f0fc] transition group-hover:scale-110 dark:bg-white/10">
-                    <i data-lucide="pie-chart" class="w-5 h-5 text-[#2563eb]"></i>
+                  <div class="flex h-10 w-10 items-center justify-center rounded-xl glass-chip">
+                    <i data-lucide="pie-chart" class="w-5 h-5 text-blue-600"></i>
                   </div>
                 </div>
               </div>
 
-              <div class="group rounded-2xl border border-gray-200 bg-gradient-to-b from-white to-gray-50 p-4 shadow-sm transition hover:shadow-xl hover:shadow-black/5 dark:border-white/10 dark:bg-gray-900">
+              <div class="glass-card p-4">
                 <div class="flex items-center justify-between">
                   <div class="flex-1">
-                    <p class="mb-1 text-xs font-medium text-gray-500 dark:text-gray-400">Crypto Holdings</p>
-                    <p class="mb-1 text-lg font-light text-black dark:text-white" id="stat-crypto">$0</p>
-                    <p class="text-xs text-[#7c3aed]">0 crypto positions</p>
+                    <p class="mb-1 text-xs font-medium text-slate-500">Crypto Holdings</p>
+                    <p class="mb-1 text-lg font-semibold text-slate-900" id="stat-crypto">$0</p>
+                    <p class="text-xs font-medium text-purple-600">0 crypto positions</p>
                   </div>
-                  <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-[#f3edfc] transition group-hover:scale-110 dark:bg-white/10">
-                    <i data-lucide="bitcoin" class="w-5 h-5 text-[#7c3aed]"></i>
+                  <div class="flex h-10 w-10 items-center justify-center rounded-xl glass-chip">
+                    <i data-lucide="bitcoin" class="w-5 h-5 text-purple-600"></i>
                   </div>
                 </div>
               </div>
 
-              <div class="group rounded-2xl border border-gray-200 bg-gradient-to-b from-white to-gray-50 p-4 shadow-sm transition hover:shadow-xl hover:shadow-black/5 dark:border-white/10 dark:bg-gray-900">
+              <div class="glass-card p-4">
                 <div class="flex items-center justify-between">
                   <div class="flex-1">
-                    <p class="mb-1 text-xs font-medium text-gray-500 dark:text-gray-400">Tesla Vehicles</p>
-                    <p class="mb-1 text-lg font-medium text-black dark:text-white" id="stat-vehicles">0</p>
-                    <p class="text-xs text-[#e82127]">Electric fleet</p>
+                    <p class="mb-1 text-xs font-medium text-slate-500">Tesla Vehicles</p>
+                    <p class="mb-1 text-lg font-semibold text-slate-900" id="stat-vehicles">0</p>
+                    <p class="text-xs font-medium text-rose-600">Electric fleet</p>
                   </div>
-                  <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-[#fceceb] transition group-hover:scale-110 dark:bg-white/10">
-                    <i data-lucide="car" class="w-5 h-5 text-[#e82127]"></i>
+                  <div class="flex h-10 w-10 items-center justify-center rounded-xl glass-chip">
+                    <i data-lucide="car" class="w-5 h-5 text-rose-600"></i>
                   </div>
                 </div>
               </div>

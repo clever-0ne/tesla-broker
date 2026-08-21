@@ -26,7 +26,7 @@
     </script>
   </head>
 
-  <body data-page="crypto" data-title="Buy Crypto" class="font-sans antialiased bg-gray-300 text-black dark:bg-navy-950 dark:text-white">
+  <body data-page="crypto" data-title="Buy Crypto" class="font-sans antialiased bg-gray-200 text-slate-900 dark:bg-gray-200 dark:text-slate-900">
     <div id="app" class="min-h-screen flex">
       <div id="page-content" class="flex-1 flex flex-col min-h-screen overflow-hidden lg:ml-72">
         <main class="flex-1 overflow-y-auto p-4 pb-24 sm:p-6 lg:pb-6">
@@ -40,7 +40,7 @@
             </div>
 
             <!-- Hero -->
-            <div class="relative mb-6 overflow-hidden rounded-2xl bg-navy-950 p-6 text-white">
+            <div class="relative mb-6 overflow-hidden rounded-[20px] border border-white/60 bg-white/85 p-6 shadow-[0_20px_40px_-15px_rgba(0,0,0,0.07)]">
               <div class="pointer-events-none absolute inset-0" aria-hidden="true">
                 <div class="absolute inset-0 t-grid opacity-30"></div>
                 <div class="absolute -left-16 top-1/2 h-72 w-72 -translate-y-1/2 t-orb"></div>
@@ -51,7 +51,7 @@
                 <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between">
                   <div class="mb-4 lg:mb-0 lg:flex-1">
                     <h1 id="buy-title" class="mb-1 text-xl font-light">Buy ADA-USD</h1>
-                    <p id="buy-subtitle" class="text-sm text-gray-300">Cardano • Smart Contract Platform</p>
+                    <p id="buy-subtitle" class="text-sm text-slate-500">Cardano • Smart Contract Platform</p>
                   </div>
 
                   <div class="rounded-2xl border border-white/20 bg-white/10 p-4 shadow-xl lg:w-80">
@@ -374,10 +374,10 @@
           '<div class="mx-auto max-w-md pt-10">' +
             '<div class="rounded-2xl border border-[#bfe7cf] bg-gradient-to-b from-[#f0fdf4] to-white p-8 text-center shadow-sm dark:border-[#22c55e]/30 dark:bg-gray-900">' +
               '<div class="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-[#e8f7ee] dark:bg-[#22c55e]/10">' +
-                '<i data-lucide="check" class="w-7 h-7 text-[#16a34a]"></i>' +
+                '<i data-lucide="check" class="w-7 h-7 text-emerald-600"></i>' +
               '</div>' +
               '<h3 class="mb-1 text-lg font-medium text-black dark:text-white">Purchase complete</h3>' +
-              '<p class="mb-2 text-sm text-gray-500 dark:text-gray-400">You paid <span class="font-medium text-[#16a34a]">' + fmt(total) + '</span> from your main balance.</p>' +
+              '<p class="mb-2 text-sm text-gray-500 dark:text-gray-400">You paid <span class="font-medium text-emerald-600">' + fmt(total) + '</span> from your main balance.</p>' +
               '<p class="mb-6 text-xs text-gray-400 dark:text-gray-500">Your updated balance is shown in the sidebar.</p>' +
               '<a href="/pages/crypto/crypto.html" class="inline-flex w-full items-center justify-center rounded-full bg-gray-200 px-6 py-2.5 text-sm font-medium text-navy-950 shadow-lg transition hover:bg-gray-300">Back to Crypto</a>' +
             '</div>' +

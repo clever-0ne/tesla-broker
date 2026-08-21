@@ -59,8 +59,8 @@
   var CURRENT = document.body.dataset.page || 'dashboard';
   var TITLE = document.body.dataset.title || 'Dashboard';
 
-  var ACTIVE_CLS = 'flex items-center px-3 py-2.5 text-sm font-medium rounded-full bg-gray-200 text-navy-950';
-  var IDLE_CLS = 'group flex items-center px-3 py-2.5 text-sm font-medium rounded-full text-gray-400 transition hover:bg-white/10 hover:text-white';
+  var ACTIVE_CLS = 'flex items-center px-3 py-2.5 text-sm font-medium rounded-full bg-slate-900 text-white';
+  var IDLE_CLS = 'group flex items-center px-3 py-2.5 text-sm font-medium rounded-full text-slate-500 transition hover:bg-black/5 hover:text-slate-900';
 
   /* ---- Sidebar markup ---- */
   function navLink(item) {
@@ -75,10 +75,11 @@
     }
     return link;
   }
-
+  /* ---- Sidebar markup ---- */
+  var SIDEBAR_BASE_CLS = 'fixed inset-y-0 left-0 z-50 w-72 transform -translate-x-full transition-transform duration-300 ease-in-out lg:translate-x-0 bg-white/70 dark:bg-white/10 border-r border-black/5 dark:border-white/10 backdrop-blur-xl';
   var sidebar =
-    '<div id="sidebar-overlay" class="fixed inset-0 z-40 bg-black bg-opacity-50 lg:hidden hidden" onclick="toggleSidebar()"></div>' +
-    '<aside id="sidebar" class="fixed inset-y-0 left-0 z-50 w-72 transform -translate-x-full transition-transform duration-300 ease-in-out lg:translate-x-0 bg-navy-950 border-r border-white/10">' +
+    '<div id="sidebar-overlay" class="fixed inset-0 z-40 bg-black/40 lg:hidden hidden" onclick="toggleSidebar()"></div>' +
+    '<aside id="sidebar" class="' + SIDEBAR_BASE_CLS + '">' +
       '<div class="flex flex-col h-full">' +
         '<div class="flex items-center justify-between h-16 px-6 border-b border-white/10">' +
           '<a href="' + url('/pages/index.html') + '" class="flex items-center">' +
@@ -91,17 +92,17 @@
         '<div class="px-6 py-4 border-b border-white/10">' +
           '<div class="flex items-center space-x-3">' +
             '<div class="flex w-12 h-12 items-center justify-center rounded-xl bg-gradient-to-br from-gray-200 to-gray-300 shadow-sm">' +
-              '<span id="sidebar-avatar-initial" class="text-sm font-medium text-navy-950">&bull;</span>' +
-            '</div>' +
-            '<div class="flex-1 min-w-0">' +
-              '<p id="sidebar-user-name" class="text-sm font-medium text-white truncate">Loading&hellip;</p>' +
-              '<p id="sidebar-user-email" class="text-xs text-gray-400 truncate">&nbsp;</p>' +
-              '<div class="mt-1">' +
-                '<span class="inline-flex items-center rounded-full bg-white/10 px-2 py-0.5 text-xs font-medium text-gray-300">' +
-                  '<i data-lucide="user" class="w-3 h-3 mr-1"></i><span id="sidebar-kyc-label">&hellip;</span>' +
-                '</span>' +
+              '<span id="sidebar-avatar-initial" class="text-sm font-semibold text-slate-900">&bull;</span>' +
               '</div>' +
-            '</div>' +
+              '<div class="flex-1 min-w-0">' +
+                '<p id="sidebar-user-name" class="text-sm font-semibold text-slate-900 truncate">Loading&hellip;</p>' +
+                '<p id="sidebar-user-email" class="text-xs text-slate-500 truncate">&nbsp;</p>' +
+                '<div class="mt-1">' +
+                  '<span class="inline-flex items-center rounded-full bg-slate-900/10 px-2 py-0.5 text-xs font-semibold text-slate-700 dark:bg-white/10 dark:text-gray-200">' +
+                    '<i data-lucide="user" class="w-3 h-3 mr-1"></i><span id="sidebar-kyc-label">&hellip;</span>' +
+                  '</span>' +
+                '</div>' +
+              '</div>' +
           '</div>' +
         '</div>' +
         '<nav class="flex-1 px-4 py-4 space-y-1 overflow-y-auto">' + NAV.map(navLink).join('') + '</nav>' +
@@ -126,45 +127,45 @@
 
   /* ---- Top bar markup ---- */
   var header =
-    '<header class="sticky top-0 z-30 border-b border-white/10 bg-navy-950">' +
+    '<header class="sticky top-0 z-30 border-b border-black/5 bg-white/70 dark:bg-white/10 backdrop-blur-xl">' +
       '<div class="flex items-center justify-between px-4 py-2.5 sm:px-6">' +
         '<div class="flex items-center">' +
-          '<button onclick="toggleSidebar()" class="mr-3 rounded-full p-1.5 text-gray-400 transition hover:bg-white/10 lg:hidden" aria-label="Open menu">' +
+          '<button onclick="toggleSidebar()" class="mr-3 rounded-full p-1.5 text-slate-500 transition hover:bg-black/5 lg:hidden" aria-label="Open menu">' +
             '<i data-lucide="menu" class="w-5 h-5"></i>' +
           '</button>' +
           '<a href="' + url('/pages/dashboard/dashboard.html') + '" class="mr-3 flex items-center" aria-label="Tesla XTeam FX Trade">' +
-            '<img src="' + url('/assets/logo.svg') + '" alt="Tesla XTeam FX Trade" class="h-2 w-auto filter brightness-0 invert" />' +
+            '<img src="' + url('/assets/logo.svg') + '" alt="Tesla XTeam FX Trade" class="h-2 w-auto" />' +
           '</a>' +
-          '<div class="hidden text-lg font-medium text-white sm:block">' + TITLE + '</div>' +
+          '<div class="hidden text-lg font-semibold text-slate-900 sm:block">' + TITLE + '</div>' +
         '</div>' +
         '<div class="flex items-center space-x-3">' +
-          '<button type="button" id="theme-toggle" class="rounded-full p-2 text-gray-400 transition hover:bg-white/10" aria-label="Toggle dark mode">' +
+          '<button type="button" id="theme-toggle" class="rounded-full p-2 text-slate-500 transition hover:bg-black/5" aria-label="Toggle dark mode">' +
             '<i data-lucide="sun" id="theme-sun" class="w-5 h-5 hidden"></i>' +
             '<i data-lucide="moon" id="theme-moon" class="w-5 h-5"></i>' +
           '</button>' +
           '<div class="relative">' +
-            '<button onclick="toggleNotifications()" class="relative rounded-full p-2 text-gray-400 transition hover:bg-white/10" aria-label="Notifications">' +
+            '<button onclick="toggleNotifications()" class="relative rounded-full p-2 text-slate-500 transition hover:bg-black/5" aria-label="Notifications">' +
               '<i data-lucide="bell" class="w-5 h-5"></i>' +
-              '<span id="notification-badge" class="absolute -top-0.5 -right-0.5 hidden h-4 w-4 items-center justify-center rounded-full bg-gray-200 text-xs text-navy-950">0</span>' +
+              '<span id="notification-badge" class="absolute -top-0.5 -right-0.5 hidden h-4 w-4 items-center justify-center rounded-full bg-slate-900 text-[10px] font-semibold text-white">0</span>' +
             '</button>' +
-            '<div id="notifications-dropdown" class="absolute right-0 z-50 mt-2 hidden w-80 overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-2xl dark:border-white/10 dark:bg-navy-900">' +
-              '<div class="border-b border-gray-200 p-3 dark:border-white/10">' +
-                '<h3 class="text-sm font-medium text-black dark:text-white">Notifications</h3>' +
+            '<div id="notifications-dropdown" class="absolute right-0 z-50 mt-2 hidden w-80 overflow-hidden rounded-2xl border border-black/5 bg-white shadow-2xl dark:border-white/10 dark:bg-navy-900">' +
+              '<div class="border-b border-black/5 p-3 dark:border-white/10">' +
+                '<h3 class="text-sm font-semibold text-slate-900 dark:text-white">Notifications</h3>' +
               '</div>' +
               '<div id="notifications-list" class="max-h-64 overflow-y-auto">' +
                 '<div class="p-3 text-center">' +
-                  '<div class="mx-auto mb-2 flex h-6 w-6 items-center justify-center rounded-full bg-gray-100 dark:bg-white/10">' +
-                    '<i data-lucide="bell" class="w-3 h-3 text-gray-400"></i>' +
+                  '<div class="mx-auto mb-2 flex h-6 w-6 items-center justify-center rounded-full bg-slate-100 dark:bg-white/10">' +
+                    '<i data-lucide="bell" class="w-3 h-3 text-slate-400"></i>' +
                   '</div>' +
-                  '<p class="text-xs text-gray-500 dark:text-gray-400">No notifications</p>' +
+                  '<p class="text-xs text-slate-500 dark:text-gray-400">No notifications</p>' +
                 '</div>' +
               '</div>' +
-              '<div class="border-t border-gray-200 p-3 dark:border-white/10">' +
-                '<button type="button" onclick="markNotificationsRead()" class="text-xs font-medium text-tesla hover:underline">Mark all as read</button>' +
+              '<div class="border-t border-black/5 p-3 dark:border-white/10">' +
+                '<button type="button" onclick="markNotificationsRead()" class="text-xs font-semibold text-slate-900 hover:underline">Mark all as read</button>' +
               '</div>' +
             '</div>' +
           '</div>' +
-          '<button type="button" onclick="logout()" class="rounded-full p-2 text-gray-400 transition hover:bg-white/10 lg:hidden" aria-label="Sign out">' +
+          '<button type="button" onclick="logout()" class="rounded-full p-2 text-slate-500 transition hover:bg-black/5 lg:hidden" aria-label="Sign out">' +
             '<i data-lucide="log-out" class="w-5 h-5"></i>' +
           '</button>' +
         '</div>' +
@@ -174,16 +175,16 @@
   /* ---- Mobile bottom nav markup ---- */
   function bottomItem(item) {
     if (item.page === CURRENT) {
-      return '<a href="' + item.href + '" class="flex flex-col items-center rounded-xl bg-gradient-to-br from-gray-200 to-gray-300 px-3 py-1.5 text-navy-950">' +
-        '<div class="relative"><i data-lucide="' + item.icon + '" class="mb-1 w-5 h-5"></i><div class="absolute -top-1 -right-1 h-1.5 w-1.5 rounded-full bg-navy-950"></div></div>' +
-        '<span class="text-xs font-semibold">' + item.label + '</span></a>';
+      return '<a href="' + item.href + '" class="flex flex-col items-center rounded-xl glass-chip px-3 py-1.5 text-slate-900">' +
+        '<div class="relative"><i data-lucide="' + item.icon + '" class="mb-1 w-5 h-5"></i></div>' +
+        '<span class="text-[11px] font-semibold">' + item.label + '</span></a>';
     }
-    return '<a href="' + item.href + '" class="flex flex-col items-center rounded-xl px-3 py-1.5 text-gray-400 transition hover:bg-white/10">' +
-      '<i data-lucide="' + item.icon + '" class="mb-1 w-5 h-5"></i><span class="text-xs font-semibold">' + item.label + '</span></a>';
+    return '<a href="' + item.href + '" class="flex flex-col items-center rounded-xl px-3 py-1.5 text-slate-500 transition hover:bg-black/5">' +
+      '<i data-lucide="' + item.icon + '" class="mb-1 w-5 h-5"></i><span class="text-[11px] font-semibold">' + item.label + '</span></a>';
   }
 
   var bottomNav =
-    '<div class="fixed bottom-0 left-0 right-0 z-50 border-t border-white/10 bg-navy-950 shadow-2xl lg:hidden">' +
+    '<div class="fixed bottom-0 left-0 right-0 z-50 border-t border-black/5 bg-white/70 shadow-2xl lg:hidden dark:bg-white/10 backdrop-blur-xl">' +
       '<div class="flex justify-around px-3 py-2">' + BOTTOM_NAV.map(bottomItem).join('') + '</div>' +
     '</div>';
 
@@ -529,9 +530,11 @@
   document.body.insertAdjacentHTML('beforeend', footerHtml);
   document.body.insertAdjacentHTML('beforeend', paymentModalHtml);
 
-  /* ---- Fixed page background (grid lines) shared by every dashboard page ---- */
-  document.body.insertAdjacentHTML('beforeend',
-    '<div aria-hidden="true" class="pointer-events-none fixed inset-0 -z-10 t-gridlines"></div>');
+  /* ---- Ambient glass background overlays ---- */
+  var ambient =
+    '<div aria-hidden="true" class="pointer-events-none fixed inset-0 -z-20 dark-glass-bg"></div>' +
+    '<div aria-hidden="true" class="pointer-events-none fixed inset-0 -z-10 glass-bg"></div>';
+  document.body.insertAdjacentHTML('afterbegin', ambient);
 
 
   /* ---- Theme ---- */

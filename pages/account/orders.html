@@ -26,12 +26,12 @@
     </script>
   </head>
 
-  <body data-page="orders" data-title="Orders" class="font-sans antialiased bg-gray-300 text-black dark:bg-navy-950 dark:text-white">
+  <body data-page="orders" data-title="Orders" class="font-sans antialiased bg-gray-200 text-slate-900 dark:bg-gray-200 dark:text-slate-900">
     <div id="app" class="min-h-screen flex">
       <div id="page-content" class="flex-1 flex flex-col min-h-screen overflow-hidden lg:ml-72">
         <main class="flex-1 overflow-y-auto p-4 pb-24 sm:p-6 lg:pb-6">
           <div class="mx-auto max-w-7xl">
-            <div class="relative mb-6 overflow-hidden rounded-2xl bg-navy-950 p-6 text-white">
+            <div class="relative mb-6 overflow-hidden rounded-[20px] border border-white/60 bg-white/85 p-6 shadow-[0_20px_40px_-15px_rgba(0,0,0,0.07)]">
               <div class="pointer-events-none absolute inset-0" aria-hidden="true">
                 <div class="absolute inset-0 t-grid opacity-30"></div>
                 <div class="absolute -left-16 top-1/2 h-72 w-72 -translate-y-1/2 t-orb"></div>
@@ -41,7 +41,7 @@
                 <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between">
                   <div>
                     <h1 class="mb-1 text-xl font-light">Orders</h1>
-                    <p class="text-sm text-gray-300">Track the status of your Tesla purchases.</p>
+                    <p class="text-sm text-slate-500">Track the status of your Tesla purchases.</p>
                   </div>
                 </div>
               </div>
@@ -50,16 +50,16 @@
             <!-- Summary -->
             <div class="mb-6 grid grid-cols-1 gap-4 sm:grid-cols-3">
               <div class="rounded-2xl border border-gray-200 bg-gradient-to-b from-white to-gray-50 p-4 shadow-sm dark:border-white/10 dark:bg-gray-900">
-                <p class="mb-1 text-xs font-medium text-gray-500 dark:text-gray-400">Total Orders</p>
-                <p class="text-lg font-light text-black dark:text-white" id="orders-total">0</p>
+                <p class="mb-1 text-xs font-medium text-slate-500">Total Orders</p>
+                <p class="text-lg font-semibold text-slate-900" id="orders-total">0</p>
               </div>
               <div class="rounded-2xl border border-gray-200 bg-gradient-to-b from-white to-gray-50 p-4 shadow-sm dark:border-white/10 dark:bg-gray-900">
-                <p class="mb-1 text-xs font-medium text-gray-500 dark:text-gray-400">Processing</p>
+                <p class="mb-1 text-xs font-medium text-slate-500">Processing</p>
                 <p class="text-lg font-light text-[#f59e0b]" id="orders-pending">0</p>
               </div>
               <div class="rounded-2xl border border-gray-200 bg-gradient-to-b from-white to-gray-50 p-4 shadow-sm dark:border-white/10 dark:bg-gray-900">
-                <p class="mb-1 text-xs font-medium text-gray-500 dark:text-gray-400">Delivered</p>
-                <p class="text-lg font-light text-[#16a34a]" id="orders-delivered">0</p>
+                <p class="mb-1 text-xs font-medium text-slate-500">Delivered</p>
+                <p class="text-lg font-light text-emerald-600" id="orders-delivered">0</p>
               </div>
             </div>
 
@@ -175,8 +175,8 @@
         var body = document.getElementById('orders-body');
         if (body && orders.length) {
           body.innerHTML = orders.map(function (o) {
-            var typeChip = o.type === 'vehicle' ? 'bg-[#e9f0fc] text-[#2563eb]'
-              : o.type === 'investment' ? 'bg-[#e8f7ee] text-[#16a34a]'
+            var typeChip = o.type === 'vehicle' ? 'bg-[#e9f0fc] text-blue-600'
+              : o.type === 'investment' ? 'bg-[#e8f7ee] text-emerald-600'
               : 'bg-[#fff3e7] text-[#f97316]';
             return '<tr class="border-b border-gray-100 dark:border-white/5">' +
               '<td class="py-3 pr-4 font-mono text-xs text-gray-500 dark:text-gray-400">' + esc(o.id) + '</td>' +

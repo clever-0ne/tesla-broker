@@ -147,10 +147,10 @@
     font-weight: 600;
     letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: rgb(13 27 46 / 0.55);
+    color: rgb(13 27 46 / 0.65);
   }
   .dark .t-label {
-    color: rgb(255 255 255 / 0.55);
+    color: rgb(255 255 255 / 0.65);
   }
 
   /* Primary filled pill button — glossy navy, white in dark mode */
@@ -233,6 +233,63 @@
   }
   .dark .t-card:hover {
     box-shadow: 0 24px 48px -22px rgb(0 0 0 / 0.7);
+  }
+
+  /* Ambient gradient mesh background — Apple-style soft glow */
+  .glass-bg {
+    background:
+      radial-gradient(1200px 600px at 10% -10%, rgb(219 234 254 / 0.55) 0%, transparent 55%),
+      radial-gradient(900px 500px at 90% 110%, rgb(248 250 252 / 0.55) 0%, transparent 55%),
+      radial-gradient(700px 500px at 50% 40%, rgb(241 245 249 / 0.45) 0%, transparent 55%),
+      linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
+    backdrop-filter: blur(20px);
+  }
+  .dark .glass-bg {
+    background:
+      radial-gradient(1200px 600px at 10% -10%, rgb(30 64 120 / 0.45) 0%, transparent 55%),
+      radial-gradient(900px 500px at 90% 110%, rgb(17 24 39 / 0.45) 0%, transparent 55%),
+      radial-gradient(700px 500px at 50% 40%, rgb(15 23 42 / 0.45) 0%, transparent 55%),
+      linear-gradient(180deg, #0b1424 0%, #0d1b2e 100%);
+  }
+
+  /* Floating glass card system */
+  .glass-card {
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    background: rgba(255, 255, 255, 0.85);
+    box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.07);
+    backdrop-filter: blur(18px);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+  .glass-card:hover {
+    box-shadow: 0 24px 48px -16px rgba(0, 0, 0, 0.12);
+    transform: translateY(-2px);
+  }
+  .dark .glass-card {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.12);
+    box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.35);
+  }
+  .dark .glass-card:hover {
+    background: rgba(255, 255, 255, 0.12);
+    box-shadow: 0 24px 48px -16px rgba(0, 0, 0, 0.45);
+  }
+
+  /* Glassy icon chip/badge for icons/logos */
+  .glass-chip {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.9rem;
+    background: rgba(255, 255, 255, 0.55);
+    border: 1px solid rgba(255, 255, 255, 0.65);
+    box-shadow: 0 10px 20px -12px rgba(0, 0, 0, 0.08);
+    backdrop-filter: blur(14px);
+  }
+  .dark .glass-chip {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.18);
+    box-shadow: 0 10px 20px -12px rgba(0, 0, 0, 0.25);
   }
 
   /* Dotted grid texture used on navy hero panels */

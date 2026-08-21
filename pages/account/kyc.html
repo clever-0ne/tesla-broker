@@ -26,13 +26,13 @@
     </script>
   </head>
 
-  <body data-page="kyc" data-title="KYC Verification" class="font-sans antialiased bg-gray-300 text-black dark:bg-navy-950 dark:text-white">
+  <body data-page="kyc" data-title="KYC Verification" class="font-sans antialiased bg-gray-200 text-slate-900 dark:bg-gray-200 dark:text-slate-900">
     <div id="app" class="min-h-screen flex">
       <div id="page-content" class="flex-1 flex flex-col min-h-screen overflow-hidden lg:ml-72">
         <main class="flex-1 overflow-y-auto p-4 pb-24 sm:p-6 lg:pb-6">
           <div class="mx-auto max-w-7xl">
             <!-- Hero -->
-            <div class="relative mb-6 overflow-hidden rounded-2xl bg-navy-950 p-6 text-white">
+            <div class="relative mb-6 overflow-hidden rounded-[20px] border border-white/60 bg-white/85 p-6 shadow-[0_20px_40px_-15px_rgba(0,0,0,0.07)]">
               <div class="pointer-events-none absolute inset-0" aria-hidden="true">
                 <div class="absolute inset-0 t-grid opacity-30"></div>
                 <div class="absolute -left-16 top-1/2 h-72 w-72 -translate-y-1/2 t-orb"></div>
@@ -43,7 +43,7 @@
                 <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between">
                   <div class="mb-4 lg:mb-0 lg:flex-1">
                     <h1 class="mb-1 text-xl font-light">KYC Verification</h1>
-                    <p class="text-sm text-gray-300">Complete your identity verification to access all features</p>
+                    <p class="text-sm text-slate-500">Complete your identity verification to access all features</p>
                   </div>
 
                   <div class="rounded-2xl border border-white/20 bg-white/10 p-4 shadow-xl lg:w-64">
@@ -64,7 +64,7 @@
             <!-- KYC Form -->
             <div class="rounded-2xl border border-gray-200 bg-gradient-to-b from-white to-gray-50 p-6 shadow-sm dark:border-white/10 dark:bg-gray-900">
               <div class="mb-6">
-                <h2 class="mb-1 text-lg font-light text-black dark:text-white">Identity Verification</h2>
+                <h2 class="mb-1 text-lg font-semibold text-slate-900">Identity Verification</h2>
                 <p class="text-sm text-gray-500 dark:text-gray-400">Please provide your identification documents for verification</p>
               </div>
 
@@ -587,7 +587,7 @@
           else if (kycStatus === 'approved') label = 'Approved';
           else if (kycStatus === 'rejected') label = 'Rejected';
           titleEl.textContent = label;
-          titleEl.className = 'text-lg font-light ' + (kycStatus === 'approved' ? 'text-[#16a34a]' : kycStatus === 'rejected' ? 'text-[#b91c1c]' : 'text-[#f97316]');
+          titleEl.className = 'text-lg font-light ' + (kycStatus === 'approved' ? 'text-emerald-600' : kycStatus === 'rejected' ? 'text-[#b91c1c]' : 'text-[#f97316]');
         }
         if (noticeEl && kycStatus === 'submitted') {
           noticeEl.classList.remove('hidden');
