@@ -1,156 +1,157 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="robots" content="noindex" />
-    <title>Admin Login — Tesla XTeam FX Trade</title>
+    <title>Admin Gateway — Tesla Capital</title>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net" />
-    <link
-      href="https://fonts.bunny.net/css?family=inter:300,400,500,600,700&display=swap"
-      rel="stylesheet"
-    />
+    <link href="https://fonts.bunny.net/css?family=inter:300,400,500,600,700&display=swap" rel="stylesheet" />
 
-    <!-- Tailwind CSS (compiled locally) -->
+    <!-- Tailwind -->
     <link rel="stylesheet" href="/dist/tailwind.css" />
+
+    <!-- Lucide -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+
+    <style>
+      .page-auth {
+        background:
+          radial-gradient(1200px 600px at 10% -10%, #0f1f38 0%, #0000 55%),
+          radial-gradient(900px 500px at 90% 110%, #0d1b2e 0%, #0000 55%),
+          #070d1a;
+      }
+      .auth-glow {
+        position: relative;
+      }
+      .auth-glow::before {
+        content: '';
+        position: absolute;
+        inset: -40px;
+        background:
+          radial-gradient(1200px 500px at 10% 0%, rgba(232, 33, 39, 0.35) 0%, #0000 45%),
+          radial-gradient(900px 500px at 90% 100%, rgba(30, 60, 220, 0.35) 0%, #0000 45%),
+          radial-gradient(700px 400px at 50% 50%, rgba(255, 160, 80, 0.18) 0%, #0000 50%);
+        filter: blur(40px);
+        opacity: 0.85;
+        z-index: 0;
+        pointer-events: none;
+      }
+      .glass-card {
+        background: rgba(255, 255, 255, 0.85);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+      }
+      .hairline {
+        border: 1px solid rgba(0, 0, 0, 0.12);
+      }
+    </style>
   </head>
-
-  <body class="font-sans antialiased bg-gray-200 text-slate-900 dark:bg-gray-200 dark:text-slate-900">
-    <!-- Fixed background: grid lines -->
-    </div>
-
-    <!-- Blocked overlay -->
-    <div id="blocked-overlay" class="hidden fixed inset-0 z-[90] items-center justify-center p-6 bg-slate-950/90">
-      <div class="w-full max-w-md rounded-2xl border border-red-500/30 bg-slate-900 p-8 shadow-2xl shadow-black/40 text-center">
-        <div class="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-red-500/10">
-          <i data-lucide="shield-off" class="h-6 w-6 text-red-400"></i>
-        </div>
-        <h1 class="text-xl font-medium text-slate-900 dark:text-white">Account Blocked</h1>
-        <p class="mt-2 text-sm text-slate-500">
-          Your admin access has been restricted. Please contact support to restore access.
-        </p>
-        <p class="mt-1 text-sm text-slate-400">
-          Support: <a href="mailto:support@teslaxteam.com" class="text-slate-900 hover:underline dark:text-white">support@teslaxteam.com</a>
-        </p>
-      </div>
-    </div>
-
-    <main class="flex min-h-screen items-center justify-center p-6">
-      <div
-        class="w-full max-w-md rounded-2xl border border-white/10 bg-gradient-to-b from-slate-800 to-slate-900 p-8 shadow-2xl shadow-black/40"
-      >
-        <div class="mb-8 text-center">
-          <img
-            src="/assets/logo.svg"
-            alt="Tesla XTeam FX Trade"
-            class="mx-auto mb-4 h-2 w-auto filter brightness-0 invert"
-          />
-          <div class="mb-2 inline-flex items-center rounded-full bg-slate-100 text-slate-900 px-3 py-1 text-xs font-medium">
-            <i data-lucide="shield" class="mr-1 h-3 w-3 text-purple"></i>
-            Admin Console
+  <body class="page-auth text-slate-900 dark:text-slate-100 font-sans antialiased">
+    <div class="flex min-h-screen flex-col">
+      <!-- Dark header -->
+      <header class="border-b border-white/10 bg-black/90 backdrop-blur-xl">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div class="flex h-16 items-center justify-between">
+            <a href="/pages/index.html" class="flex items-center gap-3">
+              <img src="/assets/tesla-logo.svg" alt="Tesla Capital" class="h-7 w-auto invert" />
+              <span class="text-sm font-semibold tracking-tight text-white">Tesla Capital</span>
+            </a>
+            <a href="/pages/login.html" class="text-xs font-medium text-slate-300 transition hover:text-white">User Sign In</a>
           </div>
-          <h1 class="text-xl font-medium">Admin sign in</h1>
-          <p class="mt-1 text-sm text-slate-400">Enter the admin password to access the console.</p>
         </div>
+      </header>
 
-        <div
-          id="login-error"
-          class="hidden mb-4 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700 dark:border-red-500/30 dark:bg-red-500/10 dark:text-red-400"
-        ></div>
+      <!-- Main -->
+      <main class="flex flex-1 items-center justify-center px-4 py-10">
+        <div class="w-full max-w-sm auth-glow">
+          <div class="relative z-10 glass-card hairline rounded-2xl p-6 shadow-2xl">
+            <div class="mb-6 text-center">
+              <h1 class="text-xl font-bold tracking-tight text-black">Admin Gateway</h1>
+              <p class="mt-1 text-xs text-slate-500">Restricted access. Use your admin password.</p>
+            </div>
 
-        <form id="login-form" class="space-y-5" novalidate>
-          <div>
-            <label
-              for="login-password"
-              class="mb-1.5 block text-xs font-medium text-slate-500"
-              >Password</label
-            >
-            <input
-              type="password"
-              id="login-password"
-              name="password"
-              required
-              autocomplete="current-password"
-              placeholder="Admin password"
-              class="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 placeholder:text-slate-400 focus:border-tesla focus:outline-none focus:ring-2 focus:ring-tesla/30"
-            />
+            <div id="login-error" class="hidden mb-4 rounded-lg border border-red-500/30 bg-red-500/10 px-3 py-2 text-xs text-red-700"></div>
+
+            <form id="login-form" class="space-y-4" novalidate>
+              <div>
+                <label for="login-password" class="mb-1 block text-xs font-medium text-slate-700">Admin Password</label>
+                <input
+                  type="password"
+                  id="login-password"
+                  name="password"
+                  required
+                  autocomplete="current-password"
+                  placeholder="••••••••"
+                  class="w-full rounded-xl border border-black/15 bg-white px-3 py-2.5 text-sm text-black placeholder:text-slate-400 outline-none transition focus:border-black focus:ring-2 focus:ring-black/20"
+                />
+              </div>
+
+              <button
+                type="submit"
+                id="login-submit"
+                class="w-full rounded-xl bg-black px-4 py-2.5 text-sm font-semibold text-white shadow-lg transition hover:brightness-110 focus:outline-none focus:ring-2 focus:ring-black/40 focus:ring-offset-2 focus:ring-offset-white"
+              >
+                Authenticate
+              </button>
+            </form>
           </div>
-
-          <button
-            type="submit"
-            id="login-submit"
-            class="w-full rounded-full bg-slate-100 text-slate-900 px-6 py-3 text-sm font-medium shadow-lg shadow-black/30 transition hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 focus:ring-offset-navy-900"
-          >
-            Sign In
-          </button>
-        </form>
-      </div>
-    </main>
+        </div>
+      </main>
+    </div>
 
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
     <script>
       lucide.createIcons();
 
-      var form = document.getElementById("login-form");
-      var errorEl = document.getElementById("login-error");
-      var submit = document.getElementById("login-submit");
-      var blockedOverlay = document.getElementById("blocked-overlay");
+      var form = document.getElementById('login-form');
+      var errorEl = document.getElementById('login-error');
+      var submit = document.getElementById('login-submit');
 
       function showError(message) {
         errorEl.textContent = message;
-        errorEl.classList.remove("hidden");
+        errorEl.classList.remove('hidden');
       }
 
-      function showBlockedScreen() {
-        if (blockedOverlay) blockedOverlay.classList.remove("hidden");
-        if (blockedOverlay) blockedOverlay.classList.add("flex");
-        if (form) form.classList.add("hidden");
-      }
-
-      form.addEventListener("submit", function (event) {
+      form.addEventListener('submit', function (event) {
         event.preventDefault();
-        errorEl.classList.add("hidden");
+        errorEl.classList.add('hidden');
         submit.disabled = true;
-        submit.textContent = "Signing in…";
+        submit.textContent = 'Authenticating…';
 
-        fetch("/api/admin/login", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
+        fetch('/api/admin/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            password: document.getElementById("login-password").value,
+            password: document.getElementById('login-password').value,
           }),
         })
           .then(function (res) {
             return res.json().catch(function () {
-              return {
-                error:
-                  "The server returned an unexpected response. Please try again.",
-              };
+              return { error: 'The server returned an unexpected response. Please try again.' };
             });
           })
           .then(function (data) {
             if (data.blocked) {
-              showBlockedScreen();
+              showError('Your admin access has been restricted. Please contact support.');
               submit.disabled = false;
-              submit.textContent = "Sign In";
+              submit.textContent = 'Authenticate';
               return;
             }
-            if (data.user && data.user.role === "admin") {
-              window.location.href = "/admin/";
+            if (data.user && data.user.role === 'admin') {
+              window.location.href = '/admin/';
               return;
             }
-            showError(data.error || "Invalid admin password.");
+            showError(data.error || 'Invalid admin password.');
             submit.disabled = false;
-            submit.textContent = "Sign In";
+            submit.textContent = 'Authenticate';
           })
           .catch(function () {
-            showError(
-              "Can't reach the server. Make sure it's running (npm start) and you're on http://localhost:3000.",
-            );
+            showError('Network error. Please try again.');
             submit.disabled = false;
-            submit.textContent = "Sign In";
+            submit.textContent = 'Authenticate';
           });
       });
     </script>
