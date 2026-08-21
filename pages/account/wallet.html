@@ -33,7 +33,7 @@
           <div class="mx-auto max-w-7xl">
             <!-- Page heading -->
             <div class="mb-6">
-              <h1 class="text-xl font-medium text-black dark:text-slate-900 dark:text-white">Wallet</h1>
+              <h1 class="text-xl font-medium text-slate-900 dark:text-white">Wallet</h1>
               <p class="text-sm text-slate-500 dark:text-slate-400">Manage your funds, deposits, and withdrawals.</p>
             </div>
 
@@ -65,7 +65,7 @@
               <div class="rounded-2xl border border-slate-200 bg-gradient-to-b from-white to-gray-50 p-5 shadow-sm lg:col-span-2 dark:border-white/10 dark:bg-slate-800">
                 <div class="mb-4 flex items-center justify-between">
                   <div>
-                    <h2 class="text-lg font-medium text-black dark:text-slate-900 dark:text-white">Recent Transactions</h2>
+                    <h2 class="text-lg font-medium text-slate-900 dark:text-white">Recent Transactions</h2>
                     <p class="text-xs text-slate-500 dark:text-slate-400">Deposits, withdrawals, and payments</p>
                   </div>
                 </div>
@@ -86,7 +86,7 @@
                           <div class="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full glass-chip">
                             <i data-lucide="receipt" class="w-6 h-6 text-slate-400"></i>
                           </div>
-                          <p class="text-base font-light text-black dark:text-slate-900 dark:text-white">No transactions yet</p>
+                          <p class="text-base font-light text-slate-900 dark:text-white">No transactions yet</p>
                           <p class="mt-1 text-xs text-slate-500 dark:text-slate-400">Your deposits and withdrawals will appear here.</p>
                         </td>
                       </tr>
@@ -98,7 +98,7 @@
               <!-- Payment Methods -->
               <div class="glass-card p-5">
                 <div class="mb-4">
-                  <h2 class="text-lg font-medium text-black dark:text-slate-900 dark:text-white">Payment Methods</h2>
+                  <h2 class="text-lg font-medium text-slate-900 dark:text-white">Payment Methods</h2>
                   <p class="text-xs text-slate-500 dark:text-slate-400">All deposits are made in cryptocurrency</p>
                 </div>
 
@@ -157,7 +157,7 @@
       <div class="relative w-full max-w-md overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-2xl dark:border-white/10 dark:bg-slate-900">
         <div class="flex items-center justify-between border-b border-gray-200 px-5 py-4 dark:border-white/10">
           <div>
-            <h3 class="text-base font-medium text-black dark:text-slate-900 dark:text-white">Withdraw Funds</h3>
+            <h3 class="text-base font-medium text-slate-900 dark:text-white">Withdraw Funds</h3>
             <p class="text-xs text-slate-500 dark:text-slate-400">Requests are reviewed by an admin before processing</p>
           </div>
           <button type="button" onclick="closeWithdraw()" class="rounded-full p-1.5 text-slate-500 transition hover:bg-gray-100 dark:text-slate-400 dark:hover:bg-white/10" aria-label="Close">
@@ -234,8 +234,8 @@
               body.innerHTML = rows.map(function (t) {
                 return '<tr class="border-b border-gray-100 dark:border-white/5">' +
                   '<td class="py-3 pr-4 text-xs text-slate-500 dark:text-slate-400">' + fmtDate(t.createdAt) + '</td>' +
-                  '<td class="py-3 pr-4"><span class="text-xs font-medium text-black dark:text-slate-900 dark:text-white">' + esc(t.type) + '</span><p class="text-xs text-slate-500 dark:text-slate-400">' + esc(t.label) + '</p></td>' +
-                  '<td class="py-3 pr-4 font-medium text-black dark:text-slate-900 dark:text-white">' + t.sign + '$' + fmtMoney(t.amount) + '</td>' +
+                  '<td class="py-3 pr-4"><span class="text-xs font-medium text-slate-900 dark:text-white">' + esc(t.type) + '</span><p class="text-xs text-slate-500 dark:text-slate-400">' + esc(t.label) + '</p></td>' +
+                  '<td class="py-3 pr-4 font-medium text-slate-900 dark:text-white">' + t.sign + '$' + fmtMoney(t.amount) + '</td>' +
                   '<td class="py-3">' + statusBadge(t.status) + '</td></tr>';
               }).join('');
             }
@@ -272,7 +272,7 @@
         document.getElementById('withdraw-body').innerHTML =
           '<div class="space-y-4">' +
             '<div class="rounded-xl border border-slate-100 bg-gray-50 p-3 text-xs text-slate-500 dark:border-white/10 dark:bg-white/5 dark:text-slate-400">' +
-              'Available balance: <span class="font-medium text-black dark:text-slate-900 dark:text-white">$' + fmtMoney(bal) + '</span>' +
+              'Available balance: <span class="font-medium text-slate-900 dark:text-white">$' + fmtMoney(bal) + '</span>' +
             '</div>' +
             '<div>' +
               '<label for="wd-amount" class="mb-1 block text-xs font-medium text-slate-600 dark:text-slate-500">Amount (USD)</label>' +
@@ -280,7 +280,7 @@
             '</div>' +
             '<div>' +
               '<label for="wd-coin" class="mb-1 block text-xs font-medium text-slate-600 dark:text-slate-500">Cryptocurrency</label>' +
-              '<select id="wd-coin" class="w-full rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-sm text-black focus:border-tesla focus:outline-none dark:border-white/10 dark:bg-slate-800 dark:text-slate-900 dark:text-white">' +
+              '<select id="wd-coin" class="w-full rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-sm text-black focus:border-tesla focus:outline-none dark:border-white/10 dark:bg-slate-800 dark:text-white">' +
                 WITHDRAW_COINS.map(function (c) { return '<option value="' + c.id + '">' + c.name + ' (' + c.network + ')</option>'; }).join('') +
               '</select>' +
             '</div>' +
@@ -337,8 +337,8 @@
               '<div class="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full glass-chip">' +
                 '<i data-lucide="check" class="w-7 h-7 text-tesla"></i>' +
               '</div>' +
-              '<h4 class="mb-1 text-base font-medium text-black dark:text-slate-900 dark:text-white">Withdrawal requested</h4>' +
-              '<p class="mb-5 text-xs leading-relaxed text-slate-500 dark:text-slate-400">Your request of <span class="font-medium text-black dark:text-slate-900 dark:text-white">$' + fmtMoney(amount) + '</span> in ' + coin.toUpperCase() + ' is awaiting approval. You will be notified once it is reviewed.</p>' +
+              '<h4 class="mb-1 text-base font-medium text-slate-900 dark:text-white">Withdrawal requested</h4>' +
+              '<p class="mb-5 text-xs leading-relaxed text-slate-500 dark:text-slate-400">Your request of <span class="font-medium text-slate-900 dark:text-white">$' + fmtMoney(amount) + '</span> in ' + coin.toUpperCase() + ' is awaiting approval. You will be notified once it is reviewed.</p>' +
               '<button type="button" onclick="closeWithdraw()" class="w-full rounded-full bg-slate-900 py-2.5 text-sm font-medium text-white transition hover:bg-slate-800 dark:bg-white dark:text-black dark:hover:bg-gray-200">Close</button>' +
             '</div>';
           if (window.lucide) lucide.createIcons();

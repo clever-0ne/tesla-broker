@@ -65,7 +65,7 @@
               <!-- Orders table -->
               <div class="rounded-2xl border border-slate-200 bg-gradient-to-b from-white to-gray-50 p-5 shadow-sm lg:col-span-2 dark:border-white/10 dark:bg-slate-800">
                 <div class="mb-4">
-                  <h2 class="text-lg font-medium text-black dark:text-slate-900 dark:text-white">Order History</h2>
+                  <h2 class="text-lg font-medium text-slate-900 dark:text-white">Order History</h2>
                   <p class="text-xs text-slate-500 dark:text-slate-400">All your vehicle orders</p>
                 </div>
 
@@ -86,7 +86,7 @@
                           <div class="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full glass-chip">
                             <i data-lucide="receipt" class="w-6 h-6 text-slate-400"></i>
                           </div>
-                          <p class="text-base font-light text-black dark:text-slate-900 dark:text-white">No orders yet</p>
+                          <p class="text-base font-light text-slate-900 dark:text-white">No orders yet</p>
                           <p class="mt-1 text-xs text-slate-500 dark:text-slate-400">Browse the inventory and place your first order.</p>
                         </td>
                       </tr>
@@ -104,7 +104,7 @@
 
               <!-- Status legend -->
               <div class="h-fit glass-card p-5">
-                <h2 class="mb-4 text-lg font-medium text-black dark:text-slate-900 dark:text-white">Order Status</h2>
+                <h2 class="mb-4 text-lg font-medium text-slate-900 dark:text-white">Order Status</h2>
                 <div class="space-y-3">
                   <div class="flex items-center justify-between">
                     <div class="flex items-center space-x-2">
@@ -178,9 +178,9 @@
               : 'bg-[#fff3e7] text-warning';
             return '<tr class="border-b border-gray-100 dark:border-white/5">' +
               '<td class="py-3 pr-4 font-mono text-xs text-slate-500 dark:text-slate-400">' + esc(o.id) + '</td>' +
-              '<td class="py-3 pr-4 font-medium text-black dark:text-slate-900 dark:text-white">' + esc(o.item) + '</td>' +
+              '<td class="py-3 pr-4 font-medium text-slate-900 dark:text-white">' + esc(o.item) + '</td>' +
               '<td class="py-3 pr-4 text-xs text-slate-500 dark:text-slate-400">' + fmtDate(o.createdAt) + '</td>' +
-              '<td class="py-3 pr-4 font-medium text-black dark:text-slate-900 dark:text-white">$' + fmtMoney(o.amount) + '</td>' +
+              '<td class="py-3 pr-4 font-medium text-slate-900 dark:text-white">$' + fmtMoney(o.amount) + '</td>' +
               '<td class="py-3"><span class="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium ' + typeChip + '">' + esc(o.type) + '</span></td></tr>';
           }).join('');
         }

@@ -36,14 +36,8 @@
               <div class="pointer-events-none absolute inset-0" aria-hidden="true">
                 <div class="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-transparent"></div>
               </div>
-                  <img src="/assets/cars/model-y.jpg" alt="" class="h-full w-full object-cover opacity-20" loading="eager" decoding="async" />
-                  <div class="absolute inset-0 bg-gradient-to-b from-slate-900/70 via-slate-800/60 to-slate-900/85"></div>
-                </div>
-                <svg class="absolute bottom-0 left-0 right-0 opacity-10" viewBox="0 0 1440 80" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"><path fill="#ffffff" fill-opacity="1" d="M0,64L48,69.3C96,75,192,85,288,85.3C384,85,480,75,576,53.3C672,32,768,0,864,0C960,0,1056,32,1152,53.3C1248,75,1344,85,1392,90.7L1440,96L1440,160L1392,160C1344,160,1248,160,1152,160C1050,160,960,160,864,160C768,160,672,160,576,160C480,160,384,160,288,160C192,160,96,160,48,160L0,160Z"></path></svg>
-              </div>
-
               <div class="relative z-10 text-center">
-                <p class="t-label mb-3 text-[#8ab4f8]">Inventory</p>
+                <p class="mb-3 text-sm font-medium text-[#8ab4f8]">Inventory</p>
                 <h1 class="text-3xl font-semibold tracking-tight sm:text-4xl lg:text-5xl">Browse Inventory</h1>
                 <p class="mx-auto mt-4 max-w-3xl text-base text-gray-300 sm:text-lg">
                   Explore premium electric vehicles ready for immediate delivery.
@@ -67,7 +61,7 @@
               <div class="lg:w-1/4">
                 <div id="filter-sidebar" class="hidden rounded-2xl border border-slate-200 bg-gradient-to-b from-white to-gray-50 p-6 shadow-sm lg:sticky lg:top-4 lg:block dark:border-white/10 dark:bg-slate-800">
                   <div class="mb-6 flex items-center justify-between">
-                    <h2 class="text-lg font-medium text-black dark:text-slate-900 dark:text-white">Filters</h2>
+                    <h2 class="text-lg font-medium text-slate-900 dark:text-white">Filters</h2>
                     <button id="close-mobile-filters" type="button" class="rounded-lg p-2 text-slate-400 transition hover:bg-gray-100 hover:text-black lg:hidden dark:hover:bg-white/10 dark:hover:text-slate-900 dark:text-white">
                       <i data-lucide="x" class="w-5 h-5"></i>
                     </button>
@@ -92,7 +86,7 @@
                     <!-- Make Filter -->
                     <div>
                       <h3 class="mb-3 text-sm font-medium text-slate-700 dark:text-slate-500">Make</h3>
-                      <select name="make" class="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm text-black focus:border-black focus:outline-none dark:border-white/10 dark:bg-slate-800 dark:text-slate-900 dark:text-white">
+                      <select name="make" class="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm text-black focus:border-black focus:outline-none dark:border-white/10 dark:bg-slate-800 dark:text-white">
                         <option value="">All Makes</option>
                         <option value="Tesla">Tesla</option>
                       </select>
@@ -101,7 +95,7 @@
                     <!-- Model Filter -->
                     <div>
                       <h3 class="mb-3 text-sm font-medium text-slate-700 dark:text-slate-500">Model</h3>
-                      <select name="model" class="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm text-black focus:border-black focus:outline-none dark:border-white/10 dark:bg-slate-800 dark:text-slate-900 dark:text-white">
+                      <select name="model" class="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm text-black focus:border-black focus:outline-none dark:border-white/10 dark:bg-slate-800 dark:text-white">
                         <option value="">All Models</option>
                         <option value="Cybertruck">Cybertruck</option>
                         <option value="Model 3">Model 3</option>
@@ -114,7 +108,7 @@
                     <!-- Year Filter -->
                     <div>
                       <h3 class="mb-3 text-sm font-medium text-slate-700 dark:text-slate-500">Year</h3>
-                      <select name="year" class="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm text-black focus:border-black focus:outline-none dark:border-white/10 dark:bg-slate-800 dark:text-slate-900 dark:text-white">
+                      <select name="year" class="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm text-black focus:border-black focus:outline-none dark:border-white/10 dark:bg-slate-800 dark:text-white">
                         <option value="">All Years</option>
                         <option value="2024">2024</option>
                         <option value="2022">2022</option>
@@ -126,7 +120,7 @@
                     <!-- Price Range Filter -->
                     <div>
                       <h3 class="mb-3 text-sm font-medium text-slate-700 dark:text-slate-500">Price Range</h3>
-                      <select name="price_range" class="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm text-black focus:border-black focus:outline-none dark:border-white/10 dark:bg-slate-800 dark:text-slate-900 dark:text-white">
+                      <select name="price_range" class="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm text-black focus:border-black focus:outline-none dark:border-white/10 dark:bg-slate-800 dark:text-white">
                         <option value="">All Prices</option>
                         <option value="0-50000">Under $50,000</option>
                         <option value="50000-75000">$50,000 - $75,000</option>
@@ -139,7 +133,7 @@
                     <!-- Sort Filter -->
                     <div>
                       <h3 class="mb-3 text-sm font-medium text-slate-700 dark:text-slate-500">Sort By</h3>
-                      <select name="sort" class="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm text-black focus:border-black focus:outline-none dark:border-white/10 dark:bg-slate-800 dark:text-slate-900 dark:text-white">
+                      <select name="sort" class="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm text-black focus:border-black focus:outline-none dark:border-white/10 dark:bg-slate-800 dark:text-white">
                         <option value="newest">Newest First</option>
                         <option value="oldest">Oldest First</option>
                         <option value="price_low">Price: Low to High</option>
@@ -165,7 +159,7 @@
                 <!-- Results Header -->
                 <div class="mb-8 flex flex-col items-start justify-between sm:flex-row sm:items-center">
                   <div>
-                    <h2 class="mb-2 text-2xl font-light text-black dark:text-slate-900 dark:text-white">Available Vehicles</h2>
+                    <h2 class="mb-2 text-2xl font-light text-slate-900 dark:text-white">Available Vehicles</h2>
                     <p class="text-sm text-slate-500 dark:text-slate-400"><span id="showing-text">Showing 1 - 6 of 6 vehicles</span></p>
                   </div>
 
@@ -182,7 +176,7 @@
                 </div>
 
                 <!-- Vehicles Grid -->
-                <div id="cars-container" class="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
+                <div id="cars-container" class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
 
                   <!-- Tesla Cybertruck -->
                   <article class="vehicle-card group overflow-hidden rounded-xl border border-slate-200 bg-gradient-to-b from-white to-gray-50 shadow-sm transition hover:shadow-md dark:border-white/10 dark:bg-slate-800" data-model="Cybertruck" data-year="2020" data-price="79990" data-featured="true" data-available="true" data-title="Tesla Cybertruck" data-sub="2020 Tesla Cybertruck" data-img="/assets/cars/cybertruck.jpg" data-range="410mi" data-accel="3.1s" data-top="130mph" data-price-label="$79,990.00" data-price-num="79990">
@@ -191,7 +185,7 @@
                       <span class="absolute right-3 top-3 rounded-full bg-black px-2 py-0.5 text-xs font-medium text-white dark:bg-white dark:text-slate-900">Featured</span>
                     </div>
                     <div class="card-body p-4">
-                      <h3 class="mb-1 text-base font-medium text-black sm:text-lg dark:text-slate-900 dark:text-white">Tesla Cybertruck</h3>
+                      <h3 class="mb-1 text-base font-medium text-black sm:text-lg dark:text-white">Tesla Cybertruck</h3>
                       <p class="text-sm text-slate-600 dark:text-slate-400">2020 Tesla Cybertruck</p>
                       <div class="mb-3 mt-3 flex items-center gap-6 text-xs text-slate-600 dark:text-slate-400">
                         <div><span class="font-medium text-blue-600 dark:text-[#93c5fd]">410mi</span><span class="block text-[10px]">Range</span></div>
@@ -218,7 +212,7 @@
                       <span class="absolute right-3 top-3 rounded-full bg-black px-2 py-0.5 text-xs font-medium text-white dark:bg-white dark:text-slate-900">Featured</span>
                     </div>
                     <div class="card-body p-4">
-                      <h3 class="mb-1 text-base font-medium text-black sm:text-lg dark:text-slate-900 dark:text-white">Tesla Model S</h3>
+                      <h3 class="mb-1 text-base font-medium text-black sm:text-lg dark:text-white">Tesla Model S</h3>
                       <p class="text-sm text-slate-600 dark:text-slate-400">2022 Tesla Model S</p>
                       <div class="mb-3 mt-3 flex items-center gap-6 text-xs text-slate-600 dark:text-slate-400">
                         <div><span class="font-medium text-blue-600 dark:text-[#93c5fd]">410mi</span><span class="block text-[10px]">Range</span></div>
@@ -244,7 +238,7 @@
                       <img src="/assets/cars/model-y.jpg" alt="2024 Tesla Model Y" class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy" decoding="async" />
                     </div>
                     <div class="card-body p-4">
-                      <h3 class="mb-1 text-base font-medium text-black sm:text-lg dark:text-slate-900 dark:text-white">2024 Tesla Model Y</h3>
+                      <h3 class="mb-1 text-base font-medium text-black sm:text-lg dark:text-white">2024 Tesla Model Y</h3>
                       <p class="text-sm text-slate-600 dark:text-slate-400">2024 Tesla Model Y</p>
                       <div class="mb-3 mt-3 flex items-center gap-6 text-xs text-slate-600 dark:text-slate-400">
                         <div><span class="font-medium text-blue-600 dark:text-[#93c5fd]">410mi</span><span class="block text-[10px]">Range</span></div>
@@ -270,7 +264,7 @@
                       <img src="/assets/cars/model-x.jpg" alt="Tesla Model X" class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy" decoding="async" />
                     </div>
                     <div class="card-body p-4">
-                      <h3 class="mb-1 text-base font-medium text-black sm:text-lg dark:text-slate-900 dark:text-white">Tesla Model X</h3>
+                      <h3 class="mb-1 text-base font-medium text-black sm:text-lg dark:text-white">Tesla Model X</h3>
                       <p class="text-sm text-slate-600 dark:text-slate-400">2021 Tesla Model X</p>
                       <div class="mb-3 mt-3 flex items-center gap-6 text-xs text-slate-600 dark:text-slate-400">
                         <div><span class="font-medium text-blue-600 dark:text-[#93c5fd]">410mi</span><span class="block text-[10px]">Range</span></div>
@@ -296,7 +290,7 @@
                       <img src="/assets/cars/model-3.jpg" alt="Tesla Model 3 Long Range" class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy" decoding="async" />
                     </div>
                     <div class="card-body p-4">
-                      <h3 class="mb-1 text-base font-medium text-black sm:text-lg dark:text-slate-900 dark:text-white">Tesla Model 3 Long Range</h3>
+                      <h3 class="mb-1 text-base font-medium text-black sm:text-lg dark:text-white">Tesla Model 3 Long Range</h3>
                       <p class="text-sm text-slate-600 dark:text-slate-400">2024 Tesla Model 3</p>
                       <div class="mb-3 mt-3 flex items-center gap-6 text-xs text-slate-600 dark:text-slate-400">
                         <div><span class="font-medium text-blue-600 dark:text-[#93c5fd]">410mi</span><span class="block text-[10px]">Range</span></div>
@@ -323,7 +317,7 @@
                       <span class="absolute right-3 top-3 rounded-full bg-black px-2 py-0.5 text-xs font-medium text-white dark:bg-white dark:text-slate-900">Featured</span>
                     </div>
                     <div class="card-body p-4">
-                      <h3 class="mb-1 text-base font-medium text-black sm:text-lg dark:text-slate-900 dark:text-white">Tesla Model X Plaid</h3>
+                      <h3 class="mb-1 text-base font-medium text-black sm:text-lg dark:text-white">Tesla Model X Plaid</h3>
                       <p class="text-sm text-slate-600 dark:text-slate-400">2024 Tesla Model X</p>
                       <div class="mb-3 mt-3 flex items-center gap-6 text-xs text-slate-600 dark:text-slate-400">
                         <div><span class="font-medium text-blue-600 dark:text-[#93c5fd]">410mi</span><span class="block text-[10px]">Range</span></div>
@@ -348,7 +342,7 @@
                 <!-- Empty state -->
                 <div id="no-vehicles" class="hidden rounded-2xl border border-dashed border-gray-300 p-12 text-center dark:border-white/15">
                   <i data-lucide="car" class="mx-auto mb-3 w-8 h-8 text-slate-400"></i>
-                  <p class="text-base font-light text-black dark:text-slate-900 dark:text-white">No vehicles match your filters</p>
+                  <p class="text-base font-light text-slate-900 dark:text-white">No vehicles match your filters</p>
                   <p class="mt-1 text-xs text-slate-500 dark:text-slate-400">Try adjusting or resetting the filters.</p>
                 </div>
 
@@ -410,7 +404,7 @@
           });
           setBtn(listBtn, true); setBtn(gridBtn, false);
         } else {
-          container.className = 'grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3';
+          container.className = 'grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3';
           cards.forEach(function (card) {
             card.classList.remove('md:flex-row', 'md:items-stretch');
             var img = card.querySelector('.image-wrap');
@@ -498,23 +492,26 @@
         // Filters
         var form = document.getElementById('filter-form');
         if (form) {
-          form.addEventListener('submit', function (e) { e.preventDefault(); applyFilters(); });
-          form.sort.addEventListener('change', applyFilters);
-          form.model.addEventListener('change', applyFilters);
-          form.year.addEventListener('change', applyFilters);
-          form.price_range.addEventListener('change', applyFilters);
-          form.available.addEventListener('change', applyFilters);
-          form.featured.addEventListener('change', applyFilters);
-        }
-        var resetBtn = document.getElementById('reset-filters');
-        if (resetBtn && form) {
-          resetBtn.addEventListener('click', function () { form.reset(); applyFilters(); });
+          form.addEventListener('submit', function (e) {
+            e.preventDefault();
+            applyFilters();
+          });
         }
 
-        applyFilters();
+        var resetBtn = document.getElementById('reset-filters');
+        if (resetBtn) {
+          resetBtn.addEventListener('click', function () {
+            form.reset();
+            applyFilters();
+          });
+        }
       }
 
-      document.addEventListener('DOMContentLoaded', initInventory);
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initInventory);
+      } else {
+        initInventory();
+      }
     </script>
   </body>
 </html>

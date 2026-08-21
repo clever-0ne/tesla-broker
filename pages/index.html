@@ -3,9 +3,8 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="All-in-one platform for crypto wallet funding, automated investments, live stocks, and premium EV inventory." />
-
-    <title>Tesla XTeam FX Trade</title>
+    <meta name="description" content="Premium Tesla investment platform — trade Tesla stock, build EV fleet portfolios, and fund with crypto." />
+    <title>Tesla XTeam FX Trade — Invest in the Future</title>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net" />
@@ -14,13 +13,8 @@
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
 
-    <!-- Tailwind CSS (compiled locally — rebuild with `npm run build` or `npm run dev`) -->
+    <!-- Tailwind CSS -->
     <link rel="stylesheet" href="/dist/tailwind.css" />
-
-    <style>
-      /* Force landing page to load at the top without smooth autoscroll */
-      html { scroll-behavior: auto !important; }
-    </style>
 
     <!-- Set theme before paint to avoid a flash of the wrong theme -->
     <script>
@@ -31,41 +25,42 @@
       })();
     </script>
   </head>
-  <body class="font-sans antialiased bg-slate-950 text-white dark:text-slate-100">
-    </div>
+
+  <body class="font-sans antialiased bg-[#f8fafc] text-slate-900 dark:bg-slate-950 dark:text-slate-100">
     <!-- ============ Top Navigation ============ -->
-    <nav class="fixed top-0 left-0 right-0 z-50 border-b border-slate-200/60 dark:border-white/10 bg-slate-950">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between items-center h-16">
+    <nav class="fixed top-0 left-0 right-0 z-50 border-b border-slate-200/80 bg-white/80 backdrop-blur-xl dark:border-white/10 dark:bg-slate-950/80">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="flex h-16 items-center justify-between">
           <!-- Logo -->
-          <div class="flex items-center">
-            <a href="#top" class="flex items-center">
-              <img src="/assets/logo.svg" alt="Tesla XTeam FX Trade" class="h-2 w-auto filter brightness-0 invert" />
-            </a>
-          </div>
+          <a href="#top" class="flex items-center gap-2">
+            <div class="flex h-8 w-8 items-center justify-center rounded-lg bg-[#e82127]">
+              <i data-lucide="zap" class="h-4 w-4 text-white"></i>
+            </div>
+            <span class="text-base font-semibold tracking-tight text-slate-900 dark:text-white">Tesla XTeam FX Trade</span>
+          </a>
 
           <!-- Primary Nav -->
-          <div class="hidden md:flex items-center space-x-8">
-            <a href="#inventory" class="text-sm font-medium text-slate-400 transition hover:text-slate-900 dark:text-white">Inventory</a>
-            <a href="/pages/login.html" class="text-sm font-medium text-slate-400 transition hover:text-slate-900 dark:text-white">Invest</a>
-            <a href="#crypto" class="text-sm font-medium text-slate-400 transition hover:text-slate-900 dark:text-white">Crypto</a>
-            <a href="/pages/login.html" class="text-sm font-medium text-slate-400 transition hover:text-slate-900 dark:text-white">Portfolio</a>
+          <div class="hidden md:flex items-center gap-8">
+            <a href="#features" class="text-sm font-medium text-slate-600 transition hover:text-slate-900 dark:text-slate-400 dark:hover:text-white">Features</a>
+            <a href="#performance" class="text-sm font-medium text-slate-600 transition hover:text-slate-900 dark:text-slate-400 dark:hover:text-white">Performance</a>
+            <a href="#trust" class="text-sm font-medium text-slate-600 transition hover:text-slate-900 dark:text-slate-400 dark:hover:text-white">Trust & Security</a>
+            <a href="/pages/inventory.html" class="text-sm font-medium text-slate-600 transition hover:text-slate-900 dark:text-slate-400 dark:hover:text-white">Fleet</a>
           </div>
 
           <!-- Right Side -->
-          <div class="flex items-center space-x-3">
+          <div class="flex items-center gap-3">
             <!-- Theme toggle -->
             <button type="button" id="theme-toggle" class="p-2 rounded-full text-slate-500 transition hover:bg-slate-100 dark:hover:bg-white/10" aria-label="Toggle dark mode">
               <i data-lucide="sun" id="theme-sun" class="w-5 h-5 hidden"></i>
               <i data-lucide="moon" id="theme-moon" class="w-5 h-5"></i>
             </button>
 
-            <a href="/pages/login.html" id="nav-signin" class="rounded-full bg-gray-200 px-5 py-2 text-sm font-medium text-slate-900 shadow-lg transition hover:bg-gray-300">
+            <a href="/pages/login.html" id="nav-signin" class="rounded-full bg-slate-900 px-5 py-2 text-sm font-medium text-white shadow-lg transition hover:bg-slate-800 dark:bg-white dark:text-slate-900 dark:hover:bg-gray-200">
               Sign In
             </a>
 
             <!-- Mobile menu button -->
-            <button type="button" class="md:hidden p-2 text-slate-400 rounded-full transition hover:bg-white/10" id="mobile-menu-button" aria-label="Open menu">
+            <button type="button" class="md:hidden p-2 text-slate-500 rounded-full transition hover:bg-slate-100" id="mobile-menu-button" aria-label="Open menu">
               <i data-lucide="menu" class="w-5 h-5" id="menu-icon"></i>
               <i data-lucide="x" class="w-5 h-5 hidden" id="close-icon"></i>
             </button>
@@ -74,764 +69,407 @@
       </div>
 
       <!-- Mobile Menu -->
-      <div class="md:hidden hidden bg-slate-950 border-t border-white/10" id="mobile-menu">
-        <div class="px-4 pt-2 pb-4 space-y-1">
-          <a href="#inventory" class="block px-3 py-2 text-sm font-medium text-gray-300 rounded hover:bg-white/10">Inventory</a>
-          <a href="/pages/login.html" class="block px-3 py-2 text-sm font-medium text-gray-300 rounded hover:bg-white/10">Invest</a>
-          <a href="#crypto" class="block px-3 py-2 text-sm font-medium text-gray-300 rounded hover:bg-white/10">Crypto</a>
-          <a href="/pages/login.html" class="block px-3 py-2 text-sm font-medium text-gray-300 rounded hover:bg-white/10">Portfolio</a>
-          <div class="border-t border-white/10 mt-2 pt-2">
-            <a href="/pages/login.html" class="block px-3 py-2 text-sm font-medium text-gray-300 rounded hover:bg-white/10">Sign In</a>
+      <div class="md:hidden hidden border-t border-slate-200 dark:border-white/10" id="mobile-menu">
+        <div class="px-4 pt-2 pb-4 space-y-1 bg-white dark:bg-slate-950">
+          <a href="#features" class="block px-3 py-2 text-sm font-medium text-slate-700 rounded hover:bg-slate-50 dark:text-slate-300 dark:hover:bg-white/5">Features</a>
+          <a href="#performance" class="block px-3 py-2 text-sm font-medium text-slate-700 rounded hover:bg-slate-50 dark:text-slate-300 dark:hover:bg-white/5">Performance</a>
+          <a href="#trust" class="block px-3 py-2 text-sm font-medium text-slate-700 rounded hover:bg-slate-50 dark:text-slate-300 dark:hover:bg-white/5">Trust & Security</a>
+          <a href="/pages/inventory.html" class="block px-3 py-2 text-sm font-medium text-slate-700 rounded hover:bg-slate-50 dark:text-slate-300 dark:hover:bg-white/5">Fleet</a>
+          <div class="border-t border-slate-200 mt-2 pt-2 dark:border-white/10">
+            <a href="/pages/login.html" class="block px-3 py-2 text-sm font-medium text-slate-700 rounded hover:bg-slate-50 dark:text-slate-300 dark:hover:bg-white/5">Sign In</a>
           </div>
         </div>
       </div>
     </nav>
 
     <!-- ============ Hero ============ -->
-    <main id="top">
-      <header class="relative overflow-hidden bg-slate-950 text-slate-900 dark:text-white">
-        <!-- Background grid pattern -->
-        <svg class="absolute inset-0 opacity-[0.06] z-0 pointer-events-none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" aria-hidden="true" focusable="false">
-          <defs>
-            <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
-              <path d="M 40 0 L 0 0 0 40" fill="none" stroke="white" stroke-width="1" />
-            </pattern>
-          </defs>
-          <rect width="100%" height="100%" fill="url(#grid)" />
-        </svg>
+    <main id="top" class="relative overflow-hidden pt-16">
+      <!-- Soft blurred background graphics -->
+      <div class="pointer-events-none absolute inset-0 z-0" aria-hidden="true">
+        <div class="absolute -top-24 -left-24 h-96 w-96 rounded-full bg-[#e82127]/10 blur-[100px]"></div>
+        <div class="absolute top-1/3 -right-24 h-[28rem] w-[28rem] rounded-full bg-blue-500/10 blur-[120px]"></div>
+        <div class="absolute -bottom-24 left-1/3 h-80 w-80 rounded-full bg-slate-900/5 blur-[100px] dark:bg-white/5"></div>
+        <img src="/assets/tesla-hero.jpg" alt="" class="absolute inset-0 h-full w-full object-cover opacity-[0.07] blur-[20px]" loading="eager" decoding="async" />
+      </div>
 
-        <!-- Background image -->
-        <div class="absolute inset-0 z-0 pointer-events-none" aria-hidden="true">
-          <img src="/assets/tesla-hero.jpg" alt="" class="h-full w-full object-cover opacity-20" loading="eager" decoding="async" />
-          <div class="absolute inset-0 bg-gradient-to-b from-slate-900/80 via-slate-800/70 to-slate-900/90"></div>
-        </div>
-
-        <!-- Glossy sheen -->
-        <div class="absolute inset-0 z-0 pointer-events-none" aria-hidden="true">
-          <div class="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-transparent"></div>
-        </div>
-
-        <div class="relative z-10">
-          <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 lg:py-24">
-            <div class="grid grid-cols-1 items-center gap-10 lg:grid-cols-2 lg:gap-16">
-              <div>
-                <h1 class="text-4xl font-bold tracking-tight sm:text-6xl bg-gradient-to-b from-white via-white to-gray-400 bg-clip-text text-transparent">
-                  Invest. Trade. Drive.
-                </h1>
-                <p class="mt-4 max-w-xl text-base text-gray-300 sm:text-lg">
-                  All-in-one platform for crypto wallet funding, automated investments, live stocks, and premium EV inventory.
-                </p>
-
-                <div class="mt-8 flex flex-col gap-3 sm:flex-row">
-                  <a href="/pages/login.html" data-open="signup" class="inline-flex items-center justify-center rounded-full bg-white px-5 py-2.5 text-sm font-medium text-black shadow-lg transition hover:bg-gray-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60 focus-visible:ring-offset-2 focus-visible:ring-offset-black">
-                    <i data-lucide="trending-up" class="mr-2 h-4 w-4" aria-hidden="true"></i>
-                    Start Investing
-                  </a>
-                  <a href="#crypto" class="inline-flex items-center justify-center rounded-full border border-white/30 px-6 py-3 text-sm font-medium text-white transition hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60 focus-visible:ring-offset-2 focus-visible:ring-offset-black">
-                    <i data-lucide="bitcoin" class="mr-2 h-4 w-4" aria-hidden="true"></i>
-                    Explore Crypto
-                  </a>
-                  <a href="#inventory" class="inline-flex items-center justify-center rounded-full border border-white/30 px-6 py-3 text-sm font-medium text-white transition hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60 focus-visible:ring-offset-2 focus-visible:ring-offset-black">
-                    <i data-lucide="car" class="mr-2 h-4 w-4" aria-hidden="true"></i>
-                    View Inventory
-                  </a>
-                </div>
-
-                <div class="mt-8 grid grid-cols-1 gap-3 sm:grid-cols-3">
-                  <div class="rounded-xl border border-white/10 bg-white/5 p-4">
-                    <p class="text-xs text-slate-500">Live Crypto</p>
-                    <p class="mt-1 text-lg font-semibold text-slate-900 dark:text-white">Realtime</p>
-                  </div>
-                  <div class="rounded-xl border border-white/10 bg-white/5 p-4">
-                    <p class="text-xs text-slate-500">Wallet</p>
-                    <p class="mt-1 text-lg font-semibold text-slate-900 dark:text-white">Crypto</p>
-                  </div>
-                  <div class="rounded-xl border border-white/10 bg-white/5 p-4">
-                    <p class="text-xs text-slate-500">EV Inventory</p>
-                    <p class="mt-1 text-lg font-semibold text-slate-900 dark:text-white">Premium</p>
-                  </div>
-                </div>
-              </div>
-
-              <div class="grid grid-cols-2 gap-4">
-                <article class="rounded-2xl border border-white/10 bg-white/5 p-4 shadow transition hover:bg-white/10">
-                  <h3 class="text-xs text-slate-500">Investments</h3>
-                  <p class="mt-2 text-2xl font-semibold text-slate-900 dark:text-white">Automated</p>
-                  <p class="mt-1 text-sm text-slate-500">Flexible plans, recurring contributions.</p>
-                </article>
-                <article class="rounded-2xl border border-white/10 bg-white/5 p-4 shadow transition hover:bg-white/10">
-                  <h3 class="text-xs text-slate-500">Stocks</h3>
-                  <p class="mt-2 text-2xl font-semibold text-slate-900 dark:text-white">Realtime</p>
-                  <p class="mt-1 text-sm text-slate-500">Quotes, news, and watchlists.</p>
-                </article>
-                <article class="rounded-2xl border border-white/10 bg-white/5 p-4 shadow transition hover:bg-white/10">
-                  <h3 class="text-xs text-slate-500">Wallet</h3>
-                  <p class="mt-2 text-2xl font-semibold text-slate-900 dark:text-white">Crypto</p>
-                  <p class="mt-1 text-sm text-slate-500">Deposit and withdraw easily.</p>
-                </article>
-                <article class="rounded-2xl border border-white/10 bg-white/5 p-4 shadow transition hover:bg-white/10">
-                  <h3 class="text-xs text-slate-500">Marketplace</h3>
-                  <p class="mt-2 text-2xl font-semibold text-slate-900 dark:text-white">Tesla</p>
-                  <p class="mt-1 text-sm text-slate-500">Curated EV selection.</p>
-                </article>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Wave divider -->
-        <div class="absolute bottom-0 left-0 right-0 translate-y-[1px]" aria-hidden="true">
-          <svg viewBox="0 0 1440 80" xmlns="http://www.w3.org/2000/svg">
-            <path fill="#0d1b2e" fill-opacity="1" d="M0,64L48,69.3C96,75,192,85,288,85.3C384,85,480,75,576,53.3C672,32,768,0,864,0C960,0,1056,32,1152,53.3C1248,75,1344,85,1392,90.7L1440,96L1440,160L1392,160C1344,160,1248,160,1152,160C1050,160,960,160,864,160C768,160,672,160,576,160C480,160,384,160,288,160C192,160,96,160,48,160L0,160Z"></path>
-          </svg>
-        </div>
-      </header>
-
-      <!-- ============ Quick Actions ============ -->
-      <section class="bg-gray-50 dark:bg-slate-950" aria-labelledby="quick-actions-heading">
-        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
-          <h2 id="quick-actions-heading" class="sr-only">Quick actions</h2>
-
-          <nav class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4" aria-label="Quick actions">
-            <a href="/pages/login.html" class="group rounded-2xl border border-slate-200 bg-gradient-to-b from-white to-gray-50 p-5 shadow-sm transition hover:shadow-xl hover:shadow-tesla/10 dark:border-white/10 dark:bg-slate-800 dark:hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-tesla/60">
-              <div class="flex items-center justify-between">
-                <div>
-                  <p class="text-xs text-slate-500 dark:text-slate-400">Wallet</p>
-                  <p class="mt-1 text-sm font-medium text-black dark:text-slate-900 dark:text-white">Fund or withdraw</p>
-                </div>
-                <span class="inline-flex h-8 w-8 items-center justify-center rounded-full bg-gray-100 text-slate-700 transition group-hover:bg-tesla group-hover:text-white dark:bg-white/10 dark:text-white dark:group-hover:text-slate-900">
-                  <i data-lucide="wallet" class="h-4 w-4" aria-hidden="true"></i>
-                </span>
-              </div>
-            </a>
-
-            <a href="/pages/login.html" data-open="signup" class="group rounded-2xl border border-slate-200 bg-gradient-to-b from-white to-gray-50 p-5 shadow-sm transition hover:shadow-xl hover:shadow-tesla/10 dark:border-white/10 dark:bg-slate-800 dark:hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-tesla/60">
-              <div class="flex items-center justify-between">
-                <div>
-                  <p class="text-xs text-slate-500 dark:text-slate-400">Investments</p>
-                  <p class="mt-1 text-sm font-medium text-black dark:text-slate-900 dark:text-white">Create a plan</p>
-                </div>
-                <span class="inline-flex h-8 w-8 items-center justify-center rounded-full bg-gray-100 text-slate-700 transition group-hover:bg-tesla group-hover:text-white dark:bg-white/10 dark:text-white dark:group-hover:text-slate-900">
-                  <i data-lucide="trending-up" class="h-4 w-4" aria-hidden="true"></i>
-                </span>
-              </div>
-            </a>
-
-            <a href="#crypto" class="group rounded-2xl border border-slate-200 bg-gradient-to-b from-white to-gray-50 p-5 shadow-sm transition hover:shadow-xl hover:shadow-tesla/10 dark:border-white/10 dark:bg-slate-800 dark:hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-tesla/60">
-              <div class="flex items-center justify-between">
-                <div>
-                  <p class="text-xs text-slate-500 dark:text-slate-400">Crypto</p>
-                  <p class="mt-1 text-sm font-medium text-black dark:text-slate-900 dark:text-white">Market overview</p>
-                </div>
-                <span class="inline-flex h-8 w-8 items-center justify-center rounded-full bg-gray-100 text-slate-700 transition group-hover:bg-tesla group-hover:text-white dark:bg-white/10 dark:text-white dark:group-hover:text-slate-900">
-                  <i data-lucide="bitcoin" class="h-4 w-4" aria-hidden="true"></i>
-                </span>
-              </div>
-            </a>
-
-            <a href="/pages/login.html" class="group rounded-2xl border border-slate-200 bg-gradient-to-b from-white to-gray-50 p-5 shadow-sm transition hover:shadow-xl hover:shadow-tesla/10 dark:border-white/10 dark:bg-slate-800 dark:hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-tesla/60">
-              <div class="flex items-center justify-between">
-                <div>
-                  <p class="text-xs text-slate-500 dark:text-slate-400">Portfolio</p>
-                  <p class="mt-1 text-sm font-medium text-black dark:text-slate-900 dark:text-white">Track performance</p>
-                </div>
-                <span class="inline-flex h-8 w-8 items-center justify-center rounded-full bg-gray-100 text-slate-700 transition group-hover:bg-tesla group-hover:text-white dark:bg-white/10 dark:text-white dark:group-hover:text-slate-900">
-                  <i data-lucide="pie-chart" class="h-4 w-4" aria-hidden="true"></i>
-                </span>
-              </div>
-            </a>
-          </nav>
-        </div>
-      </section>
-
-      <!-- ============ Featured Inventory ============ -->
-      <section id="inventory" class="bg-white py-16 dark:bg-slate-950" aria-labelledby="inventory-heading">
-        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div class="mb-8 flex items-center justify-between">
+      <div class="relative z-10">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-20 lg:py-28">
+          <div class="grid grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-16">
             <div>
-              <h2 id="inventory-heading" class="text-xl font-semibold text-black sm:text-2xl dark:text-slate-900 dark:text-white">Available Inventory</h2>
-              <p class="mt-1 text-sm text-slate-600 dark:text-slate-400">Explore a curated selection ready for delivery.</p>
+              <div class="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-3 py-1 text-xs font-medium text-slate-700 shadow-sm dark:border-white/10 dark:bg-slate-900 dark:text-slate-200">
+                <span class="inline-flex h-2 w-2 rounded-full bg-[#e82127]"></span>
+                Premium investment platform
+              </div>
+              <h1 class="mt-6 text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl text-slate-900 dark:text-white">
+                Invest in Tesla.<br />
+                <span class="text-[#e82127]">Own the road.</span>
+              </h1>
+              <p class="mt-6 max-w-xl text-base leading-relaxed text-slate-600 dark:text-slate-400">
+                Trade Tesla-aligned investments, build EV fleet portfolios, and fund with crypto — all from one premium dashboard built for serious investors.
+              </p>
+
+              <div class="mt-8 flex flex-col gap-3 sm:flex-row">
+                <a href="/pages/login.html" data-open="signup" class="inline-flex items-center justify-center rounded-full bg-slate-900 px-6 py-3 text-sm font-semibold text-white shadow-lg transition hover:bg-slate-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-900/40 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:bg-white dark:text-slate-900 dark:hover:bg-gray-200 dark:focus-visible:ring-white/40">
+                  <i data-lucide="trending-up" class="mr-2 h-4 w-4" aria-hidden="true"></i>
+                  Get Started
+                </a>
+                <a href="/pages/inventory.html" class="inline-flex items-center justify-center rounded-full border border-slate-300 px-6 py-3 text-sm font-semibold text-slate-900 transition hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-900/40 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:border-white/20 dark:text-white dark:hover:bg-white/10 dark:focus-visible:ring-white/40">
+                  <i data-lucide="car" class="mr-2 h-4 w-4" aria-hidden="true"></i>
+                  Explore Fleet
+                </a>
+              </div>
+
+              <div class="mt-10 grid grid-cols-3 gap-6">
+                <div>
+                  <p class="text-2xl font-semibold text-slate-900 dark:text-white">$2.4B+</p>
+                  <p class="mt-1 text-xs text-slate-500 dark:text-slate-400">Portfolio value</p>
+                </div>
+                <div>
+                  <p class="text-2xl font-semibold text-slate-900 dark:text-white">18.4%</p>
+                  <p class="mt-1 text-xs text-slate-500 dark:text-slate-400">Avg. annual yield</p>
+                </div>
+                <div>
+                  <p class="text-2xl font-semibold text-slate-900 dark:text-white">150K+</p>
+                  <p class="mt-1 text-xs text-slate-500 dark:text-slate-400">Active investors</p>
+                </div>
+              </div>
             </div>
-            <a href="#inventory" class="text-sm font-medium text-tesla underline-offset-4 hover:underline">View all</a>
-          </div>
 
-          <div class="grid grid-cols-1 gap-6 lg:grid-cols-2 xl:grid-cols-3 lg:gap-8">
-            <!-- Car: Cybertruck -->
-            <article class="group cursor-pointer rounded-2xl border border-slate-200 bg-gradient-to-b from-white to-gray-50 shadow-sm transition hover:shadow-xl hover:shadow-black/10 dark:border-white/10 dark:bg-slate-800 dark:hover:shadow-black/40 focus-within:ring-2 focus-within:ring-tesla/40">
-              <a href="#inventory" class="block overflow-hidden rounded-t-2xl">
-                <div class="relative aspect-[16/9]">
-                  <img
-                    src="/assets/cars/cybertruck.jpg"
-                    alt="Tesla Cybertruck"
-                    class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                    loading="lazy"
-                    decoding="async"
-                    sizes="(min-width: 1280px) 384px, (min-width: 1024px) 50vw, 100vw"
-                  />
+            <div class="relative">
+              <div class="relative overflow-hidden rounded-3xl border border-slate-200 bg-white p-6 shadow-2xl shadow-slate-900/5 dark:border-white/10 dark:bg-slate-900">
+                <div class="pointer-events-none absolute inset-0" aria-hidden="true">
+                  <div class="absolute inset-0 bg-gradient-to-br from-white/40 via-transparent to-transparent"></div>
                 </div>
-              </a>
+                <div class="relative z-10">
+                  <div class="flex items-center justify-between">
+                    <div>
+                      <p class="text-xs font-medium text-slate-500 dark:text-slate-400">Portfolio Value</p>
+                      <p class="mt-1 text-3xl font-semibold text-slate-900 dark:text-white">$124,592.00</p>
+                      <p class="mt-1 text-xs font-medium text-emerald-600">+$3,240.00 (+2.67%)</p>
+                    </div>
+                    <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-[#e82127]/10">
+                      <i data-lucide="trending-up" class="h-6 w-6 text-[#e82127]"></i>
+                    </div>
+                  </div>
 
-              <div class="p-4">
-                <h3 class="mb-1 text-base font-medium text-black group-hover:text-black/80 sm:text-lg dark:text-white dark:group-hover:text-white/80">
-                  <a href="#inventory" class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-tesla/40">Tesla Cybertruck</a>
-                </h3>
+                  <div class="mt-6 grid grid-cols-2 gap-4">
+                    <div class="rounded-2xl border border-slate-200 bg-slate-50 p-4 dark:border-white/10 dark:bg-slate-800">
+                      <p class="text-xs text-slate-500 dark:text-slate-400">Tesla Shares</p>
+                      <p class="mt-1 text-lg font-semibold text-slate-900 dark:text-white">142</p>
+                      <p class="text-xs text-slate-500 dark:text-slate-400">+1.2% today</p>
+                    </div>
+                    <div class="rounded-2xl border border-slate-200 bg-slate-50 p-4 dark:border-white/10 dark:bg-slate-800">
+                      <p class="text-xs text-slate-500 dark:text-slate-400">Fleet Yield</p>
+                      <p class="mt-1 text-lg font-semibold text-slate-900 dark:text-white">8.4%</p>
+                      <p class="text-xs text-slate-500 dark:text-slate-400">Monthly payout</p>
+                    </div>
+                  </div>
 
-                <div class="mb-3 flex items-center gap-6 text-xs text-slate-600 dark:text-slate-400">
-                  <div>
-                    <span class="font-medium">410mi</span>
-                    <span class="block text-[10px]">Range</span>
-                  </div>
-                  <div>
-                    <span class="font-medium">3.1s</span>
-                    <span class="block text-[10px]">0-60 mph</span>
-                  </div>
-                  <div>
-                    <span class="font-medium">130mph</span>
-                    <span class="block text-[10px]">Top Speed</span>
-                  </div>
-                </div>
-
-                <div class="flex items-center justify-between">
-                  <div>
-                    <p class="text-sm font-medium text-success dark:text-[#4ade80]">Starting at $79,990.00*</p>
-                    <p class="text-xs text-slate-500 dark:text-slate-400">After Est. Gas Savings</p>
-                  </div>
-                  <div class="flex items-center gap-2">
-                    <a href="#inventory" class="rounded-full border border-gray-300 px-4 py-1.5 text-xs font-medium text-black transition hover:bg-gray-50 dark:border-white/20 dark:text-white dark:hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-tesla/40">Learn</a>
-                    <a href="/pages/login.html" data-open="signup" class="rounded-full bg-tesla px-4 py-1.5 text-xs font-medium text-white dark:text-black shadow-md shadow-tesla/30 transition hover:bg-tesla-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-tesla/40">Order</a>
-                  </div>
-                </div>
-              </div>
-            </article>
-
-            <!-- Car: Model S -->
-            <article class="group cursor-pointer rounded-2xl border border-slate-200 bg-gradient-to-b from-white to-gray-50 shadow-sm transition hover:shadow-xl hover:shadow-black/10 dark:border-white/10 dark:bg-slate-800 dark:hover:shadow-black/40 focus-within:ring-2 focus-within:ring-tesla/40">
-              <a href="#inventory" class="block overflow-hidden rounded-t-2xl">
-                <div class="relative aspect-[16/9]">
-                  <img
-                    src="/assets/cars/model-s.jpg"
-                    alt="Tesla Model S"
-                    class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                    loading="lazy"
-                    decoding="async"
-                    sizes="(min-width: 1280px) 384px, (min-width: 1024px) 50vw, 100vw"
-                  />
-                </div>
-              </a>
-
-              <div class="p-4">
-                <h3 class="mb-1 text-base font-medium text-black group-hover:text-black/80 sm:text-lg dark:text-white dark:group-hover:text-white/80">
-                  <a href="#inventory" class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-tesla/40">Tesla Model S</a>
-                </h3>
-
-                <div class="mb-3 flex items-center gap-6 text-xs text-slate-600 dark:text-slate-400">
-                  <div>
-                    <span class="font-medium">410mi</span>
-                    <span class="block text-[10px]">Range</span>
-                  </div>
-                  <div>
-                    <span class="font-medium">3.1s</span>
-                    <span class="block text-[10px]">0-60 mph</span>
-                  </div>
-                  <div>
-                    <span class="font-medium">130mph</span>
-                    <span class="block text-[10px]">Top Speed</span>
-                  </div>
-                </div>
-
-                <div class="flex items-center justify-between">
-                  <div>
-                    <p class="text-sm font-medium text-success dark:text-[#4ade80]">Starting at $74,990.00*</p>
-                    <p class="text-xs text-slate-500 dark:text-slate-400">After Est. Gas Savings</p>
-                  </div>
-                  <div class="flex items-center gap-2">
-                    <a href="#inventory" class="rounded-full border border-gray-300 px-4 py-1.5 text-xs font-medium text-black transition hover:bg-gray-50 dark:border-white/20 dark:text-white dark:hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-tesla/40">Learn</a>
-                    <a href="/pages/login.html" data-open="signup" class="rounded-full bg-tesla px-4 py-1.5 text-xs font-medium text-white dark:text-black shadow-md shadow-tesla/30 transition hover:bg-tesla-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-tesla/40">Order</a>
-                  </div>
-                </div>
-              </div>
-            </article>
-
-            <!-- Car: Model Y -->
-            <article class="group cursor-pointer rounded-2xl border border-slate-200 bg-gradient-to-b from-white to-gray-50 shadow-sm transition hover:shadow-xl hover:shadow-black/10 dark:border-white/10 dark:bg-slate-800 dark:hover:shadow-black/40 focus-within:ring-2 focus-within:ring-tesla/40">
-              <a href="#inventory" class="block overflow-hidden rounded-t-2xl">
-                <div class="relative aspect-[16/9]">
-                  <img
-                    src="/assets/cars/model-y.jpg"
-                    alt="2024 Tesla Model Y"
-                    class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                    loading="lazy"
-                    decoding="async"
-                    sizes="(min-width: 1280px) 384px, (min-width: 1024px) 50vw, 100vw"
-                  />
-                </div>
-              </a>
-
-              <div class="p-4">
-                <h3 class="mb-1 text-base font-medium text-black group-hover:text-black/80 sm:text-lg dark:text-white dark:group-hover:text-white/80">
-                  <a href="#inventory" class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-tesla/40">2024 Tesla Model Y</a>
-                </h3>
-
-                <div class="mb-3 flex items-center gap-6 text-xs text-slate-600 dark:text-slate-400">
-                  <div>
-                    <span class="font-medium">410mi</span>
-                    <span class="block text-[10px]">Range</span>
-                  </div>
-                  <div>
-                    <span class="font-medium">3.1s</span>
-                    <span class="block text-[10px]">0-60 mph</span>
-                  </div>
-                  <div>
-                    <span class="font-medium">130mph</span>
-                    <span class="block text-[10px]">Top Speed</span>
-                  </div>
-                </div>
-
-                <div class="flex items-center justify-between">
-                  <div>
-                    <p class="text-sm font-medium text-success dark:text-[#4ade80]">Starting at $42,000.00*</p>
-                    <p class="text-xs text-slate-500 dark:text-slate-400">After Est. Gas Savings</p>
-                  </div>
-                  <div class="flex items-center gap-2">
-                    <a href="#inventory" class="rounded-full border border-gray-300 px-4 py-1.5 text-xs font-medium text-black transition hover:bg-gray-50 dark:border-white/20 dark:text-white dark:hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-tesla/40">Learn</a>
-                    <a href="/pages/login.html" data-open="signup" class="rounded-full bg-tesla px-4 py-1.5 text-xs font-medium text-white dark:text-black shadow-md shadow-tesla/30 transition hover:bg-tesla-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-tesla/40">Order</a>
-                  </div>
-                </div>
-              </div>
-            </article>
-          </div>
-        </div>
-      </section>
-
-      <!-- ============ Crypto Markets ============ -->
-      <section id="crypto" class="bg-slate-950 py-16 text-slate-900 dark:text-white" aria-labelledby="markets-heading">
-        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div class="mb-8 flex items-center justify-between">
-            <div>
-              <h2 id="markets-heading" class="text-xl font-semibold sm:text-2xl">Crypto Markets</h2>
-              <p class="mt-1 text-sm text-slate-400">Featured picks, top gainers, losers, and most active.</p>
-            </div>
-            <a href="#crypto" class="text-sm font-medium text-white underline-offset-4 hover:underline">Open markets</a>
-          </div>
-
-          <div class="grid grid-cols-1 gap-6 lg:grid-cols-3">
-            <!-- Featured -->
-            <div class="lg:col-span-1">
-              <div class="rounded-xl border border-white/10 from-white/5 to-white/0 bg-gradient-to-br p-4">
-                <div class="mb-3 flex items-center justify-between">
-                  <h3 class="text-sm font-semibold">Featured</h3>
-                  <a href="#crypto" class="text-xs text-gray-300 hover:text-slate-900 dark:text-white">See all</a>
-                </div>
-
-                <div class="space-y-3">
-                  <a href="#" class="flex items-center justify-between rounded-lg p-3 transition hover:bg-white/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60">
-                    <div class="min-w-0 flex items-center gap-3">
-                      <img src="/assets/coins/btc.png" alt="BTC-USD logo" class="h-6 w-6 rounded bg-white" loading="lazy" decoding="async" />
-                      <div class="min-w-0">
-                        <p class="truncate text-sm font-medium">BTC-USD <span class="font-normal text-slate-400">• Bitcoin</span></p>
-                        <p class="text-xs text-slate-400">Currency</p>
+                  <div class="mt-4 rounded-2xl border border-slate-200 bg-slate-50 p-4 dark:border-white/10 dark:bg-slate-800">
+                    <div class="flex items-center justify-between">
+                      <div>
+                        <p class="text-xs text-slate-500 dark:text-slate-400">Crypto Wallet</p>
+                        <p class="mt-1 text-lg font-semibold text-slate-900 dark:text-white">$12,480.00</p>
                       </div>
+                      <span class="inline-flex items-center rounded-full bg-emerald-50 px-2 py-1 text-xs font-medium text-emerald-700 dark:bg-emerald-500/10 dark:text-emerald-400">Active</span>
                     </div>
-                    <div class="text-right">
-                      <p class="text-sm font-semibold text-warning">$95,000.00</p>
-                      <p class="text-xs text-success">+$1,000.00 (+1.06%)</p>
-                    </div>
-                  </a>
-
-                  <a href="#" class="flex items-center justify-between rounded-lg p-3 transition hover:bg-white/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60">
-                    <div class="min-w-0 flex items-center gap-3">
-                      <img src="/assets/coins/eth.png" alt="ETH-USD logo" class="h-6 w-6 rounded bg-white" loading="lazy" decoding="async" />
-                      <div class="min-w-0">
-                        <p class="truncate text-sm font-medium">ETH-USD <span class="font-normal text-slate-400">• Ethereum</span></p>
-                        <p class="text-xs text-slate-400">Smart Contract Platform</p>
-                      </div>
-                    </div>
-                    <div class="text-right">
-                      <p class="text-sm font-semibold text-warning">$3,500.00</p>
-                      <p class="text-xs text-success">+$50.00 (+1.45%)</p>
-                    </div>
-                  </a>
-
-                  <a href="#" class="flex items-center justify-between rounded-lg p-3 transition hover:bg-white/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60">
-                    <div class="min-w-0 flex items-center gap-3">
-                      <img src="/assets/coins/bnb.png" alt="BNB-USD logo" class="h-6 w-6 rounded bg-white" loading="lazy" decoding="async" />
-                      <div class="min-w-0">
-                        <p class="truncate text-sm font-medium">BNB-USD <span class="font-normal text-slate-400">• Binance Coin</span></p>
-                        <p class="text-xs text-slate-400">Exchange Token</p>
-                      </div>
-                    </div>
-                    <div class="text-right">
-                      <p class="text-sm font-semibold text-warning">$650.00</p>
-                      <p class="text-xs text-success">+$10.00 (+1.56%)</p>
-                    </div>
-                  </a>
+                  </div>
                 </div>
               </div>
-            </div>
-
-            <!-- Gainers / Losers / Active -->
-            <div class="lg:col-span-2 grid grid-cols-1 gap-6 md:grid-cols-3">
-              <!-- Top Gainers -->
-              <div class="rounded-xl border border-white/10 from-white/5 to-white/0 bg-gradient-to-br p-4">
-                <h3 class="mb-3 text-sm font-semibold">Top Gainers</h3>
-                <div class="space-y-3">
-                  <a href="#" class="flex items-center justify-between rounded-lg p-3 transition hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60">
-                    <div class="min-w-0 flex items-center gap-3">
-                      <img src="/assets/coins/doge.png" alt="DOGE-USD logo" class="h-5 w-5 rounded bg-white" loading="lazy" decoding="async" />
-                      <span class="truncate text-sm font-medium">DOGE-USD</span>
-                    </div>
-                    <span class="text-xs font-semibold text-[#4ade80]">+7.14%</span>
-                  </a>
-
-                  <a href="#" class="flex items-center justify-between rounded-lg p-3 transition hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60">
-                    <div class="min-w-0 flex items-center gap-3">
-                      <img src="/assets/coins/algo.png" alt="ALGO-USD logo" class="h-5 w-5 rounded bg-white" loading="lazy" decoding="async" />
-                      <span class="truncate text-sm font-medium">ALGO-USD</span>
-                    </div>
-                    <span class="text-xs font-semibold text-[#4ade80]">+4.17%</span>
-                  </a>
-
-                  <a href="#" class="flex items-center justify-between rounded-lg p-3 transition hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60">
-                    <div class="min-w-0 flex items-center gap-3">
-                      <img src="/assets/coins/xrp.png" alt="XRP-USD logo" class="h-5 w-5 rounded bg-white" loading="lazy" decoding="async" />
-                      <span class="truncate text-sm font-medium">XRP-USD</span>
-                    </div>
-                    <span class="text-xs font-semibold text-[#4ade80]">+3.17%</span>
-                  </a>
-
-                  <a href="#" class="flex items-center justify-between rounded-lg p-3 transition hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60">
-                    <div class="min-w-0 flex items-center gap-3">
-                      <img src="/assets/coins/sol.png" alt="SOL-USD logo" class="h-5 w-5 rounded bg-white" loading="lazy" decoding="async" />
-                      <span class="truncate text-sm font-medium">SOL-USD</span>
-                    </div>
-                    <span class="text-xs font-semibold text-[#4ade80]">+2.86%</span>
-                  </a>
-
-                  <a href="#" class="flex items-center justify-between rounded-lg p-3 transition hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60">
-                    <div class="min-w-0 flex items-center gap-3">
-                      <img src="/assets/coins/avax.png" alt="AVAX-USD logo" class="h-5 w-5 rounded bg-white" loading="lazy" decoding="async" />
-                      <span class="truncate text-sm font-medium">AVAX-USD</span>
-                    </div>
-                    <span class="text-xs font-semibold text-[#4ade80]">+2.70%</span>
-                  </a>
-                </div>
-              </div>
-
-              <!-- Top Losers -->
-              <div class="rounded-xl border border-white/10 from-white/5 to-white/0 bg-gradient-to-br p-4">
-                <h3 class="mb-3 text-sm font-semibold">Top Losers</h3>
-                <div class="space-y-3">
-                  <p class="text-sm text-slate-500">No data</p>
-                </div>
-              </div>
-
-              <!-- Most Active -->
-              <div class="rounded-xl border border-white/10 from-white/5 to-white/0 bg-gradient-to-br p-4">
-                <h3 class="mb-3 text-sm font-semibold">Most Active</h3>
-                <div class="space-y-3">
-                  <a href="#" class="flex items-center justify-between rounded-lg p-3 transition hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60">
-                    <div class="min-w-0 flex items-center gap-3">
-                      <img src="/assets/coins/btc.png" alt="BTC-USD logo" class="h-5 w-5 rounded bg-white" loading="lazy" decoding="async" />
-                      <span class="truncate text-sm font-medium">BTC-USD</span>
-                    </div>
-                    <span class="text-xs text-slate-500">Vol $25.00B</span>
-                  </a>
-
-                  <a href="#" class="flex items-center justify-between rounded-lg p-3 transition hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60">
-                    <div class="min-w-0 flex items-center gap-3">
-                      <img src="/assets/coins/eth.png" alt="ETH-USD logo" class="h-5 w-5 rounded bg-white" loading="lazy" decoding="async" />
-                      <span class="truncate text-sm font-medium">ETH-USD</span>
-                    </div>
-                    <span class="text-xs text-slate-500">Vol $12.00B</span>
-                  </a>
-
-                  <a href="#" class="flex items-center justify-between rounded-lg p-3 transition hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60">
-                    <div class="min-w-0 flex items-center gap-3">
-                      <img src="/assets/coins/sol.png" alt="SOL-USD logo" class="h-5 w-5 rounded bg-white" loading="lazy" decoding="async" />
-                      <span class="truncate text-sm font-medium">SOL-USD</span>
-                    </div>
-                    <span class="text-xs text-slate-500">Vol $3.00B</span>
-                  </a>
-
-                  <a href="#" class="flex items-center justify-between rounded-lg p-3 transition hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60">
-                    <div class="min-w-0 flex items-center gap-3">
-                      <img src="/assets/coins/bnb.png" alt="BNB-USD logo" class="h-5 w-5 rounded bg-white" loading="lazy" decoding="async" />
-                      <span class="truncate text-sm font-medium">BNB-USD</span>
-                    </div>
-                    <span class="text-xs text-slate-500">Vol $2.00B</span>
-                  </a>
-
-                  <a href="#" class="flex items-center justify-between rounded-lg p-3 transition hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60">
-                    <div class="min-w-0 flex items-center gap-3">
-                      <img src="/assets/coins/xrp.png" alt="XRP-USD logo" class="h-5 w-5 rounded bg-white" loading="lazy" decoding="async" />
-                      <span class="truncate text-sm font-medium">XRP-USD</span>
-                    </div>
-                    <span class="text-xs text-slate-500">Vol $1.50B</span>
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- TradingView BTC Chart -->
-          <div class="mt-12">
-            <div id="tradingview_d8291" style="height: 600px;"></div>
-          </div>
-        </div>
-      </section>
-
-      <!-- ============ Market News ============ -->
-      <section id="news" class="mt-12 bg-slate-900 py-16" aria-labelledby="news-heading">
-        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div class="mb-8 flex items-center justify-between">
-            <div>
-              <h2 id="news-heading" class="text-xl font-semibold text-white sm:text-2xl">Market News</h2>
-              <p class="mt-1 text-sm text-slate-400">Latest headlines impacting your watchlist.</p>
-            </div>
-            <a href="#crypto" class="text-sm font-medium text-white underline-offset-4 hover:underline">View crypto</a>
-          </div>
-
-          <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-            <p class="text-sm text-slate-500">No news available yet.</p>
-          </div>
-        </div>
-      </section>
-
-      <!-- ============ Footer ============ -->
-      <footer class="mt-12 bg-slate-950 text-slate-900 dark:text-white">
-        <div class="max-w-7xl mx-auto px-6 sm:px-10 py-12">
-          <div class="grid grid-cols-2 md:grid-cols-4 gap-10 text-sm">
-            <div class="col-span-2 md:col-span-1">
-              <img src="/assets/logo.svg" alt="Tesla XTeam FX Trade" class="h-2 w-auto filter brightness-0 invert mb-6" />
-              <p class="text-slate-400 mt-3">© 2026 Tesla XTeam FX Trade</p>
-            </div>
-
-            <div>
-              <h4 class="font-medium text-base mb-4">Company</h4>
-              <ul class="space-y-3 text-slate-400">
-                <li><a href="#" class="transition-colors duration-200 hover:text-tesla">About</a></li>
-                <li><a href="#" class="transition-colors duration-200 hover:text-tesla">Contact</a></li>
-              </ul>
-            </div>
-
-            <div>
-              <h4 class="font-medium text-base mb-4">Support</h4>
-              <ul class="space-y-3 text-slate-400">
-                <li><a href="#" class="transition-colors duration-200 hover:text-tesla">Help Center</a></li>
-                <li><a href="/pages/terms.html" class="transition-colors duration-200 hover:text-tesla">Terms</a></li>
-              </ul>
-            </div>
-
-            <div>
-              <h4 class="font-medium text-base mb-4">Legal</h4>
-              <ul class="space-y-4 text-slate-400">
-                <li><a href="/pages/privacy.html" class="transition-colors duration-200 hover:text-tesla">Privacy Policy</a></li>
-              </ul>
             </div>
           </div>
         </div>
-      </footer>
+      </div>
     </main>
 
-    <!-- ============ Page Scripts ============ -->
-    <script src="https://s3.tradingview.com/tv.js"></script>
-    <script type="text/javascript">
-      new TradingView.widget({
-        autosize: true,
-        symbol: "BITSTAMP:BTCUSD",
-        interval: "1",
-        timezone: "Etc/UTC",
-        theme: "dark",
-        style: "3",
-        locale: "en",
-        toolbar_bg: "#f1f3f6",
-        enable_publishing: false,
-        hide_top_toolbar: true,
-        save_image: false,
-        container_id: "tradingview_d8291"
-      });
-    </script>
+    <!-- ============ Features ============ -->
+    <section id="features" class="relative py-20">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="text-center">
+          <p class="text-sm font-semibold uppercase tracking-widest text-[#e82127]">Features</p>
+          <h2 class="mt-3 text-3xl font-semibold tracking-tight text-slate-900 dark:text-white sm:text-4xl">Built for the Tesla economy</h2>
+          <p class="mt-4 max-w-2xl mx-auto text-base text-slate-600 dark:text-slate-400">One platform for investing, trading, and managing premium EV assets — powered by real-time data and bank-grade security.</p>
+        </div>
 
+        <div class="mt-16 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+          <div class="group rounded-3xl border border-slate-200 bg-white p-6 shadow-sm transition hover:shadow-xl hover:shadow-slate-900/5 dark:border-white/10 dark:bg-slate-900">
+            <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-blue-50 dark:bg-blue-500/10">
+              <i data-lucide="activity" class="h-6 w-6 text-blue-600 dark:text-blue-400"></i>
+            </div>
+            <h3 class="mt-5 text-lg font-semibold text-slate-900 dark:text-white">Realtime Portfolio Tracking</h3>
+            <p class="mt-2 text-sm text-slate-600 dark:text-slate-400">Live P&L, asset allocation, and performance analytics updated every second.</p>
+          </div>
+
+          <div class="group rounded-3xl border border-slate-200 bg-white p-6 shadow-sm transition hover:shadow-xl hover:shadow-slate-900/5 dark:border-white/10 dark:bg-slate-900">
+            <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-50 dark:bg-emerald-500/10">
+              <i data-lucide="bitcoin" class="h-6 w-6 text-emerald-600 dark:text-emerald-400"></i>
+            </div>
+            <h3 class="mt-5 text-lg font-semibold text-slate-900 dark:text-white">Crypto Funding</h3>
+            <p class="mt-2 text-sm text-slate-600 dark:text-slate-400">Fund your account with BTC, ETH, USDT and more. Fast settlement, low fees.</p>
+          </div>
+
+          <div class="group rounded-3xl border border-slate-200 bg-white p-6 shadow-sm transition hover:shadow-xl hover:shadow-slate-900/5 dark:border-white/10 dark:bg-slate-900">
+            <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#e82127]/10">
+              <i data-lucide="car" class="h-6 w-6 text-[#e82127]"></i>
+            </div>
+            <h3 class="mt-5 text-lg font-semibold text-slate-900 dark:text-white">Fleet Yield</h3>
+            <p class="mt-2 text-sm text-slate-600 dark:text-slate-400">Earn yield on Tesla vehicle inventory. Fleet-backed returns with transparent tracking.</p>
+          </div>
+
+          <div class="group rounded-3xl border border-slate-200 bg-white p-6 shadow-sm transition hover:shadow-xl hover:shadow-slate-900/5 dark:border-white/10 dark:bg-slate-900">
+            <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-purple-50 dark:bg-purple-500/10">
+              <i data-lucide="pie-chart" class="h-6 w-6 text-purple-600 dark:text-purple-400"></i>
+            </div>
+            <h3 class="mt-5 text-lg font-semibold text-slate-900 dark:text-white">Smart Diversification</h3>
+            <p class="mt-2 text-sm text-slate-600 dark:text-slate-400">Auto-balanced exposure across Tesla equity, crypto, and EV fleet assets.</p>
+          </div>
+
+          <div class="group rounded-3xl border border-slate-200 bg-white p-6 shadow-sm transition hover:shadow-xl hover:shadow-slate-900/5 dark:border-white/10 dark:bg-slate-900">
+            <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-amber-50 dark:bg-amber-500/10">
+              <i data-lucide="shield-check" class="h-6 w-6 text-amber-600 dark:text-amber-400"></i>
+            </div>
+            <h3 class="mt-5 text-lg font-semibold text-slate-900 dark:text-white">Risk Controls</h3>
+            <p class="mt-2 text-sm text-slate-600 dark:text-slate-400">Built-in guardrails, stop-loss automation, and real-time risk monitoring.</p>
+          </div>
+
+          <div class="group rounded-3xl border border-slate-200 bg-white p-6 shadow-sm transition hover:shadow-xl hover:shadow-slate-900/5 dark:border-white/10 dark:bg-slate-900">
+            <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-sky-50 dark:bg-sky-500/10">
+              <i data-lucide="zap" class="h-6 w-6 text-sky-600 dark:text-sky-400"></i>
+            </div>
+            <h3 class="mt-5 text-lg font-semibold text-slate-900 dark:text-white">Instant Execution</h3>
+            <p class="mt-2 text-sm text-slate-600 dark:text-slate-400">Lightning-fast order execution with institutional-grade liquidity and routing.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ Performance ============ -->
+    <section id="performance" class="relative py-20">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="rounded-[32px] border border-slate-200 bg-white p-8 shadow-xl shadow-slate-900/5 dark:border-white/10 dark:bg-slate-900 sm:p-12">
+          <div class="grid grid-cols-1 gap-10 lg:grid-cols-2 lg:gap-16">
+            <div>
+              <p class="text-sm font-semibold uppercase tracking-widest text-[#e82127]">Performance</p>
+              <h2 class="mt-3 text-3xl font-semibold tracking-tight text-slate-900 dark:text-white sm:text-4xl">Numbers that speak for themselves</h2>
+              <p class="mt-4 text-base text-slate-600 dark:text-slate-400">Our platform delivers measurable results for investors who want exposure to Tesla, EV fleets, and crypto — all in one place.</p>
+
+              <div class="mt-8 space-y-6">
+                <div>
+                  <div class="flex items-center justify-between">
+                    <p class="text-sm font-medium text-slate-700 dark:text-slate-300">Tesla Equity Exposure</p>
+                    <p class="text-sm font-semibold text-slate-900 dark:text-white">+24.1%</p>
+                  </div>
+                  <div class="mt-2 h-2 rounded-full bg-slate-100 dark:bg-white/10">
+                    <div class="h-2 rounded-full bg-[#e82127]" style="width: 82%"></div>
+                  </div>
+                </div>
+
+                <div>
+                  <div class="flex items-center justify-between">
+                    <p class="text-sm font-medium text-slate-700 dark:text-slate-300">Crypto Funding Volume</p>
+                    <p class="text-sm font-semibold text-slate-900 dark:text-white">$18.4M</p>
+                  </div>
+                  <div class="mt-2 h-2 rounded-full bg-slate-100 dark:bg-white/10">
+                    <div class="h-2 rounded-full bg-blue-600" style="width: 68%"></div>
+                  </div>
+                </div>
+
+                <div>
+                  <div class="flex items-center justify-between">
+                    <p class="text-sm font-medium text-slate-700 dark:text-slate-300">Fleet Utilization</p>
+                    <p class="text-sm font-semibold text-slate-900 dark:text-white">94.2%</p>
+                  </div>
+                  <div class="mt-2 h-2 rounded-full bg-slate-100 dark:bg-white/10">
+                    <div class="h-2 rounded-full bg-emerald-500" style="width: 94%"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-4">
+              <div class="rounded-2xl border border-slate-200 bg-slate-50 p-5 dark:border-white/10 dark:bg-slate-800">
+                <p className="text-xs text-slate-500 dark:text-slate-400">Active Users</p>
+                <p className="mt-2 text-2xl font-semibold text-slate-900 dark:text-white">150K+</p>
+                <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">Across 42 countries</p>
+              </div>
+              <div class="rounded-2xl border border-slate-200 bg-slate-50 p-5 dark:border-white/10 dark:bg-slate-800">
+                <p className="text-xs text-slate-500 dark:text-slate-400">Uptime</p>
+                <p className="mt-2 text-2xl font-semibold text-slate-900 dark:text-white">99.98%</p>
+                <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">Last 12 months</p>
+              </div>
+              <div class="rounded-2xl border border-slate-200 bg-slate-50 p-5 dark:border-white/10 dark:bg-slate-800">
+                <p className="text-xs text-slate-500 dark:text-slate-400">Avg. Funding</p>
+                <p className="mt-2 text-2xl font-semibold text-slate-900 dark:text-white">$4,200</p>
+                <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">Per investor</p>
+              </div>
+              <div class="rounded-2xl border border-slate-200 bg-slate-50 p-5 dark:border-white/10 dark:bg-slate-800">
+                <p className="text-xs text-slate-500 dark:text-slate-400">Support</p>
+                <p className="mt-2 text-2xl font-semibold text-slate-900 dark:text-white">24/7</p>
+                <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">Live chat + email</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ Trust & Security ============ -->
+    <section id="trust" class="relative py-20">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="text-center">
+          <p class="text-sm font-semibold uppercase tracking-widest text-[#e82127]">Trust & Security</p>
+          <h2 class="mt-3 text-3xl font-semibold tracking-tight text-slate-900 dark:text-white sm:text-4xl">Investor-grade protection</h2>
+          <p class="mt-4 max-w-2xl mx-auto text-base text-slate-600 dark:text-slate-400">We combine Tesla-grade engineering with financial-market security standards.</p>
+        </div>
+
+        <div class="mt-16 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
+          <div class="rounded-3xl border border-slate-200 bg-white p-6 text-center shadow-sm dark:border-white/10 dark:bg-slate-900">
+            <div class="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-slate-100 dark:bg-white/10">
+              <i data-lucide="lock" class="h-6 w-6 text-slate-900 dark:text-white"></i>
+            </div>
+            <h3 class="mt-4 text-base font-semibold text-slate-900 dark:text-white">256-bit Encryption</h3>
+            <p class="mt-2 text-xs text-slate-600 dark:text-slate-400">End-to-end encryption for all transactions and personal data.</p>
+          </div>
+
+          <div class="rounded-3xl border border-slate-200 bg-white p-6 text-center shadow-sm dark:border-white/10 dark:bg-slate-900">
+            <div class="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-slate-100 dark:bg-white/10">
+              <i data-lucide="shield-check" class="h-6 w-6 text-slate-900 dark:text-white"></i>
+            </div>
+            <h3 class="mt-4 text-base font-semibold text-slate-900 dark:text-white">Regulated Operations</h3>
+            <p class="mt-2 text-xs text-slate-600 dark:text-slate-400">Compliant with global financial standards and audit requirements.</p>
+          </div>
+
+          <div class="rounded-3xl border border-slate-200 bg-white p-6 text-center shadow-sm dark:border-white/10 dark:bg-slate-900">
+            <div class="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-slate-100 dark:bg-white/10">
+              <i data-lucide="eye" class="h-6 w-6 text-slate-900 dark:text-white"></i>
+            </div>
+            <h3 class="mt-4 text-base font-semibold text-slate-900 dark:text-white">Transparent Reporting</h3>
+            <p class="mt-2 text-xs text-slate-600 dark:text-slate-400">Real-time dashboards, audited yield calculations, and clear fee disclosure.</p>
+          </div>
+
+          <div class="rounded-3xl border border-slate-200 bg-white p-6 text-center shadow-sm dark:border-white/10 dark:bg-slate-900">
+            <div class="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-slate-100 dark:bg-white/10">
+              <i data-lucide="headphones" class="h-6 w-6 text-slate-900 dark:text-white"></i>
+            </div>
+            <h3 class="mt-4 text-base font-semibold text-slate-900 dark:text-white">Dedicated Support</h3>
+            <p class="mt-2 text-xs text-slate-600 dark:text-slate-400">Priority support for investors, plus dedicated account specialists.</p>
+          </div>
+        </div>
+
+        <!-- Testimonial -->
+        <div class="mt-16 rounded-[32px] border border-slate-200 bg-white p-8 shadow-xl shadow-slate-900/5 dark:border-white/10 dark:bg-slate-900 sm:p-12">
+          <div class="grid grid-cols-1 gap-8 lg:grid-cols-3 lg:gap-12">
+            <div class="lg:col-span-2">
+              <p class="text-lg leading-relaxed text-slate-700 dark:text-slate-300 sm:text-xl">“Finally a platform that treats Tesla investing with the seriousness it deserves. The portfolio analytics are best-in-class and the crypto funding is seamless.”</p>
+              <div class="mt-6 flex items-center gap-3">
+                <div class="flex h-10 w-10 items-center justify-center rounded-full bg-slate-900 text-sm font-semibold text-white dark:bg-white dark:text-slate-900">AK</div>
+                <div>
+                  <p class="text-sm font-semibold text-slate-900 dark:text-white">Amara K.</p>
+                  <p class="text-xs text-slate-500 dark:text-slate-400">Portfolio investor since 2024</p>
+                </div>
+              </div>
+            </div>
+            <div class="flex flex-col justify-between gap-6">
+              <div>
+                <p className="text-xs text-slate-500 dark:text-slate-400">Total portfolio value</p>
+                <p className="mt-1 text-2xl font-semibold text-slate-900 dark:text-white">$842,100</p>
+              </div>
+              <div>
+                <p className="text-xs text-slate-500 dark:text-slate-400">Annualized return</p>
+                <p className="mt-1 text-2xl font-semibold text-emerald-600">+21.4%</p>
+              </div>
+              <a href="/pages/login.html" data-open="signup" class="inline-flex items-center justify-center rounded-full bg-[#e82127] px-5 py-2.5 text-sm font-semibold text-white shadow-lg transition hover:bg-[#c71b22]">Start Investing</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CTA ============ -->
+    <section class="relative py-20">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="relative overflow-hidden rounded-[32px] bg-slate-900 px-8 py-16 sm:px-16 sm:py-20">
+          <div class="pointer-events-none absolute inset-0" aria-hidden="true">
+            <div class="absolute inset-0 bg-gradient-to-br from-[#e82127]/30 via-transparent to-blue-600/20"></div>
+          </div>
+          <div class="relative z-10 text-center">
+            <h2 class="text-3xl font-semibold tracking-tight text-white sm:text-4xl">Ready to invest in the future?</h2>
+            <p class="mt-4 max-w-2xl mx-auto text-base text-slate-300">Join thousands of investors already trading Tesla-aligned assets and building EV-backed portfolios.</p>
+            <div class="mt-8 flex flex-col gap-3 sm:flex-row sm:justify-center">
+              <a href="/pages/login.html" data-open="signup" class="inline-flex items-center justify-center rounded-full bg-white px-6 py-3 text-sm font-semibold text-slate-900 transition hover:bg-gray-100">Create Free Account</a>
+              <a href="/pages/inventory.html" class="inline-flex items-center justify-center rounded-full border border-white/30 px-6 py-3 text-sm font-semibold text-white transition hover:bg-white/10">Explore Fleet</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ Footer ============ -->
+    <footer class="border-t border-slate-200 bg-white dark:border-white/10 dark:bg-slate-950">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
+        <div class="flex flex-col gap-8 md:flex-row md:items-center md:justify-between">
+          <div>
+            <div class="flex items-center gap-2">
+              <div class="flex h-8 w-8 items-center justify-center rounded-lg bg-[#e82127]">
+                <i data-lucide="zap" class="h-4 w-4 text-white"></i>
+              </div>
+              <span class="text-base font-semibold tracking-tight text-slate-900 dark:text-white">Tesla XTeam FX Trade</span>
+            </div>
+            <p class="mt-2 text-xs text-slate-500 dark:text-slate-400">Premium Tesla investment platform.</p>
+          </div>
+          <div class="flex flex-wrap gap-6">
+            <a href="/pages/terms.html" class="text-sm text-slate-500 transition hover:text-slate-900 dark:hover:text-white">Terms of Service</a>
+            <a href="/pages/privacy.html" class="text-sm text-slate-500 transition hover:text-slate-900 dark:hover:text-white">Privacy Policy</a>
+            <a href="/pages/support/support.html" class="text-sm text-slate-500 transition hover:text-slate-900 dark:hover:text-white">Support</a>
+          </div>
+        </div>
+        <div class="mt-8 border-t border-slate-200 pt-8 dark:border-white/10">
+          <p class="text-center text-xs text-slate-500 dark:text-slate-400"> Tesla, honored by performance, protected by security.</p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="/dashboard-shell.js"></script>
     <script>
-      // Initialize Lucide icons
-      lucide.createIcons();
-
-      // Dark mode toggle
-      function applyTheme(theme) {
-        document.documentElement.classList.toggle('dark', theme === 'dark');
-        updateThemeIcon(theme);
+      // Theme toggle
+      var themeToggle = document.getElementById('theme-toggle');
+      if (themeToggle) {
+        themeToggle.addEventListener('click', function () {
+          var isDark = document.documentElement.classList.contains('dark');
+          if (isDark) {
+            document.documentElement.classList.remove('dark');
+            localStorage.setItem('theme', 'light');
+          } else {
+            document.documentElement.classList.add('dark');
+            localStorage.setItem('theme', 'dark');
+          }
+        });
       }
 
-      function setTheme(theme) {
-        applyTheme(theme);
-        localStorage.setItem('theme', theme);
+      // Mobile menu
+      var mobileMenuBtn = document.getElementById('mobile-menu-button');
+      var mobileMenu = document.getElementById('mobile-menu');
+      if (mobileMenuBtn && mobileMenu) {
+        mobileMenuBtn.addEventListener('click', function () {
+          var isHidden = mobileMenu.classList.contains('hidden');
+          mobileMenu.classList.toggle('hidden', !isHidden);
+        });
       }
 
-      function updateThemeIcon(theme) {
-        var sun = document.getElementById('theme-sun');
-        var moon = document.getElementById('theme-moon');
-        if (theme === 'dark') {
-          sun.classList.remove('hidden');
-          moon.classList.add('hidden');
-        } else {
-          moon.classList.remove('hidden');
-          sun.classList.add('hidden');
-        }
-      }
-
-      function getInitialTheme() {
-        var stored = localStorage.getItem('theme');
-        if (stored === 'light' || stored === 'dark') return stored;
-        return 'light';
-      }
-
-      document.addEventListener('DOMContentLoaded', function () {
-        // Prevent landing-page autoscroll to removed auth section
-        if (window.location.hash === '#auth') {
-          history.replaceState(null, '', window.location.pathname + window.location.search);
-        }
-
-        applyTheme(getInitialTheme());
-
-        var themeToggle = document.getElementById('theme-toggle');
-        if (themeToggle) {
-          themeToggle.addEventListener('click', function () {
-            var isDark = document.documentElement.classList.contains('dark');
-            setTheme(isDark ? 'light' : 'dark');
-          });
-        }
-
-        // Mobile menu toggle
-        var mobileMenuButton = document.getElementById('mobile-menu-button');
-        var mobileMenu = document.getElementById('mobile-menu');
-        var menuIcon = document.getElementById('menu-icon');
-        var closeIcon = document.getElementById('close-icon');
-
-        if (mobileMenuButton && mobileMenu) {
-          mobileMenuButton.addEventListener('click', function () {
-            var isOpen = !mobileMenu.classList.contains('hidden');
-
-            if (isOpen) {
-              mobileMenu.classList.add('hidden');
-              menuIcon.classList.remove('hidden');
-              closeIcon.classList.add('hidden');
-            } else {
-              mobileMenu.classList.remove('hidden');
-              menuIcon.classList.add('hidden');
-              closeIcon.classList.remove('hidden');
-            }
-          });
-        }
-
-        // Auth tabs (Sign In / Create Account)
-        var tabButtons = document.querySelectorAll('[data-tab]');
-        tabButtons.forEach(function (button) {
-          button.addEventListener('click', function () {
-            var tab = button.dataset.tab;
-            tabButtons.forEach(function (btn) {
-              var isActive = btn === button;
-              btn.classList.toggle('border-tesla', isActive);
-              btn.classList.toggle('text-tesla', isActive);
-              btn.classList.toggle('border-transparent', !isActive);
-              btn.classList.toggle('text-slate-400', !isActive);
-              btn.setAttribute('aria-selected', isActive ? 'true' : 'false');
-            });
-            document.getElementById('tab-login').classList.toggle('hidden', tab !== 'login');
-            document.getElementById('tab-signup').classList.toggle('hidden', tab !== 'signup');
-          });
+      // Smooth scroll for nav links
+      document.querySelectorAll('a[href^="#"]').forEach(function (link) {
+        link.addEventListener('click', function (e) {
+          var target = document.querySelector(this.getAttribute('href'));
+          if (target) {
+            e.preventDefault();
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            if (mobileMenu) mobileMenu.classList.add('hidden');
+          }
         });
-
-        // CTAs marked data-open="signup" open the Create Account tab.
-        document.querySelectorAll('[data-open="signup"]').forEach(function (link) {
-          link.addEventListener('click', function () {
-            var btn = document.querySelector('[data-tab="signup"]');
-            if (btn) btn.click();
-          });
-        });
-
-        // Sign-in / sign-up forms talk to the backend.
-        var loginForm = document.getElementById('tab-login');
-        var signupForm = document.getElementById('tab-signup');
-        var loginError = document.getElementById('login-error');
-        var signupError = document.getElementById('signup-error');
-        var loginSubmit = document.getElementById('login-submit');
-        var signupSubmit = document.getElementById('signup-submit');
-
-        function postAuth(url, body) {
-          return fetch(url, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(body)
-          }).then(function (res) {
-            return res.json().catch(function () {
-              return { error: 'The server returned an unexpected response. Please try again.' };
-            }).then(function (data) { return { ok: res.ok, data: data }; });
-          }).catch(function () {
-            // Fetch itself failed — the server is not reachable from this page.
-            return { ok: false, data: { error: 'Can’t reach the server. Make sure you opened this site at http://localhost:3000 and the server is running (npm start).' } };
-          });
-        }
-        function showError(el, message) {
-          el.textContent = message;
-          el.classList.remove('hidden');
-        }
-
-        loginForm.addEventListener('submit', function (event) {
-          event.preventDefault();
-          loginError.classList.add('hidden');
-          loginSubmit.disabled = true;
-          loginSubmit.textContent = 'Signing in…';
-          console.log('[login] submit handler fired');
-          postAuth('/api/auth/login', {
-            email: document.getElementById('login-email').value.trim(),
-            password: document.getElementById('login-password').value
-          }).then(function (r) {
-            console.log('[login] response', r);
-            if (r.ok) { window.location.href = '/pages/dashboard/dashboard.html'; return; }
-            showError(loginError, r.data.error || 'Unable to sign in.');
-            loginSubmit.disabled = false;
-            loginSubmit.textContent = 'Sign In';
-          }).catch(function (err) {
-            console.error('[login] network error', err);
-            showError(loginError, 'Network error. Please try again.');
-            loginSubmit.disabled = false;
-            loginSubmit.textContent = 'Sign In';
-          });
-        });
-
-        signupForm.addEventListener('submit', function (event) {
-          event.preventDefault();
-          signupError.classList.add('hidden');
-          var name = document.getElementById('signup-name').value.trim();
-          var email = document.getElementById('signup-email').value.trim();
-          var password = document.getElementById('signup-password').value;
-          var confirm = document.getElementById('signup-password-confirm').value;
-          if (name.length < 2) { showError(signupError, 'Please enter your full name.'); return; }
-          if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) { showError(signupError, 'Please enter a valid email address.'); return; }
-          if (password.length < 8) { showError(signupError, 'Password must be at least 8 characters.'); return; }
-          if (password !== confirm) { showError(signupError, 'Passwords do not match.'); return; }
-          if (!document.getElementById('signup-terms').checked) { showError(signupError, 'Please accept the Terms and Privacy Policy.'); return; }
-          signupSubmit.disabled = true;
-          signupSubmit.textContent = 'Creating account…';
-          postAuth('/api/auth/signup', { name: name, email: email, password: password }).then(function (r) {
-            if (r.ok) { window.location.href = '/pages/dashboard/dashboard.html'; return; }
-            showError(signupError, r.data.error || 'Unable to create your account.');
-            signupSubmit.disabled = false;
-            signupSubmit.textContent = 'Create Account';
-          }).catch(function () {
-            showError(signupError, 'Network error. Please try again.');
-            signupSubmit.disabled = false;
-            signupSubmit.textContent = 'Create Account';
-          });
-        });
-
-        // Already signed in? Swap the nav button for a Dashboard shortcut.
-        fetch('/api/me').then(function (r) { return r.json(); }).then(function (d) {
-          if (!d.user) return;
-          var btn = document.getElementById('nav-signin');
-          if (btn) { btn.href = '/pages/dashboard/dashboard.html'; btn.textContent = 'Dashboard'; }
-        }).catch(function () {});
       });
+
+      // Re-init lucide icons
+      if (window.lucide) lucide.createIcons();
     </script>
   </body>
 </html>

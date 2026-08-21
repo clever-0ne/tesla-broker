@@ -290,11 +290,11 @@
           var last = sub[0];
           return '<div class="flex items-center justify-between border-b border-gray-100 py-3 last:border-0 dark:border-white/5">' +
             '<div class="min-w-0">' +
-              '<p class="truncate text-sm font-medium text-black dark:text-slate-900 dark:text-white">' + esc(name) + '</p>' +
+              '<p class="truncate text-sm font-medium text-slate-900 dark:text-white">' + esc(name) + '</p>' +
               '<p class="text-xs text-slate-500 dark:text-slate-400">' + sub.length + ' investment' + (sub.length === 1 ? '' : 's') + ' · ' + fmtDate(last.createdAt) + '</p>' +
             '</div>' +
             '<div class="shrink-0 text-right">' +
-              '<p class="text-sm font-medium text-black dark:text-slate-900 dark:text-white">' + fmtMoney(investedSum(sub)) + '</p>' +
+              '<p class="text-sm font-medium text-slate-900 dark:text-white">' + fmtMoney(investedSum(sub)) + '</p>' +
             '</div>' +
           '</div>';
         }).join('');
@@ -312,12 +312,12 @@
             '<div class="flex min-w-0 items-center gap-3">' +
               '<span class="h-8 w-8 shrink-0 overflow-hidden rounded-lg">' + coinIconMarkup(coin) + '</span>' +
               '<div class="min-w-0">' +
-                '<p class="truncate text-sm font-medium text-black dark:text-slate-900 dark:text-white">' + esc(label) + '</p>' +
+                '<p class="truncate text-sm font-medium text-slate-900 dark:text-white">' + esc(label) + '</p>' +
                 '<p class="text-xs text-slate-500 dark:text-slate-400">' + esc(sym || name) + ' · ' + sub.length + ' purchase' + (sub.length === 1 ? '' : 's') + '</p>' +
               '</div>' +
             '</div>' +
             '<div class="shrink-0 text-right">' +
-              '<p class="text-sm font-medium text-black dark:text-slate-900 dark:text-white">' + fmtMoney(investedSum(sub)) + '</p>' +
+              '<p class="text-sm font-medium text-slate-900 dark:text-white">' + fmtMoney(investedSum(sub)) + '</p>' +
             '</div>' +
           '</div>';
         }).join('');
@@ -327,7 +327,7 @@
         return list.slice(0, 5).map(function (o) {
           return '<div class="flex items-center justify-between border-b border-gray-100 py-3 last:border-0 dark:border-white/5">' +
             '<div class="min-w-0">' +
-              '<p class="truncate text-sm font-medium text-black dark:text-slate-900 dark:text-white">' + esc(o.item || 'Investment') + '</p>' +
+              '<p class="truncate text-sm font-medium text-slate-900 dark:text-white">' + esc(o.item || 'Investment') + '</p>' +
               '<p class="text-xs text-slate-500 dark:text-slate-400">' + fmtDate(o.createdAt) + '</p>' +
             '</div>' +
             '<p class="shrink-0 text-sm font-medium text-emerald-600">-' + fmtMoney(o.amount).slice(1) + '</p>' +
@@ -343,7 +343,7 @@
             '<div class="flex min-w-0 items-center gap-3">' +
               '<span class="h-7 w-7 shrink-0 overflow-hidden rounded-lg">' + coinIconMarkup(coin) + '</span>' +
               '<div class="min-w-0">' +
-                '<p class="truncate text-sm font-medium text-black dark:text-slate-900 dark:text-white">' + esc(o.item || 'Crypto') + '</p>' +
+                '<p class="truncate text-sm font-medium text-slate-900 dark:text-white">' + esc(o.item || 'Crypto') + '</p>' +
                 '<p class="text-xs text-slate-500 dark:text-slate-400">' + fmtDate(o.createdAt) + '</p>' +
               '</div>' +
             '</div>' +
