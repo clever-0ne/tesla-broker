@@ -581,6 +581,102 @@ app.put('/api/admin/settings', auth.requireAdminApi, function (req, res) {
   res.json(getSettings());
 });
 
+/* ---------------------------- KYC media proxy -------------------------- */
+
+const { S3Client, PutObjectCommand, GetObjectCommand } = require('@aws-sdk/client-s3');
+const { getSignedUrl } = require('@aws-sdk/s3-request-presigner');
+
+function buildS3Client() {
+  if (!process.env.S3_BUCKET || !process.env.S3_ACCESS_KEY || !process.env.S3_SECRET_KEY) return null;
+  var endpoint = process.env.S3_ENDPOINT || undefined;
+  return new S3Client({
+    endpoint: endpoint,
+    region: 'auto',
+    credentials: {
+      accessKeyId: process.env.S3_ACCESS_KEY,
+      secretAccessKey: process.env.S3_SECRET_KEY
+    },
+    forcePathStyle: !!endpoint
+  });
+}
+
+var s3Bucket = process.env.S3_BUCKET || '';
+var s3PublicBase = (process.env.S3_PUBLIC_BASE_URL || '').replace(/\/+$/, '');
+var s3Client = buildS3Client();
+
+function r2ObjectUrl(key) {
+  if (!key) return null;
+  if (s3PublicBase) return s3PublicBase + '/' + key;
+  if (process.env.S3_ENDPOINT) {
+    var base = String(process.env.S3_ENDPOINT).replace(/\/+$/, '');
+    return base + '/' + s3Bucket + '/' + key;
+  }
+  return null;
+}
+
+async function uploadToStorage(key, dataUrl) {
+  if (!s3Bucket || !dataUrl || !s3Client) return Promise.resolve(null);
+  var match = String(dataUrl).match(/^data:([^;]+);/);
+  var contentType = match ? match[1] : 'application/octet-stream';
+  var body = Buffer.from(String(dataUrl).split(',')[1] || dataUrl, 'base64');
+  var putCmd = new PutObjectCommand({
+    Bucket: s3Bucket,
+    Key: key,
+    Body: body,
+    ContentType: contentType
+  });
+  try {
+    await s3Client.send(putCmd);
+    return r2ObjectUrl(key);
+  } catch (err) {
+    throw new Error('s3-upload-failed:' + err.message);
+  }
+}
+
+async function getSignedR2Url(key, expiresIn) {
+  if (!s3Client || !key) return null;
+  expiresIn = expiresIn || 300;
+  var cmd = new GetObjectCommand({ Bucket: s3Bucket, Key: key });
+  try {
+    return await getSignedUrl(s3Client, cmd, { expiresIn });
+  } catch (err) {
+    console.error('[kyc] presign failed:', err.message);
+    return null;
+  }
+}
+
+// Admin only: secure proxy to view/download KYC documents.
+// Streams the file through Express so <img src> works, with admin auth enforced.
+app.get('/api/kyc/media/:filename', auth.requireAdminApi, async function (req, res) {
+  var filename = String(req.params.filename || '');
+  if (!filename) return res.status(400).json({ error: 'Invalid media' });
+
+  var users = store.get('users') || [];
+  var owner = users.find(function (u) { return Array.isArray(u.idImages) && u.idImages.some(function (u2) { return String(u2).indexOf(filename) !== -1; }); });
+  if (!owner) return res.status(404).json({ error: 'Not found' });
+
+  var r2Key = 'kyc/' + filename;
+  if (s3Client) {
+    try {
+      var cmd = new GetObjectCommand({ Bucket: s3Bucket, Key: r2Key });
+      var data = await s3Client.send(cmd);
+      var ct = data.ContentType || 'application/octet-stream';
+      if (data.Body) {
+        res.set('Content-Type', ct);
+        res.set('Cache-Control', 'no-store');
+        data.Body.pipe(res);
+        return;
+      }
+    } catch (err) {
+      console.error('[kyc] proxy fetch failed:', err.message);
+    }
+  }
+
+  var local = path.join(KYC_DIR, filename);
+  if (!fs.existsSync(local)) return res.status(404).json({ error: 'File not found' });
+  res.sendFile(local);
+});
+
 /* --------------------------- KYC submission -------------------------- */
 
 app.post('/api/kyc/submit', auth.requireAuthApi, async function (req, res) {
@@ -662,9 +758,9 @@ function uploadKycImagesToStorage(images) {
   var results = [];
   var pending = [];
   images.forEach(function (src, i) {
-    var key = 'kyc/' + Date.now() + '_' + i + '.jpg';
-    var p = uploadToStorage(key, src).then(function (url) {
-      if (url) results.push(url);
+    var name = kycFilename('global', i, 'jpg');
+    var p = uploadToStorage('kyc/' + name, src).then(function (url) {
+      if (url) results.push('/api/kyc/media/' + encodeURIComponent(name));
     }).catch(function () {});
     pending.push(p);
   });
@@ -699,10 +795,10 @@ app.get('/api/admin/users/:id/kyc-files', auth.requireAdminApi, function (req, r
   const dir = path.join(KYC_DIR, target.id);
   let files = [];
   try { files = fs.readdirSync(dir); } catch (e) { files = []; }
-  const items = files.map(function (f) {
-    return { name: f, url: '/kyc/' + target.id + '/' + encodeURIComponent(f) };
+  const diskFiles = files.map(function (f) {
+    return { name: f, url: '/api/kyc/media/' + encodeURIComponent(f) };
   });
-  res.json({ files: items, diskUrls: target.idImages || [] });
+  res.json({ files: diskFiles, diskUrls: target.idImages || [] });
 });
 
 // Serve saved KYC files from disk.
@@ -712,77 +808,7 @@ app.use('/kyc', express.static(KYC_DIR));
 
 app.use('/api', function (req, res) { res.status(404).json({ error: 'Not found' }); });
 
-// Optional S3-compatible storage for user images (profile + KYC).
-// Enabled only when S3_BUCKET is set; otherwise local disk is used.
-let S3Client = null;
-let s3Bucket = '';
-let s3PublicBase = '';
-if (process.env.S3_BUCKET && process.env.S3_ACCESS_KEY && process.env.S3_SECRET_KEY) {
-  try {
-    S3Client = require('@aws-sdk/client-s3').S3Client;
-    s3Bucket = process.env.S3_BUCKET;
-    s3PublicBase = (process.env.S3_PUBLIC_BASE_URL || '').replace(/\/+$/, '');
-    console.log('[s3] storage enabled for bucket=' + s3Bucket);
-  } catch (e) {
-    console.warn('[s3] client init failed:', e.message);
-  }
-}
-
-function buildS3Client() {
-  if (!S3Client) return null;
-  var endpoint = process.env.S3_ENDPOINT || undefined;
-  return new S3Client({
-    endpoint: endpoint,
-    region: 'auto',
-    credentials: {
-      accessKeyId: process.env.S3_ACCESS_KEY,
-      secretAccessKey: process.env.S3_SECRET_KEY
-    },
-    forcePathStyle: !!endpoint
-  });
-}
-
-function uploadToStorage(key, dataUrl) {
-  if (!s3Bucket || !dataUrl) return Promise.resolve(null);
-  var client = buildS3Client();
-  if (!client) return Promise.resolve(null);
-  var match = String(dataUrl).match(/^data:([^;]+);/);
-  var contentType = match ? match[1] : 'application/octet-stream';
-  var body = Buffer.from(String(dataUrl).split(',')[1] || dataUrl, 'base64');
-  var putCmd = {
-    Bucket: s3Bucket,
-    Key: key,
-    Body: body,
-    ContentType: contentType
-  };
-  return client.send(require('@aws-sdk/client-s3').PutObjectCommand, putCmd)
-    .then(function () {
-      if (s3PublicBase) return s3PublicBase + '/' + key;
-      if (process.env.S3_ENDPOINT) {
-        var base = process.env.S3_ENDPOINT.replace(/\/+$/, '');
-        return base + '/' + s3Bucket + '/' + key;
-      }
-      return null;
-    })
-    .catch(function (err) {
-      throw new Error('s3-upload-failed:' + err.message);
-    });
-}
-
-function saveKycImagesToDisk(userId, images) {
-  const dir = userKycDir(userId);
-  return images.map(function (img, i) {
-    try {
-      const base = String(img || '').split(',')[1] || img;
-      const ext = (String(img || '').match(/^data:([^;]+);/) || [,'image/jpeg'])[1].split('/')[1].split(';')[0] || 'jpg';
-      const file = path.join(dir, 'img_' + Date.now() + '_' + i + '.' + ext);
-      fs.writeFileSync(file, Buffer.from(base, 'base64'));
-      return '/data/kyc/' + userId + '/' + path.basename(file);
-    } catch (e) {
-      return null;
-    }
-  }).filter(Boolean);
-}
+// S3/R2/KYC storage is initialized above in the KYC media proxy section.
 
 // Last line of defence: return JSON for API errors, never a stack trace or the
 // Express default HTML error page.
