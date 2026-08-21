@@ -758,10 +758,10 @@ function uploadToStorage(key, dataUrl) {
   };
   return client.send(require('@aws-sdk/client-s3').PutObjectCommand, putCmd)
     .then(function () {
-      if (s3PublicBase) return s3PublicBase + '/' + encodeURIComponent(key);
+      if (s3PublicBase) return s3PublicBase + '/' + key;
       if (process.env.S3_ENDPOINT) {
         var base = process.env.S3_ENDPOINT.replace(/\/+$/, '');
-        return base + '/' + s3Bucket + '/' + encodeURIComponent(key);
+        return base + '/' + s3Bucket + '/' + key;
       }
       return null;
     })
