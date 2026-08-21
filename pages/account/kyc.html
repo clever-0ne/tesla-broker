@@ -50,7 +50,7 @@
                     <div class="flex items-center justify-between">
                       <div>
                         <p class="mb-1 text-xs text-gray-300">Verification Status</p>
-                        <p class="text-lg font-light text-[#f97316]">Not Submitted</p>
+                        <p id="kyc-status-title" class="text-lg font-light text-[#f97316]">Not Submitted</p>
                       </div>
                       <div class="flex h-10 w-10 items-center justify-center">
                         <i data-lucide="shield-check" class="w-5 h-5 text-white"></i>
@@ -578,6 +578,27 @@
         if (modal) { modal.classList.add('hidden'); modal.classList.remove('flex'); }
       }
 
+      function updateKycStatus(kycStatus, kycData) {
+        var titleEl = document.getElementById('kyc-status-title');
+        var noticeEl = document.getElementById('kyc-notice');
+        if (titleEl) {
+          var label = 'Not Submitted';
+          if (kycStatus === 'submitted') label = 'Pending Review';
+          else if (kycStatus === 'approved') label = 'Approved';
+          else if (kycStatus === 'rejected') label = 'Rejected';
+          titleEl.textContent = label;
+          titleEl.className = 'text-lg font-light ' + (kycStatus === 'approved' ? 'text-[#16a34a]' : kycStatus === 'rejected' ? 'text-[#b91c1c]' : 'text-[#f97316]');
+        }
+        if (noticeEl && kycStatus === 'submitted') {
+          noticeEl.classList.remove('hidden');
+          noticeEl.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+        }
+        if (kycStatus === 'approved' || kycStatus === 'rejected') {
+          var formEl = document.querySelector('#page-content form');
+          if (formEl) formEl.classList.add('hidden');
+        }
+      }
+
       document.addEventListener('DOMContentLoaded', function () {
         // Reuse the nationality list for the address country dropdown (skips the placeholder option).
         var nat = document.getElementById('nationality');
@@ -591,6 +612,23 @@
           }
         }
         if (window.lucide) lucide.createIcons();
+        if (window.FX && window.FX.refresh) window.FX.refresh();
+        if (window.api) {
+          window.api('/api/kyc/status').then(function (r) {
+            if (!r.ok) return;
+            updateKycStatus(r.data.kycStatus, r.data.kycData);
+          });
+        }
+      });
+
+      window.addEventListener('fxbalancechange', function () {
+        if (window.FX && window.FX.refresh) window.FX.refresh();
+        if (window.api) {
+          window.api('/api/kyc/status').then(function (r) {
+            if (!r.ok) return;
+            updateKycStatus(r.data.kycStatus, r.data.kycData);
+          });
+        }
       });
     </script>
   </body>

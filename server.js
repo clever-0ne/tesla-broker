@@ -427,10 +427,13 @@ app.patch('/api/admin/users/:id', auth.requireAdminApi, function (req, res) {
     user.balance = bal;
   }
   if ('kycStatus' in body) {
-    if (['not_submitted', 'submitted', 'approved'].indexOf(body.kycStatus) === -1) {
+    if (['not_submitted', 'submitted', 'approved', 'rejected'].indexOf(body.kycStatus) === -1) {
       return res.status(400).json({ error: 'Invalid KYC status.' });
     }
     user.kycStatus = body.kycStatus;
+    if (body.kycStatus === 'approved' || body.kycStatus === 'rejected') {
+      notify(req.user.id, 'kyc', 'KYC ' + (body.kycStatus === 'approved' ? 'Approved' : 'Rejected'), 'Your identity verification was ' + body.kycStatus + '.');
+    }
   }
   if ('role' in body) {
     if (body.role !== 'user' && body.role !== 'admin') return res.status(400).json({ error: 'Invalid role.' });
