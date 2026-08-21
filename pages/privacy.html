@@ -16,6 +16,15 @@
     <!-- Tailwind CSS (compiled locally — rebuild with `npm run build` or `npm run dev`) -->
     <link rel="stylesheet" href="/dist/tailwind.css" />
 
+    <style>
+      .page-legal {
+        background:
+          radial-gradient(1200px 600px at 10% -10%, #0f1f38 0%, #0000 55%),
+          radial-gradient(900px 500px at 90% 110%, #0d1b2e 0%, #0000 55%),
+          #070d1a;
+      }
+    </style>
+
     <!-- Set theme before paint to avoid a flash of the wrong theme -->
     <script>
       (function () {
@@ -26,9 +35,7 @@
     </script>
   </head>
 
-  <body class="font-sans antialiased bg-gray-300 text-black dark:bg-navy-950 dark:text-white">
-    <!-- Fixed background: grid lines -->
-    <div aria-hidden="true" class="pointer-events-none fixed inset-0 -z-10 t-gridlines"></div>
+  <body class="page-legal font-sans antialiased text-gray-200">
 
     <!-- ============ Top Navigation ============ -->
     <nav class="fixed top-0 left-0 right-0 z-50 border-b border-white/10 bg-navy-950">
@@ -44,9 +51,9 @@
           <!-- Primary Nav -->
           <div class="hidden md:flex items-center space-x-8">
             <a href="/pages/index.html#inventory" class="text-sm font-medium text-gray-400 transition hover:text-white">Inventory</a>
-            <a href="/pages/index.html#auth" data-open="signup" class="text-sm font-medium text-gray-400 transition hover:text-white">Invest</a>
+            <a href="/pages/login.html" data-open="signup" class="text-sm font-medium text-gray-400 transition hover:text-white">Invest</a>
             <a href="/pages/index.html#crypto" class="text-sm font-medium text-gray-400 transition hover:text-white">Crypto</a>
-            <a href="/pages/index.html#auth" class="text-sm font-medium text-gray-400 transition hover:text-white">Portfolio</a>
+            <a href="/pages/login.html" class="text-sm font-medium text-gray-400 transition hover:text-white">Portfolio</a>
           </div>
 
           <!-- Right Side -->
@@ -57,7 +64,7 @@
               <i data-lucide="moon" id="theme-moon" class="w-5 h-5"></i>
             </button>
 
-            <a href="/pages/index.html#auth" id="nav-signin" class="rounded-full bg-gray-200 px-5 py-2 text-sm font-medium text-navy-950 shadow-lg transition hover:bg-gray-300">
+            <a href="/pages/login.html" id="nav-signin" class="rounded-full bg-gray-200 px-5 py-2 text-sm font-medium text-navy-950 shadow-lg transition hover:bg-gray-300">
               Sign In
             </a>
 
@@ -74,11 +81,11 @@
       <div class="md:hidden hidden bg-navy-950 border-t border-white/10" id="mobile-menu">
         <div class="px-4 pt-2 pb-4 space-y-1">
           <a href="/pages/index.html#inventory" class="block px-3 py-2 text-sm font-medium text-gray-300 rounded hover:bg-white/10">Inventory</a>
-          <a href="/pages/index.html#auth" data-open="signup" class="block px-3 py-2 text-sm font-medium text-gray-300 rounded hover:bg-white/10">Invest</a>
+          <a href="/pages/login.html" data-open="signup" class="block px-3 py-2 text-sm font-medium text-gray-300 rounded hover:bg-white/10">Invest</a>
           <a href="/pages/index.html#crypto" class="block px-3 py-2 text-sm font-medium text-gray-300 rounded hover:bg-white/10">Crypto</a>
-          <a href="/pages/index.html#auth" class="block px-3 py-2 text-sm font-medium text-gray-300 rounded hover:bg-white/10">Portfolio</a>
+          <a href="/pages/login.html" class="block px-3 py-2 text-sm font-medium text-gray-300 rounded hover:bg-white/10">Portfolio</a>
           <div class="border-t border-white/10 mt-2 pt-2">
-            <a href="/pages/index.html#auth" class="block px-3 py-2 text-sm font-medium text-gray-300 rounded hover:bg-white/10">Sign In</a>
+            <a href="/pages/login.html" class="block px-3 py-2 text-sm font-medium text-gray-300 rounded hover:bg-white/10">Sign In</a>
           </div>
         </div>
       </div>
@@ -193,7 +200,7 @@
             <ul class="space-y-3 text-gray-400">
               <li><a href="/pages/index.html#crypto" class="transition-colors duration-200 hover:text-tesla">Crypto</a></li>
               <li><a href="/pages/index.html#inventory" class="transition-colors duration-200 hover:text-tesla">Inventory</a></li>
-              <li><a href="/pages/index.html#auth" data-open="signup" class="transition-colors duration-200 hover:text-tesla">Invest</a></li>
+              <li><a href="/pages/login.html" data-open="signup" class="transition-colors duration-200 hover:text-tesla">Invest</a></li>
             </ul>
           </div>
 

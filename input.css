@@ -127,6 +127,17 @@
   }
 }
 
+/* ---- Auth/legal page theme ---- */
+@layer components {
+  .page-auth,
+  .page-legal {
+    background:
+      radial-gradient(1200px 600px at 10% -10%, #0f1f38 0%, #0000 55%),
+      radial-gradient(900px 500px at 90% 110%, #0d1b2e 0%, #0000 55%),
+      #070d1a;
+  }
+}
+
 /* ---- Reusable Tesla-style components ---- */
 @layer components {
   /* Uppercase micro label with wide letter-spacing (e.g. "CURRENT NAV") */

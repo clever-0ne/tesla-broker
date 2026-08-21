@@ -8,18 +8,27 @@
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net" />
-    <link href="https://fonts.bunny.net/css?family=inter:300,400,500,600,700&amp;display=swap" rel="stylesheet" />
+    <link href="https://fonts.bunny.net/css?family=inter:300,400,500,600,700&display=swap" rel="stylesheet" />
 
     <!-- Tailwind -->
     <link rel="stylesheet" href="/dist/tailwind.css" />
 
     <!-- Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+      .page-auth {
+        background:
+          radial-gradient(1200px 600px at 10% -10%, #0f1f38 0%, #0000 55%),
+          radial-gradient(900px 500px at 90% 110%, #0d1b2e 0%, #0000 55%),
+          #070d1a;
+      }
+    </style>
   </head>
-  <body class="bg-navy-950 text-white font-sans antialiased">
+  <body class="page-auth text-gray-200 font-sans antialiased">
     <div class="flex min-h-screen flex-col">
       <!-- Header -->
-      <header class="border-b border-white/10">
+      <header class="border-b border-white/10 bg-navy-950/60">
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div class="flex h-16 items-center justify-between">
             <a href="/pages/index.html" class="flex items-center">
@@ -33,9 +42,9 @@
       <!-- Main -->
       <main class="flex flex-1 items-center justify-center px-4 py-10">
         <div class="w-full max-w-sm">
-          <div class="rounded-2xl border border-white/10 bg-navy-900/50 p-6 shadow-2xl backdrop-blur">
+          <div class="rounded-2xl border border-white/10 bg-navy-900/60 p-6 shadow-2xl backdrop-blur">
             <div class="mb-6 text-center">
-              <h1 class="text-xl font-bold tracking-tight">Sign In</h1>
+              <h1 class="text-xl font-bold tracking-tight text-white">Sign In</h1>
               <p class="mt-1 text-xs text-gray-400">Welcome back. Please enter your details.</p>
             </div>
 
@@ -43,13 +52,13 @@
               <div>
                 <label for="login-email" class="mb-1 block text-xs font-medium text-gray-300">Email</label>
                 <input id="login-email" type="email" required autocomplete="email" placeholder="you@example.com"
-                  class="w-full rounded-lg border border-white/10 bg-navy-950 px-3 py-2 text-xs text-white placeholder-gray-500 outline-none transition focus:border-tesla focus:ring-2 focus:ring-tesla/40" />
+                  class="w-full rounded-lg border border-white/10 bg-navy-950 px-3 py-2 text-xs text-gray-200 placeholder-gray-500 outline-none transition focus:border-tesla focus:ring-2 focus:ring-tesla/40" />
               </div>
 
               <div>
                 <label for="login-password" class="mb-1 block text-xs font-medium text-gray-300">Password</label>
                 <input id="login-password" type="password" required autocomplete="current-password" placeholder="••••••••"
-                  class="w-full rounded-lg border border-white/10 bg-navy-950 px-3 py-2 text-xs text-white placeholder-gray-500 outline-none transition focus:border-tesla focus:ring-2 focus:ring-tesla/40" />
+                  class="w-full rounded-lg border border-white/10 bg-navy-950 px-3 py-2 text-xs text-gray-200 placeholder-gray-500 outline-none transition focus:border-tesla focus:ring-2 focus:ring-tesla/40" />
               </div>
 
               <div id="login-error" class="hidden rounded-lg border border-red-500/30 bg-red-500/10 px-3 py-2 text-xs text-red-200"></div>
