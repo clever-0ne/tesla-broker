@@ -431,8 +431,13 @@ app.patch('/api/admin/users/:id', auth.requireAdminApi, function (req, res) {
       return res.status(400).json({ error: 'Invalid KYC status.' });
     }
     user.kycStatus = body.kycStatus;
-    if (body.kycStatus === 'approved' || body.kycStatus === 'rejected') {
-      notify(req.user.id, 'kyc', 'KYC ' + (body.kycStatus === 'approved' ? 'Approved' : 'Rejected'), 'Your identity verification was ' + body.kycStatus + '.');
+    if (body.kycStatus === 'approved') {
+      notify(req.user.id, 'kyc', 'KYC Approved', 'Your identity verification was approved.');
+    } else if (body.kycStatus === 'rejected') {
+      user.kycData = null;
+      user.idImages = [];
+      user.kycStatus = 'not_submitted';
+      notify(req.user.id, 'kyc', 'KYC Rejected', 'Your identity verification was rejected. Please submit again.');
     }
   }
   if ('role' in body) {
