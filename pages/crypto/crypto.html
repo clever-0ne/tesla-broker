@@ -34,10 +34,10 @@
             <!-- Enhanced Header -->
             <div class="relative mb-6 overflow-hidden rounded-[20px] border border-white/60 bg-white/85 p-6 shadow-[0_20px_40px_-15px_rgba(0,0,0,0.07)]">
               <div class="pointer-events-none absolute inset-0" aria-hidden="true">
-                <div class="absolute inset-0 t-grid opacity-40"></div>
+                </div>
                 <div class="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-transparent"></div>
-                <div class="absolute -left-16 top-1/2 h-72 w-72 -translate-y-1/2 t-orb"></div>
-                <div class="absolute -right-16 top-0 h-80 w-80 -translate-y-1/3 t-orb"></div>
+                </div>
+                </div>
               </div>
 
               <div class="relative z-10">
@@ -45,34 +45,34 @@
                   <div class="mb-4 lg:mb-0 lg:flex-1">
                     <div class="mb-1 flex items-center">
                       <h1 class="text-2xl font-light tracking-tight">Crypto Marketplace</h1>
-                      <span class="ml-3 inline-flex items-center rounded-full bg-white/15 px-2 py-0.5 text-xs font-medium text-white">
+                      <span class="ml-3 inline-flex items-center rounded-full bg-white/15 px-2 py-0.5 text-xs font-medium text-slate-900 dark:text-white">
                         <span class="mr-1.5 inline-block h-1.5 w-1.5 animate-pulse rounded-full bg-white"></span>
                         Live
                       </span>
                     </div>
                     <p class="text-sm text-slate-500">Discover and trade cryptocurrencies</p>
-                    <p class="mt-1 text-xs text-gray-400">Last updated: <span data-last-updated>--:--:--</span></p>
+                    <p class="mt-1 text-xs text-slate-400">Last updated: <span data-last-updated>--:--:--</span></p>
                   </div>
 
                   <!-- Stats Card -->
-                  <div class="rounded-2xl border border-white/20 bg-white/10 p-4 shadow-xl lg:w-80">
+                  <div class="rounded-2xl border border-white/60 bg-white/85 p-4 shadow-xl lg:w-80">
                     <div class="mb-3 flex items-center justify-between">
                       <div>
-                        <p class="mb-1 text-xs text-gray-300">Active Cryptos</p>
-                        <p class="text-lg font-light text-[#f97316]">15</p>
+                        <p class="mb-1 text-xs text-slate-500">Active Cryptos</p>
+                        <p class="text-lg font-light text-warning">15</p>
                       </div>
-                      <div class="flex h-10 w-10 items-center justify-center rounded-lg bg-white/20">
+                      <div class="flex h-10 w-10 items-center justify-center rounded-lg glass-chip">
                         <i data-lucide="bitcoin" class="w-5 h-5"></i>
                       </div>
                     </div>
                     <div class="flex space-x-4 text-xs">
                       <div class="flex-1 text-center">
-                        <p class="text-gray-300">Gainers</p>
+                        <p class="text-slate-500">Gainers</p>
                         <p class="font-medium text-[#4ade80]">5</p>
                       </div>
                       <div class="flex-1 text-center">
-                        <p class="text-gray-300">Losers</p>
-                        <p class="font-medium text-[#f87171]">0</p>
+                        <p class="text-slate-500">Losers</p>
+                        <p class="font-medium text-danger">0</p>
                       </div>
                     </div>
                   </div>
@@ -82,41 +82,41 @@
 
             <!-- Market Overview -->
             <div class="mb-6 grid grid-cols-1 gap-4 md:grid-cols-3">
-              <button type="button" onclick="toggleMarket('gainers')" class="group block w-full cursor-pointer rounded-xl border border-gray-200 bg-gradient-to-b from-white to-gray-50 p-4 text-left shadow-sm transition hover:border-gray-200 hover:shadow-md dark:border-white/10 dark:bg-gray-900 dark:hover:border-white/25">
+              <button type="button" onclick="toggleMarket('gainers')" class="group block w-full cursor-pointer glass-card p-4">
                 <div class="flex items-center justify-between">
                   <div>
-                    <p class="mb-1 text-xs text-gray-500 dark:text-gray-400">Top Gainers</p>
+                    <p class="mb-1 text-xs text-slate-500 dark:text-slate-400">Top Gainers</p>
                     <p class="text-lg font-light text-emerald-600 dark:text-[#4ade80]">+2.86%</p>
-                    <p class="mt-1 text-xs text-gray-400 dark:text-gray-500">Click to sort the list</p>
+                    <p class="mt-1 text-xs text-slate-400 dark:text-slate-500">Click to sort the list</p>
                   </div>
                   <div class="flex h-8 w-8 items-center justify-center">
-                    <i data-lucide="trending-up" class="w-4 h-4 text-black transition-transform duration-200 group-hover:scale-110 dark:text-white"></i>
+                    <i data-lucide="trending-up" class="w-4 h-4 text-black transition-transform duration-200 group-hover:scale-110 dark:text-slate-900 dark:text-white"></i>
                   </div>
                 </div>
               </button>
 
-              <button type="button" onclick="toggleMarket('losers')" class="group block w-full cursor-pointer rounded-xl border border-gray-200 bg-gradient-to-b from-white to-gray-50 p-4 text-left shadow-sm transition hover:border-gray-200 hover:shadow-md dark:border-white/10 dark:bg-gray-900 dark:hover:border-white/25">
+              <button type="button" onclick="toggleMarket('losers')" class="group block w-full cursor-pointer glass-card p-4">
                 <div class="flex items-center justify-between">
                   <div>
-                    <p class="mb-1 text-xs text-gray-500 dark:text-gray-400">Top Losers</p>
-                    <p class="text-lg font-light text-gray-400 dark:text-gray-500">0.00%</p>
-                    <p class="mt-1 text-xs text-gray-400 dark:text-gray-500">Click to sort the list</p>
+                    <p class="mb-1 text-xs text-slate-500 dark:text-slate-400">Top Losers</p>
+                    <p class="text-lg font-light text-slate-400 dark:text-slate-500">0.00%</p>
+                    <p class="mt-1 text-xs text-slate-400 dark:text-slate-500">Click to sort the list</p>
                   </div>
                   <div class="flex h-8 w-8 items-center justify-center">
-                    <i data-lucide="trending-down" class="w-4 h-4 text-gray-400 transition-transform duration-200 group-hover:scale-110"></i>
+                    <i data-lucide="trending-down" class="w-4 h-4 text-slate-400 transition-transform duration-200 group-hover:scale-110"></i>
                   </div>
                 </div>
               </button>
 
-              <button type="button" onclick="toggleMarket('most-active')" class="group block w-full cursor-pointer rounded-xl border border-gray-200 bg-gradient-to-b from-white to-gray-50 p-4 text-left shadow-sm transition hover:border-gray-200 hover:shadow-md dark:border-white/10 dark:bg-gray-900 dark:hover:border-white/25">
+              <button type="button" onclick="toggleMarket('most-active')" class="group block w-full cursor-pointer glass-card p-4">
                 <div class="flex items-center justify-between">
                   <div>
-                    <p class="mb-1 text-xs text-gray-500 dark:text-gray-400">Most Active</p>
+                    <p class="mb-1 text-xs text-slate-500 dark:text-slate-400">Most Active</p>
                     <p class="text-lg font-semibold text-slate-900">$25.00B</p>
-                    <p class="mt-1 text-xs text-gray-400 dark:text-gray-500">Click to sort the list</p>
+                    <p class="mt-1 text-xs text-slate-400 dark:text-slate-500">Click to sort the list</p>
                   </div>
                   <div class="flex h-8 w-8 items-center justify-center">
-                    <i data-lucide="activity" class="w-4 h-4 text-black transition-transform duration-200 group-hover:scale-110 dark:text-white"></i>
+                    <i data-lucide="activity" class="w-4 h-4 text-black transition-transform duration-200 group-hover:scale-110 dark:text-slate-900 dark:text-white"></i>
                   </div>
                 </div>
               </button>
@@ -127,18 +127,18 @@
               <form id="crypto-filters" class="grid grid-cols-1 gap-4 p-6 md:grid-cols-5" novalidate>
                 <!-- Search -->
                 <div>
-                  <label for="search" class="mb-2 block text-xs font-medium text-gray-600 dark:text-gray-300">Search</label>
+                  <label for="search" class="mb-2 block text-xs font-medium text-slate-600 dark:text-slate-500">Search</label>
                   <div class="relative">
-                    <i data-lucide="search" class="absolute left-3 top-1/2 w-4 h-4 -translate-y-1/2 text-gray-400"></i>
+                    <i data-lucide="search" class="absolute left-3 top-1/2 w-4 h-4 -translate-y-1/2 text-slate-400"></i>
                     <input type="text" id="search" name="search" placeholder="Symbol or crypto name"
-                      class="w-full rounded-xl border border-gray-200 bg-white py-2.5 pl-10 pr-4 text-sm text-black transition focus:border-black focus:outline-none dark:border-white/10 dark:bg-gray-900 dark:text-white dark:focus:border-white" />
+                      class="w-full rounded-xl border border-slate-200 bg-white py-2.5 pl-10 pr-4 text-sm text-black transition focus:border-black focus:outline-none dark:border-white/10 dark:bg-slate-800 dark:text-white dark:focus:border-white" />
                   </div>
                 </div>
 
                 <!-- Category Filter -->
                 <div>
-                  <label for="category" class="mb-2 block text-xs font-medium text-gray-600 dark:text-gray-300">Category</label>
-                  <select id="category" name="category" class="w-full rounded-xl border border-gray-200 bg-white px-3 py-2.5 text-sm text-black focus:border-black focus:outline-none dark:border-white/10 dark:bg-gray-900 dark:text-white">
+                  <label for="category" class="mb-2 block text-xs font-medium text-slate-600 dark:text-slate-500">Category</label>
+                  <select id="category" name="category" class="w-full rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-sm text-black focus:border-black focus:outline-none dark:border-white/10 dark:bg-slate-800 dark:text-slate-900 dark:text-white">
                     <option value="">All Categories</option>
                     <option value="Currency">Currency</option>
                     <option value="DeFi">DeFi</option>
@@ -154,8 +154,8 @@
 
                 <!-- Network Filter -->
                 <div>
-                  <label for="network" class="mb-2 block text-xs font-medium text-gray-600 dark:text-gray-300">Network</label>
-                  <select id="network" name="network" class="w-full rounded-xl border border-gray-200 bg-white px-3 py-2.5 text-sm text-black focus:border-black focus:outline-none dark:border-white/10 dark:bg-gray-900 dark:text-white">
+                  <label for="network" class="mb-2 block text-xs font-medium text-slate-600 dark:text-slate-500">Network</label>
+                  <select id="network" name="network" class="w-full rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-sm text-black focus:border-black focus:outline-none dark:border-white/10 dark:bg-slate-800 dark:text-slate-900 dark:text-white">
                     <option value="">All Networks</option>
                     <option value="Bitcoin">Bitcoin</option>
                     <option value="Ethereum">Ethereum</option>
@@ -175,8 +175,8 @@
 
                 <!-- Sort -->
                 <div>
-                  <label for="sort" class="mb-2 block text-xs font-medium text-gray-600 dark:text-gray-300">Sort By</label>
-                  <select id="sort" name="sort" class="w-full rounded-xl border border-gray-200 bg-white px-3 py-2.5 text-sm text-black focus:border-black focus:outline-none dark:border-white/10 dark:bg-gray-900 dark:text-white">
+                  <label for="sort" class="mb-2 block text-xs font-medium text-slate-600 dark:text-slate-500">Sort By</label>
+                  <select id="sort" name="sort" class="w-full rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-sm text-black focus:border-black focus:outline-none dark:border-white/10 dark:bg-slate-800 dark:text-slate-900 dark:text-white">
                     <option value="symbol">Symbol</option>
                     <option value="price">Price</option>
                     <option value="change">Change</option>
@@ -203,7 +203,7 @@
             <div class="mb-8">
               <div class="mb-4">
                 <h2 class="text-lg font-semibold text-slate-900">Featured Cryptos</h2>
-                <p class="text-xs text-gray-500 dark:text-gray-400">Handpicked cryptocurrencies for your portfolio</p>
+                <p class="text-xs text-slate-500 dark:text-slate-400">Handpicked cryptocurrencies for your portfolio</p>
               </div>
 
               <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
@@ -215,19 +215,19 @@
                         <img src="/assets/coins/btc.png" alt="BTC" class="h-full w-full object-cover" />
                       </div>
                       <div>
-                        <h4 class="text-sm font-medium text-black dark:text-white">BTC-USD</h4>
-                        <p class="text-xs text-gray-500 dark:text-gray-400">Bitcoin</p>
+                        <h4 class="text-sm font-medium text-black dark:text-slate-900 dark:text-white">BTC-USD</h4>
+                        <p class="text-xs text-slate-500 dark:text-slate-400">Bitcoin</p>
                       </div>
                     </div>
                     <div class="text-right">
-                      <p class="text-sm font-medium text-[#f97316] dark:text-[#fb923c]">$95,000.00</p>
+                      <p class="text-sm font-medium text-warning dark:text-[#fb923c]">$95,000.00</p>
                       <p class="text-xs font-medium text-emerald-600 dark:text-[#4ade80]">+$1,000.00 (+1.06%)</p>
                     </div>
                   </div>
                   <div class="flex items-center justify-between">
-                    <span class="text-xs text-gray-500 dark:text-gray-400">Currency</span>
+                    <span class="text-xs text-slate-500 dark:text-slate-400">Currency</span>
                     <div class="flex items-center gap-3">
-                      <button type="button" onclick="showCoinDetails(this)" class="text-xs font-medium text-black transition hover:opacity-70 dark:text-white">View Details</button>
+                      <button type="button" onclick="showCoinDetails(this)" class="text-xs font-medium text-black transition hover:opacity-70 dark:text-slate-900 dark:text-white">View Details</button>
                       <button type="button" onclick="location.href='crypto-buy.html?coin=btc'" class="rounded-full bg-black px-3 py-1.5 text-xs font-medium text-white transition hover:bg-gray-700 dark:bg-white dark:text-black dark:hover:bg-gray-200">Buy</button>
                     </div>
                   </div>
@@ -241,19 +241,19 @@
                         <img src="/assets/coins/eth.png" alt="ETH" class="h-full w-full object-cover" />
                       </div>
                       <div>
-                        <h4 class="text-sm font-medium text-black dark:text-white">ETH-USD</h4>
-                        <p class="text-xs text-gray-500 dark:text-gray-400">Ethereum</p>
+                        <h4 class="text-sm font-medium text-black dark:text-slate-900 dark:text-white">ETH-USD</h4>
+                        <p class="text-xs text-slate-500 dark:text-slate-400">Ethereum</p>
                       </div>
                     </div>
                     <div class="text-right">
-                      <p class="text-sm font-medium text-[#f97316] dark:text-[#fb923c]">$3,500.00</p>
+                      <p class="text-sm font-medium text-warning dark:text-[#fb923c]">$3,500.00</p>
                       <p class="text-xs font-medium text-emerald-600 dark:text-[#4ade80]">+$50.00 (+1.45%)</p>
                     </div>
                   </div>
                   <div class="flex items-center justify-between">
-                    <span class="text-xs text-gray-500 dark:text-gray-400">Smart Contract Platform</span>
+                    <span class="text-xs text-slate-500 dark:text-slate-400">Smart Contract Platform</span>
                     <div class="flex items-center gap-3">
-                      <button type="button" onclick="showCoinDetails(this)" class="text-xs font-medium text-black transition hover:opacity-70 dark:text-white">View Details</button>
+                      <button type="button" onclick="showCoinDetails(this)" class="text-xs font-medium text-black transition hover:opacity-70 dark:text-slate-900 dark:text-white">View Details</button>
                       <button type="button" onclick="location.href='crypto-buy.html?coin=eth'" class="rounded-full bg-black px-3 py-1.5 text-xs font-medium text-white transition hover:bg-gray-700 dark:bg-white dark:text-black dark:hover:bg-gray-200">Buy</button>
                     </div>
                   </div>
@@ -267,19 +267,19 @@
                         <img src="/assets/coins/bnb.png" alt="BNB" class="h-full w-full object-cover" />
                       </div>
                       <div>
-                        <h4 class="text-sm font-medium text-black dark:text-white">BNB-USD</h4>
-                        <p class="text-xs text-gray-500 dark:text-gray-400">Binance Coin</p>
+                        <h4 class="text-sm font-medium text-black dark:text-slate-900 dark:text-white">BNB-USD</h4>
+                        <p class="text-xs text-slate-500 dark:text-slate-400">Binance Coin</p>
                       </div>
                     </div>
                     <div class="text-right">
-                      <p class="text-sm font-medium text-[#f97316] dark:text-[#fb923c]">$650.00</p>
+                      <p class="text-sm font-medium text-warning dark:text-[#fb923c]">$650.00</p>
                       <p class="text-xs font-medium text-emerald-600 dark:text-[#4ade80]">+$10.00 (+1.56%)</p>
                     </div>
                   </div>
                   <div class="flex items-center justify-between">
-                    <span class="text-xs text-gray-500 dark:text-gray-400">Exchange Token</span>
+                    <span class="text-xs text-slate-500 dark:text-slate-400">Exchange Token</span>
                     <div class="flex items-center gap-3">
-                      <button type="button" onclick="showCoinDetails(this)" class="text-xs font-medium text-black transition hover:opacity-70 dark:text-white">View Details</button>
+                      <button type="button" onclick="showCoinDetails(this)" class="text-xs font-medium text-black transition hover:opacity-70 dark:text-slate-900 dark:text-white">View Details</button>
                       <button type="button" onclick="location.href='crypto-buy.html?coin=bnb'" class="rounded-full bg-black px-3 py-1.5 text-xs font-medium text-white transition hover:bg-gray-700 dark:bg-white dark:text-black dark:hover:bg-gray-200">Buy</button>
                     </div>
                   </div>
@@ -288,12 +288,12 @@
             </div>
 
             <!-- Crypto List -->
-            <div id="crypto-list-scroll" class="overflow-hidden rounded-2xl border border-gray-200 bg-gradient-to-b from-white to-gray-50 shadow-sm dark:border-white/10 dark:bg-gray-900">
+            <div id="crypto-list-scroll" class="overflow-hidden rounded-2xl border border-slate-200 bg-gradient-to-b from-white to-gray-50 shadow-sm dark:border-white/10 dark:bg-slate-800">
               <div class="border-b border-gray-100 px-6 py-4 dark:border-white/10">
                 <div class="flex items-center justify-between">
                   <div>
                     <h3 class="mb-1 text-lg font-semibold text-slate-900">All Cryptocurrencies</h3>
-                    <p class="text-xs text-gray-500 dark:text-gray-400">Showing <span id="crypto-count">15</span> of 15 cryptos</p>
+                    <p class="text-xs text-slate-500 dark:text-slate-400">Showing <span id="crypto-count">15</span> of 15 cryptos</p>
                   </div>
                 </div>
               </div>
@@ -302,12 +302,12 @@
                 <table class="w-full">
                   <thead class="bg-gray-50 dark:bg-white/5">
                     <tr>
-                      <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-400">Crypto</th>
-                      <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-400">Price</th>
-                      <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-400">Change</th>
-                      <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-400">Volume</th>
-                      <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-400">Market Cap</th>
-                      <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-gray-500 dark:text-gray-400">Actions</th>
+                      <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-slate-500 dark:text-slate-400">Crypto</th>
+                      <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-slate-500 dark:text-slate-400">Price</th>
+                      <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-slate-500 dark:text-slate-400">Change</th>
+                      <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-slate-500 dark:text-slate-400">Volume</th>
+                      <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-slate-500 dark:text-slate-400">Market Cap</th>
+                      <th class="px-6 py-3 text-left text-xs font-medium uppercase tracking-wider text-slate-500 dark:text-slate-400">Actions</th>
                     </tr>
                   </thead>
                   <tbody class="divide-y divide-gray-100 dark:divide-white/10">
@@ -315,24 +315,24 @@
                     <tr class="crypto-row transition-colors duration-200 hover:bg-gray-50 dark:hover:bg-white/5" data-symbol="ADA-USD" data-name="Cardano" data-category="Smart Contract Platform" data-network="Cardano" data-price="0.55" data-change="1.85" data-change-label="+$0.01 (+1.85%)" data-volume="400000000" data-mcap="19500000000">
                       <td class="px-6 py-4">
                         <div class="flex items-center">
-                          <div class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-gray-900 text-[10px] font-semibold text-white dark:bg-white dark:text-black">ADA</div>
+                          <div class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-gray-900 text-[10px] font-semibold text-white dark:bg-white dark:text-slate-900">ADA</div>
                           <div class="ml-3">
-                            <div class="text-sm font-medium text-black dark:text-white">ADA-USD</div>
-                            <div class="text-xs text-gray-500 dark:text-gray-400">Cardano</div>
+                            <div class="text-sm font-medium text-black dark:text-slate-900 dark:text-white">ADA-USD</div>
+                            <div class="text-xs text-slate-500 dark:text-slate-400">Cardano</div>
                           </div>
                         </div>
                       </td>
-                      <td class="px-6 py-4 text-sm text-[#f97316] dark:text-[#fb923c]">$0.55</td>
+                      <td class="px-6 py-4 text-sm text-warning dark:text-[#fb923c]">$0.55</td>
                       <td class="px-6 py-4">
                         <div class="text-sm text-emerald-600 dark:text-[#4ade80]">+$0.01</div>
-                        <div class="mt-0.5 inline-flex rounded-full bg-[#e8f7ee] px-2 py-0.5 text-xs font-medium text-[#166534] dark:bg-[#16a34a]/15 dark:text-[#4ade80]">+1.85%</div>
+                        <div class="mt-0.5 inline-flex rounded-full bg-success-bg px-2 py-0.5 text-xs font-medium text-[#166534] dark:bg-[#16a34a]/15 dark:text-[#4ade80]">+1.85%</div>
                       </td>
-                      <td class="px-6 py-4 text-sm text-[#f97316] dark:text-[#fb923c]">$400.00M</td>
-                      <td class="px-6 py-4 text-sm text-[#f97316] dark:text-[#fb923c]">$19.50B</td>
+                      <td class="px-6 py-4 text-sm text-warning dark:text-[#fb923c]">$400.00M</td>
+                      <td class="px-6 py-4 text-sm text-warning dark:text-[#fb923c]">$19.50B</td>
                       <td class="px-6 py-4">
                         <div class="flex space-x-2">
-                          <button type="button" onclick="showCoinDetails(this)" class="flex h-8 w-8 items-center justify-center rounded-lg text-gray-500 transition-colors duration-200 hover:bg-gray-100 hover:text-black dark:text-gray-400 dark:hover:bg-white/10 dark:hover:text-white" title="View Details"><i data-lucide="eye" class="w-4 h-4"></i></button>
-                          <button type="button" onclick="location.href='crypto-buy.html?coin=ada'" class="flex h-8 w-8 items-center justify-center rounded-lg text-gray-500 transition-colors duration-200 hover:bg-gray-100 hover:text-black dark:text-gray-400 dark:hover:bg-white/10 dark:hover:text-white" title="Buy Crypto"><i data-lucide="plus" class="w-4 h-4"></i></button>
+                          <button type="button" onclick="showCoinDetails(this)" class="flex h-8 w-8 items-center justify-center rounded-lg text-slate-500 transition-colors duration-200 hover:bg-gray-100 hover:text-black dark:text-slate-400 dark:hover:bg-white/10 dark:hover:text-slate-900 dark:text-white" title="View Details"><i data-lucide="eye" class="w-4 h-4"></i></button>
+                          <button type="button" onclick="location.href='crypto-buy.html?coin=ada'" class="flex h-8 w-8 items-center justify-center rounded-lg text-slate-500 transition-colors duration-200 hover:bg-gray-100 hover:text-black dark:text-slate-400 dark:hover:bg-white/10 dark:hover:text-slate-900 dark:text-white" title="Buy Crypto"><i data-lucide="plus" class="w-4 h-4"></i></button>
                         </div>
                       </td>
                     </tr>
@@ -344,22 +344,22 @@
                             <img src="/assets/coins/algo.png" alt="ALGO" class="h-full w-full object-cover" />
                           </div>
                           <div class="ml-3">
-                            <div class="text-sm font-medium text-black dark:text-white">ALGO-USD</div>
-                            <div class="text-xs text-gray-500 dark:text-gray-400">Algorand</div>
+                            <div class="text-sm font-medium text-black dark:text-slate-900 dark:text-white">ALGO-USD</div>
+                            <div class="text-xs text-slate-500 dark:text-slate-400">Algorand</div>
                           </div>
                         </div>
                       </td>
-                      <td class="px-6 py-4 text-sm text-[#f97316] dark:text-[#fb923c]">$0.25</td>
+                      <td class="px-6 py-4 text-sm text-warning dark:text-[#fb923c]">$0.25</td>
                       <td class="px-6 py-4">
                         <div class="text-sm text-emerald-600 dark:text-[#4ade80]">+$0.01</div>
-                        <div class="mt-0.5 inline-flex rounded-full bg-[#e8f7ee] px-2 py-0.5 text-xs font-medium text-[#166534] dark:bg-[#16a34a]/15 dark:text-[#4ade80]">+4.17%</div>
+                        <div class="mt-0.5 inline-flex rounded-full bg-success-bg px-2 py-0.5 text-xs font-medium text-[#166534] dark:bg-[#16a34a]/15 dark:text-[#4ade80]">+4.17%</div>
                       </td>
-                      <td class="px-6 py-4 text-sm text-[#f97316] dark:text-[#fb923c]">$50.00M</td>
-                      <td class="px-6 py-4 text-sm text-[#f97316] dark:text-[#fb923c]">$2.00B</td>
+                      <td class="px-6 py-4 text-sm text-warning dark:text-[#fb923c]">$50.00M</td>
+                      <td class="px-6 py-4 text-sm text-warning dark:text-[#fb923c]">$2.00B</td>
                       <td class="px-6 py-4">
                         <div class="flex space-x-2">
-                          <button type="button" onclick="showCoinDetails(this)" class="flex h-8 w-8 items-center justify-center rounded-lg text-gray-500 transition-colors duration-200 hover:bg-gray-100 hover:text-black dark:text-gray-400 dark:hover:bg-white/10 dark:hover:text-white" title="View Details"><i data-lucide="eye" class="w-4 h-4"></i></button>
-                          <button type="button" onclick="location.href='crypto-buy.html?coin=algo'" class="flex h-8 w-8 items-center justify-center rounded-lg text-gray-500 transition-colors duration-200 hover:bg-gray-100 hover:text-black dark:text-gray-400 dark:hover:bg-white/10 dark:hover:text-white" title="Buy Crypto"><i data-lucide="plus" class="w-4 h-4"></i></button>
+                          <button type="button" onclick="showCoinDetails(this)" class="flex h-8 w-8 items-center justify-center rounded-lg text-slate-500 transition-colors duration-200 hover:bg-gray-100 hover:text-black dark:text-slate-400 dark:hover:bg-white/10 dark:hover:text-slate-900 dark:text-white" title="View Details"><i data-lucide="eye" class="w-4 h-4"></i></button>
+                          <button type="button" onclick="location.href='crypto-buy.html?coin=algo'" class="flex h-8 w-8 items-center justify-center rounded-lg text-slate-500 transition-colors duration-200 hover:bg-gray-100 hover:text-black dark:text-slate-400 dark:hover:bg-white/10 dark:hover:text-slate-900 dark:text-white" title="Buy Crypto"><i data-lucide="plus" class="w-4 h-4"></i></button>
                         </div>
                       </td>
                     </tr>
@@ -367,24 +367,24 @@
                     <tr class="crypto-row transition-colors duration-200 hover:bg-gray-50 dark:hover:bg-white/5" data-symbol="ATOM-USD" data-name="Cosmos" data-category="Interoperability" data-network="Cosmos" data-price="10.5" data-change="1.94" data-change-label="+$0.20 (+1.94%)" data-volume="100000000" data-mcap="4000000000">
                       <td class="px-6 py-4">
                         <div class="flex items-center">
-                          <div class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-gray-900 text-[10px] font-semibold text-white dark:bg-white dark:text-black">ATOM</div>
+                          <div class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-gray-900 text-[10px] font-semibold text-white dark:bg-white dark:text-slate-900">ATOM</div>
                           <div class="ml-3">
-                            <div class="text-sm font-medium text-black dark:text-white">ATOM-USD</div>
-                            <div class="text-xs text-gray-500 dark:text-gray-400">Cosmos</div>
+                            <div class="text-sm font-medium text-black dark:text-slate-900 dark:text-white">ATOM-USD</div>
+                            <div class="text-xs text-slate-500 dark:text-slate-400">Cosmos</div>
                           </div>
                         </div>
                       </td>
-                      <td class="px-6 py-4 text-sm text-[#f97316] dark:text-[#fb923c]">$10.50</td>
+                      <td class="px-6 py-4 text-sm text-warning dark:text-[#fb923c]">$10.50</td>
                       <td class="px-6 py-4">
                         <div class="text-sm text-emerald-600 dark:text-[#4ade80]">+$0.20</div>
-                        <div class="mt-0.5 inline-flex rounded-full bg-[#e8f7ee] px-2 py-0.5 text-xs font-medium text-[#166534] dark:bg-[#16a34a]/15 dark:text-[#4ade80]">+1.94%</div>
+                        <div class="mt-0.5 inline-flex rounded-full bg-success-bg px-2 py-0.5 text-xs font-medium text-[#166534] dark:bg-[#16a34a]/15 dark:text-[#4ade80]">+1.94%</div>
                       </td>
-                      <td class="px-6 py-4 text-sm text-[#f97316] dark:text-[#fb923c]">$100.00M</td>
-                      <td class="px-6 py-4 text-sm text-[#f97316] dark:text-[#fb923c]">$4.00B</td>
+                      <td class="px-6 py-4 text-sm text-warning dark:text-[#fb923c]">$100.00M</td>
+                      <td class="px-6 py-4 text-sm text-warning dark:text-[#fb923c]">$4.00B</td>
                       <td class="px-6 py-4">
                         <div class="flex space-x-2">
-                          <button type="button" onclick="showCoinDetails(this)" class="flex h-8 w-8 items-center justify-center rounded-lg text-gray-500 transition-colors duration-200 hover:bg-gray-100 hover:text-black dark:text-gray-400 dark:hover:bg-white/10 dark:hover:text-white" title="View Details"><i data-lucide="eye" class="w-4 h-4"></i></button>
-                          <button type="button" onclick="location.href='crypto-buy.html?coin=atom'" class="flex h-8 w-8 items-center justify-center rounded-lg text-gray-500 transition-colors duration-200 hover:bg-gray-100 hover:text-black dark:text-gray-400 dark:hover:bg-white/10 dark:hover:text-white" title="Buy Crypto"><i data-lucide="plus" class="w-4 h-4"></i></button>
+                          <button type="button" onclick="showCoinDetails(this)" class="flex h-8 w-8 items-center justify-center rounded-lg text-slate-500 transition-colors duration-200 hover:bg-gray-100 hover:text-black dark:text-slate-400 dark:hover:bg-white/10 dark:hover:text-slate-900 dark:text-white" title="View Details"><i data-lucide="eye" class="w-4 h-4"></i></button>
+                          <button type="button" onclick="location.href='crypto-buy.html?coin=atom'" class="flex h-8 w-8 items-center justify-center rounded-lg text-slate-500 transition-colors duration-200 hover:bg-gray-100 hover:text-black dark:text-slate-400 dark:hover:bg-white/10 dark:hover:text-slate-900 dark:text-white" title="Buy Crypto"><i data-lucide="plus" class="w-4 h-4"></i></button>
                         </div>
                       </td>
                     </tr>
@@ -396,22 +396,22 @@
                             <img src="/assets/coins/avax.png" alt="AVAX" class="h-full w-full object-cover" />
                           </div>
                           <div class="ml-3">
-                            <div class="text-sm font-medium text-black dark:text-white">AVAX-USD</div>
-                            <div class="text-xs text-gray-500 dark:text-gray-400">Avalanche</div>
+                            <div class="text-sm font-medium text-black dark:text-slate-900 dark:text-white">AVAX-USD</div>
+                            <div class="text-xs text-slate-500 dark:text-slate-400">Avalanche</div>
                           </div>
                         </div>
                       </td>
-                      <td class="px-6 py-4 text-sm text-[#f97316] dark:text-[#fb923c]">$38.00</td>
+                      <td class="px-6 py-4 text-sm text-warning dark:text-[#fb923c]">$38.00</td>
                       <td class="px-6 py-4">
                         <div class="text-sm text-emerald-600 dark:text-[#4ade80]">+$1.00</div>
-                        <div class="mt-0.5 inline-flex rounded-full bg-[#e8f7ee] px-2 py-0.5 text-xs font-medium text-[#166534] dark:bg-[#16a34a]/15 dark:text-[#4ade80]">+2.70%</div>
+                        <div class="mt-0.5 inline-flex rounded-full bg-success-bg px-2 py-0.5 text-xs font-medium text-[#166534] dark:bg-[#16a34a]/15 dark:text-[#4ade80]">+2.70%</div>
                       </td>
-                      <td class="px-6 py-4 text-sm text-[#f97316] dark:text-[#fb923c]">$300.00M</td>
-                      <td class="px-6 py-4 text-sm text-[#f97316] dark:text-[#fb923c]">$15.00B</td>
+                      <td class="px-6 py-4 text-sm text-warning dark:text-[#fb923c]">$300.00M</td>
+                      <td class="px-6 py-4 text-sm text-warning dark:text-[#fb923c]">$15.00B</td>
                       <td class="px-6 py-4">
                         <div class="flex space-x-2">
-                          <button type="button" onclick="showCoinDetails(this)" class="flex h-8 w-8 items-center justify-center rounded-lg text-gray-500 transition-colors duration-200 hover:bg-gray-100 hover:text-black dark:text-gray-400 dark:hover:bg-white/10 dark:hover:text-white" title="View Details"><i data-lucide="eye" class="w-4 h-4"></i></button>
-                          <button type="button" onclick="location.href='crypto-buy.html?coin=avax'" class="flex h-8 w-8 items-center justify-center rounded-lg text-gray-500 transition-colors duration-200 hover:bg-gray-100 hover:text-black dark:text-gray-400 dark:hover:bg-white/10 dark:hover:text-white" title="Buy Crypto"><i data-lucide="plus" class="w-4 h-4"></i></button>
+                          <button type="button" onclick="showCoinDetails(this)" class="flex h-8 w-8 items-center justify-center rounded-lg text-slate-500 transition-colors duration-200 hover:bg-gray-100 hover:text-black dark:text-slate-400 dark:hover:bg-white/10 dark:hover:text-slate-900 dark:text-white" title="View Details"><i data-lucide="eye" class="w-4 h-4"></i></button>
+                          <button type="button" onclick="location.href='crypto-buy.html?coin=avax'" class="flex h-8 w-8 items-center justify-center rounded-lg text-slate-500 transition-colors duration-200 hover:bg-gray-100 hover:text-black dark:text-slate-400 dark:hover:bg-white/10 dark:hover:text-slate-900 dark:text-white" title="Buy Crypto"><i data-lucide="plus" class="w-4 h-4"></i></button>
                         </div>
                       </td>
                     </tr>
@@ -423,22 +423,22 @@
                             <img src="/assets/coins/bnb.png" alt="BNB" class="h-full w-full object-cover" />
                           </div>
                           <div class="ml-3">
-                            <div class="text-sm font-medium text-black dark:text-white">BNB-USD</div>
-                            <div class="text-xs text-gray-500 dark:text-gray-400">Binance Coin</div>
+                            <div class="text-sm font-medium text-black dark:text-slate-900 dark:text-white">BNB-USD</div>
+                            <div class="text-xs text-slate-500 dark:text-slate-400">Binance Coin</div>
                           </div>
                         </div>
                       </td>
-                      <td class="px-6 py-4 text-sm text-[#f97316] dark:text-[#fb923c]">$650.00</td>
+                      <td class="px-6 py-4 text-sm text-warning dark:text-[#fb923c]">$650.00</td>
                       <td class="px-6 py-4">
                         <div class="text-sm text-emerald-600 dark:text-[#4ade80]">+$10.00</div>
-                        <div class="mt-0.5 inline-flex rounded-full bg-[#e8f7ee] px-2 py-0.5 text-xs font-medium text-[#166534] dark:bg-[#16a34a]/15 dark:text-[#4ade80]">+1.56%</div>
+                        <div class="mt-0.5 inline-flex rounded-full bg-success-bg px-2 py-0.5 text-xs font-medium text-[#166534] dark:bg-[#16a34a]/15 dark:text-[#4ade80]">+1.56%</div>
                       </td>
-                      <td class="px-6 py-4 text-sm text-[#f97316] dark:text-[#fb923c]">$2.00B</td>
-                      <td class="px-6 py-4 text-sm text-[#f97316] dark:text-[#fb923c]">$95.00B</td>
+                      <td class="px-6 py-4 text-sm text-warning dark:text-[#fb923c]">$2.00B</td>
+                      <td class="px-6 py-4 text-sm text-warning dark:text-[#fb923c]">$95.00B</td>
                       <td class="px-6 py-4">
                         <div class="flex space-x-2">
-                          <button type="button" onclick="showCoinDetails(this)" class="flex h-8 w-8 items-center justify-center rounded-lg text-gray-500 transition-colors duration-200 hover:bg-gray-100 hover:text-black dark:text-gray-400 dark:hover:bg-white/10 dark:hover:text-white" title="View Details"><i data-lucide="eye" class="w-4 h-4"></i></button>
-                          <button type="button" onclick="location.href='crypto-buy.html?coin=bnb'" class="flex h-8 w-8 items-center justify-center rounded-lg text-gray-500 transition-colors duration-200 hover:bg-gray-100 hover:text-black dark:text-gray-400 dark:hover:bg-white/10 dark:hover:text-white" title="Buy Crypto"><i data-lucide="plus" class="w-4 h-4"></i></button>
+                          <button type="button" onclick="showCoinDetails(this)" class="flex h-8 w-8 items-center justify-center rounded-lg text-slate-500 transition-colors duration-200 hover:bg-gray-100 hover:text-black dark:text-slate-400 dark:hover:bg-white/10 dark:hover:text-slate-900 dark:text-white" title="View Details"><i data-lucide="eye" class="w-4 h-4"></i></button>
+                          <button type="button" onclick="location.href='crypto-buy.html?coin=bnb'" class="flex h-8 w-8 items-center justify-center rounded-lg text-slate-500 transition-colors duration-200 hover:bg-gray-100 hover:text-black dark:text-slate-400 dark:hover:bg-white/10 dark:hover:text-slate-900 dark:text-white" title="Buy Crypto"><i data-lucide="plus" class="w-4 h-4"></i></button>
                         </div>
                       </td>
                     </tr>
@@ -450,22 +450,22 @@
                             <img src="/assets/coins/btc.png" alt="BTC" class="h-full w-full object-cover" />
                           </div>
                           <div class="ml-3">
-                            <div class="text-sm font-medium text-black dark:text-white">BTC-USD</div>
-                            <div class="text-xs text-gray-500 dark:text-gray-400">Bitcoin</div>
+                            <div class="text-sm font-medium text-black dark:text-slate-900 dark:text-white">BTC-USD</div>
+                            <div class="text-xs text-slate-500 dark:text-slate-400">Bitcoin</div>
                           </div>
                         </div>
                       </td>
-                      <td class="px-6 py-4 text-sm text-[#f97316] dark:text-[#fb923c]">$95,000.00</td>
+                      <td class="px-6 py-4 text-sm text-warning dark:text-[#fb923c]">$95,000.00</td>
                       <td class="px-6 py-4">
                         <div class="text-sm text-emerald-600 dark:text-[#4ade80]">+$1,000.00</div>
-                        <div class="mt-0.5 inline-flex rounded-full bg-[#e8f7ee] px-2 py-0.5 text-xs font-medium text-[#166534] dark:bg-[#16a34a]/15 dark:text-[#4ade80]">+1.06%</div>
+                        <div class="mt-0.5 inline-flex rounded-full bg-success-bg px-2 py-0.5 text-xs font-medium text-[#166534] dark:bg-[#16a34a]/15 dark:text-[#4ade80]">+1.06%</div>
                       </td>
-                      <td class="px-6 py-4 text-sm text-[#f97316] dark:text-[#fb923c]">$25.00B</td>
-                      <td class="px-6 py-4 text-sm text-[#f97316] dark:text-[#fb923c]">$1.81T</td>
+                      <td class="px-6 py-4 text-sm text-warning dark:text-[#fb923c]">$25.00B</td>
+                      <td class="px-6 py-4 text-sm text-warning dark:text-[#fb923c]">$1.81T</td>
                       <td class="px-6 py-4">
                         <div class="flex space-x-2">
-                          <button type="button" onclick="showCoinDetails(this)" class="flex h-8 w-8 items-center justify-center rounded-lg text-gray-500 transition-colors duration-200 hover:bg-gray-100 hover:text-black dark:text-gray-400 dark:hover:bg-white/10 dark:hover:text-white" title="View Details"><i data-lucide="eye" class="w-4 h-4"></i></button>
-                          <button type="button" onclick="location.href='crypto-buy.html?coin=btc'" class="flex h-8 w-8 items-center justify-center rounded-lg text-gray-500 transition-colors duration-200 hover:bg-gray-100 hover:text-black dark:text-gray-400 dark:hover:bg-white/10 dark:hover:text-white" title="Buy Crypto"><i data-lucide="plus" class="w-4 h-4"></i></button>
+                          <button type="button" onclick="showCoinDetails(this)" class="flex h-8 w-8 items-center justify-center rounded-lg text-slate-500 transition-colors duration-200 hover:bg-gray-100 hover:text-black dark:text-slate-400 dark:hover:bg-white/10 dark:hover:text-slate-900 dark:text-white" title="View Details"><i data-lucide="eye" class="w-4 h-4"></i></button>
+                          <button type="button" onclick="location.href='crypto-buy.html?coin=btc'" class="flex h-8 w-8 items-center justify-center rounded-lg text-slate-500 transition-colors duration-200 hover:bg-gray-100 hover:text-black dark:text-slate-400 dark:hover:bg-white/10 dark:hover:text-slate-900 dark:text-white" title="Buy Crypto"><i data-lucide="plus" class="w-4 h-4"></i></button>
                         </div>
                       </td>
                     </tr>
@@ -477,22 +477,22 @@
                             <img src="/assets/coins/doge.png" alt="DOGE" class="h-full w-full object-cover" />
                           </div>
                           <div class="ml-3">
-                            <div class="text-sm font-medium text-black dark:text-white">DOGE-USD</div>
-                            <div class="text-xs text-gray-500 dark:text-gray-400">Dogecoin</div>
+                            <div class="text-sm font-medium text-black dark:text-slate-900 dark:text-white">DOGE-USD</div>
+                            <div class="text-xs text-slate-500 dark:text-slate-400">Dogecoin</div>
                           </div>
                         </div>
                       </td>
-                      <td class="px-6 py-4 text-sm text-[#f97316] dark:text-[#fb923c]">$0.18</td>
+                      <td class="px-6 py-4 text-sm text-warning dark:text-[#fb923c]">$0.18</td>
                       <td class="px-6 py-4">
                         <div class="text-sm text-emerald-600 dark:text-[#4ade80]">+$0.004</div>
-                        <div class="mt-0.5 inline-flex rounded-full bg-[#e8f7ee] px-2 py-0.5 text-xs font-medium text-[#166534] dark:bg-[#16a34a]/15 dark:text-[#4ade80]">+2.15%</div>
+                        <div class="mt-0.5 inline-flex rounded-full bg-success-bg px-2 py-0.5 text-xs font-medium text-[#166534] dark:bg-[#16a34a]/15 dark:text-[#4ade80]">+2.15%</div>
                       </td>
-                      <td class="px-6 py-4 text-sm text-[#f97316] dark:text-[#fb923c]">$800.00M</td>
-                      <td class="px-6 py-4 text-sm text-[#f97316] dark:text-[#fb923c]">$26.00B</td>
+                      <td class="px-6 py-4 text-sm text-warning dark:text-[#fb923c]">$800.00M</td>
+                      <td class="px-6 py-4 text-sm text-warning dark:text-[#fb923c]">$26.00B</td>
                       <td class="px-6 py-4">
                         <div class="flex space-x-2">
-                          <button type="button" onclick="showCoinDetails(this)" class="flex h-8 w-8 items-center justify-center rounded-lg text-gray-500 transition-colors duration-200 hover:bg-gray-100 hover:text-black dark:text-gray-400 dark:hover:bg-white/10 dark:hover:text-white" title="View Details"><i data-lucide="eye" class="w-4 h-4"></i></button>
-                          <button type="button" onclick="location.href='crypto-buy.html?coin=doge'" class="flex h-8 w-8 items-center justify-center rounded-lg text-gray-500 transition-colors duration-200 hover:bg-gray-100 hover:text-black dark:text-gray-400 dark:hover:bg-white/10 dark:hover:text-white" title="Buy Crypto"><i data-lucide="plus" class="w-4 h-4"></i></button>
+                          <button type="button" onclick="showCoinDetails(this)" class="flex h-8 w-8 items-center justify-center rounded-lg text-slate-500 transition-colors duration-200 hover:bg-gray-100 hover:text-black dark:text-slate-400 dark:hover:bg-white/10 dark:hover:text-slate-900 dark:text-white" title="View Details"><i data-lucide="eye" class="w-4 h-4"></i></button>
+                          <button type="button" onclick="location.href='crypto-buy.html?coin=doge'" class="flex h-8 w-8 items-center justify-center rounded-lg text-slate-500 transition-colors duration-200 hover:bg-gray-100 hover:text-black dark:text-slate-400 dark:hover:bg-white/10 dark:hover:text-slate-900 dark:text-white" title="Buy Crypto"><i data-lucide="plus" class="w-4 h-4"></i></button>
                         </div>
                       </td>
                     </tr>
@@ -500,24 +500,24 @@
                     <tr class="crypto-row transition-colors duration-200 hover:bg-gray-50 dark:hover:bg-white/5" data-symbol="DOT-USD" data-name="Polkadot" data-category="Interoperability" data-network="Polkadot" data-price="7.25" data-change="1.75" data-change-label="+$0.13 (+1.75%)" data-volume="150000000" data-mcap="10500000000">
                       <td class="px-6 py-4">
                         <div class="flex items-center">
-                          <div class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-gray-900 text-[10px] font-semibold text-white dark:bg-white dark:text-black">DOT</div>
+                          <div class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-gray-900 text-[10px] font-semibold text-white dark:bg-white dark:text-slate-900">DOT</div>
                           <div class="ml-3">
-                            <div class="text-sm font-medium text-black dark:text-white">DOT-USD</div>
-                            <div class="text-xs text-gray-500 dark:text-gray-400">Polkadot</div>
+                            <div class="text-sm font-medium text-black dark:text-slate-900 dark:text-white">DOT-USD</div>
+                            <div class="text-xs text-slate-500 dark:text-slate-400">Polkadot</div>
                           </div>
                         </div>
                       </td>
-                      <td class="px-6 py-4 text-sm text-[#f97316] dark:text-[#fb923c]">$7.25</td>
+                      <td class="px-6 py-4 text-sm text-warning dark:text-[#fb923c]">$7.25</td>
                       <td class="px-6 py-4">
                         <div class="text-sm text-emerald-600 dark:text-[#4ade80]">+$0.13</div>
-                        <div class="mt-0.5 inline-flex rounded-full bg-[#e8f7ee] px-2 py-0.5 text-xs font-medium text-[#166534] dark:bg-[#16a34a]/15 dark:text-[#4ade80]">+1.75%</div>
+                        <div class="mt-0.5 inline-flex rounded-full bg-success-bg px-2 py-0.5 text-xs font-medium text-[#166534] dark:bg-[#16a34a]/15 dark:text-[#4ade80]">+1.75%</div>
                       </td>
-                      <td class="px-6 py-4 text-sm text-[#f97316] dark:text-[#fb923c]">$150.00M</td>
-                      <td class="px-6 py-4 text-sm text-[#f97316] dark:text-[#fb923c]">$10.50B</td>
+                      <td class="px-6 py-4 text-sm text-warning dark:text-[#fb923c]">$150.00M</td>
+                      <td class="px-6 py-4 text-sm text-warning dark:text-[#fb923c]">$10.50B</td>
                       <td class="px-6 py-4">
                         <div class="flex space-x-2">
-                          <button type="button" onclick="showCoinDetails(this)" class="flex h-8 w-8 items-center justify-center rounded-lg text-gray-500 transition-colors duration-200 hover:bg-gray-100 hover:text-black dark:text-gray-400 dark:hover:bg-white/10 dark:hover:text-white" title="View Details"><i data-lucide="eye" class="w-4 h-4"></i></button>
-                          <button type="button" onclick="location.href='crypto-buy.html?coin=dot'" class="flex h-8 w-8 items-center justify-center rounded-lg text-gray-500 transition-colors duration-200 hover:bg-gray-100 hover:text-black dark:text-gray-400 dark:hover:bg-white/10 dark:hover:text-white" title="Buy Crypto"><i data-lucide="plus" class="w-4 h-4"></i></button>
+                          <button type="button" onclick="showCoinDetails(this)" class="flex h-8 w-8 items-center justify-center rounded-lg text-slate-500 transition-colors duration-200 hover:bg-gray-100 hover:text-black dark:text-slate-400 dark:hover:bg-white/10 dark:hover:text-slate-900 dark:text-white" title="View Details"><i data-lucide="eye" class="w-4 h-4"></i></button>
+                          <button type="button" onclick="location.href='crypto-buy.html?coin=dot'" class="flex h-8 w-8 items-center justify-center rounded-lg text-slate-500 transition-colors duration-200 hover:bg-gray-100 hover:text-black dark:text-slate-400 dark:hover:bg-white/10 dark:hover:text-slate-900 dark:text-white" title="Buy Crypto"><i data-lucide="plus" class="w-4 h-4"></i></button>
                         </div>
                       </td>
                     </tr>
@@ -529,22 +529,22 @@
                             <img src="/assets/coins/eth.png" alt="ETH" class="h-full w-full object-cover" />
                           </div>
                           <div class="ml-3">
-                            <div class="text-sm font-medium text-black dark:text-white">ETH-USD</div>
-                            <div class="text-xs text-gray-500 dark:text-gray-400">Ethereum</div>
+                            <div class="text-sm font-medium text-black dark:text-slate-900 dark:text-white">ETH-USD</div>
+                            <div class="text-xs text-slate-500 dark:text-slate-400">Ethereum</div>
                           </div>
                         </div>
                       </td>
-                      <td class="px-6 py-4 text-sm text-[#f97316] dark:text-[#fb923c]">$3,500.00</td>
+                      <td class="px-6 py-4 text-sm text-warning dark:text-[#fb923c]">$3,500.00</td>
                       <td class="px-6 py-4">
                         <div class="text-sm text-emerald-600 dark:text-[#4ade80]">+$50.00</div>
-                        <div class="mt-0.5 inline-flex rounded-full bg-[#e8f7ee] px-2 py-0.5 text-xs font-medium text-[#166534] dark:bg-[#16a34a]/15 dark:text-[#4ade80]">+1.45%</div>
+                        <div class="mt-0.5 inline-flex rounded-full bg-success-bg px-2 py-0.5 text-xs font-medium text-[#166534] dark:bg-[#16a34a]/15 dark:text-[#4ade80]">+1.45%</div>
                       </td>
-                      <td class="px-6 py-4 text-sm text-[#f97316] dark:text-[#fb923c]">$15.00B</td>
-                      <td class="px-6 py-4 text-sm text-[#f97316] dark:text-[#fb923c]">$420.00B</td>
+                      <td class="px-6 py-4 text-sm text-warning dark:text-[#fb923c]">$15.00B</td>
+                      <td class="px-6 py-4 text-sm text-warning dark:text-[#fb923c]">$420.00B</td>
                       <td class="px-6 py-4">
                         <div class="flex space-x-2">
-                          <button type="button" onclick="showCoinDetails(this)" class="flex h-8 w-8 items-center justify-center rounded-lg text-gray-500 transition-colors duration-200 hover:bg-gray-100 hover:text-black dark:text-gray-400 dark:hover:bg-white/10 dark:hover:text-white" title="View Details"><i data-lucide="eye" class="w-4 h-4"></i></button>
-                          <button type="button" onclick="location.href='crypto-buy.html?coin=eth'" class="flex h-8 w-8 items-center justify-center rounded-lg text-gray-500 transition-colors duration-200 hover:bg-gray-100 hover:text-black dark:text-gray-400 dark:hover:bg-white/10 dark:hover:text-white" title="Buy Crypto"><i data-lucide="plus" class="w-4 h-4"></i></button>
+                          <button type="button" onclick="showCoinDetails(this)" class="flex h-8 w-8 items-center justify-center rounded-lg text-slate-500 transition-colors duration-200 hover:bg-gray-100 hover:text-black dark:text-slate-400 dark:hover:bg-white/10 dark:hover:text-slate-900 dark:text-white" title="View Details"><i data-lucide="eye" class="w-4 h-4"></i></button>
+                          <button type="button" onclick="location.href='crypto-buy.html?coin=eth'" class="flex h-8 w-8 items-center justify-center rounded-lg text-slate-500 transition-colors duration-200 hover:bg-gray-100 hover:text-black dark:text-slate-400 dark:hover:bg-white/10 dark:hover:text-slate-900 dark:text-white" title="Buy Crypto"><i data-lucide="plus" class="w-4 h-4"></i></button>
                         </div>
                       </td>
                     </tr>
@@ -552,24 +552,24 @@
                     <tr class="crypto-row transition-colors duration-200 hover:bg-gray-50 dark:hover:bg-white/5" data-symbol="LINK-USD" data-name="Chainlink" data-category="Oracle" data-network="Ethereum" data-price="18.4" data-change="2.35" data-change-label="+$0.43 (+2.35%)" data-volume="250000000" data-mcap="11000000000">
                       <td class="px-6 py-4">
                         <div class="flex items-center">
-                          <div class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-gray-900 text-[10px] font-semibold text-white dark:bg-white dark:text-black">LINK</div>
+                          <div class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-gray-900 text-[10px] font-semibold text-white dark:bg-white dark:text-slate-900">LINK</div>
                           <div class="ml-3">
-                            <div class="text-sm font-medium text-black dark:text-white">LINK-USD</div>
-                            <div class="text-xs text-gray-500 dark:text-gray-400">Chainlink</div>
+                            <div class="text-sm font-medium text-black dark:text-slate-900 dark:text-white">LINK-USD</div>
+                            <div class="text-xs text-slate-500 dark:text-slate-400">Chainlink</div>
                           </div>
                         </div>
                       </td>
-                      <td class="px-6 py-4 text-sm text-[#f97316] dark:text-[#fb923c]">$18.40</td>
+                      <td class="px-6 py-4 text-sm text-warning dark:text-[#fb923c]">$18.40</td>
                       <td class="px-6 py-4">
                         <div class="text-sm text-emerald-600 dark:text-[#4ade80]">+$0.43</div>
-                        <div class="mt-0.5 inline-flex rounded-full bg-[#e8f7ee] px-2 py-0.5 text-xs font-medium text-[#166534] dark:bg-[#16a34a]/15 dark:text-[#4ade80]">+2.35%</div>
+                        <div class="mt-0.5 inline-flex rounded-full bg-success-bg px-2 py-0.5 text-xs font-medium text-[#166534] dark:bg-[#16a34a]/15 dark:text-[#4ade80]">+2.35%</div>
                       </td>
-                      <td class="px-6 py-4 text-sm text-[#f97316] dark:text-[#fb923c]">$250.00M</td>
-                      <td class="px-6 py-4 text-sm text-[#f97316] dark:text-[#fb923c]">$11.00B</td>
+                      <td class="px-6 py-4 text-sm text-warning dark:text-[#fb923c]">$250.00M</td>
+                      <td class="px-6 py-4 text-sm text-warning dark:text-[#fb923c]">$11.00B</td>
                       <td class="px-6 py-4">
                         <div class="flex space-x-2">
-                          <button type="button" onclick="showCoinDetails(this)" class="flex h-8 w-8 items-center justify-center rounded-lg text-gray-500 transition-colors duration-200 hover:bg-gray-100 hover:text-black dark:text-gray-400 dark:hover:bg-white/10 dark:hover:text-white" title="View Details"><i data-lucide="eye" class="w-4 h-4"></i></button>
-                          <button type="button" onclick="location.href='crypto-buy.html?coin=link'" class="flex h-8 w-8 items-center justify-center rounded-lg text-gray-500 transition-colors duration-200 hover:bg-gray-100 hover:text-black dark:text-gray-400 dark:hover:bg-white/10 dark:hover:text-white" title="Buy Crypto"><i data-lucide="plus" class="w-4 h-4"></i></button>
+                          <button type="button" onclick="showCoinDetails(this)" class="flex h-8 w-8 items-center justify-center rounded-lg text-slate-500 transition-colors duration-200 hover:bg-gray-100 hover:text-black dark:text-slate-400 dark:hover:bg-white/10 dark:hover:text-slate-900 dark:text-white" title="View Details"><i data-lucide="eye" class="w-4 h-4"></i></button>
+                          <button type="button" onclick="location.href='crypto-buy.html?coin=link'" class="flex h-8 w-8 items-center justify-center rounded-lg text-slate-500 transition-colors duration-200 hover:bg-gray-100 hover:text-black dark:text-slate-400 dark:hover:bg-white/10 dark:hover:text-slate-900 dark:text-white" title="Buy Crypto"><i data-lucide="plus" class="w-4 h-4"></i></button>
                         </div>
                       </td>
                     </tr>
@@ -577,24 +577,24 @@
                     <tr class="crypto-row transition-colors duration-200 hover:bg-gray-50 dark:hover:bg-white/5" data-symbol="LTC-USD" data-name="Litecoin" data-category="Payment" data-network="Litecoin" data-price="78.5" data-change="1.4" data-change-label="+$1.10 (+1.40%)" data-volume="400000000" data-mcap="5800000000">
                       <td class="px-6 py-4">
                         <div class="flex items-center">
-                          <div class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-gray-900 text-[10px] font-semibold text-white dark:bg-white dark:text-black">LTC</div>
+                          <div class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-gray-900 text-[10px] font-semibold text-white dark:bg-white dark:text-slate-900">LTC</div>
                           <div class="ml-3">
-                            <div class="text-sm font-medium text-black dark:text-white">LTC-USD</div>
-                            <div class="text-xs text-gray-500 dark:text-gray-400">Litecoin</div>
+                            <div class="text-sm font-medium text-black dark:text-slate-900 dark:text-white">LTC-USD</div>
+                            <div class="text-xs text-slate-500 dark:text-slate-400">Litecoin</div>
                           </div>
                         </div>
                       </td>
-                      <td class="px-6 py-4 text-sm text-[#f97316] dark:text-[#fb923c]">$78.50</td>
+                      <td class="px-6 py-4 text-sm text-warning dark:text-[#fb923c]">$78.50</td>
                       <td class="px-6 py-4">
                         <div class="text-sm text-emerald-600 dark:text-[#4ade80]">+$1.10</div>
-                        <div class="mt-0.5 inline-flex rounded-full bg-[#e8f7ee] px-2 py-0.5 text-xs font-medium text-[#166534] dark:bg-[#16a34a]/15 dark:text-[#4ade80]">+1.40%</div>
+                        <div class="mt-0.5 inline-flex rounded-full bg-success-bg px-2 py-0.5 text-xs font-medium text-[#166534] dark:bg-[#16a34a]/15 dark:text-[#4ade80]">+1.40%</div>
                       </td>
-                      <td class="px-6 py-4 text-sm text-[#f97316] dark:text-[#fb923c]">$400.00M</td>
-                      <td class="px-6 py-4 text-sm text-[#f97316] dark:text-[#fb923c]">$5.80B</td>
+                      <td class="px-6 py-4 text-sm text-warning dark:text-[#fb923c]">$400.00M</td>
+                      <td class="px-6 py-4 text-sm text-warning dark:text-[#fb923c]">$5.80B</td>
                       <td class="px-6 py-4">
                         <div class="flex space-x-2">
-                          <button type="button" onclick="showCoinDetails(this)" class="flex h-8 w-8 items-center justify-center rounded-lg text-gray-500 transition-colors duration-200 hover:bg-gray-100 hover:text-black dark:text-gray-400 dark:hover:bg-white/10 dark:hover:text-white" title="View Details"><i data-lucide="eye" class="w-4 h-4"></i></button>
-                          <button type="button" onclick="location.href='crypto-buy.html?coin=ltc'" class="flex h-8 w-8 items-center justify-center rounded-lg text-gray-500 transition-colors duration-200 hover:bg-gray-100 hover:text-black dark:text-gray-400 dark:hover:bg-white/10 dark:hover:text-white" title="Buy Crypto"><i data-lucide="plus" class="w-4 h-4"></i></button>
+                          <button type="button" onclick="showCoinDetails(this)" class="flex h-8 w-8 items-center justify-center rounded-lg text-slate-500 transition-colors duration-200 hover:bg-gray-100 hover:text-black dark:text-slate-400 dark:hover:bg-white/10 dark:hover:text-slate-900 dark:text-white" title="View Details"><i data-lucide="eye" class="w-4 h-4"></i></button>
+                          <button type="button" onclick="location.href='crypto-buy.html?coin=ltc'" class="flex h-8 w-8 items-center justify-center rounded-lg text-slate-500 transition-colors duration-200 hover:bg-gray-100 hover:text-black dark:text-slate-400 dark:hover:bg-white/10 dark:hover:text-slate-900 dark:text-white" title="Buy Crypto"><i data-lucide="plus" class="w-4 h-4"></i></button>
                         </div>
                       </td>
                     </tr>
@@ -602,24 +602,24 @@
                     <tr class="crypto-row transition-colors duration-200 hover:bg-gray-50 dark:hover:bg-white/5" data-symbol="MATIC-USD" data-name="Polygon" data-category="Layer 2" data-network="Polygon" data-price="0.62" data-change="1.9" data-change-label="+$0.01 (+1.90%)" data-volume="120000000" data-mcap="6100000000">
                       <td class="px-6 py-4">
                         <div class="flex items-center">
-                          <div class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-gray-900 text-[10px] font-semibold text-white dark:bg-white dark:text-black">MATIC</div>
+                          <div class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-gray-900 text-[10px] font-semibold text-white dark:bg-white dark:text-slate-900">MATIC</div>
                           <div class="ml-3">
-                            <div class="text-sm font-medium text-black dark:text-white">MATIC-USD</div>
-                            <div class="text-xs text-gray-500 dark:text-gray-400">Polygon</div>
+                            <div class="text-sm font-medium text-black dark:text-slate-900 dark:text-white">MATIC-USD</div>
+                            <div class="text-xs text-slate-500 dark:text-slate-400">Polygon</div>
                           </div>
                         </div>
                       </td>
-                      <td class="px-6 py-4 text-sm text-[#f97316] dark:text-[#fb923c]">$0.62</td>
+                      <td class="px-6 py-4 text-sm text-warning dark:text-[#fb923c]">$0.62</td>
                       <td class="px-6 py-4">
                         <div class="text-sm text-emerald-600 dark:text-[#4ade80]">+$0.01</div>
-                        <div class="mt-0.5 inline-flex rounded-full bg-[#e8f7ee] px-2 py-0.5 text-xs font-medium text-[#166534] dark:bg-[#16a34a]/15 dark:text-[#4ade80]">+1.90%</div>
+                        <div class="mt-0.5 inline-flex rounded-full bg-success-bg px-2 py-0.5 text-xs font-medium text-[#166534] dark:bg-[#16a34a]/15 dark:text-[#4ade80]">+1.90%</div>
                       </td>
-                      <td class="px-6 py-4 text-sm text-[#f97316] dark:text-[#fb923c]">$120.00M</td>
-                      <td class="px-6 py-4 text-sm text-[#f97316] dark:text-[#fb923c]">$6.10B</td>
+                      <td class="px-6 py-4 text-sm text-warning dark:text-[#fb923c]">$120.00M</td>
+                      <td class="px-6 py-4 text-sm text-warning dark:text-[#fb923c]">$6.10B</td>
                       <td class="px-6 py-4">
                         <div class="flex space-x-2">
-                          <button type="button" onclick="showCoinDetails(this)" class="flex h-8 w-8 items-center justify-center rounded-lg text-gray-500 transition-colors duration-200 hover:bg-gray-100 hover:text-black dark:text-gray-400 dark:hover:bg-white/10 dark:hover:text-white" title="View Details"><i data-lucide="eye" class="w-4 h-4"></i></button>
-                          <button type="button" onclick="location.href='crypto-buy.html?coin=matic'" class="flex h-8 w-8 items-center justify-center rounded-lg text-gray-500 transition-colors duration-200 hover:bg-gray-100 hover:text-black dark:text-gray-400 dark:hover:bg-white/10 dark:hover:text-white" title="Buy Crypto"><i data-lucide="plus" class="w-4 h-4"></i></button>
+                          <button type="button" onclick="showCoinDetails(this)" class="flex h-8 w-8 items-center justify-center rounded-lg text-slate-500 transition-colors duration-200 hover:bg-gray-100 hover:text-black dark:text-slate-400 dark:hover:bg-white/10 dark:hover:text-slate-900 dark:text-white" title="View Details"><i data-lucide="eye" class="w-4 h-4"></i></button>
+                          <button type="button" onclick="location.href='crypto-buy.html?coin=matic'" class="flex h-8 w-8 items-center justify-center rounded-lg text-slate-500 transition-colors duration-200 hover:bg-gray-100 hover:text-black dark:text-slate-400 dark:hover:bg-white/10 dark:hover:text-slate-900 dark:text-white" title="Buy Crypto"><i data-lucide="plus" class="w-4 h-4"></i></button>
                         </div>
                       </td>
                     </tr>
@@ -631,22 +631,22 @@
                             <img src="/assets/coins/sol.png" alt="SOL" class="h-full w-full object-cover" />
                           </div>
                           <div class="ml-3">
-                            <div class="text-sm font-medium text-black dark:text-white">SOL-USD</div>
-                            <div class="text-xs text-gray-500 dark:text-gray-400">Solana</div>
+                            <div class="text-sm font-medium text-black dark:text-slate-900 dark:text-white">SOL-USD</div>
+                            <div class="text-xs text-slate-500 dark:text-slate-400">Solana</div>
                           </div>
                         </div>
                       </td>
-                      <td class="px-6 py-4 text-sm text-[#f97316] dark:text-[#fb923c]">$155.00</td>
+                      <td class="px-6 py-4 text-sm text-warning dark:text-[#fb923c]">$155.00</td>
                       <td class="px-6 py-4">
                         <div class="text-sm text-emerald-600 dark:text-[#4ade80]">+$4.43</div>
-                        <div class="mt-0.5 inline-flex rounded-full bg-[#e8f7ee] px-2 py-0.5 text-xs font-medium text-[#166534] dark:bg-[#16a34a]/15 dark:text-[#4ade80]">+2.86%</div>
+                        <div class="mt-0.5 inline-flex rounded-full bg-success-bg px-2 py-0.5 text-xs font-medium text-[#166534] dark:bg-[#16a34a]/15 dark:text-[#4ade80]">+2.86%</div>
                       </td>
-                      <td class="px-6 py-4 text-sm text-[#f97316] dark:text-[#fb923c]">$3.00B</td>
-                      <td class="px-6 py-4 text-sm text-[#f97316] dark:text-[#fb923c]">$70.00B</td>
+                      <td class="px-6 py-4 text-sm text-warning dark:text-[#fb923c]">$3.00B</td>
+                      <td class="px-6 py-4 text-sm text-warning dark:text-[#fb923c]">$70.00B</td>
                       <td class="px-6 py-4">
                         <div class="flex space-x-2">
-                          <button type="button" onclick="showCoinDetails(this)" class="flex h-8 w-8 items-center justify-center rounded-lg text-gray-500 transition-colors duration-200 hover:bg-gray-100 hover:text-black dark:text-gray-400 dark:hover:bg-white/10 dark:hover:text-white" title="View Details"><i data-lucide="eye" class="w-4 h-4"></i></button>
-                          <button type="button" onclick="location.href='crypto-buy.html?coin=sol'" class="flex h-8 w-8 items-center justify-center rounded-lg text-gray-500 transition-colors duration-200 hover:bg-gray-100 hover:text-black dark:text-gray-400 dark:hover:bg-white/10 dark:hover:text-white" title="Buy Crypto"><i data-lucide="plus" class="w-4 h-4"></i></button>
+                          <button type="button" onclick="showCoinDetails(this)" class="flex h-8 w-8 items-center justify-center rounded-lg text-slate-500 transition-colors duration-200 hover:bg-gray-100 hover:text-black dark:text-slate-400 dark:hover:bg-white/10 dark:hover:text-slate-900 dark:text-white" title="View Details"><i data-lucide="eye" class="w-4 h-4"></i></button>
+                          <button type="button" onclick="location.href='crypto-buy.html?coin=sol'" class="flex h-8 w-8 items-center justify-center rounded-lg text-slate-500 transition-colors duration-200 hover:bg-gray-100 hover:text-black dark:text-slate-400 dark:hover:bg-white/10 dark:hover:text-slate-900 dark:text-white" title="Buy Crypto"><i data-lucide="plus" class="w-4 h-4"></i></button>
                         </div>
                       </td>
                     </tr>
@@ -658,22 +658,22 @@
                             <img src="/assets/coins/usdt.png" alt="USDT" class="h-full w-full object-cover" />
                           </div>
                           <div class="ml-3">
-                            <div class="text-sm font-medium text-black dark:text-white">USDT-USD</div>
-                            <div class="text-xs text-gray-500 dark:text-gray-400">Tether</div>
+                            <div class="text-sm font-medium text-black dark:text-slate-900 dark:text-white">USDT-USD</div>
+                            <div class="text-xs text-slate-500 dark:text-slate-400">Tether</div>
                           </div>
                         </div>
                       </td>
-                      <td class="px-6 py-4 text-sm text-[#f97316] dark:text-[#fb923c]">$1.00</td>
+                      <td class="px-6 py-4 text-sm text-warning dark:text-[#fb923c]">$1.00</td>
                       <td class="px-6 py-4">
                         <div class="text-sm text-emerald-600 dark:text-[#4ade80]">+$0.00</div>
-                        <div class="mt-0.5 inline-flex rounded-full bg-[#e8f7ee] px-2 py-0.5 text-xs font-medium text-[#166534] dark:bg-[#16a34a]/15 dark:text-[#4ade80]">+0.01%</div>
+                        <div class="mt-0.5 inline-flex rounded-full bg-success-bg px-2 py-0.5 text-xs font-medium text-[#166534] dark:bg-[#16a34a]/15 dark:text-[#4ade80]">+0.01%</div>
                       </td>
-                      <td class="px-6 py-4 text-sm text-[#f97316] dark:text-[#fb923c]">$60.00B</td>
-                      <td class="px-6 py-4 text-sm text-[#f97316] dark:text-[#fb923c]">$112.00B</td>
+                      <td class="px-6 py-4 text-sm text-warning dark:text-[#fb923c]">$60.00B</td>
+                      <td class="px-6 py-4 text-sm text-warning dark:text-[#fb923c]">$112.00B</td>
                       <td class="px-6 py-4">
                         <div class="flex space-x-2">
-                          <button type="button" onclick="showCoinDetails(this)" class="flex h-8 w-8 items-center justify-center rounded-lg text-gray-500 transition-colors duration-200 hover:bg-gray-100 hover:text-black dark:text-gray-400 dark:hover:bg-white/10 dark:hover:text-white" title="View Details"><i data-lucide="eye" class="w-4 h-4"></i></button>
-                          <button type="button" onclick="location.href='crypto-buy.html?coin=usdt'" class="flex h-8 w-8 items-center justify-center rounded-lg text-gray-500 transition-colors duration-200 hover:bg-gray-100 hover:text-black dark:text-gray-400 dark:hover:bg-white/10 dark:hover:text-white" title="Buy Crypto"><i data-lucide="plus" class="w-4 h-4"></i></button>
+                          <button type="button" onclick="showCoinDetails(this)" class="flex h-8 w-8 items-center justify-center rounded-lg text-slate-500 transition-colors duration-200 hover:bg-gray-100 hover:text-black dark:text-slate-400 dark:hover:bg-white/10 dark:hover:text-slate-900 dark:text-white" title="View Details"><i data-lucide="eye" class="w-4 h-4"></i></button>
+                          <button type="button" onclick="location.href='crypto-buy.html?coin=usdt'" class="flex h-8 w-8 items-center justify-center rounded-lg text-slate-500 transition-colors duration-200 hover:bg-gray-100 hover:text-black dark:text-slate-400 dark:hover:bg-white/10 dark:hover:text-slate-900 dark:text-white" title="Buy Crypto"><i data-lucide="plus" class="w-4 h-4"></i></button>
                         </div>
                       </td>
                     </tr>
@@ -685,22 +685,22 @@
                             <img src="/assets/coins/xrp.png" alt="XRP" class="h-full w-full object-cover" />
                           </div>
                           <div class="ml-3">
-                            <div class="text-sm font-medium text-black dark:text-white">XRP-USD</div>
-                            <div class="text-xs text-gray-500 dark:text-gray-400">Ripple</div>
+                            <div class="text-sm font-medium text-black dark:text-slate-900 dark:text-white">XRP-USD</div>
+                            <div class="text-xs text-slate-500 dark:text-slate-400">Ripple</div>
                           </div>
                         </div>
                       </td>
-                      <td class="px-6 py-4 text-sm text-[#f97316] dark:text-[#fb923c]">$0.65</td>
+                      <td class="px-6 py-4 text-sm text-warning dark:text-[#fb923c]">$0.65</td>
                       <td class="px-6 py-4">
                         <div class="text-sm text-emerald-600 dark:text-[#4ade80]">+$0.02</div>
-                        <div class="mt-0.5 inline-flex rounded-full bg-[#e8f7ee] px-2 py-0.5 text-xs font-medium text-[#166534] dark:bg-[#16a34a]/15 dark:text-[#4ade80]">+3.17%</div>
+                        <div class="mt-0.5 inline-flex rounded-full bg-success-bg px-2 py-0.5 text-xs font-medium text-[#166534] dark:bg-[#16a34a]/15 dark:text-[#4ade80]">+3.17%</div>
                       </td>
-                      <td class="px-6 py-4 text-sm text-[#f97316] dark:text-[#fb923c]">$1.50B</td>
-                      <td class="px-6 py-4 text-sm text-[#f97316] dark:text-[#fb923c]">$36.50B</td>
+                      <td class="px-6 py-4 text-sm text-warning dark:text-[#fb923c]">$1.50B</td>
+                      <td class="px-6 py-4 text-sm text-warning dark:text-[#fb923c]">$36.50B</td>
                       <td class="px-6 py-4">
                         <div class="flex space-x-2">
-                          <button type="button" onclick="showCoinDetails(this)" class="flex h-8 w-8 items-center justify-center rounded-lg text-gray-500 transition-colors duration-200 hover:bg-gray-100 hover:text-black dark:text-gray-400 dark:hover:bg-white/10 dark:hover:text-white" title="View Details"><i data-lucide="eye" class="w-4 h-4"></i></button>
-                          <button type="button" onclick="location.href='crypto-buy.html?coin=xrp'" class="flex h-8 w-8 items-center justify-center rounded-lg text-gray-500 transition-colors duration-200 hover:bg-gray-100 hover:text-black dark:text-gray-400 dark:hover:bg-white/10 dark:hover:text-white" title="Buy Crypto"><i data-lucide="plus" class="w-4 h-4"></i></button>
+                          <button type="button" onclick="showCoinDetails(this)" class="flex h-8 w-8 items-center justify-center rounded-lg text-slate-500 transition-colors duration-200 hover:bg-gray-100 hover:text-black dark:text-slate-400 dark:hover:bg-white/10 dark:hover:text-slate-900 dark:text-white" title="View Details"><i data-lucide="eye" class="w-4 h-4"></i></button>
+                          <button type="button" onclick="location.href='crypto-buy.html?coin=xrp'" class="flex h-8 w-8 items-center justify-center rounded-lg text-slate-500 transition-colors duration-200 hover:bg-gray-100 hover:text-black dark:text-slate-400 dark:hover:bg-white/10 dark:hover:text-slate-900 dark:text-white" title="Buy Crypto"><i data-lucide="plus" class="w-4 h-4"></i></button>
                         </div>
                       </td>
                     </tr>
@@ -717,35 +717,35 @@
     <!-- Coin Details Modal -->
     <div id="coin-modal" class="fixed inset-0 z-[10000] hidden items-center justify-center p-4">
       <div class="absolute inset-0 bg-black/60" onclick="closeCoinDetails()"></div>
-      <div class="relative w-full max-w-md rounded-2xl border border-gray-200 bg-gradient-to-b from-white to-gray-50 p-6 shadow-2xl dark:border-white/10 dark:bg-gray-900">
+      <div class="relative w-full max-w-md rounded-2xl border border-slate-200 bg-gradient-to-b from-white to-gray-50 p-6 shadow-2xl dark:border-white/10 dark:bg-slate-800">
         <div class="mb-4 flex items-start justify-between">
           <div class="flex items-center gap-3">
             <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-tesla/10">
               <i data-lucide="bitcoin" class="w-5 h-5 text-tesla"></i>
             </div>
             <div>
-              <p id="coin-detail-name" class="font-medium text-black dark:text-white">Bitcoin</p>
-              <p id="coin-detail-symbol" class="text-xs text-gray-500 dark:text-gray-400">BTC-USD</p>
+              <p id="coin-detail-name" class="font-medium text-black dark:text-slate-900 dark:text-white">Bitcoin</p>
+              <p id="coin-detail-symbol" class="text-xs text-slate-500 dark:text-slate-400">BTC-USD</p>
             </div>
           </div>
-          <button type="button" onclick="closeCoinDetails()" class="rounded-lg p-1.5 text-gray-400 transition hover:bg-gray-100 hover:text-black dark:hover:bg-white/10 dark:hover:text-white">
+          <button type="button" onclick="closeCoinDetails()" class="rounded-lg p-1.5 text-slate-400 transition hover:bg-gray-100 hover:text-black dark:hover:bg-white/10 dark:hover:text-slate-900 dark:text-white">
             <i data-lucide="x" class="w-4 h-4"></i>
           </button>
         </div>
 
         <div class="mb-4 rounded-xl border border-white/60 bg-gray-50 p-4 dark:border-white/10 dark:bg-white/5">
-          <div class="flex justify-between"><span class="text-xs text-gray-500 dark:text-gray-400">Price</span><span id="coin-detail-price" class="text-sm font-medium text-[#f97316] dark:text-[#fb923c]">$0.00</span></div>
-          <div class="mt-2 flex justify-between"><span class="text-xs text-gray-500 dark:text-gray-400">24h Change</span><span id="coin-detail-change" class="text-sm font-medium text-black dark:text-white">+0.00%</span></div>
-          <div class="mt-2 flex justify-between"><span class="text-xs text-gray-500 dark:text-gray-400">Volume</span><span id="coin-detail-volume" class="text-sm font-medium text-[#f97316] dark:text-[#fb923c]">$0.00</span></div>
-          <div class="mt-2 flex justify-between"><span class="text-xs text-gray-500 dark:text-gray-400">Market Cap</span><span id="coin-detail-mcap" class="text-sm font-medium text-[#f97316] dark:text-[#fb923c]">$0.00</span></div>
+          <div class="flex justify-between"><span class="text-xs text-slate-500 dark:text-slate-400">Price</span><span id="coin-detail-price" class="text-sm font-medium text-warning dark:text-[#fb923c]">$0.00</span></div>
+          <div class="mt-2 flex justify-between"><span class="text-xs text-slate-500 dark:text-slate-400">24h Change</span><span id="coin-detail-change" class="text-sm font-medium text-black dark:text-slate-900 dark:text-white">+0.00%</span></div>
+          <div class="mt-2 flex justify-between"><span class="text-xs text-slate-500 dark:text-slate-400">Volume</span><span id="coin-detail-volume" class="text-sm font-medium text-warning dark:text-[#fb923c]">$0.00</span></div>
+          <div class="mt-2 flex justify-between"><span class="text-xs text-slate-500 dark:text-slate-400">Market Cap</span><span id="coin-detail-mcap" class="text-sm font-medium text-warning dark:text-[#fb923c]">$0.00</span></div>
         </div>
 
         <div class="mb-5 space-y-2 text-xs">
-          <div class="flex justify-between"><span class="text-gray-500 dark:text-gray-400">Category</span><span id="coin-detail-category" class="font-medium text-gray-700 dark:text-gray-300">—</span></div>
-          <div class="flex justify-between"><span class="text-gray-500 dark:text-gray-400">Network</span><span id="coin-detail-network" class="font-medium text-gray-700 dark:text-gray-300">—</span></div>
+          <div class="flex justify-between"><span class="text-slate-500 dark:text-slate-400">Category</span><span id="coin-detail-category" class="font-medium text-slate-700 dark:text-slate-500">—</span></div>
+          <div class="flex justify-between"><span class="text-slate-500 dark:text-slate-400">Network</span><span id="coin-detail-network" class="font-medium text-slate-700 dark:text-slate-500">—</span></div>
         </div>
 
-        <button type="button" onclick="buyCurrentCoin()" class="w-full rounded-full bg-tesla py-2.5 text-sm font-medium text-white transition hover:bg-tesla-600 dark:text-black">
+        <button type="button" onclick="buyCurrentCoin()" class="w-full rounded-full bg-slate-900 text-white py-2.5 text-sm font-medium transition hover:bg-tesla-600 dark:text-slate-900">
           Buy Crypto
         </button>
       </div>

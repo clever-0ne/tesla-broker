@@ -33,7 +33,7 @@
           <div class="mx-auto max-w-4xl">
             <!-- Breadcrumb -->
             <div class="mb-4">
-              <a href="/pages/crypto/crypto.html" class="inline-flex items-center text-xs font-medium text-gray-500 transition hover:text-black dark:text-gray-400 dark:hover:text-white">
+              <a href="/pages/crypto/crypto.html" class="inline-flex items-center text-xs font-medium text-slate-500 transition hover:text-black dark:text-slate-400 dark:hover:text-slate-900 dark:text-white">
                 <i data-lucide="arrow-left" class="mr-1 w-3.5 h-3.5"></i>
                 Back to Crypto
               </a>
@@ -42,9 +42,9 @@
             <!-- Hero -->
             <div class="relative mb-6 overflow-hidden rounded-[20px] border border-white/60 bg-white/85 p-6 shadow-[0_20px_40px_-15px_rgba(0,0,0,0.07)]">
               <div class="pointer-events-none absolute inset-0" aria-hidden="true">
-                <div class="absolute inset-0 t-grid opacity-30"></div>
-                <div class="absolute -left-16 top-1/2 h-72 w-72 -translate-y-1/2 t-orb"></div>
-                <div class="absolute -right-16 top-0 h-80 w-80 -translate-y-1/3 t-orb"></div>
+                </div>
+                </div>
+                </div>
               </div>
 
               <div class="relative z-10">
@@ -54,10 +54,10 @@
                     <p id="buy-subtitle" class="text-sm text-slate-500">Cardano • Smart Contract Platform</p>
                   </div>
 
-                  <div class="rounded-2xl border border-white/20 bg-white/10 p-4 shadow-xl lg:w-80">
+                  <div class="rounded-2xl border border-white/60 bg-white/85 p-4 shadow-xl lg:w-80">
                     <div class="flex items-center justify-between">
                       <div>
-                        <p class="mb-1 text-xs text-gray-300">Current Price</p>
+                        <p class="mb-1 text-xs text-slate-500">Current Price</p>
                         <p id="buy-price" class="text-lg font-light">$0.55</p>
                         <p id="buy-change" class="text-xs text-gray-200">+1.85%</p>
                       </div>
@@ -69,10 +69,10 @@
             </div>
 
             <!-- Chart -->
-            <div class="mb-6 rounded-2xl border border-gray-200 bg-gradient-to-b from-white to-gray-50 p-6 shadow-sm dark:border-white/10 dark:bg-gray-900">
+            <div class="mb-6 glass-card p-6">
               <div class="mb-4 flex items-center justify-between">
-                <h3 id="chart-title" class="text-lg font-medium text-black dark:text-white">ADA-USD Price Chart</h3>
-                <button type="button" class="pointer-events-none rounded-lg border border-gray-300 bg-black px-3 py-1 text-xs text-white dark:border-white/20 dark:bg-white dark:text-black">1M</button>
+                <h3 id="chart-title" class="text-lg font-medium text-black dark:text-slate-900 dark:text-white">ADA-USD Price Chart</h3>
+                <button type="button" class="pointer-events-none rounded-lg border border-gray-300 bg-black px-3 py-1 text-xs text-white dark:border-white/20 dark:bg-white dark:text-slate-900">1M</button>
               </div>
               <div class="relative" style="height: 16rem">
                 <canvas id="cryptoChart"></canvas>
@@ -80,11 +80,11 @@
             </div>
 
             <!-- Buy form -->
-            <div class="rounded-2xl border border-gray-200 bg-gradient-to-b from-white to-gray-50 p-6 shadow-sm dark:border-white/10 dark:bg-gray-900">
+            <div class="glass-card p-6">
               <div class="space-y-6">
                 <!-- Quantity input -->
                 <div>
-                  <label for="quantity" class="mb-2 block text-sm font-medium text-black dark:text-white">Number of Coins</label>
+                  <label for="quantity" class="mb-2 block text-sm font-medium text-black dark:text-slate-900 dark:text-white">Number of Coins</label>
                   <div class="relative">
                     <input type="number"
                            id="quantity"
@@ -92,95 +92,95 @@
                            min="0.00000001"
                            max="1000000"
                            placeholder="0.00000000"
-                           class="w-full rounded-xl border border-gray-200 bg-white px-3 py-2.5 text-sm text-black transition focus:border-black focus:outline-none dark:border-white/10 dark:bg-gray-900 dark:text-white dark:focus:border-white" />
+                           class="w-full rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-sm text-black transition focus:border-black focus:outline-none dark:border-white/10 dark:bg-slate-800 dark:text-white dark:focus:border-white" />
                   </div>
-                  <p id="quantity-hint" class="mt-1 text-xs text-gray-500 dark:text-gray-400">Enter the amount of ADA-USD you want to buy</p>
+                  <p id="quantity-hint" class="mt-1 text-xs text-slate-500 dark:text-slate-400">Enter the amount of ADA-USD you want to buy</p>
                 </div>
 
                 <!-- Crypto information -->
-                <div class="rounded-lg border border-gray-200 bg-gray-50 p-4 dark:border-white/10 dark:bg-white/5">
+                <div class="rounded-lg border border-slate-200 bg-gray-50 p-4 dark:border-white/10 dark:bg-white/5">
                   <div class="mb-3 flex items-center justify-between">
-                    <span class="text-xs font-medium text-gray-700 dark:text-gray-300">Crypto Information</span>
+                    <span class="text-xs font-medium text-slate-700 dark:text-slate-500">Crypto Information</span>
                     <div id="info-icon-slot" class="flex h-8 w-8 items-center justify-center"></div>
                   </div>
                   <div class="grid grid-cols-2 gap-4">
                     <div>
-                      <p class="mb-1 text-xs text-gray-500 dark:text-gray-400">Current Price</p>
-                      <p id="info-price" class="text-sm font-medium text-black dark:text-white">$0.55</p>
+                      <p class="mb-1 text-xs text-slate-500 dark:text-slate-400">Current Price</p>
+                      <p id="info-price" class="text-sm font-medium text-black dark:text-slate-900 dark:text-white">$0.55</p>
                     </div>
                     <div>
-                      <p class="mb-1 text-xs text-gray-500 dark:text-gray-400">Today's Change</p>
-                      <p id="info-change" class="text-sm font-medium text-black dark:text-white">+1.85%</p>
+                      <p class="mb-1 text-xs text-slate-500 dark:text-slate-400">Today's Change</p>
+                      <p id="info-change" class="text-sm font-medium text-black dark:text-slate-900 dark:text-white">+1.85%</p>
                     </div>
                     <div>
-                      <p class="mb-1 text-xs text-gray-500 dark:text-gray-400">Volume</p>
-                      <p id="info-volume" class="text-sm font-medium text-black dark:text-white">$400.00M</p>
+                      <p class="mb-1 text-xs text-slate-500 dark:text-slate-400">Volume</p>
+                      <p id="info-volume" class="text-sm font-medium text-black dark:text-slate-900 dark:text-white">$400.00M</p>
                     </div>
                     <div>
-                      <p class="mb-1 text-xs text-gray-500 dark:text-gray-400">Market Cap</p>
-                      <p id="info-mcap" class="text-sm font-medium text-black dark:text-white">$19.50B</p>
+                      <p class="mb-1 text-xs text-slate-500 dark:text-slate-400">Market Cap</p>
+                      <p id="info-mcap" class="text-sm font-medium text-black dark:text-slate-900 dark:text-white">$19.50B</p>
                     </div>
                   </div>
                 </div>
 
                 <!-- Purchase breakdown -->
-                <div class="rounded-lg border border-gray-200 bg-gray-50 p-4 dark:border-white/10 dark:bg-white/5">
+                <div class="rounded-lg border border-slate-200 bg-gray-50 p-4 dark:border-white/10 dark:bg-white/5">
                   <div class="mb-3 flex items-center justify-between">
-                    <span class="text-xs font-medium text-gray-700 dark:text-gray-300">Purchase Breakdown</span>
+                    <span class="text-xs font-medium text-slate-700 dark:text-slate-500">Purchase Breakdown</span>
                     <div class="flex h-8 w-8 items-center justify-center">
-                      <i data-lucide="calculator" class="w-4 h-4 text-gray-600 dark:text-gray-300"></i>
+                      <i data-lucide="calculator" class="w-4 h-4 text-slate-600 dark:text-slate-500"></i>
                     </div>
                   </div>
                   <div class="space-y-2">
                     <div class="flex justify-between">
-                      <span class="text-sm text-gray-500 dark:text-gray-400">Price per Coin</span>
-                      <span class="text-sm font-medium text-black dark:text-white" id="ppc-display">$0.55</span>
+                      <span class="text-sm text-slate-500 dark:text-slate-400">Price per Coin</span>
+                      <span class="text-sm font-medium text-black dark:text-slate-900 dark:text-white" id="ppc-display">$0.55</span>
                     </div>
                     <div class="flex justify-between">
-                      <span class="text-sm text-gray-500 dark:text-gray-400">Number of Coins</span>
-                      <span class="text-sm font-medium text-black dark:text-white" id="coins-display">0</span>
+                      <span class="text-sm text-slate-500 dark:text-slate-400">Number of Coins</span>
+                      <span class="text-sm font-medium text-black dark:text-slate-900 dark:text-white" id="coins-display">0</span>
                     </div>
                     <div class="flex justify-between">
-                      <span class="text-sm text-gray-500 dark:text-gray-400">Subtotal</span>
-                      <span class="text-sm font-medium text-black dark:text-white" id="subtotal-display">$0.00</span>
+                      <span class="text-sm text-slate-500 dark:text-slate-400">Subtotal</span>
+                      <span class="text-sm font-medium text-black dark:text-slate-900 dark:text-white" id="subtotal-display">$0.00</span>
                     </div>
                     <div class="flex justify-between">
-                      <span class="text-sm text-gray-500 dark:text-gray-400">Trading Fee</span>
-                      <span class="text-sm font-medium text-black dark:text-white">$0.00</span>
+                      <span class="text-sm text-slate-500 dark:text-slate-400">Trading Fee</span>
+                      <span class="text-sm font-medium text-black dark:text-slate-900 dark:text-white">$0.00</span>
                     </div>
                     <hr class="border-gray-200 dark:border-white/10" />
                     <div class="flex justify-between">
-                      <span class="text-sm font-medium text-black dark:text-white">Total Cost</span>
-                      <span class="text-sm font-bold text-black dark:text-white" id="total-display">$0.00</span>
+                      <span class="text-sm font-medium text-black dark:text-slate-900 dark:text-white">Total Cost</span>
+                      <span class="text-sm font-bold text-black dark:text-slate-900 dark:text-white" id="total-display">$0.00</span>
                     </div>
                   </div>
                 </div>
 
                 <!-- Wallet balance -->
-                <div class="rounded-lg border border-gray-200 bg-gray-50 p-4 dark:border-white/10 dark:bg-white/5">
+                <div class="rounded-lg border border-slate-200 bg-gray-50 p-4 dark:border-white/10 dark:bg-white/5">
                   <div class="mb-3 flex items-center justify-between">
-                    <span class="text-xs font-medium text-gray-700 dark:text-gray-300">Wallet Balance</span>
+                    <span class="text-xs font-medium text-slate-700 dark:text-slate-500">Wallet Balance</span>
                     <div class="flex h-8 w-8 items-center justify-center">
-                      <i data-lucide="wallet" class="w-4 h-4 text-gray-600 dark:text-gray-300"></i>
+                      <i data-lucide="wallet" class="w-4 h-4 text-slate-600 dark:text-slate-500"></i>
                     </div>
                   </div>
                   <div class="flex justify-between items-center">
-                    <span class="text-sm text-gray-500 dark:text-gray-400">Available Funds</span>
-                    <span class="text-sm font-medium text-black dark:text-white" data-balance>$0.00</span>
+                    <span class="text-sm text-slate-500 dark:text-slate-400">Available Funds</span>
+                    <span class="text-sm font-medium text-black dark:text-slate-900 dark:text-white" data-balance>$0.00</span>
                   </div>
                   <div class="flex justify-between items-center mt-1">
-                    <span class="text-sm text-gray-500 dark:text-gray-400">After Purchase</span>
-                    <span class="text-sm font-medium text-black dark:text-white" id="remaining-display">$0.00</span>
+                    <span class="text-sm text-slate-500 dark:text-slate-400">After Purchase</span>
+                    <span class="text-sm font-medium text-black dark:text-slate-900 dark:text-white" id="remaining-display">$0.00</span>
                   </div>
-                  <p id="insufficient-note" class="mt-3 hidden rounded-lg border border-[#fecaca] bg-[#fef2f2] px-3 py-2 text-xs text-[#dc2626] dark:border-[#ef4444]/20 dark:bg-[#ef4444]/10 dark:text-[#f87171]">
+                  <p id="insufficient-note" class="mt-3 hidden rounded-lg border border-[#fecaca] bg-[#fef2f2] px-3 py-2 text-xs text-[#dc2626] dark:border-[#ef4444]/20 dark:bg-[#ef4444]/10 dark:text-danger">
                     Insufficient balance — <a href="/pages/deposit/deposit.html" class="font-medium underline">deposit funds</a> to continue.
                   </p>
-                  <p class="mt-3 text-xs text-gray-400 dark:text-gray-500">The cost is debited directly from your main balance.</p>
+                  <p class="mt-3 text-xs text-slate-400 dark:text-slate-500">The cost is debited directly from your main balance.</p>
                 </div>
 
                 <!-- Submit -->
                 <button type="button" id="buy-submit" onclick="buyCoins()"
-                        class="flex w-full items-center justify-center rounded-xl bg-tesla py-3 font-medium text-white transition hover:bg-tesla-600 dark:text-black">
+                        class="flex w-full items-center justify-center rounded-xl bg-tesla py-3 font-medium text-white transition hover:bg-tesla-600 dark:text-slate-900">
                   <i data-lucide="shopping-cart" class="mr-2 w-4 h-4"></i>
                   Buy Coins
                 </button>
@@ -219,7 +219,7 @@
         if (c.icon) {
           return '<img src="/assets/coins/' + c.icon + '.png" alt="' + c.symbol + '" class="h-full w-full rounded-lg object-cover" />';
         }
-        return '<div class="flex h-full w-full items-center justify-center rounded-lg bg-gray-900 text-[10px] font-semibold text-white dark:bg-white dark:text-black">' + baseSymbol(c.symbol) + '</div>';
+        return '<div class="flex h-full w-full items-center justify-center rounded-lg bg-gray-900 text-[10px] font-semibold text-white dark:bg-white dark:text-slate-900">' + baseSymbol(c.symbol) + '</div>';
       }
 
       function renderBuy() {
@@ -372,14 +372,14 @@
         var main = document.querySelector('main');
         main.innerHTML =
           '<div class="mx-auto max-w-md pt-10">' +
-            '<div class="rounded-2xl border border-[#bfe7cf] bg-gradient-to-b from-[#f0fdf4] to-white p-8 text-center shadow-sm dark:border-[#22c55e]/30 dark:bg-gray-900">' +
-              '<div class="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-[#e8f7ee] dark:bg-[#22c55e]/10">' +
+            '<div class="rounded-2xl border border-success-bg bg-gradient-to-b from-[#f0fdf4] to-white p-8 text-center shadow-sm dark:border-[#22c55e]/30 dark:bg-slate-800">' +
+              '<div class="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-success-bg dark:bg-[#22c55e]/10">' +
                 '<i data-lucide="check" class="w-7 h-7 text-emerald-600"></i>' +
               '</div>' +
-              '<h3 class="mb-1 text-lg font-medium text-black dark:text-white">Purchase complete</h3>' +
-              '<p class="mb-2 text-sm text-gray-500 dark:text-gray-400">You paid <span class="font-medium text-emerald-600">' + fmt(total) + '</span> from your main balance.</p>' +
-              '<p class="mb-6 text-xs text-gray-400 dark:text-gray-500">Your updated balance is shown in the sidebar.</p>' +
-              '<a href="/pages/crypto/crypto.html" class="inline-flex w-full items-center justify-center rounded-full bg-gray-200 px-6 py-2.5 text-sm font-medium text-navy-950 shadow-lg transition hover:bg-gray-300">Back to Crypto</a>' +
+              '<h3 class="mb-1 text-lg font-medium text-black dark:text-slate-900 dark:text-white">Purchase complete</h3>' +
+              '<p class="mb-2 text-sm text-slate-500 dark:text-slate-400">You paid <span class="font-medium text-emerald-600">' + fmt(total) + '</span> from your main balance.</p>' +
+              '<p class="mb-6 text-xs text-slate-400 dark:text-slate-500">Your updated balance is shown in the sidebar.</p>' +
+              '<a href="/pages/crypto/crypto.html" class="inline-flex w-full items-center justify-center rounded-full bg-gray-200 px-6 py-2.5 text-sm font-medium text-slate-900 shadow-lg transition hover:bg-gray-300">Back to Crypto</a>' +
             '</div>' +
           '</div>';
         if (window.lucide) lucide.createIcons();

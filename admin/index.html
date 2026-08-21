@@ -26,24 +26,24 @@
     </script>
   </head>
 
-  <body data-page="admin" class="font-sans antialiased bg-gray-300 text-black dark:bg-navy-950 dark:text-white">
+  <body data-page="admin" class="font-sans antialiased bg-gray-200 text-slate-900 dark:bg-gray-200 dark:text-slate-900">
     <!-- Fixed background: grid lines -->
-    <div aria-hidden="true" class="pointer-events-none fixed inset-0 -z-10 t-gridlines"></div>
+    </div>
 
     <!-- Top Navigation -->
-    <nav class="fixed top-0 left-0 right-0 z-50 border-b border-white/10 bg-navy-950">
+    <nav class="fixed top-0 left-0 right-0 z-50 border-b border-slate-200/60 dark:border-white/10 bg-slate-950">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between items-center h-16">
           <div class="flex items-center space-x-3">
             <span class="flex items-center">
               <img src="/assets/logo.svg" alt="Tesla XTeam FX Trade" class="h-2 w-auto filter brightness-0 invert" />
             </span>
-            <span class="hidden sm:inline-flex items-center rounded-full bg-gray-200 px-3 py-1 text-xs font-medium text-navy-950">
-              <i data-lucide="shield" class="mr-1 h-3 w-3 text-[#7c3aed]"></i>Admin Console
+            <span class="hidden sm:inline-flex items-center rounded-full bg-slate-100 text-slate-900 px-3 py-1 text-xs font-medium">
+              <i data-lucide="shield" class="mr-1 h-3 w-3 text-purple"></i>Admin Console
             </span>
           </div>
           <div class="flex items-center space-x-3">
-            <button type="button" id="theme-toggle" class="p-2 rounded-full text-gray-400 transition hover:bg-white/10" aria-label="Toggle dark mode">
+            <button type="button" id="theme-toggle" class="p-2 rounded-full text-slate-500 transition hover:bg-slate-100 dark:hover:bg-white/10" aria-label="Toggle dark mode">
               <i data-lucide="sun" id="theme-sun" class="w-5 h-5 hidden"></i>
               <i data-lucide="moon" id="theme-moon" class="w-5 h-5"></i>
             </button>
@@ -56,7 +56,7 @@
     </nav>
     <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-16">
       <!-- Tabs -->
-      <div class="mb-6 flex items-center gap-2 overflow-x-auto rounded-2xl border border-gray-200 bg-white p-1.5 shadow-sm dark:border-white/10 dark:bg-navy-900">
+      <div class="mb-6 flex items-center gap-2 overflow-x-auto rounded-2xl border border-slate-200 bg-white p-1.5 shadow-sm dark:border-white/10 dark:bg-slate-900">
         <button type="button" data-tab="users" class="tab-btn flex-1 whitespace-nowrap rounded-xl px-4 py-2 text-sm font-medium transition">Users</button>
         <button type="button" data-tab="settings" class="tab-btn flex-1 whitespace-nowrap rounded-xl px-4 py-2 text-sm font-medium transition">Settings</button>
       </div>
@@ -65,13 +65,13 @@
       <section id="panel-users" class="hidden">
         <!-- List view: click a user to manage them -->
         <div id="user-list-view">
-          <div class="rounded-2xl border border-gray-200 bg-gradient-to-b from-white to-gray-50 p-6 shadow-sm dark:border-white/10 dark:bg-gray-900">
+          <div class="glass-card p-6">
             <div class="mb-4 flex items-center justify-between">
               <div>
-                <h3 class="text-base font-medium text-black dark:text-white">User Accounts</h3>
-                <p class="text-xs text-gray-500 dark:text-gray-400">Pick a user and click Manage to view their full portfolio, balance, KYC, and activity.</p>
+                <h3 class="text-base font-medium text-black dark:text-slate-900 dark:text-white">User Accounts</h3>
+                <p class="text-xs text-slate-500 dark:text-slate-400">Pick a user and click Manage to view their full portfolio, balance, KYC, and activity.</p>
               </div>
-              <span id="user-count" class="shrink-0 rounded-full bg-gray-100 px-3 py-1 text-xs font-medium text-gray-600 dark:bg-white/10 dark:text-gray-300">0 users</span>
+              <span id="user-count" class="shrink-0 rounded-full bg-gray-100 px-3 py-1 text-xs font-medium text-slate-600 dark:bg-white/10 dark:text-slate-500">0 users</span>
             </div>
             <div id="user-list" class="space-y-2"></div>
           </div>
@@ -79,57 +79,57 @@
 
         <!-- Detail view: manage one user -->
         <div id="user-detail-view" class="hidden">
-          <button type="button" onclick="closeUserDetail()" class="mb-4 inline-flex items-center text-xs font-medium text-gray-500 transition hover:text-black dark:text-gray-400 dark:hover:text-white">
+          <button type="button" onclick="closeUserDetail()" class="mb-4 inline-flex items-center text-xs font-medium text-slate-500 transition hover:text-black dark:text-slate-400 dark:hover:text-slate-900 dark:text-white">
             <i data-lucide="arrow-left" class="mr-1 w-3.5 h-3.5"></i>
             Back to Users
           </button>
 
-          <div class="rounded-2xl border border-gray-200 bg-gradient-to-b from-white to-gray-50 p-6 shadow-sm dark:border-white/10 dark:bg-gray-900">
+          <div class="glass-card p-6">
             <!-- User header -->
             <div class="mb-6 flex items-center gap-4">
-              <div id="u-avatar" class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-gray-100 text-base font-medium text-navy-950 dark:bg-white/10 dark:text-white">?</div>
+              <div id="u-avatar" class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-gray-100 text-base font-medium text-slate-900 dark:bg-white/10 dark:text-slate-900 dark:text-white">?</div>
               <div class="min-w-0 flex-1">
-                <h3 id="u-name" class="truncate text-lg font-medium text-black dark:text-white">—</h3>
-                <p id="u-email" class="truncate text-sm text-gray-500 dark:text-gray-400">—</p>
+                <h3 id="u-name" class="truncate text-lg font-medium text-black dark:text-slate-900 dark:text-white">—</h3>
+                <p id="u-email" class="truncate text-sm text-slate-500 dark:text-slate-400">—</p>
               </div>
               <div class="shrink-0 text-right">
-                <p class="text-xs text-gray-500 dark:text-gray-400">Balance</p>
-                <p id="u-balance-big" class="text-lg font-medium text-[#16a34a]">$0.00</p>
+                <p class="text-xs text-slate-500 dark:text-slate-400">Balance</p>
+                <p id="u-balance-big" class="text-lg font-medium text-success">$0.00</p>
               </div>
             </div>
 
             <!-- Balance -->
-            <div class="rounded-xl border border-gray-200 bg-gray-50 p-4 dark:border-white/10 dark:bg-white/5">
+            <div class="rounded-xl border border-slate-200 bg-gray-50 p-4 dark:border-white/10 dark:bg-white/5">
               <div class="mb-2 flex items-center justify-between">
-                <h4 class="text-sm font-medium text-black dark:text-white">Set Balance</h4>
-                <span id="u-created" class="text-xs text-gray-400"></span>
+                <h4 class="text-sm font-medium text-black dark:text-slate-900 dark:text-white">Set Balance</h4>
+                <span id="u-created" class="text-xs text-slate-400"></span>
               </div>
               <div class="flex items-center gap-2">
-                <span class="text-sm text-gray-500">$</span>
-                <input id="u-balance-input" type="number" min="0" step="0.01" class="w-full rounded-xl border border-gray-300 bg-white px-3 py-2 text-sm text-black focus:border-tesla focus:outline-none dark:border-gray-600 dark:bg-gray-800 dark:text-white" />
-                <button type="button" onclick="saveUserBalance()" class="shrink-0 rounded-full bg-gray-200 px-5 py-2 text-xs font-medium text-navy-950 transition hover:bg-gray-300">Save</button>
+                <span class="text-sm text-slate-500">$</span>
+                <input id="u-balance-input" type="number" min="0" step="0.01" class="w-full rounded-xl border border-gray-300 bg-white px-3 py-2 text-sm text-black focus:border-tesla focus:outline-none dark:border-gray-600 dark:bg-gray-800 dark:text-slate-900 dark:text-white" />
+                <button type="button" onclick="saveUserBalance()" class="shrink-0 rounded-full bg-gray-200 px-5 py-2 text-xs font-medium text-slate-900 transition hover:bg-gray-300">Save</button>
               </div>
-              <p id="u-balance-msg" class="mt-2 hidden text-xs text-[#16a34a]">Balance updated.</p>
+              <p id="u-balance-msg" class="mt-2 hidden text-xs text-success">Balance updated.</p>
             </div>
 
             <!-- Portfolio -->
-            <div class="mt-4 rounded-xl border border-gray-200 bg-gray-50 p-4 dark:border-white/10 dark:bg-white/5">
+            <div class="mt-4 rounded-xl border border-slate-200 bg-gray-50 p-4 dark:border-white/10 dark:bg-white/5">
               <div class="mb-3 flex items-center justify-between">
-                <h4 class="text-sm font-medium text-black dark:text-white">Portfolio</h4>
+                <h4 class="text-sm font-medium text-black dark:text-slate-900 dark:text-white">Portfolio</h4>
                 <div class="text-right">
-                  <p class="text-[11px] text-gray-400">Total invested</p>
-                  <p id="u-portfolio-total" class="text-sm font-medium text-[#16a34a]">$0.00</p>
+                  <p class="text-[11px] text-slate-400">Total invested</p>
+                  <p id="u-portfolio-total" class="text-sm font-medium text-success">$0.00</p>
                 </div>
               </div>
               <div id="u-holdings" class="space-y-1">
-                <p class="py-2 text-xs text-gray-400">Loading…</p>
+                <p class="py-2 text-xs text-slate-400">Loading…</p>
               </div>
             </div>
 
             <!-- KYC -->
-            <div class="mt-4 rounded-xl border border-gray-200 bg-gray-50 p-4 dark:border-white/10 dark:bg-white/5">
-              <h4 class="mb-2 text-sm font-medium text-black dark:text-white">KYC Status</h4>
-              <select id="u-kyc-select" onchange="saveUserKyc()" class="w-full rounded-xl border border-gray-300 bg-white px-3 py-2 text-sm text-black focus:border-tesla focus:outline-none dark:border-gray-600 dark:bg-gray-800 dark:text-white">
+            <div class="mt-4 rounded-xl border border-slate-200 bg-gray-50 p-4 dark:border-white/10 dark:bg-white/5">
+              <h4 class="mb-2 text-sm font-medium text-black dark:text-slate-900 dark:text-white">KYC Status</h4>
+              <select id="u-kyc-select" onchange="saveUserKyc()" class="w-full rounded-xl border border-gray-300 bg-white px-3 py-2 text-sm text-black focus:border-tesla focus:outline-none dark:border-gray-600 dark:bg-gray-800 dark:text-slate-900 dark:text-white">
                 <option value="not_submitted">Not submitted</option>
                 <option value="submitted">Submitted</option>
                 <option value="approved">Approved</option>
@@ -138,79 +138,79 @@
 
               <!-- KYC Details -->
               <div id="u-kyc-details" class="mt-3 hidden space-y-2">
-                <div class="rounded-xl border border-gray-200 bg-white p-3 dark:border-white/10 dark:bg-gray-800">
-                  <p class="text-xs font-medium text-gray-500 dark:text-gray-400 mb-1">Submitted Identity</p>
-                  <p id="u-kyc-name" class="text-sm font-medium text-black dark:text-white">—</p>
-                  <p id="u-kyc-doc" class="text-xs text-gray-500 dark:text-gray-400 mt-1">—</p>
-                  <p id="u-kyc-submitted" class="text-[10px] text-gray-400 mt-1"></p>
+                <div class="rounded-xl border border-slate-200 bg-white p-3 dark:border-white/10 dark:bg-gray-800">
+                  <p class="text-xs font-medium text-slate-500 dark:text-slate-400 mb-1">Submitted Identity</p>
+                  <p id="u-kyc-name" class="text-sm font-medium text-black dark:text-slate-900 dark:text-white">—</p>
+                  <p id="u-kyc-doc" class="text-xs text-slate-500 dark:text-slate-400 mt-1">—</p>
+                  <p id="u-kyc-submitted" class="text-[10px] text-slate-400 mt-1"></p>
                 </div>
                 <div class="flex items-center justify-between">
-                  <p class="text-xs font-medium text-gray-600 dark:text-gray-300">ID Documents</p>
-                  <a id="u-kyc-view-all" href="#" class="hidden text-[11px] font-medium text-tesla hover:underline">View all images</a>
+                  <p class="text-xs font-medium text-slate-600 dark:text-slate-500">ID Documents</p>
+                  <a id="u-kyc-view-all" href="#" class="hidden text-[11px] font-medium text-slate-900 hover:underline dark:text-white">View all images</a>
                 </div>
                 <div id="u-kyc-images" class="flex flex-wrap gap-2">
-                  <p class="py-1 text-xs text-gray-400">No ID images uploaded.</p>
+                  <p class="py-1 text-xs text-slate-400">No ID images uploaded.</p>
                 </div>
               </div>
             </div>
 
             <!-- Account Status -->
-            <div class="mt-4 rounded-xl border border-gray-200 bg-gray-50 p-4 dark:border-white/10 dark:bg-white/5">
+            <div class="mt-4 rounded-xl border border-slate-200 bg-gray-50 p-4 dark:border-white/10 dark:bg-white/5">
               <div class="mb-2 flex items-center justify-between">
-                <h4 class="text-sm font-medium text-black dark:text-white">Account Status</h4>
+                <h4 class="text-sm font-medium text-black dark:text-slate-900 dark:text-white">Account Status</h4>
                 <span id="u-blocked-badge" class="hidden rounded-full bg-[#fecaca] px-2 py-0.5 text-[10px] font-semibold text-[#b91c1c]">Blocked</span>
               </div>
               <div class="flex items-center gap-2">
-                <button type="button" id="u-block-btn" onclick="toggleUserBlock()" class="rounded-full bg-gray-200 px-5 py-2 text-xs font-medium text-navy-950 transition hover:bg-gray-300">Block User</button>
-                <span id="u-block-msg" class="text-xs text-gray-400"></span>
+                <button type="button" id="u-block-btn" onclick="toggleUserBlock()" class="rounded-full bg-gray-200 px-5 py-2 text-xs font-medium text-slate-900 transition hover:bg-gray-300">Block User</button>
+                <span id="u-block-msg" class="text-xs text-slate-400"></span>
               </div>
             </div>
 
             <!-- ID Images -->
-            <div class="mt-4 rounded-xl border border-gray-200 bg-gray-50 p-4 dark:border-white/10 dark:bg-white/5">
-              <h4 class="mb-2 text-sm font-medium text-black dark:text-white">ID Documents</h4>
+            <div class="mt-4 rounded-xl border border-slate-200 bg-gray-50 p-4 dark:border-white/10 dark:bg-white/5">
+              <h4 class="mb-2 text-sm font-medium text-black dark:text-slate-900 dark:text-white">ID Documents</h4>
               <div id="u-id-images" class="flex flex-wrap gap-3">
-                <p class="py-2 text-xs text-gray-400">No ID images uploaded.</p>
+                <p class="py-2 text-xs text-slate-400">No ID images uploaded.</p>
               </div>
             </div>
 
             <!-- Danger zone -->
             <div class="mt-4 flex items-center justify-between rounded-xl border border-[#fecaca] bg-[#fff5f5] p-4 dark:border-[#ef4444]/30 dark:bg-[#ef4444]/5">
               <div>
-                <p class="text-sm font-medium text-[#b91c1c] dark:text-[#f87171]">Delete user account</p>
-                <p class="text-xs text-gray-500 dark:text-gray-400">Removes the user, their sessions, deposits and orders.</p>
+                <p class="text-sm font-medium text-[#b91c1c] dark:text-danger">Delete user account</p>
+                <p class="text-xs text-slate-500 dark:text-slate-400">Removes the user, their sessions, deposits and orders.</p>
               </div>
-              <button type="button" onclick="deleteUser()" class="shrink-0 rounded-full border border-[#fca5a5] px-5 py-2 text-xs font-medium text-[#b91c1c] transition hover:bg-[#fef2f2] dark:border-[#ef4444]/40 dark:text-[#f87171] dark:hover:bg-[#ef4444]/10">Delete User</button>
+              <button type="button" onclick="deleteUser()" class="shrink-0 rounded-full border border-[#fca5a5] px-5 py-2 text-xs font-medium text-[#b91c1c] transition hover:bg-[#fef2f2] dark:border-[#ef4444]/40 dark:text-danger dark:hover:bg-[#ef4444]/10">Delete User</button>
             </div>
 
             <!-- Transactions -->
             <div class="mt-6 grid grid-cols-1 gap-4 lg:grid-cols-3">
-              <div class="rounded-xl border border-gray-200 bg-gray-50 p-4 dark:border-white/10 dark:bg-white/5">
+              <div class="rounded-xl border border-slate-200 bg-gray-50 p-4 dark:border-white/10 dark:bg-white/5">
                 <div class="mb-3 flex items-center justify-between">
-                  <h4 class="text-sm font-medium text-black dark:text-white">Deposits</h4>
+                  <h4 class="text-sm font-medium text-black dark:text-slate-900 dark:text-white">Deposits</h4>
                   <div class="flex items-center gap-2">
-                    <span id="u-deposits-count" class="text-xs text-gray-400"></span>
-                    <button type="button" onclick="viewAllTransactions('deposits')" class="shrink-0 rounded-full bg-gray-200 px-3 py-1 text-[11px] font-medium text-navy-950 transition hover:bg-gray-300">View All</button>
+                    <span id="u-deposits-count" class="text-xs text-slate-400"></span>
+                    <button type="button" onclick="viewAllTransactions('deposits')" class="shrink-0 rounded-full bg-gray-200 px-3 py-1 text-[11px] font-medium text-slate-900 transition hover:bg-gray-300">View All</button>
                   </div>
                 </div>
                 <div id="u-deposits" class="space-y-1"></div>
               </div>
-              <div class="rounded-xl border border-gray-200 bg-gray-50 p-4 dark:border-white/10 dark:bg-white/5">
+              <div class="rounded-xl border border-slate-200 bg-gray-50 p-4 dark:border-white/10 dark:bg-white/5">
                 <div class="mb-3 flex items-center justify-between">
-                  <h4 class="text-sm font-medium text-black dark:text-white">Withdrawals</h4>
+                  <h4 class="text-sm font-medium text-black dark:text-slate-900 dark:text-white">Withdrawals</h4>
                   <div class="flex items-center gap-2">
-                    <span id="u-withdrawals-count" class="text-xs text-gray-400"></span>
-                    <button type="button" onclick="viewAllTransactions('withdrawals')" class="shrink-0 rounded-full bg-gray-200 px-3 py-1 text-[11px] font-medium text-navy-950 transition hover:bg-gray-300">View All</button>
+                    <span id="u-withdrawals-count" class="text-xs text-slate-400"></span>
+                    <button type="button" onclick="viewAllTransactions('withdrawals')" class="shrink-0 rounded-full bg-gray-200 px-3 py-1 text-[11px] font-medium text-slate-900 transition hover:bg-gray-300">View All</button>
                   </div>
                 </div>
                 <div id="u-withdrawals" class="space-y-1"></div>
               </div>
-              <div class="rounded-xl border border-gray-200 bg-gray-50 p-4 dark:border-white/10 dark:bg-white/5">
+              <div class="rounded-xl border border-slate-200 bg-gray-50 p-4 dark:border-white/10 dark:bg-white/5">
                 <div class="mb-3 flex items-center justify-between">
-                  <h4 class="text-sm font-medium text-black dark:text-white">Purchases</h4>
+                  <h4 class="text-sm font-medium text-black dark:text-slate-900 dark:text-white">Purchases</h4>
                   <div class="flex items-center gap-2">
-                    <span id="u-orders-count" class="text-xs text-gray-400"></span>
-                    <button type="button" onclick="viewAllTransactions('orders')" class="shrink-0 rounded-full bg-gray-200 px-3 py-1 text-[11px] font-medium text-navy-950 transition hover:bg-gray-300">View All</button>
+                    <span id="u-orders-count" class="text-xs text-slate-400"></span>
+                    <button type="button" onclick="viewAllTransactions('orders')" class="shrink-0 rounded-full bg-gray-200 px-3 py-1 text-[11px] font-medium text-slate-900 transition hover:bg-gray-300">View All</button>
                   </div>
                 </div>
                 <div id="u-orders" class="space-y-1"></div>
@@ -222,9 +222,9 @@
 
       <!-- ===================== Settings ===================== -->
       <section id="panel-settings" class="hidden">
-        <div class="rounded-2xl border border-gray-200 bg-gradient-to-b from-white to-gray-50 p-6 shadow-sm dark:border-white/10 dark:bg-gray-900">
-          <h3 class="mb-1 text-base font-medium text-black dark:text-white">Deposit Addresses &amp; Rates</h3>
-          <p class="mb-6 text-xs text-gray-500 dark:text-gray-400">
+        <div class="glass-card p-6">
+          <h3 class="mb-1 text-base font-medium text-black dark:text-slate-900 dark:text-white">Deposit Addresses &amp; Rates</h3>
+          <p class="mb-6 text-xs text-slate-500 dark:text-slate-400">
             These addresses are shown to users in the deposit modal. Rates are used to compute the coin amount a user must send.
           </p>
 
@@ -233,7 +233,7 @@
           <div id="settings-coins" class="grid grid-cols-1 gap-4 md:grid-cols-2"></div>
 
           <button type="button" onclick="saveSettings()"
-                  class="mt-6 rounded-full bg-gray-200 px-6 py-2.5 text-sm font-medium text-navy-950 shadow-lg transition hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-tesla focus:ring-offset-2">
+                  class="mt-6 rounded-full bg-gray-200 px-6 py-2.5 text-sm font-medium text-slate-900 shadow-lg transition hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-tesla focus:ring-offset-2">
             Save Settings
           </button>
         </div>
@@ -243,13 +243,13 @@
     <!-- All-transactions modal -->
     <div id="tx-modal" class="fixed inset-0 z-[100] hidden items-center justify-center p-4">
       <div class="absolute inset-0 bg-black/70" onclick="closeTxModal()"></div>
-      <div class="relative flex max-h-[85vh] w-full max-w-2xl flex-col overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-2xl dark:border-white/10 dark:bg-navy-900">
+      <div class="relative flex max-h-[85vh] w-full max-w-2xl flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-2xl dark:border-white/10 dark:bg-slate-900">
         <div class="flex items-center justify-between border-b border-gray-200 px-5 py-4 dark:border-white/10">
           <div>
-            <h3 id="tx-modal-title" class="text-base font-medium text-black dark:text-white">All Transactions</h3>
-            <p id="tx-modal-sub" class="text-xs text-gray-500 dark:text-gray-400"></p>
+            <h3 id="tx-modal-title" class="text-base font-medium text-black dark:text-slate-900 dark:text-white">All Transactions</h3>
+            <p id="tx-modal-sub" class="text-xs text-slate-500 dark:text-slate-400"></p>
           </div>
-          <button type="button" onclick="closeTxModal()" class="rounded-full p-1.5 text-gray-500 transition hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-white/10" aria-label="Close">
+          <button type="button" onclick="closeTxModal()" class="rounded-full p-1.5 text-slate-500 transition hover:bg-gray-100 dark:text-slate-400 dark:hover:bg-white/10" aria-label="Close">
             <i data-lucide="x" class="w-4 h-4"></i>
           </button>
         </div>
@@ -302,17 +302,17 @@
         });
       }
       function statusBadge(status) {
-        var color = status === 'approved' ? 'bg-[#e8f7ee] text-[#166534]'
+        var color = status === 'approved' ? 'bg-success-bg text-[#166534]'
           : status === 'pending' ? 'bg-[#fff3e7] text-[#9a3412]'
           : status === 'rejected' ? 'bg-[#fceceb] text-[#b91c1c]'
-          : 'bg-gray-100 text-gray-600 dark:bg-white/10 dark:text-gray-300';
+          : 'bg-gray-100 text-slate-600 dark:bg-white/10 dark:text-gray-300';
         return '<span class="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium ' + color + '">' + esc(status) + '</span>';
       }
       function typeBadge(type) {
         var color = type === 'investment' ? 'bg-[#f3edfc] text-[#6d28d9]'
           : type === 'crypto' ? 'bg-[#fff3e7] text-[#9a3412]'
           : type === 'vehicle' ? 'bg-[#e9f0fc] text-[#1e40af]'
-          : 'bg-gray-100 text-gray-600 dark:bg-white/10 dark:text-gray-300';
+          : 'bg-gray-100 text-slate-600 dark:bg-white/10 dark:text-gray-300';
         return '<span class="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium ' + color + '">' + esc(type) + '</span>';
       }
       function logout() {
@@ -337,8 +337,8 @@
         tabs.forEach(function (b) {
           var active = b.dataset.tab === name;
           b.classList.toggle('bg-gray-200', active);
-          b.classList.toggle('text-navy-950', active);
-          b.classList.toggle('text-gray-500', !active);
+          b.classList.toggle('text-slate-900', active);
+          b.classList.toggle('text-slate-500', !active);
           b.classList.toggle('dark:text-gray-300', !active);
         });
         ['users', 'settings'].forEach(function (p) {
@@ -388,26 +388,26 @@
         document.getElementById('user-count').textContent =
           usersCache.length + (usersCache.length === 1 ? ' user' : ' users');
         if (!usersCache.length) {
-          list.innerHTML = '<p class="py-8 text-center text-sm text-gray-500 dark:text-gray-400">No user accounts yet. They appear here once someone creates an account.</p>';
+          list.innerHTML = '<p class="py-8 text-center text-sm text-slate-500 dark:text-slate-400">No user accounts yet. They appear here once someone creates an account.</p>';
           return;
         }
         list.innerHTML = usersCache.map(function (u) {
           var blockedLabel = u.blocked ? '<span class="ml-1 inline-block rounded-full bg-[#fecaca] px-2 py-0.5 text-[10px] font-semibold text-[#b91c1c]">Blocked</span>' : '';
-          return '<div class="flex items-center gap-3 rounded-xl border border-gray-200 bg-white p-3 transition hover:border-gray-300 hover:bg-gray-50 dark:border-white/10 dark:bg-gray-900 dark:hover:bg-white/5">' +
+          return '<div class="flex items-center gap-3 rounded-xl border border-slate-200 bg-white p-3 transition hover:border-gray-300 hover:bg-gray-50 dark:border-white/10 dark:bg-slate-800 dark:hover:bg-white/5">' +
             '<button type="button" onclick="openUser(\'' + u.id + '\')" class="flex min-w-0 flex-1 items-center gap-3 text-left">' +
-              '<div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-gray-100 text-sm font-medium text-navy-950 dark:bg-white/10 dark:text-white">' +
+              '<div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-gray-100 text-sm font-medium text-slate-900 dark:bg-white/10 dark:text-slate-900 dark:text-white">' +
                 (u.profileImage ? '<img src="' + esc(u.profileImage) + '" class="h-full w-full rounded-full object-cover" />' : esc((u.name || '?').charAt(0).toUpperCase())) +
               '</div>' +
               '<div class="min-w-0 flex-1">' +
-                '<p class="truncate text-sm font-medium text-black dark:text-white">' + esc(u.name) + pendingBadge(u.id) + blockedLabel + '</p>' +
-                '<p class="truncate text-xs text-gray-500 dark:text-gray-400">' + esc(u.email) + '</p>' +
+                '<p class="truncate text-sm font-medium text-black dark:text-slate-900 dark:text-white">' + esc(u.name) + pendingBadge(u.id) + blockedLabel + '</p>' +
+                '<p class="truncate text-xs text-slate-500 dark:text-slate-400">' + esc(u.email) + '</p>' +
               '</div>' +
               '<div class="shrink-0 text-right">' +
-                '<p class="text-sm font-medium text-[#16a34a]">$' + fmtMoney(u.balance) + '</p>' +
-                '<p class="text-xs text-gray-400">' + kycLabel(u.kycStatus) + '</p>' +
+                '<p class="text-sm font-medium text-success">$' + fmtMoney(u.balance) + '</p>' +
+                '<p class="text-xs text-slate-400">' + kycLabel(u.kycStatus) + '</p>' +
               '</div>' +
             '</button>' +
-            '<button type="button" onclick="openUser(\'' + u.id + '\')" class="shrink-0 rounded-full bg-tesla px-4 py-1.5 text-xs font-medium text-white transition hover:bg-tesla-600 dark:text-black">Manage User</button>' +
+            '<button type="button" onclick="openUser(\'' + u.id + '\')" class="shrink-0 rounded-full bg-tesla px-4 py-1.5 text-xs font-medium text-white transition hover:bg-tesla-600 dark:text-slate-900">Manage User</button>' +
           '</div>';
         }).join('');
         if (window.lucide) lucide.createIcons();
@@ -463,11 +463,11 @@
           var viewAll = document.getElementById('u-kyc-view-all');
           if (imgs.length) {
             imagesEl.innerHTML = imgs.map(function (src, i) {
-              return '<img src="' + esc(src) + '" class="h-20 w-20 cursor-pointer rounded-lg border border-gray-200 object-cover dark:border-white/10" onclick="window.open(this.src)" title="Click to enlarge" />';
+              return '<img src="' + esc(src) + '" class="h-20 w-20 cursor-pointer rounded-lg border border-slate-200 object-cover dark:border-white/10" onclick="window.open(this.src)" title="Click to enlarge" />';
             }).join('');
             if (viewAll) { viewAll.classList.remove('hidden'); viewAll.href = imgs[0]; }
           } else {
-            imagesEl.innerHTML = '<p class="py-1 text-xs text-gray-400">No ID images uploaded.</p>';
+            imagesEl.innerHTML = '<p class="py-1 text-xs text-slate-400">No ID images uploaded.</p>';
             if (viewAll) viewAll.classList.add('hidden');
           }
           kycDetails.classList.toggle('hidden', currentUser.kycStatus === 'not_submitted');
@@ -479,7 +479,7 @@
           blockBtn.textContent = currentUser.blocked ? 'Unblock User' : 'Block User';
           blockBtn.className = currentUser.blocked
             ? 'rounded-full bg-[#16a34a] px-5 py-2 text-xs font-medium text-white transition hover:bg-[#15803d]'
-            : 'rounded-full bg-gray-200 px-5 py-2 text-xs font-medium text-navy-950 transition hover:bg-gray-300';
+            : 'rounded-full bg-gray-200 px-5 py-2 text-xs font-medium text-slate-900 transition hover:bg-gray-300';
         }
         if (blockBadge) blockBadge.classList.toggle('hidden', !currentUser.blocked);
 
@@ -488,20 +488,20 @@
           var imgs = currentUser.idImages || [];
           if (imgs.length) {
             idImagesEl.innerHTML = imgs.map(function (src, i) {
-              return '<img src="' + esc(src) + '" class="h-24 w-24 cursor-pointer rounded-lg border border-gray-200 object-cover dark:border-white/10" onclick="window.open(this.src)" title="Click to enlarge" />';
+              return '<img src="' + esc(src) + '" class="h-24 w-24 cursor-pointer rounded-lg border border-slate-200 object-cover dark:border-white/10" onclick="window.open(this.src)" title="Click to enlarge" />';
             }).join('');
             if (window.lucide) lucide.createIcons();
           } else {
-            idImagesEl.innerHTML = '<p class="py-2 text-xs text-gray-400">No ID images uploaded.</p>';
+            idImagesEl.innerHTML = '<p class="py-2 text-xs text-slate-400">No ID images uploaded.</p>';
           }
         }
 
         var depositsEl = document.getElementById('u-deposits');
         var withdrawalsEl = document.getElementById('u-withdrawals');
         var ordersEl = document.getElementById('u-orders');
-        depositsEl.innerHTML = '<p class="py-2 text-xs text-gray-400">Loading…</p>';
-        withdrawalsEl.innerHTML = '<p class="py-2 text-xs text-gray-400">Loading…</p>';
-        ordersEl.innerHTML = '<p class="py-2 text-xs text-gray-400">Loading…</p>';
+        depositsEl.innerHTML = '<p class="py-2 text-xs text-slate-400">Loading…</p>';
+        withdrawalsEl.innerHTML = '<p class="py-2 text-xs text-slate-400">Loading…</p>';
+        ordersEl.innerHTML = '<p class="py-2 text-xs text-slate-400">Loading…</p>';
 
         api('/api/admin/deposits').then(function (r) {
           if (!r.ok) return;
@@ -517,13 +517,13 @@
                   : '';
                 return '<div class="border-b border-gray-100 py-2 last:border-0 dark:border-white/5">' +
                   '<div class="flex items-center justify-between gap-2">' +
-                    '<span class="min-w-0 truncate text-xs text-gray-500 dark:text-gray-400">' + fmtDate(d.createdAt) + ' &middot; ' + esc(d.coin).toUpperCase() + '</span>' +
-                    '<span class="shrink-0 text-xs font-medium text-black dark:text-white">$' + fmtMoney(d.amount) + '</span>' +
+                    '<span class="min-w-0 truncate text-xs text-slate-500 dark:text-slate-400">' + fmtDate(d.createdAt) + ' &middot; ' + esc(d.coin).toUpperCase() + '</span>' +
+                    '<span class="shrink-0 text-xs font-medium text-black dark:text-slate-900 dark:text-white">$' + fmtMoney(d.amount) + '</span>' +
                   '</div>' +
                   '<div class="mt-1 flex items-center justify-between gap-2">' + statusBadge(d.status) + actions + '</div>' +
                 '</div>';
               }).join('')
-            : '<p class="py-2 text-xs text-gray-400">No deposits.</p>';
+            : '<p class="py-2 text-xs text-slate-400">No deposits.</p>';
           if (window.lucide) lucide.createIcons();
         });
 
@@ -541,14 +541,14 @@
                   : '';
                 return '<div class="border-b border-gray-100 py-2 last:border-0 dark:border-white/5">' +
                   '<div class="flex items-center justify-between gap-2">' +
-                    '<span class="min-w-0 truncate text-xs text-gray-500 dark:text-gray-400">' + fmtDate(w.createdAt) + ' &middot; ' + esc(w.coin).toUpperCase() + '</span>' +
-                    '<span class="shrink-0 text-xs font-medium text-black dark:text-white">$' + fmtMoney(w.amount) + '</span>' +
+                    '<span class="min-w-0 truncate text-xs text-slate-500 dark:text-slate-400">' + fmtDate(w.createdAt) + ' &middot; ' + esc(w.coin).toUpperCase() + '</span>' +
+                    '<span class="shrink-0 text-xs font-medium text-black dark:text-slate-900 dark:text-white">$' + fmtMoney(w.amount) + '</span>' +
                   '</div>' +
-                  '<div class="mt-1 truncate font-mono text-[10px] text-gray-400" title="' + esc(w.address) + '">' + esc(w.address) + '</div>' +
+                  '<div class="mt-1 truncate font-mono text-[10px] text-slate-400" title="' + esc(w.address) + '">' + esc(w.address) + '</div>' +
                   '<div class="mt-1 flex items-center justify-between gap-2">' + statusBadge(w.status) + actions + '</div>' +
                 '</div>';
               }).join('')
-            : '<p class="py-2 text-xs text-gray-400">No withdrawals.</p>';
+            : '<p class="py-2 text-xs text-slate-400">No withdrawals.</p>';
           if (window.lucide) lucide.createIcons();
         });
 
@@ -559,10 +559,10 @@
           ordersEl.innerHTML = list.length
             ? list.map(function (o) {
                 return '<div class="flex items-center justify-between border-b border-gray-100 py-1.5 last:border-0 dark:border-white/5">' +
-                  '<span class="min-w-0 truncate text-xs text-gray-500 dark:text-gray-400">' + fmtDate(o.createdAt) + ' &middot; ' + esc(o.item) + '</span>' +
-                  '<span class="shrink-0 text-xs font-medium text-black dark:text-white">$' + fmtMoney(o.amount) + ' ' + typeBadge(o.type) + '</span></div>';
+                  '<span class="min-w-0 truncate text-xs text-slate-500 dark:text-slate-400">' + fmtDate(o.createdAt) + ' &middot; ' + esc(o.item) + '</span>' +
+                  '<span class="shrink-0 text-xs font-medium text-black dark:text-slate-900 dark:text-white">$' + fmtMoney(o.amount) + ' ' + typeBadge(o.type) + '</span></div>';
               }).join('')
-            : '<p class="py-2 text-xs text-gray-400">No purchases.</p>';
+            : '<p class="py-2 text-xs text-slate-400">No purchases.</p>';
 
           // Portfolio: group holdings by type
           var byType = {};
@@ -576,12 +576,12 @@
             ? sections.map(function (k) {
                 var rows = byType[k].map(function (o) {
                   return '<div class="flex items-center justify-between py-1.5 last:pb-0">' +
-                    '<span class="min-w-0 truncate text-xs text-gray-500 dark:text-gray-400">' + esc(o.item) + '</span>' +
-                    '<span class="shrink-0 text-xs font-medium text-black dark:text-white">$' + fmtMoney(o.amount) + '</span></div>';
+                    '<span class="min-w-0 truncate text-xs text-slate-500 dark:text-slate-400">' + esc(o.item) + '</span>' +
+                    '<span class="shrink-0 text-xs font-medium text-black dark:text-slate-900 dark:text-white">$' + fmtMoney(o.amount) + '</span></div>';
                 }).join('');
-                return '<div class="mb-3 last:mb-0"><p class="mb-1 text-[11px] font-medium uppercase tracking-wider text-gray-400">' + typeLabels[k] + '</p>' + rows + '</div>';
+                return '<div class="mb-3 last:mb-0"><p class="mb-1 text-[11px] font-medium uppercase tracking-wider text-slate-400">' + typeLabels[k] + '</p>' + rows + '</div>';
               }).join('')
-            : '<p class="py-2 text-xs text-gray-400">No investments or purchases yet.</p>';
+            : '<p class="py-2 text-xs text-slate-400">No investments or purchases yet.</p>';
           if (window.lucide) lucide.createIcons();
         });
       }
@@ -604,7 +604,7 @@
             currentUser.balance = value;
             document.getElementById('u-balance-big').textContent = '$' + fmtMoney(value);
             msg.textContent = 'Balance updated.';
-            msg.className = 'mt-2 text-xs text-[#16a34a]';
+            msg.className = 'mt-2 text-xs text-success';
           } else {
             msg.textContent = r.data.error || 'Update failed.';
             msg.className = 'mt-2 text-xs text-[#b91c1c]';
@@ -650,10 +650,10 @@
             btn.textContent = willBlock ? 'Unblock User' : 'Block User';
             btn.className = willBlock
               ? 'rounded-full bg-[#16a34a] px-5 py-2 text-xs font-medium text-white transition hover:bg-[#15803d]'
-              : 'rounded-full bg-gray-200 px-5 py-2 text-xs font-medium text-navy-950 transition hover:bg-gray-300';
+              : 'rounded-full bg-gray-200 px-5 py-2 text-xs font-medium text-slate-900 transition hover:bg-gray-300';
             if (badge) badge.classList.toggle('hidden', !willBlock);
             msg.textContent = willBlock ? 'User blocked. Their sessions were terminated.' : 'User unblocked.';
-            msg.className = 'text-xs text-[#16a34a]';
+            msg.className = 'text-xs text-success';
             renderUserList();
           } else {
             msg.textContent = r.data.error || 'Action failed.';
@@ -691,7 +691,7 @@
         var plural = { deposits: 'deposits', withdrawals: 'withdrawals', orders: 'orders' }[kind];
         document.getElementById('tx-modal-title').textContent = 'All ' + labels[kind];
         document.getElementById('tx-modal-sub').textContent = currentUser.name + ' — ' + currentUser.email;
-        document.getElementById('tx-modal-body').innerHTML = '<p class="py-8 text-center text-sm text-gray-500 dark:text-gray-400">Loading…</p>';
+        document.getElementById('tx-modal-body').innerHTML = '<p class="py-8 text-center text-sm text-slate-500 dark:text-slate-400">Loading…</p>';
         document.getElementById('tx-modal').classList.remove('hidden');
         document.getElementById('tx-modal').classList.add('flex');
         if (window.lucide) lucide.createIcons();
@@ -701,7 +701,7 @@
           var list = (r.data[plural] || []).filter(function (x) { return x.userId === currentUser.id; });
           var body = document.getElementById('tx-modal-body');
           if (!list.length) {
-            body.innerHTML = '<p class="py-8 text-center text-sm text-gray-500 dark:text-gray-400">No ' + labels[kind].toLowerCase() + ' yet.</p>';
+            body.innerHTML = '<p class="py-8 text-center text-sm text-slate-500 dark:text-slate-400">No ' + labels[kind].toLowerCase() + ' yet.</p>';
             if (window.lucide) lucide.createIcons();
             return;
           }
@@ -709,11 +709,11 @@
             body.innerHTML = list.map(function (o) {
               return '<div class="flex items-center justify-between border-b border-gray-100 py-2.5 last:border-0 dark:border-white/5">' +
                 '<div class="min-w-0">' +
-                  '<p class="truncate text-sm font-medium text-black dark:text-white">' + esc(o.item) + '</p>' +
-                  '<p class="text-xs text-gray-500 dark:text-gray-400">' + fmtDate(o.createdAt) + '</p>' +
+                  '<p class="truncate text-sm font-medium text-black dark:text-slate-900 dark:text-white">' + esc(o.item) + '</p>' +
+                  '<p class="text-xs text-slate-500 dark:text-slate-400">' + fmtDate(o.createdAt) + '</p>' +
                 '</div>' +
                 '<div class="shrink-0 text-right">' +
-                  '<p class="text-sm font-medium text-black dark:text-white">$' + fmtMoney(o.amount) + '</p>' +
+                  '<p class="text-sm font-medium text-black dark:text-slate-900 dark:text-white">$' + fmtMoney(o.amount) + '</p>' +
                   typeBadge(o.type) +
                 '</div>' +
               '</div>';
@@ -736,8 +736,8 @@
             return '<div class="border-b border-gray-100 py-2.5 last:border-0 dark:border-white/5">' +
               '<div class="flex items-center justify-between gap-2">' +
                 '<div class="min-w-0">' +
-                  '<p class="truncate text-sm font-medium text-black dark:text-white">$' + fmtMoney(x.amount) + ' <span class="uppercase text-xs font-normal text-gray-400">' + esc(x.coin) + '</span></p>' +
-                  '<p class="truncate text-xs text-gray-500 dark:text-gray-400">' + fmtDate(x.createdAt) + extra + '</p>' +
+                  '<p class="truncate text-sm font-medium text-black dark:text-slate-900 dark:text-white">$' + fmtMoney(x.amount) + ' <span class="uppercase text-xs font-normal text-slate-400">' + esc(x.coin) + '</span></p>' +
+                  '<p class="truncate text-xs text-slate-500 dark:text-slate-400">' + fmtDate(x.createdAt) + extra + '</p>' +
                 '</div>' +
                 '<div class="shrink-0 text-right">' + statusBadge(x.status) + '</div>' +
               '</div>' + review +
@@ -766,16 +766,16 @@
           var addresses = settings.depositAddresses || {};
           var rates = settings.coinRates || {};
           document.getElementById('settings-coins').innerHTML = SETTINGS_COINS.map(function (c) {
-            return '<div class="rounded-2xl border border-gray-200 bg-gray-50 p-4 dark:border-white/10 dark:bg-white/5">' +
+            return '<div class="rounded-2xl border border-slate-200 bg-gray-50 p-4 dark:border-white/10 dark:bg-white/5">' +
               '<div class="mb-3 flex items-center space-x-3">' +
                 '<img src="../assets/coins/' + c.id + '.png" alt="' + c.name + '" class="h-8 w-8 rounded-full" />' +
-                '<div><p class="text-sm font-medium text-black dark:text-white">' + c.name + '</p>' +
-                '<p class="text-xs text-gray-500 dark:text-gray-400">' + c.network + '</p></div>' +
+                '<div><p class="text-sm font-medium text-black dark:text-slate-900 dark:text-white">' + c.name + '</p>' +
+                '<p class="text-xs text-slate-500 dark:text-slate-400">' + c.network + '</p></div>' +
               '</div>' +
-              '<label class="mb-1 block text-xs font-medium text-gray-600 dark:text-gray-300">Deposit address</label>' +
-              '<input id="addr-' + c.id + '" type="text" value="' + esc(addresses[c.id] || '') + '" spellcheck="false" class="mb-3 w-full rounded-xl border border-gray-300 bg-white px-3 py-2 font-mono text-xs text-black focus:border-tesla focus:outline-none dark:border-gray-600 dark:bg-gray-800 dark:text-white" />' +
-              '<label class="mb-1 block text-xs font-medium text-gray-600 dark:text-gray-300">USD rate (1 ' + c.id.toUpperCase() + ' = $)</label>' +
-              '<input id="rate-' + c.id + '" type="number" min="0.00000001" step="any" value="' + (rates[c.id] || '') + '" class="w-full rounded-xl border border-gray-300 bg-white px-3 py-2 text-sm text-black focus:border-tesla focus:outline-none dark:border-gray-600 dark:bg-gray-800 dark:text-white" />' +
+              '<label class="mb-1 block text-xs font-medium text-slate-600 dark:text-slate-500">Deposit address</label>' +
+              '<input id="addr-' + c.id + '" type="text" value="' + esc(addresses[c.id] || '') + '" spellcheck="false" class="mb-3 w-full rounded-xl border border-gray-300 bg-white px-3 py-2 font-mono text-xs text-black focus:border-tesla focus:outline-none dark:border-gray-600 dark:bg-gray-800 dark:text-slate-900 dark:text-white" />' +
+              '<label class="mb-1 block text-xs font-medium text-slate-600 dark:text-slate-500">USD rate (1 ' + c.id.toUpperCase() + ' = $)</label>' +
+              '<input id="rate-' + c.id + '" type="number" min="0.00000001" step="any" value="' + (rates[c.id] || '') + '" class="w-full rounded-xl border border-gray-300 bg-white px-3 py-2 text-sm text-black focus:border-tesla focus:outline-none dark:border-gray-600 dark:bg-gray-800 dark:text-slate-900 dark:text-white" />' +
               '</div>';
           }).join('');
         });
@@ -805,7 +805,7 @@
             msg.className = 'mb-4 rounded-xl border border-[#bbf7d0] bg-[#f0fdf4] px-4 py-3 text-sm text-[#15803d] dark:border-[#22c55e]/30 dark:bg-[#22c55e]/10 dark:text-[#4ade80]';
           } else {
             msg.textContent = r.data.error || 'Save failed.';
-            msg.className = 'mb-4 rounded-xl border border-[#fecaca] bg-[#fef2f2] px-4 py-3 text-sm text-[#b91c1c] dark:border-[#ef4444]/30 dark:bg-[#ef4444]/10 dark:text-[#f87171]';
+            msg.className = 'mb-4 rounded-xl border border-[#fecaca] bg-[#fef2f2] px-4 py-3 text-sm text-[#b91c1c] dark:border-[#ef4444]/30 dark:bg-[#ef4444]/10 dark:text-danger';
           }
           msg.classList.remove('hidden');
         });

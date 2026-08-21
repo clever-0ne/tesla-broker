@@ -17,32 +17,29 @@
     <link rel="stylesheet" href="/dist/tailwind.css" />
   </head>
 
-  <body class="font-sans antialiased bg-navy-950 text-white">
+  <body class="font-sans antialiased bg-gray-200 text-slate-900 dark:bg-gray-200 dark:text-slate-900">
     <!-- Fixed background: grid lines -->
-    <div
-      aria-hidden="true"
-      class="pointer-events-none fixed inset-0 -z-10 t-gridlines"
-    ></div>
+    </div>
 
     <!-- Blocked overlay -->
-    <div id="blocked-overlay" class="hidden fixed inset-0 z-[90] items-center justify-center p-6 bg-navy-950/90">
-      <div class="w-full max-w-md rounded-2xl border border-red-500/30 bg-navy-900 p-8 shadow-2xl shadow-black/40 text-center">
+    <div id="blocked-overlay" class="hidden fixed inset-0 z-[90] items-center justify-center p-6 bg-slate-950/90">
+      <div class="w-full max-w-md rounded-2xl border border-red-500/30 bg-slate-900 p-8 shadow-2xl shadow-black/40 text-center">
         <div class="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-red-500/10">
           <i data-lucide="shield-off" class="h-6 w-6 text-red-400"></i>
         </div>
-        <h1 class="text-xl font-medium text-white">Account Blocked</h1>
-        <p class="mt-2 text-sm text-gray-300">
+        <h1 class="text-xl font-medium text-slate-900 dark:text-white">Account Blocked</h1>
+        <p class="mt-2 text-sm text-slate-500">
           Your admin access has been restricted. Please contact support to restore access.
         </p>
-        <p class="mt-1 text-sm text-gray-400">
-          Support: <a href="mailto:support@teslaxteam.com" class="text-tesla hover:underline">support@teslaxteam.com</a>
+        <p class="mt-1 text-sm text-slate-400">
+          Support: <a href="mailto:support@teslaxteam.com" class="text-slate-900 hover:underline dark:text-white">support@teslaxteam.com</a>
         </p>
       </div>
     </div>
 
     <main class="flex min-h-screen items-center justify-center p-6">
       <div
-        class="w-full max-w-md rounded-2xl border border-white/10 bg-gradient-to-b from-navy-800 to-navy-900 p-8 shadow-2xl shadow-black/40"
+        class="w-full max-w-md rounded-2xl border border-white/10 bg-gradient-to-b from-slate-800 to-slate-900 p-8 shadow-2xl shadow-black/40"
       >
         <div class="mb-8 text-center">
           <img
@@ -50,12 +47,12 @@
             alt="Tesla XTeam FX Trade"
             class="mx-auto mb-4 h-2 w-auto filter brightness-0 invert"
           />
-          <div class="mb-2 inline-flex items-center rounded-full bg-gray-200 px-3 py-1 text-xs font-medium text-navy-950">
-            <i data-lucide="shield" class="mr-1 h-3 w-3 text-[#7c3aed]"></i>
+          <div class="mb-2 inline-flex items-center rounded-full bg-slate-100 text-slate-900 px-3 py-1 text-xs font-medium">
+            <i data-lucide="shield" class="mr-1 h-3 w-3 text-purple"></i>
             Admin Console
           </div>
           <h1 class="text-xl font-medium">Admin sign in</h1>
-          <p class="mt-1 text-sm text-gray-400">Enter the admin password to access the console.</p>
+          <p class="mt-1 text-sm text-slate-400">Enter the admin password to access the console.</p>
         </div>
 
         <div
@@ -67,7 +64,7 @@
           <div>
             <label
               for="login-password"
-              class="mb-1.5 block text-xs font-medium text-gray-300"
+              class="mb-1.5 block text-xs font-medium text-slate-500"
               >Password</label
             >
             <input
@@ -77,14 +74,14 @@
               required
               autocomplete="current-password"
               placeholder="Admin password"
-              class="w-full rounded-xl border border-gray-600 bg-navy-950 px-4 py-3 text-sm text-white placeholder-gray-500 focus:border-tesla focus:outline-none focus:ring-2 focus:ring-tesla/30"
+              class="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 placeholder:text-slate-400 focus:border-tesla focus:outline-none focus:ring-2 focus:ring-tesla/30"
             />
           </div>
 
           <button
             type="submit"
             id="login-submit"
-            class="w-full rounded-full bg-gray-200 px-6 py-3 text-sm font-medium text-navy-950 shadow-lg shadow-black/30 transition hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 focus:ring-offset-navy-900"
+            class="w-full rounded-full bg-slate-100 text-slate-900 px-6 py-3 text-sm font-medium shadow-lg shadow-black/30 transition hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 focus:ring-offset-navy-900"
           >
             Sign In
           </button>

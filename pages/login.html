@@ -25,16 +25,16 @@
       }
     </style>
   </head>
-  <body class="page-auth text-gray-200 font-sans antialiased">
+  <body class="page-auth text-slate-900 dark:text-slate-100">
     <div class="flex min-h-screen flex-col">
       <!-- Header -->
-      <header class="border-b border-white/10 bg-navy-950/60">
+      <header class="border-b border-slate-200/60 dark:border-white/10 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl">
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div class="flex h-16 items-center justify-between">
             <a href="/pages/index.html" class="flex items-center">
               <img src="/assets/logo.svg" alt="Tesla XTeam FX Trade" class="h-6 w-auto filter brightness-0 invert" />
             </a>
-            <a href="/pages/index.html" class="text-sm text-gray-300 hover:text-white transition">Back to home</a>
+            <a href="/pages/index.html" class="text-sm text-slate-500 hover:text-slate-900 transition dark:text-slate-400 dark:hover:text-white">Back to home</a>
           </div>
         </div>
       </header>
@@ -42,36 +42,36 @@
       <!-- Main -->
       <main class="flex flex-1 items-center justify-center px-4 py-10">
         <div class="w-full max-w-sm">
-          <div class="rounded-2xl border border-white/10 bg-navy-900/60 p-6 shadow-2xl backdrop-blur">
+          <div class="glass-card p-6">
             <div class="mb-6 text-center">
-              <h1 class="text-xl font-bold tracking-tight text-white">Sign In</h1>
-              <p class="mt-1 text-xs text-gray-400">Welcome back. Please enter your details.</p>
+              <h1 class="text-xl font-bold tracking-tight text-slate-900 dark:text-white">Sign In</h1>
+              <p class="mt-1 text-xs text-slate-400">Welcome back. Please enter your details.</p>
             </div>
 
             <form id="login-form" class="space-y-4" novalidate>
               <div>
-                <label for="login-email" class="mb-1 block text-xs font-medium text-gray-300">Email</label>
+                <label for="login-email" class="mb-1 block text-xs font-medium text-slate-500">Email</label>
                 <input id="login-email" type="email" required autocomplete="email" placeholder="you@example.com"
-                  class="w-full rounded-lg border border-white/10 bg-navy-950 px-3 py-2 text-xs text-gray-200 placeholder-gray-500 outline-none transition focus:border-tesla focus:ring-2 focus:ring-tesla/40" />
+                  class="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-xs text-slate-900 placeholder:text-slate-400 outline-none transition focus:border-tesla focus:ring-2 focus:ring-tesla/40" />
               </div>
 
               <div>
-                <label for="login-password" class="mb-1 block text-xs font-medium text-gray-300">Password</label>
+                <label for="login-password" class="mb-1 block text-xs font-medium text-slate-500">Password</label>
                 <input id="login-password" type="password" required autocomplete="current-password" placeholder="••••••••"
-                  class="w-full rounded-lg border border-white/10 bg-navy-950 px-3 py-2 text-xs text-gray-200 placeholder-gray-500 outline-none transition focus:border-tesla focus:ring-2 focus:ring-tesla/40" />
+                  class="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-xs text-slate-900 placeholder:text-slate-400 outline-none transition focus:border-tesla focus:ring-2 focus:ring-tesla/40" />
               </div>
 
               <div id="login-error" class="hidden rounded-lg border border-red-500/30 bg-red-500/10 px-3 py-2 text-xs text-red-200"></div>
 
               <button type="submit" id="login-submit"
-                class="w-full rounded-full bg-tesla px-4 py-2 text-xs font-semibold text-navy-950 shadow-lg transition hover:brightness-110 focus:outline-none focus:ring-2 focus:ring-tesla focus:ring-offset-2 focus:ring-offset-navy-950">
+                class="w-full rounded-full bg-slate-900 text-white px-4 py-2 text-xs font-semibold shadow-lg transition hover:brightness-110 focus:outline-none focus:ring-2 focus:ring-tesla focus:ring-offset-2 focus:ring-offset-navy-950">
                 Sign In
               </button>
             </form>
 
-            <p class="mt-4 text-center text-xs text-gray-400">
+            <p class="mt-4 text-center text-xs text-slate-400">
               Don't have an account?
-              <a href="/pages/signup.html" class="font-medium text-tesla hover:underline">Create Account</a>
+              <a href="/pages/signup.html" class="font-medium text-slate-900 hover:underline dark:text-white">Create Account</a>
             </p>
           </div>
         </div>

@@ -33,28 +33,28 @@
           <div class="mx-auto max-w-7xl">
             <!-- Page heading -->
             <div class="mb-6">
-              <h1 class="text-xl font-medium text-black dark:text-white">Wallet</h1>
-              <p class="text-sm text-gray-500 dark:text-gray-400">Manage your funds, deposits, and withdrawals.</p>
+              <h1 class="text-xl font-medium text-black dark:text-slate-900 dark:text-white">Wallet</h1>
+              <p class="text-sm text-slate-500 dark:text-slate-400">Manage your funds, deposits, and withdrawals.</p>
             </div>
 
             <!-- Balance -->
             <div class="relative mb-6 overflow-hidden rounded-[20px] border border-white/60 bg-white/85 p-6 shadow-[0_20px_40px_-15px_rgba(0,0,0,0.07)]">
               <div class="pointer-events-none absolute inset-0" aria-hidden="true">
                 <div class="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-transparent"></div>
-                <div class="absolute -left-12 top-1/2 h-56 w-56 -translate-y-1/2 t-orb"></div>
-                <div class="absolute -right-12 top-0 h-64 w-64 -translate-y-1/4 t-orb"></div>
+                </div>
+                </div>
               </div>
               <div class="relative z-10 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
                 <div>
-                  <p class="mb-1 text-xs text-gray-300">Available Balance</p>
+                  <p class="mb-1 text-xs text-slate-500">Available Balance</p>
                   <p class="text-3xl font-light" data-balance>$0.00</p>
-                  <p class="mt-1 text-xs text-gray-400">US Dollar</p>
+                  <p class="mt-1 text-xs text-slate-400">US Dollar</p>
                 </div>
                 <div class="flex space-x-2">
-                  <a href="/pages/deposit/deposit.html" class="flex-1 rounded-full bg-white/15 py-2 px-4 text-center text-sm font-medium text-white transition hover:bg-white/25 md:flex-none">
+                  <a href="/pages/deposit/deposit.html" class="flex-1 rounded-full bg-white text-slate-900 py-2 px-4 text-center text-sm font-medium transition hover:bg-slate-100 md:flex-none">
                     <i data-lucide="plus" class="mr-1 inline w-4 h-4"></i>Deposit
                   </a>
-                  <button type="button" onclick="openWithdraw()" class="flex-1 rounded-full bg-white/15 py-2 px-4 text-sm font-medium text-white transition hover:bg-white/25 md:flex-none">
+                  <button type="button" onclick="openWithdraw()" class="flex-1 rounded-full bg-white text-slate-900 py-2 px-4 text-sm font-medium transition hover:bg-slate-100 md:flex-none">
                     <i data-lucide="minus" class="mr-1 inline w-4 h-4"></i>Withdraw
                   </button>
                 </div>
@@ -63,18 +63,18 @@
 
             <div class="grid grid-cols-1 gap-4 lg:grid-cols-3">
               <!-- Recent Transactions -->
-              <div class="rounded-2xl border border-gray-200 bg-gradient-to-b from-white to-gray-50 p-5 shadow-sm lg:col-span-2 dark:border-white/10 dark:bg-gray-900">
+              <div class="rounded-2xl border border-slate-200 bg-gradient-to-b from-white to-gray-50 p-5 shadow-sm lg:col-span-2 dark:border-white/10 dark:bg-slate-800">
                 <div class="mb-4 flex items-center justify-between">
                   <div>
-                    <h2 class="text-lg font-medium text-black dark:text-white">Recent Transactions</h2>
-                    <p class="text-xs text-gray-500 dark:text-gray-400">Deposits, withdrawals, and payments</p>
+                    <h2 class="text-lg font-medium text-black dark:text-slate-900 dark:text-white">Recent Transactions</h2>
+                    <p class="text-xs text-slate-500 dark:text-slate-400">Deposits, withdrawals, and payments</p>
                   </div>
                 </div>
 
                 <div class="overflow-x-auto">
                   <table class="w-full text-left text-sm">
                     <thead>
-                      <tr class="border-b border-gray-200 text-xs uppercase tracking-wider text-gray-500 dark:border-white/10 dark:text-gray-400">
+                      <tr class="border-b border-gray-200 text-xs uppercase tracking-wider text-slate-500 dark:border-white/10 dark:text-slate-400">
                         <th class="pb-3 pr-4 font-medium">Date</th>
                         <th class="pb-3 pr-4 font-medium">Type</th>
                         <th class="pb-3 pr-4 font-medium">Amount</th>
@@ -84,11 +84,11 @@
                     <tbody id="transactions-body">
                       <tr>
                         <td colspan="4" class="pt-8 pb-8 text-center">
-                          <div class="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-gray-100 dark:bg-white/10">
-                            <i data-lucide="receipt" class="w-6 h-6 text-gray-400"></i>
+                          <div class="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full glass-chip">
+                            <i data-lucide="receipt" class="w-6 h-6 text-slate-400"></i>
                           </div>
-                          <p class="text-base font-light text-black dark:text-white">No transactions yet</p>
-                          <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">Your deposits and withdrawals will appear here.</p>
+                          <p class="text-base font-light text-black dark:text-slate-900 dark:text-white">No transactions yet</p>
+                          <p class="mt-1 text-xs text-slate-500 dark:text-slate-400">Your deposits and withdrawals will appear here.</p>
                         </td>
                       </tr>
                     </tbody>
@@ -97,48 +97,48 @@
               </div>
 
               <!-- Payment Methods -->
-              <div class="rounded-2xl border border-gray-200 bg-gradient-to-b from-white to-gray-50 p-5 shadow-sm dark:border-white/10 dark:bg-gray-900">
+              <div class="glass-card p-5">
                 <div class="mb-4">
-                  <h2 class="text-lg font-medium text-black dark:text-white">Payment Methods</h2>
-                  <p class="text-xs text-gray-500 dark:text-gray-400">All deposits are made in cryptocurrency</p>
+                  <h2 class="text-lg font-medium text-black dark:text-slate-900 dark:text-white">Payment Methods</h2>
+                  <p class="text-xs text-slate-500 dark:text-slate-400">All deposits are made in cryptocurrency</p>
                 </div>
 
                 <div class="space-y-2">
-                  <div class="flex items-center justify-between rounded-xl border border-gray-100 px-3 py-2.5 dark:border-white/10">
+                  <div class="flex items-center justify-between rounded-xl border border-slate-200 px-3 py-2.5">
                     <div class="flex items-center space-x-2">
                       <div class="flex h-8 w-8 items-center justify-center overflow-hidden rounded-lg">
                         <img src="/assets/coins/btc.png" alt="BTC" class="h-full w-full object-cover" />
                       </div>
-                      <span class="text-sm text-gray-700 dark:text-gray-300">Bitcoin</span>
+                      <span class="text-sm text-slate-700 dark:text-slate-500">Bitcoin</span>
                     </div>
-                    <a href="deposit.html?coin=btc" class="rounded-full bg-tesla px-3 py-1 text-xs font-medium text-white transition hover:bg-tesla-600 dark:text-black">Deposit</a>
+                    <a href="deposit.html?coin=btc" class="rounded-full bg-slate-900 text-white px-3 py-1 text-xs font-medium transition hover:bg-tesla-600 dark:text-slate-900">Deposit</a>
                   </div>
-                  <div class="flex items-center justify-between rounded-xl border border-gray-100 px-3 py-2.5 dark:border-white/10">
+                  <div class="flex items-center justify-between rounded-xl border border-slate-200 px-3 py-2.5">
                     <div class="flex items-center space-x-2">
                       <div class="flex h-8 w-8 items-center justify-center overflow-hidden rounded-lg">
                         <img src="/assets/coins/eth.png" alt="ETH" class="h-full w-full object-cover" />
                       </div>
-                      <span class="text-sm text-gray-700 dark:text-gray-300">Ethereum</span>
+                      <span class="text-sm text-slate-700 dark:text-slate-500">Ethereum</span>
                     </div>
-                    <a href="deposit.html?coin=eth" class="rounded-full bg-tesla px-3 py-1 text-xs font-medium text-white transition hover:bg-tesla-600 dark:text-black">Deposit</a>
+                    <a href="deposit.html?coin=eth" class="rounded-full bg-slate-900 text-white px-3 py-1 text-xs font-medium transition hover:bg-tesla-600 dark:text-slate-900">Deposit</a>
                   </div>
-                  <div class="flex items-center justify-between rounded-xl border border-gray-100 px-3 py-2.5 dark:border-white/10">
+                  <div class="flex items-center justify-between rounded-xl border border-slate-200 px-3 py-2.5">
                     <div class="flex items-center space-x-2">
                       <div class="flex h-8 w-8 items-center justify-center overflow-hidden rounded-lg">
                         <img src="/assets/coins/usdt.png" alt="USDT" class="h-full w-full object-cover" />
                       </div>
-                      <span class="text-sm text-gray-700 dark:text-gray-300">Tether (USDT)</span>
+                      <span class="text-sm text-slate-700 dark:text-slate-500">Tether (USDT)</span>
                     </div>
-                    <a href="deposit.html?coin=usdt" class="rounded-full bg-tesla px-3 py-1 text-xs font-medium text-white transition hover:bg-tesla-600 dark:text-black">Deposit</a>
+                    <a href="deposit.html?coin=usdt" class="rounded-full bg-slate-900 text-white px-3 py-1 text-xs font-medium transition hover:bg-tesla-600 dark:text-slate-900">Deposit</a>
                   </div>
-                  <div class="flex items-center justify-between rounded-xl border border-gray-100 px-3 py-2.5 dark:border-white/10">
+                  <div class="flex items-center justify-between rounded-xl border border-slate-200 px-3 py-2.5">
                     <div class="flex items-center space-x-2">
                       <div class="flex h-8 w-8 items-center justify-center overflow-hidden rounded-lg">
                         <img src="/assets/coins/sol.png" alt="SOL" class="h-full w-full object-cover" />
                       </div>
-                      <span class="text-sm text-gray-700 dark:text-gray-300">Solana</span>
+                      <span class="text-sm text-slate-700 dark:text-slate-500">Solana</span>
                     </div>
-                    <a href="deposit.html?coin=sol" class="rounded-full bg-tesla px-3 py-1 text-xs font-medium text-white transition hover:bg-tesla-600 dark:text-black">Deposit</a>
+                    <a href="deposit.html?coin=sol" class="rounded-full bg-slate-900 text-white px-3 py-1 text-xs font-medium transition hover:bg-tesla-600 dark:text-slate-900">Deposit</a>
                   </div>
                 </div>
 
@@ -155,13 +155,13 @@
     <!-- Withdraw Modal -->
     <div id="withdraw-modal" class="fixed inset-0 z-[100] hidden items-center justify-center p-4">
       <div class="absolute inset-0 bg-black/70" onclick="closeWithdraw()"></div>
-      <div class="relative w-full max-w-md overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-2xl dark:border-white/10 dark:bg-navy-900">
+      <div class="relative w-full max-w-md overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-2xl dark:border-white/10 dark:bg-slate-900">
         <div class="flex items-center justify-between border-b border-gray-200 px-5 py-4 dark:border-white/10">
           <div>
-            <h3 class="text-base font-medium text-black dark:text-white">Withdraw Funds</h3>
-            <p class="text-xs text-gray-500 dark:text-gray-400">Requests are reviewed by an admin before processing</p>
+            <h3 class="text-base font-medium text-black dark:text-slate-900 dark:text-white">Withdraw Funds</h3>
+            <p class="text-xs text-slate-500 dark:text-slate-400">Requests are reviewed by an admin before processing</p>
           </div>
-          <button type="button" onclick="closeWithdraw()" class="rounded-full p-1.5 text-gray-500 transition hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-white/10" aria-label="Close">
+          <button type="button" onclick="closeWithdraw()" class="rounded-full p-1.5 text-slate-500 transition hover:bg-gray-100 dark:text-slate-400 dark:hover:bg-white/10" aria-label="Close">
             <i data-lucide="x" class="w-4 h-4"></i>
           </button>
         </div>
@@ -185,7 +185,7 @@
         });
       }
       function statusBadge(status) {
-        var color = status === 'approved' ? 'bg-[#e8f7ee] text-[#166534]'
+        var color = status === 'approved' ? 'bg-success-bg text-[#166534]'
           : status === 'pending' ? 'bg-[#fff3e7] text-[#9a3412]'
           : status === 'rejected' ? 'bg-[#fceceb] text-[#b91c1c]'
           : 'bg-[#e9f0fc] text-[#1e40af]';
@@ -234,9 +234,9 @@
             if (body && rows.length) {
               body.innerHTML = rows.map(function (t) {
                 return '<tr class="border-b border-gray-100 dark:border-white/5">' +
-                  '<td class="py-3 pr-4 text-xs text-gray-500 dark:text-gray-400">' + fmtDate(t.createdAt) + '</td>' +
-                  '<td class="py-3 pr-4"><span class="text-xs font-medium text-black dark:text-white">' + esc(t.type) + '</span><p class="text-xs text-gray-500 dark:text-gray-400">' + esc(t.label) + '</p></td>' +
-                  '<td class="py-3 pr-4 font-medium text-black dark:text-white">' + t.sign + '$' + fmtMoney(t.amount) + '</td>' +
+                  '<td class="py-3 pr-4 text-xs text-slate-500 dark:text-slate-400">' + fmtDate(t.createdAt) + '</td>' +
+                  '<td class="py-3 pr-4"><span class="text-xs font-medium text-black dark:text-slate-900 dark:text-white">' + esc(t.type) + '</span><p class="text-xs text-slate-500 dark:text-slate-400">' + esc(t.label) + '</p></td>' +
+                  '<td class="py-3 pr-4 font-medium text-black dark:text-slate-900 dark:text-white">' + t.sign + '$' + fmtMoney(t.amount) + '</td>' +
                   '<td class="py-3">' + statusBadge(t.status) + '</td></tr>';
               }).join('');
             }
@@ -272,26 +272,26 @@
         var bal = withdrawBalance();
         document.getElementById('withdraw-body').innerHTML =
           '<div class="space-y-4">' +
-            '<div class="rounded-xl border border-gray-100 bg-gray-50 p-3 text-xs text-gray-500 dark:border-white/10 dark:bg-white/5 dark:text-gray-400">' +
-              'Available balance: <span class="font-medium text-black dark:text-white">$' + fmtMoney(bal) + '</span>' +
+            '<div class="rounded-xl border border-slate-100 bg-gray-50 p-3 text-xs text-slate-500 dark:border-white/10 dark:bg-white/5 dark:text-slate-400">' +
+              'Available balance: <span class="font-medium text-black dark:text-slate-900 dark:text-white">$' + fmtMoney(bal) + '</span>' +
             '</div>' +
             '<div>' +
-              '<label for="wd-amount" class="mb-1 block text-xs font-medium text-gray-600 dark:text-gray-300">Amount (USD)</label>' +
-              '<input id="wd-amount" type="number" min="1" step="0.01" placeholder="0.00" class="w-full rounded-xl border border-gray-200 bg-white px-3 py-2.5 text-sm text-black focus:border-tesla focus:outline-none dark:border-white/10 dark:bg-gray-900 dark:text-white dark:placeholder:text-gray-500" />' +
+              '<label for="wd-amount" class="mb-1 block text-xs font-medium text-slate-600 dark:text-slate-500">Amount (USD)</label>' +
+              '<input id="wd-amount" type="number" min="1" step="0.01" placeholder="0.00" class="w-full rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-sm text-black focus:border-tesla focus:outline-none dark:border-white/10 dark:bg-slate-800 dark:text-white dark:placeholder:text-slate-500" />' +
             '</div>' +
             '<div>' +
-              '<label for="wd-coin" class="mb-1 block text-xs font-medium text-gray-600 dark:text-gray-300">Cryptocurrency</label>' +
-              '<select id="wd-coin" class="w-full rounded-xl border border-gray-200 bg-white px-3 py-2.5 text-sm text-black focus:border-tesla focus:outline-none dark:border-white/10 dark:bg-gray-900 dark:text-white">' +
+              '<label for="wd-coin" class="mb-1 block text-xs font-medium text-slate-600 dark:text-slate-500">Cryptocurrency</label>' +
+              '<select id="wd-coin" class="w-full rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-sm text-black focus:border-tesla focus:outline-none dark:border-white/10 dark:bg-slate-800 dark:text-slate-900 dark:text-white">' +
                 WITHDRAW_COINS.map(function (c) { return '<option value="' + c.id + '">' + c.name + ' (' + c.network + ')</option>'; }).join('') +
               '</select>' +
             '</div>' +
             '<div>' +
-              '<label for="wd-address" class="mb-1 block text-xs font-medium text-gray-600 dark:text-gray-300">Destination address</label>' +
-              '<input id="wd-address" type="text" spellcheck="false" placeholder="Enter the address that will receive the funds" class="w-full rounded-xl border border-gray-200 bg-white px-3 py-2.5 text-sm text-black focus:border-tesla focus:outline-none dark:border-white/10 dark:bg-gray-900 dark:text-white dark:placeholder:text-gray-500" />' +
+              '<label for="wd-address" class="mb-1 block text-xs font-medium text-slate-600 dark:text-slate-500">Destination address</label>' +
+              '<input id="wd-address" type="text" spellcheck="false" placeholder="Enter the address that will receive the funds" class="w-full rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-sm text-black focus:border-tesla focus:outline-none dark:border-white/10 dark:bg-slate-800 dark:text-white dark:placeholder:text-slate-500" />' +
             '</div>' +
             '<div id="wd-msg" class="hidden rounded-xl px-3 py-2 text-xs"></div>' +
-            '<button type="button" onclick="submitWithdrawal()" class="w-full rounded-full bg-tesla py-2.5 text-sm font-medium text-white transition hover:bg-tesla-600 dark:text-black">Request Withdrawal</button>' +
-            '<p class="text-center text-[11px] text-gray-400 dark:text-gray-500">Your balance is debited once the request is approved.</p>' +
+            '<button type="button" onclick="submitWithdrawal()" class="w-full rounded-full bg-slate-900 text-white py-2.5 text-sm font-medium transition hover:bg-tesla-600 dark:text-slate-900">Request Withdrawal</button>' +
+            '<p class="text-center text-[11px] text-slate-400 dark:text-slate-500">Your balance is debited once the request is approved.</p>' +
           '</div>';
         document.getElementById('withdraw-modal').classList.remove('hidden');
         document.getElementById('withdraw-modal').classList.add('flex');
@@ -312,8 +312,8 @@
         function showMsg(text, ok) {
           msg.textContent = text;
           msg.className = 'rounded-xl px-3 py-2 text-xs ' + (ok
-            ? 'bg-[#e8f7ee] text-[#166534] dark:bg-[#22c55e]/10 dark:text-[#4ade80]'
-            : 'bg-[#fef2f2] text-[#b91c1c] dark:bg-[#ef4444]/10 dark:text-[#f87171]');
+            ? 'bg-success-bg text-[#166534] dark:bg-[#22c55e]/10 dark:text-[#4ade80]'
+            : 'bg-[#fef2f2] text-[#b91c1c] dark:bg-[#ef4444]/10 dark:text-danger');
           msg.classList.remove('hidden');
         }
 
@@ -335,12 +335,12 @@
           }
           document.getElementById('withdraw-body').innerHTML =
             '<div class="py-8 text-center">' +
-              '<div class="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-tesla/10">' +
+              '<div class="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full glass-chip">' +
                 '<i data-lucide="check" class="w-7 h-7 text-tesla"></i>' +
               '</div>' +
-              '<h4 class="mb-1 text-base font-medium text-black dark:text-white">Withdrawal requested</h4>' +
-              '<p class="mb-5 text-xs leading-relaxed text-gray-500 dark:text-gray-400">Your request of <span class="font-medium text-black dark:text-white">$' + fmtMoney(amount) + '</span> in ' + coin.toUpperCase() + ' is awaiting approval. You will be notified once it is reviewed.</p>' +
-              '<button type="button" onclick="closeWithdraw()" class="w-full rounded-full bg-navy-900 py-2.5 text-sm font-medium text-white transition hover:bg-navy-800 dark:bg-white dark:text-black dark:hover:bg-gray-200">Close</button>' +
+              '<h4 class="mb-1 text-base font-medium text-black dark:text-slate-900 dark:text-white">Withdrawal requested</h4>' +
+              '<p class="mb-5 text-xs leading-relaxed text-slate-500 dark:text-slate-400">Your request of <span class="font-medium text-black dark:text-slate-900 dark:text-white">$' + fmtMoney(amount) + '</span> in ' + coin.toUpperCase() + ' is awaiting approval. You will be notified once it is reviewed.</p>' +
+              '<button type="button" onclick="closeWithdraw()" class="w-full rounded-full bg-slate-900 py-2.5 text-sm font-medium text-white transition hover:bg-slate-800 dark:bg-white dark:text-black dark:hover:bg-gray-200">Close</button>' +
             '</div>';
           if (window.lucide) lucide.createIcons();
           if (window.FX) FX.refresh();

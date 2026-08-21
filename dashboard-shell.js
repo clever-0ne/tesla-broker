@@ -76,29 +76,29 @@
     return link;
   }
   /* ---- Sidebar markup ---- */
-  var SIDEBAR_BASE_CLS = 'fixed inset-y-0 left-0 z-50 w-72 transform -translate-x-full transition-transform duration-300 ease-in-out lg:translate-x-0 bg-white/70 dark:bg-white/10 border-r border-black/5 dark:border-white/10 backdrop-blur-xl';
+  var SIDEBAR_BASE_CLS = 'fixed inset-y-0 left-0 z-50 w-72 transform -translate-x-full transition-transform duration-300 ease-in-out lg:translate-x-0 bg-white/90 dark:bg-slate-900 border-r border-slate-200/60 dark:border-white/10 backdrop-blur-xl';
   var sidebar =
     '<div id="sidebar-overlay" class="fixed inset-0 z-40 bg-black/40 lg:hidden hidden" onclick="toggleSidebar()"></div>' +
     '<aside id="sidebar" class="' + SIDEBAR_BASE_CLS + '">' +
       '<div class="flex flex-col h-full">' +
-        '<div class="flex items-center justify-between h-16 px-6 border-b border-white/10">' +
+        '<div class="flex items-center justify-between h-16 px-6 border-b border-slate-200/60 dark:border-white/10">' +
           '<a href="' + url('/pages/index.html') + '" class="flex items-center">' +
-            '<img src="' + url('/assets/logo.svg') + '" alt="Tesla XTeam FX Trade" class="h-2 w-auto filter brightness-0 invert" />' +
+            '<img src="' + url('/assets/logo.svg') + '" alt="Tesla XTeam FX Trade" class="h-2 w-auto" />' +
           '</a>' +
-          '<button onclick="toggleSidebar()" class="p-1.5 rounded-full text-gray-400 transition hover:bg-white/10 lg:hidden" aria-label="Close menu">' +
+          '<button onclick="toggleSidebar()" class="p-1.5 rounded-full text-slate-500 transition hover:bg-slate-100 dark:hover:bg-white/10 lg:hidden" aria-label="Close menu">' +
             '<i data-lucide="x" class="w-4 h-4"></i>' +
           '</button>' +
         '</div>' +
-        '<div class="px-6 py-4 border-b border-white/10">' +
+        '<div class="px-6 py-4 border-b border-slate-200/60 dark:border-white/10">' +
           '<div class="flex items-center space-x-3">' +
-            '<div class="flex w-12 h-12 items-center justify-center rounded-xl bg-gradient-to-br from-gray-200 to-gray-300 shadow-sm">' +
+            '<div class="flex w-12 h-12 items-center justify-center rounded-xl glass-chip">' +
               '<span id="sidebar-avatar-initial" class="text-sm font-semibold text-slate-900">&bull;</span>' +
               '</div>' +
               '<div class="flex-1 min-w-0">' +
                 '<p id="sidebar-user-name" class="text-sm font-semibold text-slate-900 truncate">Loading&hellip;</p>' +
                 '<p id="sidebar-user-email" class="text-xs text-slate-500 truncate">&nbsp;</p>' +
                 '<div class="mt-1">' +
-                  '<span class="inline-flex items-center rounded-full bg-slate-900/10 px-2 py-0.5 text-xs font-semibold text-slate-700 dark:bg-white/10 dark:text-gray-200">' +
+                  '<span class="inline-flex items-center rounded-full bg-slate-900/10 px-2 py-0.5 text-xs font-semibold text-slate-700 dark:bg-white/10 dark:text-slate-200">' +
                     '<i data-lucide="user" class="w-3 h-3 mr-1"></i><span id="sidebar-kyc-label">&hellip;</span>' +
                   '</span>' +
                 '</div>' +
@@ -106,10 +106,10 @@
           '</div>' +
         '</div>' +
         '<nav class="flex-1 px-4 py-4 space-y-1 overflow-y-auto">' + NAV.map(navLink).join('') + '</nav>' +
-        '<div class="p-4 border-t border-white/10">' +
+        '<div class="p-4 border-t border-slate-200/60 dark:border-white/10">' +
           '<div class="flex items-center justify-between">' +
-            '<span class="text-sm font-medium text-gray-300">Logout</span>' +
-            '<button type="button" onclick="logout()" class="flex items-center rounded-full p-2 text-gray-300 transition hover:bg-white/10" title="Sign Out">' +
+            '<span class="text-sm font-medium text-slate-700">Logout</span>' +
+            '<button type="button" onclick="logout()" class="flex items-center rounded-full p-2 text-slate-700 transition hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-white/10" title="Sign Out">' +
               '<i data-lucide="log-out" class="w-4 h-4"></i>' +
             '</button>' +
           '</div>' +
@@ -148,8 +148,8 @@
               '<i data-lucide="bell" class="w-5 h-5"></i>' +
               '<span id="notification-badge" class="absolute -top-0.5 -right-0.5 hidden h-4 w-4 items-center justify-center rounded-full bg-slate-900 text-[10px] font-semibold text-white">0</span>' +
             '</button>' +
-            '<div id="notifications-dropdown" class="absolute right-0 z-50 mt-2 hidden w-80 overflow-hidden rounded-2xl border border-black/5 bg-white shadow-2xl dark:border-white/10 dark:bg-navy-900">' +
-              '<div class="border-b border-black/5 p-3 dark:border-white/10">' +
+            '<div id="notifications-dropdown" class="absolute right-0 z-50 mt-2 hidden w-80 overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-2xl dark:border-white/10 dark:bg-slate-900">' +
+              '<div class="border-b border-slate-200 p-3 dark:border-white/10">' +
                 '<h3 class="text-sm font-semibold text-slate-900 dark:text-white">Notifications</h3>' +
               '</div>' +
               '<div id="notifications-list" class="max-h-64 overflow-y-auto">' +
@@ -175,11 +175,11 @@
   /* ---- Mobile bottom nav markup ---- */
   function bottomItem(item) {
     if (item.page === CURRENT) {
-      return '<a href="' + item.href + '" class="flex flex-col items-center rounded-xl glass-chip px-3 py-1.5 text-slate-900">' +
+      return '<a href="' + item.href + '" class="flex flex-col items-center rounded-xl bg-slate-900 px-3 py-1.5 text-white shadow-lg shadow-slate-900/20">' +
         '<div class="relative"><i data-lucide="' + item.icon + '" class="mb-1 w-5 h-5"></i></div>' +
         '<span class="text-[11px] font-semibold">' + item.label + '</span></a>';
     }
-    return '<a href="' + item.href + '" class="flex flex-col items-center rounded-xl px-3 py-1.5 text-slate-500 transition hover:bg-black/5">' +
+    return '<a href="' + item.href + '" class="flex flex-col items-center rounded-xl px-3 py-1.5 text-slate-500 transition hover:bg-slate-100 dark:hover:bg-white/10">' +
       '<i data-lucide="' + item.icon + '" class="mb-1 w-5 h-5"></i><span class="text-[11px] font-semibold">' + item.label + '</span></a>';
   }
 
@@ -217,13 +217,13 @@
   var paymentModalHtml =
     '<div id="payment-modal" class="fixed inset-0 z-[100] hidden items-center justify-center p-4">' +
       '<div class="absolute inset-0 bg-black/70" onclick="closePayment()"></div>' +
-      '<div class="relative w-full max-w-md overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-2xl dark:border-white/10 dark:bg-navy-900">' +
-        '<div class="flex items-center justify-between border-b border-gray-200 px-5 py-4 dark:border-white/10">' +
+      '<div class="relative w-full max-w-md overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-2xl dark:border-white/10 dark:bg-slate-900">' +
+        '<div class="flex items-center justify-between border-b border-slate-200 px-5 py-4 dark:border-white/10">' +
           '<div>' +
-            '<h3 id="payment-title" class="text-base font-medium text-black dark:text-white">Deposit</h3>' +
-            '<p id="payment-subtitle" class="text-xs text-gray-500 dark:text-gray-400">All deposits are made in cryptocurrency</p>' +
+            '<h3 id="payment-title" class="text-base font-semibold text-slate-900 dark:text-white">Deposit</h3>' +
+            '<p id="payment-subtitle" class="text-xs text-slate-500 dark:text-slate-400">All deposits are made in cryptocurrency</p>' +
           '</div>' +
-          '<button type="button" onclick="closePayment()" class="rounded-full p-1.5 text-gray-500 transition hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-white/10" aria-label="Close">' +
+          '<button type="button" onclick="closePayment()" class="rounded-full p-1.5 text-slate-500 transition hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-white/10" aria-label="Close">' +
             '<i data-lucide="x" class="w-4 h-4"></i>' +
           '</button>' +
         '</div>' +
@@ -407,7 +407,7 @@
           '</div>' +
           '<h4 class="mb-1 text-base font-medium text-black dark:text-white">' + pendingTitle + '</h4>' +
           '<p class="mb-5 text-xs leading-relaxed text-gray-500 dark:text-gray-400">' + pendingMsg + '</p>' +
-          '<button type="button" onclick="closePayment()" class="w-full rounded-full bg-navy-900 py-2.5 text-sm font-medium text-white transition hover:bg-navy-800 dark:bg-white dark:text-black dark:hover:bg-gray-200">Close</button>' +
+          '<button type="button" onclick="closePayment()" class="w-full rounded-full bg-slate-900 py-2.5 text-sm font-medium text-white transition hover:bg-slate-800 dark:bg-white dark:text-black dark:hover:bg-slate-200">Close</button>' +
         '</div>';
     }
 
@@ -509,7 +509,7 @@
   };
 
   var footerHtml =
-    '<footer class="border-t border-white/10 bg-navy-950 mt-auto">' +
+    '<footer class="border-t border-white/10 bg-slate-900 mt-auto">' +
       '<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">' +
         '<div class="flex flex-col md:flex-row items-center justify-between gap-3">' +
           '<p class="text-xs text-gray-500">&copy; 2026 Tesla XTeam FX Trade. All rights reserved.</p>' +

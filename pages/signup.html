@@ -16,16 +16,16 @@
     <!-- Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
   </head>
-  <body class="bg-navy-950 text-white font-sans antialiased">
+  <body class="bg-slate-950 text-white font-sans antialiased">
     <div class="flex min-h-screen flex-col">
       <!-- Header -->
-      <header class="border-b border-white/10">
+      <header class="border-b border-slate-200/60 dark:border-white/10">
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div class="flex h-16 items-center justify-between">
             <a href="/pages/index.html" class="flex items-center">
               <img src="/assets/logo.svg" alt="Tesla XTeam FX Trade" class="h-6 w-auto filter brightness-0 invert" />
             </a>
-            <a href="/pages/index.html" class="text-sm text-gray-300 hover:text-white transition">Back to home</a>
+            <a href="/pages/index.html" class="text-sm text-slate-500 hover:text-slate-900 transition dark:text-slate-400 dark:hover:text-white">Back to home</a>
           </div>
         </div>
       </header>
@@ -33,55 +33,55 @@
       <!-- Main -->
       <main class="flex flex-1 items-center justify-center px-4 py-10">
         <div class="w-full max-w-sm">
-          <div class="rounded-2xl border border-white/10 bg-navy-900/50 p-6 shadow-2xl backdrop-blur">
+          <div class="glass-card p-6">
             <div class="mb-6 text-center">
               <h1 class="text-xl font-bold tracking-tight">Create Account</h1>
-              <p class="mt-1 text-xs text-gray-400">Start your journey in minutes.</p>
+              <p class="mt-1 text-xs text-slate-400">Start your journey in minutes.</p>
             </div>
 
             <form id="signup-form" class="space-y-4" novalidate>
               <div>
-                <label for="signup-name" class="mb-1 block text-xs font-medium text-gray-300">Full Name</label>
+                <label for="signup-name" class="mb-1 block text-xs font-medium text-slate-500">Full Name</label>
                 <input id="signup-name" type="text" required autocomplete="name" placeholder="Your full name"
-                  class="w-full rounded-lg border border-white/10 bg-navy-950 px-3 py-2 text-xs text-white placeholder-gray-500 outline-none transition focus:border-tesla focus:ring-2 focus:ring-tesla/40" />
+                  class="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-xs text-slate-900 placeholder:text-slate-400 outline-none transition focus:border-slate-900 focus:ring-2 focus:ring-slate-200" />
               </div>
 
               <div>
-                <label for="signup-email" class="mb-1 block text-xs font-medium text-gray-300">Email</label>
+                <label for="signup-email" class="mb-1 block text-xs font-medium text-slate-500">Email</label>
                 <input id="signup-email" type="email" required autocomplete="email" placeholder="you@example.com"
-                  class="w-full rounded-lg border border-white/10 bg-navy-950 px-3 py-2 text-xs text-white placeholder-gray-500 outline-none transition focus:border-tesla focus:ring-2 focus:ring-tesla/40" />
+                  class="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-xs text-slate-900 placeholder:text-slate-400 outline-none transition focus:border-slate-900 focus:ring-2 focus:ring-slate-200" />
               </div>
 
               <div>
-                <label for="signup-password" class="mb-1 block text-xs font-medium text-gray-300">Password</label>
+                <label for="signup-password" class="mb-1 block text-xs font-medium text-slate-500">Password</label>
                 <input id="signup-password" type="password" required autocomplete="new-password" placeholder="Min 8 characters"
-                  class="w-full rounded-lg border border-white/10 bg-navy-950 px-3 py-2 text-xs text-white placeholder-gray-500 outline-none transition focus:border-tesla focus:ring-2 focus:ring-tesla/40" />
+                  class="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-xs text-slate-900 placeholder:text-slate-400 outline-none transition focus:border-slate-900 focus:ring-2 focus:ring-slate-200" />
               </div>
 
               <div>
-                <label for="signup-password-confirm" class="mb-1 block text-xs font-medium text-gray-300">Confirm Password</label>
+                <label for="signup-password-confirm" class="mb-1 block text-xs font-medium text-slate-500">Confirm Password</label>
                 <input id="signup-password-confirm" type="password" required autocomplete="new-password" placeholder="Repeat password"
-                  class="w-full rounded-lg border border-white/10 bg-navy-950 px-3 py-2 text-xs text-white placeholder-gray-500 outline-none transition focus:border-tesla focus:ring-2 focus:ring-tesla/40" />
+                  class="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-xs text-slate-900 placeholder:text-slate-400 outline-none transition focus:border-slate-900 focus:ring-2 focus:ring-slate-200" />
               </div>
 
               <div class="flex items-start gap-2">
-                <input id="signup-terms" type="checkbox" required class="mt-0.5 h-4 w-4 rounded border-white/20 bg-navy-950 text-tesla focus:ring-tesla" />
-                <label for="signup-terms" class="text-xs text-gray-300">
-                  I agree to the <a href="/pages/terms.html" class="text-tesla hover:underline">Terms</a> and <a href="/pages/privacy.html" class="text-tesla hover:underline">Privacy Policy</a>.
+                <input id="signup-terms" type="checkbox" required class="mt-0.5 h-4 w-4 rounded border-slate-300 bg-white text-slate-900 focus:ring-tesla" />
+                <label for="signup-terms" class="text-xs text-slate-500">
+                  I agree to the <a href="/pages/terms.html" class="text-slate-900 hover:underline dark:text-white">Terms</a> and <a href="/pages/privacy.html" class="text-slate-900 hover:underline dark:text-white">Privacy Policy</a>.
                 </label>
               </div>
 
               <div id="signup-error" class="hidden rounded-lg border border-red-500/30 bg-red-500/10 px-3 py-2 text-xs text-red-200"></div>
 
               <button type="submit" id="signup-submit"
-                class="w-full rounded-full bg-tesla px-4 py-2 text-xs font-semibold text-navy-950 shadow-lg transition hover:brightness-110 focus:outline-none focus:ring-2 focus:ring-tesla focus:ring-offset-2 focus:ring-offset-navy-950">
+                class="w-full rounded-full bg-slate-900 text-white px-4 py-2 text-xs font-semibold shadow-lg transition hover:brightness-110 focus:outline-none focus:ring-2 focus:ring-tesla focus:ring-offset-2 focus:ring-offset-navy-950">
                 Create Account
               </button>
             </form>
 
-            <p class="mt-4 text-center text-xs text-gray-400">
+            <p class="mt-4 text-center text-xs text-slate-400">
               Already have an account?
-              <a href="/pages/login.html" class="font-medium text-tesla hover:underline">Sign In</a>
+              <a href="/pages/login.html" class="font-medium text-slate-900 hover:underline dark:text-white">Sign In</a>
             </p>
           </div>
         </div>

@@ -76,30 +76,30 @@
               <div class="p-4">
                 <button type="button" onclick="toggleFilters()" class="flex w-full items-center justify-between text-left">
                   <div class="flex items-center">
-                    <i data-lucide="filter" class="mr-2 w-4 h-4 text-gray-600 dark:text-gray-300"></i>
-                    <span class="text-sm font-medium text-black dark:text-white">Search &amp; Filters</span>
+                    <i data-lucide="filter" class="mr-2 w-4 h-4 text-slate-600 dark:text-slate-500"></i>
+                    <span class="text-sm font-medium text-black dark:text-slate-900 dark:text-white">Search &amp; Filters</span>
                   </div>
-                  <i data-lucide="chevron-down" id="filterIcon" class="w-4 h-4 text-gray-600 transition-transform duration-200 dark:text-gray-300"></i>
+                  <i data-lucide="chevron-down" id="filterIcon" class="w-4 h-4 text-slate-600 transition-transform duration-200 dark:text-slate-500"></i>
                 </button>
               </div>
 
-              <div id="filterSection" class="hidden border-t border-gray-100 dark:border-white/10">
+              <div id="filterSection" class="hidden border-t border-slate-100 dark:border-white/10">
                 <form id="plan-filters" class="p-6" novalidate>
                   <div class="grid grid-cols-1 gap-4 md:grid-cols-4">
                     <!-- Search -->
                     <div class="md:col-span-2">
-                      <label for="search" class="mb-2 block text-xs font-medium text-gray-600 dark:text-gray-300">Search Plans</label>
+                      <label for="search" class="mb-2 block text-xs font-medium text-slate-600 dark:text-slate-500">Search Plans</label>
                       <div class="relative">
-                        <i data-lucide="search" class="absolute left-3 top-1/2 w-4 h-4 -translate-y-1/2 text-gray-400"></i>
+                        <i data-lucide="search" class="absolute left-3 top-1/2 w-4 h-4 -translate-y-1/2 text-slate-400"></i>
                         <input type="text" id="search" name="search" placeholder="Search by name, category, or description"
-                          class="w-full rounded-xl border border-gray-200 bg-white py-2.5 pl-10 pr-4 text-sm text-black transition focus:border-black focus:outline-none dark:border-white/10 dark:bg-gray-900 dark:text-white dark:focus:border-white" />
+                          class="w-full rounded-xl border border-slate-200 bg-white py-2.5 pl-10 pr-4 text-sm text-black transition focus:border-black focus:outline-none dark:border-white/10 dark:bg-slate-800 dark:text-white dark:focus:border-white" />
                       </div>
                     </div>
 
                     <!-- Category Filter -->
                     <div>
-                      <label for="category" class="mb-2 block text-xs font-medium text-gray-600 dark:text-gray-300">Category</label>
-                      <select id="category" name="category" class="w-full rounded-xl border border-gray-200 bg-white px-3 py-2.5 text-sm text-black focus:border-black focus:outline-none dark:border-white/10 dark:bg-gray-900 dark:text-white">
+                      <label for="category" class="mb-2 block text-xs font-medium text-slate-600 dark:text-slate-500">Category</label>
+                      <select id="category" name="category" class="w-full rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-sm text-black focus:border-black focus:outline-none dark:border-white/10 dark:bg-slate-800 dark:text-slate-900 dark:text-white">
                         <option value="">All Categories</option>
                         <option value="Conservative">Conservative</option>
                         <option value="Income">Income</option>
@@ -112,8 +112,8 @@
 
                     <!-- Risk Level Filter -->
                     <div>
-                      <label for="risk_level" class="mb-2 block text-xs font-medium text-gray-600 dark:text-gray-300">Risk Level</label>
-                      <select id="risk_level" name="risk_level" class="w-full rounded-xl border border-gray-200 bg-white px-3 py-2.5 text-sm text-black focus:border-black focus:outline-none dark:border-white/10 dark:bg-gray-900 dark:text-white">
+                      <label for="risk_level" class="mb-2 block text-xs font-medium text-slate-600 dark:text-slate-500">Risk Level</label>
+                      <select id="risk_level" name="risk_level" class="w-full rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-sm text-black focus:border-black focus:outline-none dark:border-white/10 dark:bg-slate-800 dark:text-slate-900 dark:text-white">
                         <option value="">All Risk Levels</option>
                         <option value="conservative">Conservative</option>
                         <option value="moderate">Moderate</option>
@@ -123,8 +123,8 @@
 
                     <!-- Sort By -->
                     <div>
-                      <label for="sort" class="mb-2 block text-xs font-medium text-gray-600 dark:text-gray-300">Sort By</label>
-                      <select id="sort" name="sort" class="w-full rounded-xl border border-gray-200 bg-white px-3 py-2.5 text-sm text-black focus:border-black focus:outline-none dark:border-white/10 dark:bg-gray-900 dark:text-white">
+                      <label for="sort" class="mb-2 block text-xs font-medium text-slate-600 dark:text-slate-500">Sort By</label>
+                      <select id="sort" name="sort" class="w-full rounded-xl border border-slate-200 bg-white px-3 py-2.5 text-sm text-black focus:border-black focus:outline-none dark:border-white/10 dark:bg-slate-800 dark:text-slate-900 dark:text-white">
                         <option value="name">Name A-Z</option>
                         <option value="performance">Best Performance</option>
                         <option value="nav">Lowest NAV</option>
@@ -152,10 +152,10 @@
             <div class="mb-8">
               <div class="mb-4 flex items-center justify-between">
                 <div>
-                  <h2 class="text-lg font-light text-black dark:text-white">Featured Plans</h2>
-                  <p class="text-xs text-gray-500 dark:text-gray-400">Curated funds aligned with Tesla's mission</p>
+                  <h2 class="text-lg font-light text-black dark:text-slate-900 dark:text-white">Featured Plans</h2>
+                  <p class="text-xs text-slate-500 dark:text-slate-400">Curated funds aligned with Tesla's mission</p>
                 </div>
-                <button type="button" onclick="document.getElementById('all-plans').scrollIntoView({ behavior: 'smooth' })" class="inline-flex items-center text-xs font-medium text-black hover:underline dark:text-white">
+                <button type="button" onclick="document.getElementById('all-plans').scrollIntoView({ behavior: 'smooth' })" class="inline-flex items-center text-xs font-medium text-black hover:underline dark:text-slate-900 dark:text-white">
                   View All Featured
                   <i data-lucide="arrow-right" class="ml-1 inline w-3 h-3"></i>
                 </button>
@@ -167,34 +167,34 @@
                   <div class="mb-4 flex items-start justify-between gap-3">
                     <div class="flex items-center gap-3">
                       <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-[#f3edfc]">
-                        <i data-lucide="rocket" class="w-5 h-5 text-[#7c3aed]"></i>
+                        <i data-lucide="rocket" class="w-5 h-5 text-purple"></i>
                       </div>
                       <div>
-                        <h3 class="font-medium text-black dark:text-white">Tesla Growth Fund</h3>
-                        <p class="text-sm text-gray-600 dark:text-gray-400">Tesla-Focused</p>
+                        <h3 class="font-medium text-black dark:text-slate-900 dark:text-white">Tesla Growth Fund</h3>
+                        <p class="text-sm text-slate-600 dark:text-slate-400">Tesla-Focused</p>
                       </div>
                     </div>
-                    <span class="shrink-0 rounded-full bg-black px-2.5 py-0.5 text-[11px] font-medium text-white dark:bg-white dark:text-black">High</span>
+                    <span class="shrink-0 rounded-full bg-black px-2.5 py-0.5 text-[11px] font-medium text-white dark:bg-white dark:text-slate-900">High</span>
                   </div>
 
                   <div class="mb-4 space-y-3">
-                    <div class="flex justify-between"><span class="text-sm text-gray-500 dark:text-gray-400">Current NAV:</span><span class="text-sm font-medium text-[#7c3aed] dark:text-[#c4b5fd]">$900,000.0000</span></div>
-                    <div class="flex justify-between"><span class="text-sm text-gray-500 dark:text-gray-400">1Y Return:</span><span class="text-sm font-medium text-[#16a34a] dark:text-[#4ade80]">+28.57%</span></div>
-                    <div class="flex justify-between"><span class="text-sm text-gray-500 dark:text-gray-400">Min Investment:</span><span class="text-sm font-medium text-black dark:text-white">$100.00</span></div>
+                    <div class="flex justify-between"><span class="text-sm text-slate-500 dark:text-slate-400">Current NAV:</span><span class="text-sm font-medium text-purple dark:text-[#c4b5fd]">$900,000.0000</span></div>
+                    <div class="flex justify-between"><span class="text-sm text-slate-500 dark:text-slate-400">1Y Return:</span><span class="text-sm font-medium text-success dark:text-[#4ade80]">+28.57%</span></div>
+                    <div class="flex justify-between"><span class="text-sm text-slate-500 dark:text-slate-400">Min Investment:</span><span class="text-sm font-medium text-black dark:text-slate-900 dark:text-white">$100.00</span></div>
                   </div>
 
                   <div class="mt-auto flex items-center justify-between gap-3">
-                    <button type="button" onclick="toggleFundDetails('details-21')" class="inline-flex items-center text-xs font-medium text-black transition hover:opacity-70 dark:text-white">
+                    <button type="button" onclick="toggleFundDetails('details-21')" class="inline-flex items-center text-xs font-medium text-black transition hover:opacity-70 dark:text-slate-900 dark:text-white">
                       <span>View Details</span>
                       <i data-lucide="arrow-right" class="ml-1 w-3 h-3"></i>
                     </button>
                     <button type="button" onclick="goToInvestment(this)" class="rounded-full bg-black px-3 py-1.5 text-xs font-medium text-white transition hover:bg-gray-700 dark:bg-white dark:text-black dark:hover:bg-gray-200">Invest Now</button>
                   </div>
 
-                  <div id="details-21" class="mt-4 hidden space-y-2 rounded-xl bg-gray-50 p-4 text-xs text-gray-500 dark:bg-white/5 dark:text-gray-400">
-                    <div class="flex justify-between"><span>Fund type</span><span class="font-medium text-gray-700 dark:text-gray-300">Tesla-Focused</span></div>
-                    <div class="flex justify-between"><span>Risk profile</span><span class="font-medium text-gray-700 dark:text-gray-300">High</span></div>
-                    <div class="flex justify-between"><span>Investment term</span><span class="font-medium text-gray-700 dark:text-gray-300">Flexible</span></div>
+                  <div id="details-21" class="mt-4 hidden space-y-2 rounded-xl bg-gray-50 p-4 text-xs text-slate-500 dark:bg-white/5 dark:text-slate-400">
+                    <div class="flex justify-between"><span>Fund type</span><span class="font-medium text-slate-700 dark:text-slate-500">Tesla-Focused</span></div>
+                    <div class="flex justify-between"><span>Risk profile</span><span class="font-medium text-slate-700 dark:text-slate-500">High</span></div>
+                    <div class="flex justify-between"><span>Investment term</span><span class="font-medium text-slate-700 dark:text-slate-500">Flexible</span></div>
                   </div>
                 </div>
 
@@ -203,34 +203,34 @@
                   <div class="mb-4 flex items-start justify-between gap-3">
                     <div class="flex items-center gap-3">
                       <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-[#f3edfc]">
-                        <i data-lucide="leaf" class="w-5 h-5 text-[#7c3aed]"></i>
+                        <i data-lucide="leaf" class="w-5 h-5 text-purple"></i>
                       </div>
                       <div>
-                        <h3 class="font-medium text-black dark:text-white">Sustainable Energy ETF</h3>
-                        <p class="text-sm text-gray-600 dark:text-gray-400">ESG</p>
+                        <h3 class="font-medium text-black dark:text-slate-900 dark:text-white">Sustainable Energy ETF</h3>
+                        <p class="text-sm text-slate-600 dark:text-slate-400">ESG</p>
                       </div>
                     </div>
-                    <span class="shrink-0 rounded-full border border-gray-300 px-2.5 py-0.5 text-[11px] font-medium text-gray-600 dark:border-white/15 dark:text-gray-300">Medium</span>
+                    <span class="shrink-0 rounded-full border border-gray-300 px-2.5 py-0.5 text-[11px] font-medium text-slate-600 dark:border-white/15 dark:text-slate-500">Medium</span>
                   </div>
 
                   <div class="mb-4 space-y-3">
-                    <div class="flex justify-between"><span class="text-sm text-gray-500 dark:text-gray-400">Current NAV:</span><span class="text-sm font-medium text-[#7c3aed] dark:text-[#c4b5fd]">$18.7500</span></div>
-                    <div class="flex justify-between"><span class="text-sm text-gray-500 dark:text-gray-400">1Y Return:</span><span class="text-sm font-medium text-[#16a34a] dark:text-[#4ade80]">+0.00%</span></div>
-                    <div class="flex justify-between"><span class="text-sm text-gray-500 dark:text-gray-400">Min Investment:</span><span class="text-sm font-medium text-black dark:text-white">$50.00</span></div>
+                    <div class="flex justify-between"><span class="text-sm text-slate-500 dark:text-slate-400">Current NAV:</span><span class="text-sm font-medium text-purple dark:text-[#c4b5fd]">$18.7500</span></div>
+                    <div class="flex justify-between"><span class="text-sm text-slate-500 dark:text-slate-400">1Y Return:</span><span class="text-sm font-medium text-success dark:text-[#4ade80]">+0.00%</span></div>
+                    <div class="flex justify-between"><span class="text-sm text-slate-500 dark:text-slate-400">Min Investment:</span><span class="text-sm font-medium text-black dark:text-slate-900 dark:text-white">$50.00</span></div>
                   </div>
 
                   <div class="mt-auto flex items-center justify-between gap-3">
-                    <button type="button" onclick="toggleFundDetails('details-22')" class="inline-flex items-center text-xs font-medium text-black transition hover:opacity-70 dark:text-white">
+                    <button type="button" onclick="toggleFundDetails('details-22')" class="inline-flex items-center text-xs font-medium text-black transition hover:opacity-70 dark:text-slate-900 dark:text-white">
                       <span>View Details</span>
                       <i data-lucide="arrow-right" class="ml-1 w-3 h-3"></i>
                     </button>
                     <button type="button" onclick="goToInvestment(this)" class="rounded-full bg-black px-3 py-1.5 text-xs font-medium text-white transition hover:bg-gray-700 dark:bg-white dark:text-black dark:hover:bg-gray-200">Invest Now</button>
                   </div>
 
-                  <div id="details-22" class="mt-4 hidden space-y-2 rounded-xl bg-gray-50 p-4 text-xs text-gray-500 dark:bg-white/5 dark:text-gray-400">
-                    <div class="flex justify-between"><span>Fund type</span><span class="font-medium text-gray-700 dark:text-gray-300">ESG</span></div>
-                    <div class="flex justify-between"><span>Risk profile</span><span class="font-medium text-gray-700 dark:text-gray-300">Medium</span></div>
-                    <div class="flex justify-between"><span>Investment term</span><span class="font-medium text-gray-700 dark:text-gray-300">Flexible</span></div>
+                  <div id="details-22" class="mt-4 hidden space-y-2 rounded-xl bg-gray-50 p-4 text-xs text-slate-500 dark:bg-white/5 dark:text-slate-400">
+                    <div class="flex justify-between"><span>Fund type</span><span class="font-medium text-slate-700 dark:text-slate-500">ESG</span></div>
+                    <div class="flex justify-between"><span>Risk profile</span><span class="font-medium text-slate-700 dark:text-slate-500">Medium</span></div>
+                    <div class="flex justify-between"><span>Investment term</span><span class="font-medium text-slate-700 dark:text-slate-500">Flexible</span></div>
                   </div>
                 </div>
 
@@ -239,34 +239,34 @@
                   <div class="mb-4 flex items-start justify-between gap-3">
                     <div class="flex items-center gap-3">
                       <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-[#f3edfc]">
-                        <i data-lucide="trending-up" class="w-5 h-5 text-[#7c3aed]"></i>
+                        <i data-lucide="trending-up" class="w-5 h-5 text-purple"></i>
                       </div>
                       <div>
-                        <h3 class="font-medium text-black dark:text-white">Aggressive Growth Fund</h3>
-                        <p class="text-sm text-gray-600 dark:text-gray-400">Growth</p>
+                        <h3 class="font-medium text-black dark:text-slate-900 dark:text-white">Aggressive Growth Fund</h3>
+                        <p class="text-sm text-slate-600 dark:text-slate-400">Growth</p>
                       </div>
                     </div>
-                    <span class="shrink-0 rounded-full bg-black px-2.5 py-0.5 text-[11px] font-medium text-white dark:bg-white dark:text-black">High</span>
+                    <span class="shrink-0 rounded-full bg-black px-2.5 py-0.5 text-[11px] font-medium text-white dark:bg-white dark:text-slate-900">High</span>
                   </div>
 
                   <div class="mb-4 space-y-3">
-                    <div class="flex justify-between"><span class="text-sm text-gray-500 dark:text-gray-400">Current NAV:</span><span class="text-sm font-medium text-[#7c3aed] dark:text-[#c4b5fd]">$30.4560</span></div>
-                    <div class="flex justify-between"><span class="text-sm text-gray-500 dark:text-gray-400">1Y Return:</span><span class="text-sm font-medium text-[#16a34a] dark:text-[#4ade80]">+0.00%</span></div>
-                    <div class="flex justify-between"><span class="text-sm text-gray-500 dark:text-gray-400">Min Investment:</span><span class="text-sm font-medium text-black dark:text-white">$200.00</span></div>
+                    <div class="flex justify-between"><span class="text-sm text-slate-500 dark:text-slate-400">Current NAV:</span><span class="text-sm font-medium text-purple dark:text-[#c4b5fd]">$30.4560</span></div>
+                    <div class="flex justify-between"><span class="text-sm text-slate-500 dark:text-slate-400">1Y Return:</span><span class="text-sm font-medium text-success dark:text-[#4ade80]">+0.00%</span></div>
+                    <div class="flex justify-between"><span class="text-sm text-slate-500 dark:text-slate-400">Min Investment:</span><span class="text-sm font-medium text-black dark:text-slate-900 dark:text-white">$200.00</span></div>
                   </div>
 
                   <div class="mt-auto flex items-center justify-between gap-3">
-                    <button type="button" onclick="toggleFundDetails('details-25')" class="inline-flex items-center text-xs font-medium text-black transition hover:opacity-70 dark:text-white">
+                    <button type="button" onclick="toggleFundDetails('details-25')" class="inline-flex items-center text-xs font-medium text-black transition hover:opacity-70 dark:text-slate-900 dark:text-white">
                       <span>View Details</span>
                       <i data-lucide="arrow-right" class="ml-1 w-3 h-3"></i>
                     </button>
                     <button type="button" onclick="goToInvestment(this)" class="rounded-full bg-black px-3 py-1.5 text-xs font-medium text-white transition hover:bg-gray-700 dark:bg-white dark:text-black dark:hover:bg-gray-200">Invest Now</button>
                   </div>
 
-                  <div id="details-25" class="mt-4 hidden space-y-2 rounded-xl bg-gray-50 p-4 text-xs text-gray-500 dark:bg-white/5 dark:text-gray-400">
-                    <div class="flex justify-between"><span>Fund type</span><span class="font-medium text-gray-700 dark:text-gray-300">Growth</span></div>
-                    <div class="flex justify-between"><span>Risk profile</span><span class="font-medium text-gray-700 dark:text-gray-300">High</span></div>
-                    <div class="flex justify-between"><span>Investment term</span><span class="font-medium text-gray-700 dark:text-gray-300">Flexible</span></div>
+                  <div id="details-25" class="mt-4 hidden space-y-2 rounded-xl bg-gray-50 p-4 text-xs text-slate-500 dark:bg-white/5 dark:text-slate-400">
+                    <div class="flex justify-between"><span>Fund type</span><span class="font-medium text-slate-700 dark:text-slate-500">Growth</span></div>
+                    <div class="flex justify-between"><span>Risk profile</span><span class="font-medium text-slate-700 dark:text-slate-500">High</span></div>
+                    <div class="flex justify-between"><span>Investment term</span><span class="font-medium text-slate-700 dark:text-slate-500">Flexible</span></div>
                   </div>
                 </div>
               </div>
@@ -276,10 +276,10 @@
             <div id="all-plans" class="t-card p-5">
               <div class="mb-4 flex items-center justify-between">
                 <div>
-                  <h3 class="mb-1 text-lg font-light text-black dark:text-white">All Investment Plans</h3>
-                  <p class="text-xs text-gray-500 dark:text-gray-400">Showing <span id="plan-count">0</span> of <span id="plan-total">0</span> plans</p>
+                  <h3 class="mb-1 text-lg font-light text-black dark:text-slate-900 dark:text-white">All Investment Plans</h3>
+                  <p class="text-xs text-slate-500 dark:text-slate-400">Showing <span id="plan-count">0</span> of <span id="plan-total">0</span> plans</p>
                 </div>
-                <span class="rounded-full bg-gray-100 px-2 py-0.5 text-xs font-medium text-gray-500 dark:bg-white/10 dark:text-gray-400">Black &amp; White theme</span>
+                <span class="rounded-full bg-gray-100 px-2 py-0.5 text-xs font-medium text-slate-500 dark:bg-white/10 dark:text-slate-400">Black &amp; White theme</span>
               </div>
 
               <div class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3" id="all-plans-grid">
@@ -287,24 +287,24 @@
                 <div class="rounded-xl border border-white/60 bg-gray-50 p-4 transition hover:bg-gray-100 dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10" data-plan data-name="Aggressive Growth Fund" data-min="200" data-category="Growth" data-risk="High" data-nav="30.456" data-return="0">
                   <div class="mb-3 flex items-start justify-between gap-2">
                     <div class="flex-1">
-                      <h4 class="mb-1 text-sm font-medium text-black dark:text-white">Aggressive Growth Fund</h4>
-                      <p class="text-xs text-gray-600 dark:text-gray-400">Growth</p>
+                      <h4 class="mb-1 text-sm font-medium text-black dark:text-slate-900 dark:text-white">Aggressive Growth Fund</h4>
+                      <p class="text-xs text-slate-600 dark:text-slate-400">Growth</p>
                     </div>
-                    <span class="inline-flex shrink-0 items-center rounded-full bg-black px-2 py-0.5 text-[11px] font-medium text-white dark:bg-white dark:text-black">High</span>
+                    <span class="inline-flex shrink-0 items-center rounded-full bg-black px-2 py-0.5 text-[11px] font-medium text-white dark:bg-white dark:text-slate-900">High</span>
                   </div>
                   <div class="mb-3 space-y-2">
-                    <div class="flex justify-between"><span class="text-xs text-gray-500 dark:text-gray-400">NAV:</span><span class="text-xs font-medium text-black dark:text-white">$30.4560</span></div>
-                    <div class="flex justify-between"><span class="text-xs text-gray-500 dark:text-gray-400">Return:</span><span class="text-xs font-medium text-black dark:text-white">+0.00%</span></div>
-                    <div class="flex justify-between"><span class="text-xs text-gray-500 dark:text-gray-400">Min:</span><span class="text-xs font-medium text-black dark:text-white">$200</span></div>
+                    <div class="flex justify-between"><span class="text-xs text-slate-500 dark:text-slate-400">NAV:</span><span class="text-xs font-medium text-black dark:text-slate-900 dark:text-white">$30.4560</span></div>
+                    <div class="flex justify-between"><span class="text-xs text-slate-500 dark:text-slate-400">Return:</span><span class="text-xs font-medium text-black dark:text-slate-900 dark:text-white">+0.00%</span></div>
+                    <div class="flex justify-between"><span class="text-xs text-slate-500 dark:text-slate-400">Min:</span><span class="text-xs font-medium text-black dark:text-slate-900 dark:text-white">$200</span></div>
                   </div>
                   <div class="flex items-center justify-between">
-                    <button type="button" onclick="toggleFundDetails('mini-25')" class="text-xs text-black transition hover:opacity-70 dark:text-white">View Details</button>
+                    <button type="button" onclick="toggleFundDetails('mini-25')" class="text-xs text-black transition hover:opacity-70 dark:text-slate-900 dark:text-white">View Details</button>
                     <button type="button" onclick="goToInvestment(this)" class="rounded-full bg-black px-2.5 py-1 text-xs font-medium text-white transition hover:bg-gray-700 dark:bg-white dark:text-black dark:hover:bg-gray-200">Invest</button>
                   </div>
-                  <div id="mini-25" class="mt-3 hidden space-y-1.5 border-t border-gray-200 pt-3 text-xs text-gray-500 dark:border-white/10 dark:text-gray-400">
-                    <p>Category: <span class="font-medium text-gray-700 dark:text-gray-300">Growth</span></p>
-                    <p>Risk profile: <span class="font-medium text-gray-700 dark:text-gray-300">High</span></p>
-                    <p>Investment term: <span class="font-medium text-gray-700 dark:text-gray-300">Flexible</span></p>
+                  <div id="mini-25" class="mt-3 hidden space-y-1.5 border-t border-gray-200 pt-3 text-xs text-slate-500 dark:border-white/10 dark:text-slate-400">
+                    <p>Category: <span class="font-medium text-slate-700 dark:text-slate-500">Growth</span></p>
+                    <p>Risk profile: <span class="font-medium text-slate-700 dark:text-slate-500">High</span></p>
+                    <p>Investment term: <span class="font-medium text-slate-700 dark:text-slate-500">Flexible</span></p>
                   </div>
                 </div>
 
@@ -312,24 +312,24 @@
                 <div class="rounded-xl border border-white/60 bg-gray-50 p-4 transition hover:bg-gray-100 dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10" data-plan data-name="Conservative Bond Fund" data-min="750" data-category="Conservative" data-risk="Low" data-nav="10.45" data-return="0">
                   <div class="mb-3 flex items-start justify-between gap-2">
                     <div class="flex-1">
-                      <h4 class="mb-1 text-sm font-medium text-black dark:text-white">Conservative Bond Fund</h4>
-                      <p class="text-xs text-gray-600 dark:text-gray-400">Conservative</p>
+                      <h4 class="mb-1 text-sm font-medium text-black dark:text-slate-900 dark:text-white">Conservative Bond Fund</h4>
+                      <p class="text-xs text-slate-600 dark:text-slate-400">Conservative</p>
                     </div>
-                    <span class="inline-flex shrink-0 items-center rounded-full bg-gray-200 px-2 py-0.5 text-[11px] font-medium text-gray-700 dark:bg-white/15 dark:text-gray-300">Low</span>
+                    <span class="inline-flex shrink-0 items-center rounded-full bg-gray-200 px-2 py-0.5 text-[11px] font-medium text-slate-700 dark:bg-white/15 dark:text-slate-500">Low</span>
                   </div>
                   <div class="mb-3 space-y-2">
-                    <div class="flex justify-between"><span class="text-xs text-gray-500 dark:text-gray-400">NAV:</span><span class="text-xs font-medium text-black dark:text-white">$10.4500</span></div>
-                    <div class="flex justify-between"><span class="text-xs text-gray-500 dark:text-gray-400">Return:</span><span class="text-xs font-medium text-black dark:text-white">+0.00%</span></div>
-                    <div class="flex justify-between"><span class="text-xs text-gray-500 dark:text-gray-400">Min:</span><span class="text-xs font-medium text-black dark:text-white">$750</span></div>
+                    <div class="flex justify-between"><span class="text-xs text-slate-500 dark:text-slate-400">NAV:</span><span class="text-xs font-medium text-black dark:text-slate-900 dark:text-white">$10.4500</span></div>
+                    <div class="flex justify-between"><span class="text-xs text-slate-500 dark:text-slate-400">Return:</span><span class="text-xs font-medium text-black dark:text-slate-900 dark:text-white">+0.00%</span></div>
+                    <div class="flex justify-between"><span class="text-xs text-slate-500 dark:text-slate-400">Min:</span><span class="text-xs font-medium text-black dark:text-slate-900 dark:text-white">$750</span></div>
                   </div>
                   <div class="flex items-center justify-between">
-                    <button type="button" onclick="toggleFundDetails('mini-30')" class="text-xs text-black transition hover:opacity-70 dark:text-white">View Details</button>
+                    <button type="button" onclick="toggleFundDetails('mini-30')" class="text-xs text-black transition hover:opacity-70 dark:text-slate-900 dark:text-white">View Details</button>
                     <button type="button" onclick="goToInvestment(this)" class="rounded-full bg-black px-2.5 py-1 text-xs font-medium text-white transition hover:bg-gray-700 dark:bg-white dark:text-black dark:hover:bg-gray-200">Invest</button>
                   </div>
-                  <div id="mini-30" class="mt-3 hidden space-y-1.5 border-t border-gray-200 pt-3 text-xs text-gray-500 dark:border-white/10 dark:text-gray-400">
-                    <p>Category: <span class="font-medium text-gray-700 dark:text-gray-300">Conservative</span></p>
-                    <p>Risk profile: <span class="font-medium text-gray-700 dark:text-gray-300">Low</span></p>
-                    <p>Investment term: <span class="font-medium text-gray-700 dark:text-gray-300">Flexible</span></p>
+                  <div id="mini-30" class="mt-3 hidden space-y-1.5 border-t border-gray-200 pt-3 text-xs text-slate-500 dark:border-white/10 dark:text-slate-400">
+                    <p>Category: <span class="font-medium text-slate-700 dark:text-slate-500">Conservative</span></p>
+                    <p>Risk profile: <span class="font-medium text-slate-700 dark:text-slate-500">Low</span></p>
+                    <p>Investment term: <span class="font-medium text-slate-700 dark:text-slate-500">Flexible</span></p>
                   </div>
                 </div>
 
@@ -337,24 +337,24 @@
                 <div class="rounded-xl border border-white/60 bg-gray-50 p-4 transition hover:bg-gray-100 dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10" data-plan data-name="Conservative Income Fund" data-min="500" data-category="Income" data-risk="Low" data-nav="12.8" data-return="0">
                   <div class="mb-3 flex items-start justify-between gap-2">
                     <div class="flex-1">
-                      <h4 class="mb-1 text-sm font-medium text-black dark:text-white">Conservative Income Fund</h4>
-                      <p class="text-xs text-gray-600 dark:text-gray-400">Income</p>
+                      <h4 class="mb-1 text-sm font-medium text-black dark:text-slate-900 dark:text-white">Conservative Income Fund</h4>
+                      <p class="text-xs text-slate-600 dark:text-slate-400">Income</p>
                     </div>
-                    <span class="inline-flex shrink-0 items-center rounded-full bg-gray-200 px-2 py-0.5 text-[11px] font-medium text-gray-700 dark:bg-white/15 dark:text-gray-300">Low</span>
+                    <span class="inline-flex shrink-0 items-center rounded-full bg-gray-200 px-2 py-0.5 text-[11px] font-medium text-slate-700 dark:bg-white/15 dark:text-slate-500">Low</span>
                   </div>
                   <div class="mb-3 space-y-2">
-                    <div class="flex justify-between"><span class="text-xs text-gray-500 dark:text-gray-400">NAV:</span><span class="text-xs font-medium text-black dark:text-white">$12.8000</span></div>
-                    <div class="flex justify-between"><span class="text-xs text-gray-500 dark:text-gray-400">Return:</span><span class="text-xs font-medium text-black dark:text-white">+0.00%</span></div>
-                    <div class="flex justify-between"><span class="text-xs text-gray-500 dark:text-gray-400">Min:</span><span class="text-xs font-medium text-black dark:text-white">$500</span></div>
+                    <div class="flex justify-between"><span class="text-xs text-slate-500 dark:text-slate-400">NAV:</span><span class="text-xs font-medium text-black dark:text-slate-900 dark:text-white">$12.8000</span></div>
+                    <div class="flex justify-between"><span class="text-xs text-slate-500 dark:text-slate-400">Return:</span><span class="text-xs font-medium text-black dark:text-slate-900 dark:text-white">+0.00%</span></div>
+                    <div class="flex justify-between"><span class="text-xs text-slate-500 dark:text-slate-400">Min:</span><span class="text-xs font-medium text-black dark:text-slate-900 dark:text-white">$500</span></div>
                   </div>
                   <div class="flex items-center justify-between">
-                    <button type="button" onclick="toggleFundDetails('mini-24')" class="text-xs text-black transition hover:opacity-70 dark:text-white">View Details</button>
+                    <button type="button" onclick="toggleFundDetails('mini-24')" class="text-xs text-black transition hover:opacity-70 dark:text-slate-900 dark:text-white">View Details</button>
                     <button type="button" onclick="goToInvestment(this)" class="rounded-full bg-black px-2.5 py-1 text-xs font-medium text-white transition hover:bg-gray-700 dark:bg-white dark:text-black dark:hover:bg-gray-200">Invest</button>
                   </div>
-                  <div id="mini-24" class="mt-3 hidden space-y-1.5 border-t border-gray-200 pt-3 text-xs text-gray-500 dark:border-white/10 dark:text-gray-400">
-                    <p>Category: <span class="font-medium text-gray-700 dark:text-gray-300">Income</span></p>
-                    <p>Risk profile: <span class="font-medium text-gray-700 dark:text-gray-300">Low</span></p>
-                    <p>Investment term: <span class="font-medium text-gray-700 dark:text-gray-300">Flexible</span></p>
+                  <div id="mini-24" class="mt-3 hidden space-y-1.5 border-t border-gray-200 pt-3 text-xs text-slate-500 dark:border-white/10 dark:text-slate-400">
+                    <p>Category: <span class="font-medium text-slate-700 dark:text-slate-500">Income</span></p>
+                    <p>Risk profile: <span class="font-medium text-slate-700 dark:text-slate-500">Low</span></p>
+                    <p>Investment term: <span class="font-medium text-slate-700 dark:text-slate-500">Flexible</span></p>
                   </div>
                 </div>
 
@@ -362,24 +362,24 @@
                 <div class="rounded-xl border border-white/60 bg-gray-50 p-4 transition hover:bg-gray-100 dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10" data-plan data-name="Dividend Income Fund" data-min="1000" data-category="Income" data-risk="Medium" data-nav="14.6" data-return="0">
                   <div class="mb-3 flex items-start justify-between gap-2">
                     <div class="flex-1">
-                      <h4 class="mb-1 text-sm font-medium text-black dark:text-white">Dividend Income Fund</h4>
-                      <p class="text-xs text-gray-600 dark:text-gray-400">Income</p>
+                      <h4 class="mb-1 text-sm font-medium text-black dark:text-slate-900 dark:text-white">Dividend Income Fund</h4>
+                      <p class="text-xs text-slate-600 dark:text-slate-400">Income</p>
                     </div>
-                    <span class="inline-flex shrink-0 items-center rounded-full border border-gray-300 px-2 py-0.5 text-[11px] font-medium text-gray-600 dark:border-white/15 dark:text-gray-300">Medium</span>
+                    <span class="inline-flex shrink-0 items-center rounded-full border border-gray-300 px-2 py-0.5 text-[11px] font-medium text-slate-600 dark:border-white/15 dark:text-slate-500">Medium</span>
                   </div>
                   <div class="mb-3 space-y-2">
-                    <div class="flex justify-between"><span class="text-xs text-gray-500 dark:text-gray-400">NAV:</span><span class="text-xs font-medium text-black dark:text-white">$14.6000</span></div>
-                    <div class="flex justify-between"><span class="text-xs text-gray-500 dark:text-gray-400">Return:</span><span class="text-xs font-medium text-black dark:text-white">+0.00%</span></div>
-                    <div class="flex justify-between"><span class="text-xs text-gray-500 dark:text-gray-400">Min:</span><span class="text-xs font-medium text-black dark:text-white">$1,000</span></div>
+                    <div class="flex justify-between"><span class="text-xs text-slate-500 dark:text-slate-400">NAV:</span><span class="text-xs font-medium text-black dark:text-slate-900 dark:text-white">$14.6000</span></div>
+                    <div class="flex justify-between"><span class="text-xs text-slate-500 dark:text-slate-400">Return:</span><span class="text-xs font-medium text-black dark:text-slate-900 dark:text-white">+0.00%</span></div>
+                    <div class="flex justify-between"><span class="text-xs text-slate-500 dark:text-slate-400">Min:</span><span class="text-xs font-medium text-black dark:text-slate-900 dark:text-white">$1,000</span></div>
                   </div>
                   <div class="flex items-center justify-between">
-                    <button type="button" onclick="toggleFundDetails('mini-28')" class="text-xs text-black transition hover:opacity-70 dark:text-white">View Details</button>
+                    <button type="button" onclick="toggleFundDetails('mini-28')" class="text-xs text-black transition hover:opacity-70 dark:text-slate-900 dark:text-white">View Details</button>
                     <button type="button" onclick="goToInvestment(this)" class="rounded-full bg-black px-2.5 py-1 text-xs font-medium text-white transition hover:bg-gray-700 dark:bg-white dark:text-black dark:hover:bg-gray-200">Invest</button>
                   </div>
-                  <div id="mini-28" class="mt-3 hidden space-y-1.5 border-t border-gray-200 pt-3 text-xs text-gray-500 dark:border-white/10 dark:text-gray-400">
-                    <p>Category: <span class="font-medium text-gray-700 dark:text-gray-300">Income</span></p>
-                    <p>Risk profile: <span class="font-medium text-gray-700 dark:text-gray-300">Medium</span></p>
-                    <p>Investment term: <span class="font-medium text-gray-700 dark:text-gray-300">Flexible</span></p>
+                  <div id="mini-28" class="mt-3 hidden space-y-1.5 border-t border-gray-200 pt-3 text-xs text-slate-500 dark:border-white/10 dark:text-slate-400">
+                    <p>Category: <span class="font-medium text-slate-700 dark:text-slate-500">Income</span></p>
+                    <p>Risk profile: <span class="font-medium text-slate-700 dark:text-slate-500">Medium</span></p>
+                    <p>Investment term: <span class="font-medium text-slate-700 dark:text-slate-500">Flexible</span></p>
                   </div>
                 </div>
 
@@ -387,24 +387,24 @@
                 <div class="rounded-xl border border-white/60 bg-gray-50 p-4 transition hover:bg-gray-100 dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10" data-plan data-name="ESG Balanced Fund" data-min="150" data-category="Balanced" data-risk="Medium" data-nav="22.15" data-return="0">
                   <div class="mb-3 flex items-start justify-between gap-2">
                     <div class="flex-1">
-                      <h4 class="mb-1 text-sm font-medium text-black dark:text-white">ESG Balanced Fund</h4>
-                      <p class="text-xs text-gray-600 dark:text-gray-400">Balanced</p>
+                      <h4 class="mb-1 text-sm font-medium text-black dark:text-slate-900 dark:text-white">ESG Balanced Fund</h4>
+                      <p class="text-xs text-slate-600 dark:text-slate-400">Balanced</p>
                     </div>
-                    <span class="inline-flex shrink-0 items-center rounded-full border border-gray-300 px-2 py-0.5 text-[11px] font-medium text-gray-600 dark:border-white/15 dark:text-gray-300">Medium</span>
+                    <span class="inline-flex shrink-0 items-center rounded-full border border-gray-300 px-2 py-0.5 text-[11px] font-medium text-slate-600 dark:border-white/15 dark:text-slate-500">Medium</span>
                   </div>
                   <div class="mb-3 space-y-2">
-                    <div class="flex justify-between"><span class="text-xs text-gray-500 dark:text-gray-400">NAV:</span><span class="text-xs font-medium text-black dark:text-white">$22.1500</span></div>
-                    <div class="flex justify-between"><span class="text-xs text-gray-500 dark:text-gray-400">Return:</span><span class="text-xs font-medium text-black dark:text-white">+0.00%</span></div>
-                    <div class="flex justify-between"><span class="text-xs text-gray-500 dark:text-gray-400">Min:</span><span class="text-xs font-medium text-black dark:text-white">$150</span></div>
+                    <div class="flex justify-between"><span class="text-xs text-slate-500 dark:text-slate-400">NAV:</span><span class="text-xs font-medium text-black dark:text-slate-900 dark:text-white">$22.1500</span></div>
+                    <div class="flex justify-between"><span class="text-xs text-slate-500 dark:text-slate-400">Return:</span><span class="text-xs font-medium text-black dark:text-slate-900 dark:text-white">+0.00%</span></div>
+                    <div class="flex justify-between"><span class="text-xs text-slate-500 dark:text-slate-400">Min:</span><span class="text-xs font-medium text-black dark:text-slate-900 dark:text-white">$150</span></div>
                   </div>
                   <div class="flex items-center justify-between">
-                    <button type="button" onclick="toggleFundDetails('mini-26')" class="text-xs text-black transition hover:opacity-70 dark:text-white">View Details</button>
+                    <button type="button" onclick="toggleFundDetails('mini-26')" class="text-xs text-black transition hover:opacity-70 dark:text-slate-900 dark:text-white">View Details</button>
                     <button type="button" onclick="goToInvestment(this)" class="rounded-full bg-black px-2.5 py-1 text-xs font-medium text-white transition hover:bg-gray-700 dark:bg-white dark:text-black dark:hover:bg-gray-200">Invest</button>
                   </div>
-                  <div id="mini-26" class="mt-3 hidden space-y-1.5 border-t border-gray-200 pt-3 text-xs text-gray-500 dark:border-white/10 dark:text-gray-400">
-                    <p>Category: <span class="font-medium text-gray-700 dark:text-gray-300">Balanced</span></p>
-                    <p>Risk profile: <span class="font-medium text-gray-700 dark:text-gray-300">Medium</span></p>
-                    <p>Investment term: <span class="font-medium text-gray-700 dark:text-gray-300">Flexible</span></p>
+                  <div id="mini-26" class="mt-3 hidden space-y-1.5 border-t border-gray-200 pt-3 text-xs text-slate-500 dark:border-white/10 dark:text-slate-400">
+                    <p>Category: <span class="font-medium text-slate-700 dark:text-slate-500">Balanced</span></p>
+                    <p>Risk profile: <span class="font-medium text-slate-700 dark:text-slate-500">Medium</span></p>
+                    <p>Investment term: <span class="font-medium text-slate-700 dark:text-slate-500">Flexible</span></p>
                   </div>
                 </div>
 
@@ -412,24 +412,24 @@
                 <div class="rounded-xl border border-white/60 bg-gray-50 p-4 transition hover:bg-gray-100 dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10" data-plan data-name="Global Growth Fund" data-min="400" data-category="Growth" data-risk="Medium" data-nav="19.8" data-return="0">
                   <div class="mb-3 flex items-start justify-between gap-2">
                     <div class="flex-1">
-                      <h4 class="mb-1 text-sm font-medium text-black dark:text-white">Global Growth Fund</h4>
-                      <p class="text-xs text-gray-600 dark:text-gray-400">Growth</p>
+                      <h4 class="mb-1 text-sm font-medium text-black dark:text-slate-900 dark:text-white">Global Growth Fund</h4>
+                      <p class="text-xs text-slate-600 dark:text-slate-400">Growth</p>
                     </div>
-                    <span class="inline-flex shrink-0 items-center rounded-full border border-gray-300 px-2 py-0.5 text-[11px] font-medium text-gray-600 dark:border-white/15 dark:text-gray-300">Medium</span>
+                    <span class="inline-flex shrink-0 items-center rounded-full border border-gray-300 px-2 py-0.5 text-[11px] font-medium text-slate-600 dark:border-white/15 dark:text-slate-500">Medium</span>
                   </div>
                   <div class="mb-3 space-y-2">
-                    <div class="flex justify-between"><span class="text-xs text-gray-500 dark:text-gray-400">NAV:</span><span class="text-xs font-medium text-black dark:text-white">$19.8000</span></div>
-                    <div class="flex justify-between"><span class="text-xs text-gray-500 dark:text-gray-400">Return:</span><span class="text-xs font-medium text-black dark:text-white">+0.00%</span></div>
-                    <div class="flex justify-between"><span class="text-xs text-gray-500 dark:text-gray-400">Min:</span><span class="text-xs font-medium text-black dark:text-white">$400</span></div>
+                    <div class="flex justify-between"><span class="text-xs text-slate-500 dark:text-slate-400">NAV:</span><span class="text-xs font-medium text-black dark:text-slate-900 dark:text-white">$19.8000</span></div>
+                    <div class="flex justify-between"><span class="text-xs text-slate-500 dark:text-slate-400">Return:</span><span class="text-xs font-medium text-black dark:text-slate-900 dark:text-white">+0.00%</span></div>
+                    <div class="flex justify-between"><span class="text-xs text-slate-500 dark:text-slate-400">Min:</span><span class="text-xs font-medium text-black dark:text-slate-900 dark:text-white">$400</span></div>
                   </div>
                   <div class="flex items-center justify-between">
-                    <button type="button" onclick="toggleFundDetails('mini-29')" class="text-xs text-black transition hover:opacity-70 dark:text-white">View Details</button>
+                    <button type="button" onclick="toggleFundDetails('mini-29')" class="text-xs text-black transition hover:opacity-70 dark:text-slate-900 dark:text-white">View Details</button>
                     <button type="button" onclick="goToInvestment(this)" class="rounded-full bg-black px-2.5 py-1 text-xs font-medium text-white transition hover:bg-gray-700 dark:bg-white dark:text-black dark:hover:bg-gray-200">Invest</button>
                   </div>
-                  <div id="mini-29" class="mt-3 hidden space-y-1.5 border-t border-gray-200 pt-3 text-xs text-gray-500 dark:border-white/10 dark:text-gray-400">
-                    <p>Category: <span class="font-medium text-gray-700 dark:text-gray-300">Growth</span></p>
-                    <p>Risk profile: <span class="font-medium text-gray-700 dark:text-gray-300">Medium</span></p>
-                    <p>Investment term: <span class="font-medium text-gray-700 dark:text-gray-300">Flexible</span></p>
+                  <div id="mini-29" class="mt-3 hidden space-y-1.5 border-t border-gray-200 pt-3 text-xs text-slate-500 dark:border-white/10 dark:text-slate-400">
+                    <p>Category: <span class="font-medium text-slate-700 dark:text-slate-500">Growth</span></p>
+                    <p>Risk profile: <span class="font-medium text-slate-700 dark:text-slate-500">Medium</span></p>
+                    <p>Investment term: <span class="font-medium text-slate-700 dark:text-slate-500">Flexible</span></p>
                   </div>
                 </div>
 
@@ -437,24 +437,24 @@
                 <div class="rounded-xl border border-white/60 bg-gray-50 p-4 transition hover:bg-gray-100 dark:border-white/10 dark:bg-white/5 dark:hover:bg-white/10" data-plan data-name="Sustainable Energy ETF" data-min="50" data-category="ESG" data-risk="Medium" data-nav="18.75" data-return="0">
                   <div class="mb-3 flex items-start justify-between gap-2">
                     <div class="flex-1">
-                      <h4 class="mb-1 text-sm font-medium text-black dark:text-white">Sustainable Energy ETF</h4>
-                      <p class="text-xs text-gray-600 dark:text-gray-400">ESG</p>
+                      <h4 class="mb-1 text-sm font-medium text-black dark:text-slate-900 dark:text-white">Sustainable Energy ETF</h4>
+                      <p class="text-xs text-slate-600 dark:text-slate-400">ESG</p>
                     </div>
-                    <span class="inline-flex shrink-0 items-center rounded-full border border-gray-300 px-2 py-0.5 text-[11px] font-medium text-gray-600 dark:border-white/15 dark:text-gray-300">Medium</span>
+                    <span class="inline-flex shrink-0 items-center rounded-full border border-gray-300 px-2 py-0.5 text-[11px] font-medium text-slate-600 dark:border-white/15 dark:text-slate-500">Medium</span>
                   </div>
                   <div class="mb-3 space-y-2">
-                    <div class="flex justify-between"><span class="text-xs text-gray-500 dark:text-gray-400">NAV:</span><span class="text-xs font-medium text-black dark:text-white">$18.7500</span></div>
-                    <div class="flex justify-between"><span class="text-xs text-gray-500 dark:text-gray-400">Return:</span><span class="text-xs font-medium text-black dark:text-white">+0.00%</span></div>
-                    <div class="flex justify-between"><span class="text-xs text-gray-500 dark:text-gray-400">Min:</span><span class="text-xs font-medium text-black dark:text-white">$50</span></div>
+                    <div class="flex justify-between"><span class="text-xs text-slate-500 dark:text-slate-400">NAV:</span><span class="text-xs font-medium text-black dark:text-slate-900 dark:text-white">$18.7500</span></div>
+                    <div class="flex justify-between"><span class="text-xs text-slate-500 dark:text-slate-400">Return:</span><span class="text-xs font-medium text-black dark:text-slate-900 dark:text-white">+0.00%</span></div>
+                    <div class="flex justify-between"><span class="text-xs text-slate-500 dark:text-slate-400">Min:</span><span class="text-xs font-medium text-black dark:text-slate-900 dark:text-white">$50</span></div>
                   </div>
                   <div class="flex items-center justify-between">
-                    <button type="button" onclick="toggleFundDetails('mini-22')" class="text-xs text-black transition hover:opacity-70 dark:text-white">View Details</button>
+                    <button type="button" onclick="toggleFundDetails('mini-22')" class="text-xs text-black transition hover:opacity-70 dark:text-slate-900 dark:text-white">View Details</button>
                     <button type="button" onclick="goToInvestment(this)" class="rounded-full bg-black px-2.5 py-1 text-xs font-medium text-white transition hover:bg-gray-700 dark:bg-white dark:text-black dark:hover:bg-gray-200">Invest</button>
                   </div>
-                  <div id="mini-22" class="mt-3 hidden space-y-1.5 border-t border-gray-200 pt-3 text-xs text-gray-500 dark:border-white/10 dark:text-gray-400">
-                    <p>Category: <span class="font-medium text-gray-700 dark:text-gray-300">ESG</span></p>
-                    <p>Risk profile: <span class="font-medium text-gray-700 dark:text-gray-300">Medium</span></p>
-                    <p>Investment term: <span class="font-medium text-gray-700 dark:text-gray-300">Flexible</span></p>
+                  <div id="mini-22" class="mt-3 hidden space-y-1.5 border-t border-gray-200 pt-3 text-xs text-slate-500 dark:border-white/10 dark:text-slate-400">
+                    <p>Category: <span class="font-medium text-slate-700 dark:text-slate-500">ESG</span></p>
+                    <p>Risk profile: <span class="font-medium text-slate-700 dark:text-slate-500">Medium</span></p>
+                    <p>Investment term: <span class="font-medium text-slate-700 dark:text-slate-500">Flexible</span></p>
                   </div>
                 </div>
               </div>

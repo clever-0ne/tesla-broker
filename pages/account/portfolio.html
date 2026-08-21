@@ -32,17 +32,17 @@
         <main class="flex-1 overflow-y-auto p-4 pb-24 sm:p-6 lg:pb-6">
           <div class="mx-auto max-w-7xl">
             <!-- Hero -->
-            <div class="relative mb-6 overflow-hidden rounded-2xl bg-navy-950 p-6 text-white">
+            <div class="relative mb-6 overflow-hidden rounded-[20px] border border-white/60 bg-white/85 p-6 shadow-[0_20px_40px_-15px_rgba(0,0,0,0.07)]">
               <div class="pointer-events-none absolute inset-0" aria-hidden="true">
-                <div class="absolute inset-0 t-grid opacity-30"></div>
-                <div class="absolute -left-16 top-1/2 h-72 w-72 -translate-y-1/2 t-orb"></div>
-                <div class="absolute -right-16 top-0 h-80 w-80 -translate-y-1/3 t-orb"></div>
+                </div>
+                </div>
+                </div>
               </div>
               <div class="relative z-10">
                 <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between">
                   <div>
                     <h1 class="mb-1 text-xl font-light">Crypto Portfolio</h1>
-                    <p class="text-sm text-gray-300">Track your crypto investments and portfolio performance</p>
+                    <p class="text-sm text-slate-500">Track your crypto investments and portfolio performance</p>
                   </div>
                 </div>
               </div>
@@ -50,70 +50,70 @@
 
             <!-- Portfolio Summary Cards -->
             <div class="mb-8 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
-              <div class="rounded-2xl border border-gray-200 bg-gradient-to-b from-white to-gray-50 p-5 shadow-sm dark:border-white/10 dark:bg-gray-900">
+              <div class="glass-card p-5">
                 <div class="flex items-center justify-between">
                   <div>
-                    <p class="mb-1 text-sm font-medium text-gray-500 dark:text-gray-400">Total Value</p>
-                    <p id="pf-total-value" class="text-lg font-light text-[#2563eb] dark:text-[#93c5fd]">$0.00</p>
+                    <p class="mb-1 text-sm font-medium text-slate-500 dark:text-slate-400">Total Value</p>
+                    <p id="pf-total-value" class="text-lg font-light text-info dark:text-[#93c5fd]">$0.00</p>
                   </div>
                   <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-tesla to-tesla-700 shadow-sm">
-                    <i data-lucide="dollar-sign" class="w-5 h-5 text-white dark:text-black"></i>
+                    <i data-lucide="dollar-sign" class="w-5 h-5 text-white dark:text-slate-900"></i>
                   </div>
                 </div>
               </div>
 
-              <div class="rounded-2xl border border-gray-200 bg-gradient-to-b from-white to-gray-50 p-5 shadow-sm dark:border-white/10 dark:bg-gray-900">
+              <div class="glass-card p-5">
                 <div class="flex items-center justify-between">
                   <div>
-                    <p class="mb-1 text-sm font-medium text-gray-500 dark:text-gray-400">Total Invested</p>
-                    <p id="pf-total-invested" class="text-lg font-light text-[#f97316] dark:text-[#fb923c]">$0.00</p>
+                    <p class="mb-1 text-sm font-medium text-slate-500 dark:text-slate-400">Total Invested</p>
+                    <p id="pf-total-invested" class="text-lg font-light text-warning dark:text-[#fb923c]">$0.00</p>
                   </div>
                   <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-tesla to-tesla-700 shadow-sm">
-                    <i data-lucide="trending-up" class="w-5 h-5 text-white dark:text-black"></i>
+                    <i data-lucide="trending-up" class="w-5 h-5 text-white dark:text-slate-900"></i>
                   </div>
                 </div>
               </div>
 
-              <div class="rounded-2xl border border-gray-200 bg-gradient-to-b from-white to-gray-50 p-5 shadow-sm dark:border-white/10 dark:bg-gray-900">
+              <div class="glass-card p-5">
                 <div class="flex items-center justify-between">
                   <div>
-                    <p class="mb-1 text-sm font-medium text-gray-500 dark:text-gray-400">Total Gain/Loss</p>
-                    <p id="pf-gain" class="text-lg font-light text-[#16a34a] dark:text-[#4ade80]">+$0.00</p>
-                    <p class="text-sm text-[#16a34a] dark:text-[#4ade80]">+0.00%</p>
+                    <p class="mb-1 text-sm font-medium text-slate-500 dark:text-slate-400">Total Gain/Loss</p>
+                    <p id="pf-gain" class="text-lg font-light text-success dark:text-[#4ade80]">+$0.00</p>
+                    <p class="text-sm text-success dark:text-[#4ade80]">+0.00%</p>
                   </div>
                   <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-tesla to-tesla-700 shadow-sm">
-                    <i data-lucide="trending-up" class="w-5 h-5 text-white dark:text-black"></i>
+                    <i data-lucide="trending-up" class="w-5 h-5 text-white dark:text-slate-900"></i>
                   </div>
                 </div>
               </div>
 
-              <div class="rounded-2xl border border-gray-200 bg-gradient-to-b from-white to-gray-50 p-5 shadow-sm dark:border-white/10 dark:bg-gray-900">
+              <div class="glass-card p-5">
                 <div class="flex items-center justify-between">
                   <div>
-                    <p class="mb-1 text-sm font-medium text-gray-500 dark:text-gray-400">Holdings</p>
-                    <p id="pf-holdings-count" class="text-lg font-light text-[#7c3aed] dark:text-[#c4b5fd]">0</p>
+                    <p class="mb-1 text-sm font-medium text-slate-500 dark:text-slate-400">Holdings</p>
+                    <p id="pf-holdings-count" class="text-lg font-light text-purple dark:text-[#c4b5fd]">0</p>
                   </div>
                   <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-tesla to-tesla-700 shadow-sm">
-                    <i data-lucide="pie-chart" class="w-5 h-5 text-white dark:text-black"></i>
+                    <i data-lucide="pie-chart" class="w-5 h-5 text-white dark:text-slate-900"></i>
                   </div>
                 </div>
               </div>
             </div>
 
             <!-- Holdings -->
-            <div class="mb-8 rounded-2xl border border-gray-200 bg-gradient-to-b from-white to-gray-50 shadow-sm dark:border-white/10 dark:bg-gray-900">
+            <div class="mb-8 rounded-2xl border border-slate-200 bg-gradient-to-b from-white to-gray-50 shadow-sm dark:border-white/10 dark:bg-slate-800">
               <div class="border-b border-gray-100 p-6 dark:border-white/10">
-                <h2 class="text-lg font-light text-black dark:text-white">Your Holdings</h2>
-                <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Track your crypto investments and performance</p>
+                <h2 class="text-lg font-light text-black dark:text-slate-900 dark:text-white">Your Holdings</h2>
+                <p class="mt-1 text-sm text-slate-500 dark:text-slate-400">Track your crypto investments and performance</p>
               </div>
 
               <div id="pf-holdings" class="p-8 text-center">
-                <div class="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-gray-100 dark:bg-white/10">
-                  <i data-lucide="bitcoin" class="w-8 h-8 text-gray-400"></i>
+                <div class="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-slate-100 dark:bg-white/10">
+                  <i data-lucide="bitcoin" class="w-8 h-8 text-slate-400"></i>
                 </div>
-                <h3 class="mb-2 text-lg font-medium text-black dark:text-white">No Holdings Yet</h3>
-                <p class="mb-6 text-sm text-gray-500 dark:text-gray-400">Start building your portfolio by buying your first crypto.</p>
-                <a href="/pages/crypto/crypto.html" class="inline-flex items-center rounded-full bg-tesla px-5 py-2 text-sm font-medium text-white transition hover:bg-tesla-600 dark:text-black">
+                <h3 class="mb-2 text-lg font-medium text-black dark:text-slate-900 dark:text-white">No Holdings Yet</h3>
+                <p class="mb-6 text-sm text-slate-500 dark:text-slate-400">Start building your portfolio by buying your first crypto.</p>
+                <a href="/pages/crypto/crypto.html" class="inline-flex items-center rounded-full bg-tesla px-5 py-2 text-sm font-medium text-white transition hover:bg-tesla-600 dark:text-slate-900">
                   <i data-lucide="plus" class="mr-2 w-4 h-4"></i>
                   Browse Cryptocurrencies
                 </a>
@@ -121,17 +121,17 @@
             </div>
 
             <!-- Recent Transactions -->
-            <div class="rounded-2xl border border-gray-200 bg-gradient-to-b from-white to-gray-50 shadow-sm dark:border-white/10 dark:bg-gray-900">
+            <div class="rounded-2xl border border-slate-200 bg-gradient-to-b from-white to-gray-50 shadow-sm dark:border-white/10 dark:bg-slate-800">
               <div class="border-b border-gray-100 p-6 dark:border-white/10">
-                <h2 class="text-lg font-light text-black dark:text-white">Recent Transactions</h2>
-                <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Latest activity in your portfolio</p>
+                <h2 class="text-lg font-light text-black dark:text-slate-900 dark:text-white">Recent Transactions</h2>
+                <p class="mt-1 text-sm text-slate-500 dark:text-slate-400">Latest activity in your portfolio</p>
               </div>
 
               <div id="pf-transactions" class="p-8 text-center">
-                <div class="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-gray-100 dark:bg-white/10">
-                  <i data-lucide="activity" class="w-8 h-8 text-gray-400"></i>
+                <div class="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-slate-100 dark:bg-white/10">
+                  <i data-lucide="activity" class="w-8 h-8 text-slate-400"></i>
                 </div>
-                <p class="text-sm text-gray-500 dark:text-gray-400">No recent transactions</p>
+                <p class="text-sm text-slate-500 dark:text-slate-400">No recent transactions</p>
               </div>
             </div>
           </div>
@@ -167,7 +167,7 @@
         if (c && c.icon) {
           return '<img src="/assets/coins/' + esc(c.icon) + '.png" alt="' + esc(baseSymbol(c.symbol)) + '" class="h-full w-full object-cover" />';
         }
-        return '<div class="flex h-full w-full items-center justify-center bg-gray-900 text-[10px] font-semibold text-white dark:bg-white dark:text-black">' + esc(baseSymbol(c && c.symbol)) + '</div>';
+        return '<div class="flex h-full w-full items-center justify-center bg-gray-900 text-[10px] font-semibold text-white dark:bg-white dark:text-slate-900">' + esc(baseSymbol(c && c.symbol)) + '</div>';
       }
 
       function symFromItem(item) {
@@ -207,13 +207,13 @@
             '<div class="flex min-w-0 items-center gap-3">' +
               '<span class="h-10 w-10 shrink-0 overflow-hidden rounded-xl">' + coinIconMarkup(coin) + '</span>' +
               '<div class="min-w-0">' +
-                '<p class="truncate text-sm font-medium text-black dark:text-white">' + esc(label) + '</p>' +
-                '<p class="text-xs text-gray-500 dark:text-gray-400">' + esc(sym || name) + ' · ' + sub.length + ' purchase' + (sub.length === 1 ? '' : 's') + '</p>' +
+                '<p class="truncate text-sm font-medium text-black dark:text-slate-900 dark:text-white">' + esc(label) + '</p>' +
+                '<p class="text-xs text-slate-500 dark:text-slate-400">' + esc(sym || name) + ' · ' + sub.length + ' purchase' + (sub.length === 1 ? '' : 's') + '</p>' +
               '</div>' +
             '</div>' +
             '<div class="shrink-0 text-right">' +
-              '<p class="text-sm font-medium text-black dark:text-white">' + fmtMoney(total) + '</p>' +
-              '<p class="text-xs text-gray-400 dark:text-gray-500">' + fmtMoney(avg) + ' avg</p>' +
+              '<p class="text-sm font-medium text-black dark:text-slate-900 dark:text-white">' + fmtMoney(total) + '</p>' +
+              '<p class="text-xs text-slate-400 dark:text-slate-500">' + fmtMoney(avg) + ' avg</p>' +
             '</div>' +
           '</div>';
         }).join('');
@@ -227,11 +227,11 @@
             '<div class="flex min-w-0 items-center gap-3">' +
               '<span class="h-9 w-9 shrink-0 overflow-hidden rounded-lg">' + coinIconMarkup(coin) + '</span>' +
               '<div class="min-w-0">' +
-                '<p class="truncate text-sm font-medium text-black dark:text-white">' + esc(o.item || 'Crypto') + '</p>' +
-                '<p class="text-xs text-gray-500 dark:text-gray-400">' + fmtDate(o.createdAt) + '</p>' +
+                '<p class="truncate text-sm font-medium text-black dark:text-slate-900 dark:text-white">' + esc(o.item || 'Crypto') + '</p>' +
+                '<p class="text-xs text-slate-500 dark:text-slate-400">' + fmtDate(o.createdAt) + '</p>' +
               '</div>' +
             '</div>' +
-            '<p class="shrink-0 text-sm font-medium text-[#16a34a]">-' + fmtMoney(o.amount).slice(1) + '</p>' +
+            '<p class="shrink-0 text-sm font-medium text-success">-' + fmtMoney(o.amount).slice(1) + '</p>' +
           '</div>';
         }).join('');
       }

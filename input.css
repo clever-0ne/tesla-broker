@@ -1,219 +1,131 @@
 @import "tailwindcss";
 
 /*
-  Class-based dark mode.
-  The `.dark` class is toggled on <html> by the theme pre-paint script
-  in every page (see the localStorage / prefers-color-scheme logic).
+  Apple/Google-inspired premium glassmorphism design system.
+  Clean, high-contrast, floating cards, soft gradients, no grid lines.
 */
+
 @custom-variant dark (&:where(.dark, .dark *));
 
-/*
-  Navy brand palette.
-  The signature accent was red (#E82127); the redesign removed color, then
-  moved the near-black accent to a deep "Tesla dark" navy (#0d1b2e). Every
-  CTA / link / accent is navy on white. In dark mode the accent flips to
-  white, so filled buttons become white with navy text — the same treatment
-  Tesla's own app uses. A navy ramp backs the page and hero surfaces.
-*/
+/* Premium dark palette — slate/navy base with accessible accents */
 @theme {
-  --color-tesla: #0d1b2e;      /* deep navy — the brand accent */
-  --color-tesla-600: #1d3054;  /* navy hover */
-  --color-tesla-700: #060c18;  /* gradient endpoint */
+  --color-brand-50: #f1f5f9;
+  --color-brand-100: #e2e8f0;
+  --color-brand-200: #cbd5e1;
+  --color-brand-300: #94a3b8;
+  --color-brand-400: #64748b;
+  --color-brand-500: #475569;
+  --color-brand-600: #334155;
+  --color-brand-700: #1e293b;
+  --color-brand-800: #0f172a;
+  --color-brand-900: #020617;
 
-  /* Navy surface ramp (page backgrounds, heroes, dark cards) */
-  --color-navy-950: #070d1a;
-  --color-navy-900: #0b1424;
-  --color-navy-800: #0d1b2e;
-  --color-navy-700: #14243d;
-  --color-navy-600: #1b3158;
-  --color-navy-500: #27416e;
+  --color-tesla: #0f172a;
+  --color-tesla-600: #1e293b;
+  --color-tesla-700: #020617;
 
-  /*
-    Neutralize decorative hues used by stat icons, badges and charts.
-    Mapping every colored shade to a grayscale ramp keeps the theme strictly
-    black & white while leaving the markup untouched.
-  */
-  --color-green-50: #f7f7f8;
-  --color-green-100: #f0f0f1;
-  --color-green-200: #e5e5e7;
-  --color-green-300: #d1d1d6;
-  --color-green-400: #a1a1aa;
-  --color-green-500: #71717a;
-  --color-green-600: #52525b;
-  --color-green-700: #3f3f46;
-  --color-green-800: #27272a;
-  --color-green-900: #18181b;
-
-  --color-blue-50: #f7f7f8;
-  --color-blue-100: #f0f0f1;
-  --color-blue-200: #e5e5e7;
-  --color-blue-300: #d1d1d6;
-  --color-blue-400: #a1a1aa;
-  --color-blue-500: #71717a;
-  --color-blue-600: #52525b;
-  --color-blue-700: #3f3f46;
-  --color-blue-800: #27272a;
-  --color-blue-900: #18181b;
-
-  --color-purple-50: #f7f7f8;
-  --color-purple-100: #f0f0f1;
-  --color-purple-200: #e5e5e7;
-  --color-purple-300: #d1d1d6;
-  --color-purple-400: #a1a1aa;
-  --color-purple-500: #71717a;
-  --color-purple-600: #52525b;
-  --color-purple-700: #3f3f46;
-  --color-purple-800: #27272a;
-  --color-purple-900: #18181b;
-
-  --color-orange-50: #f7f7f8;
-  --color-orange-100: #f0f0f1;
-  --color-orange-200: #e5e5e7;
-  --color-orange-300: #d1d1d6;
-  --color-orange-400: #a1a1aa;
-  --color-orange-500: #71717a;
-  --color-orange-600: #52525b;
-  --color-orange-700: #3f3f46;
-  --color-orange-800: #27272a;
-  --color-orange-900: #18181b;
-
-  --color-red-50: #f7f7f8;
-  --color-red-100: #f0f0f1;
-  --color-red-200: #e5e5e7;
-  --color-red-300: #d1d1d6;
-  --color-red-400: #a1a1aa;
-  --color-red-500: #71717a;
-  --color-red-600: #52525b;
-  --color-red-700: #3f3f46;
-  --color-red-800: #27272a;
-  --color-red-900: #18181b;
-
-  --color-amber-50: #f7f7f8;
-  --color-amber-100: #f0f0f1;
-  --color-amber-200: #e5e5e7;
-  --color-amber-300: #d1d1d6;
-  --color-amber-400: #a1a1aa;
-  --color-amber-500: #71717a;
-  --color-amber-600: #52525b;
-  --color-amber-700: #3f3f46;
-  --color-amber-800: #27272a;
-  --color-amber-900: #18181b;
+  /* Accessible semantic accents */
+  --color-success: #10b981;
+  --color-success-bg: #d1fae5;
+  --color-danger: #ef4444;
+  --color-danger-bg: #fee2e2;
+  --color-info: #3b82f6;
+  --color-info-bg: #dbeafe;
+  --color-warning: #f59e0b;
+  --color-warning-bg: #fef3c7;
+  --color-purple: #8b5cf6;
+  --color-purple-bg: #ede9fe;
 }
 
-/*
-  Dark mode: the primary accent becomes white, so `bg-tesla text-white`
-  renders as a white button with black text (see the `dark:text-black`
-  class added alongside every paired white text).
-*/
+/* Dark mode: light accents on dark surfaces */
 .dark {
   --color-tesla: #ffffff;
-  --color-tesla-600: #dbe4f0;
-  --color-tesla-700: #f5f6f7;
+  --color-tesla-600: #e2e8f0;
+  --color-tesla-700: #cbd5e1;
 }
 
-/* ---- Base polish ---- */
+/* Base polish */
 @layer base {
   html {
     scroll-behavior: smooth;
     -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
   ::selection {
-    background: #0d1b2e;
+    background: #0f172a;
     color: #fff;
   }
   .dark ::selection {
-    background: #fff;
-    color: #0d1b2e;
+    background: #e2e8f0;
+    color: #0f172a;
+  }
+  body {
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
   }
 }
 
-/* ---- Auth/legal page theme ---- */
+/* Ambient gradient mesh background — Apple-style soft glow */
 @layer components {
-  .page-auth,
-  .page-legal {
+  .glass-bg {
     background:
-      radial-gradient(1200px 600px at 10% -10%, #0f1f38 0%, #0000 55%),
-      radial-gradient(900px 500px at 90% 110%, #0d1b2e 0%, #0000 55%),
-      #070d1a;
+      radial-gradient(1200px 600px at 10% -10%, rgb(219 234 254 / 0.6) 0%, transparent 55%),
+      radial-gradient(900px 500px at 90% 110%, rgb(241 245 249 / 0.6) 0%, transparent 55%),
+      radial-gradient(700px 500px at 50% 40%, rgb(248 250 252 / 0.5) 0%, transparent 55%),
+      linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
   }
-}
-
-/* ---- Reusable Tesla-style components ---- */
-@layer components {
-  /* Uppercase micro label with wide letter-spacing (e.g. "CURRENT NAV") */
-  .t-label {
-    font-size: 11px;
-    line-height: 1.4;
-    font-weight: 600;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: rgb(13 27 46 / 0.65);
-  }
-  .dark .t-label {
-    color: rgb(255 255 255 / 0.65);
+  .dark .glass-bg {
+    background:
+      radial-gradient(1200px 600px at 10% -10%, rgb(30 64 120 / 0.35) 0%, transparent 55%),
+      radial-gradient(900px 500px at 90% 110%, rgb(15 23 42 / 0.4) 0%, transparent 55%),
+      radial-gradient(700px 500px at 50% 40%, rgb(30 41 59 / 0.35) 0%, transparent 55%),
+      linear-gradient(180deg, #0f172a 0%, #1e293b 100%);
   }
 
-  /* Primary filled pill button — glossy navy, white in dark mode */
-  .t-btn {
+  /* Floating glass card system */
+  .glass-card {
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    background: rgba(255, 255, 255, 0.85);
+    box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.07);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    transition: transform 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease;
+  }
+  .glass-card:hover {
+    box-shadow: 0 24px 48px -16px rgba(0, 0, 0, 0.12);
+    transform: translateY(-2px);
+  }
+  .dark .glass-card {
+    background: rgba(255, 255, 255, 0.07);
+    border-color: rgba(255, 255, 255, 0.12);
+    box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.35);
+  }
+  .dark .glass-card:hover {
+    background: rgba(255, 255, 255, 0.11);
+    box-shadow: 0 24px 48px -16px rgba(0, 0, 0, 0.45);
+  }
+
+  /* Glassy icon chip/badge */
+  .glass-chip {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 0.5rem;
-    border-radius: 9999px;
-    padding: 0.625rem 1.5rem;
-    font-size: 13px;
-    font-weight: 500;
-    letter-spacing: 0.01em;
-    color: #fff;
-    background-color: #0d1b2e;
-    background-image: linear-gradient(180deg, rgb(255 255 255 / 0.16), transparent 48%);
-    box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.14), 0 10px 24px -12px rgb(13 27 46 / 0.55);
-    transition: background-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+    border-radius: 0.9rem;
+    background: rgba(255, 255, 255, 0.55);
+    border: 1px solid rgba(255, 255, 255, 0.65);
+    box-shadow: 0 10px 20px -12px rgba(0, 0, 0, 0.08);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
   }
-  .t-btn:hover {
-    background-color: #1d3054;
-    box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.14), 0 14px 30px -12px rgb(13 27 46 / 0.65);
-  }
-  .dark .t-btn {
-    color: #0d1b2e;
-    background-color: #fff;
-    background-image: linear-gradient(180deg, rgb(255 255 255 / 0.8), transparent 45%);
-    box-shadow: 0 10px 24px -12px rgb(0 0 0 / 0.3);
-  }
-  .dark .t-btn:hover {
-    background-color: #dbe4f0;
+  .dark .glass-chip {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.18);
+    box-shadow: 0 10px 20px -12px rgba(0, 0, 0, 0.25);
   }
 
-  /* Secondary outline pill button */
-  .t-btn-ghost {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    border-radius: 9999px;
-    padding: 0.625rem 1.5rem;
-    font-size: 13px;
-    font-weight: 500;
-    letter-spacing: 0.01em;
-    color: #0d1b2e;
-    border: 1px solid rgb(13 27 46 / 0.2);
-    background: transparent;
-    transition: background-color 0.2s ease, border-color 0.2s ease;
-  }
-  .t-btn-ghost:hover {
-    background: rgb(13 27 46 / 0.05);
-    border-color: rgb(13 27 46 / 0.4);
-  }
-  .dark .t-btn-ghost {
-    color: #fff;
-    border-color: rgb(255 255 255 / 0.2);
-  }
-  .dark .t-btn-ghost:hover {
-    background: rgb(255 255 255 / 0.1);
-    border-color: rgb(255 255 255 / 0.4);
-  }
-
-  /* Sharp premium card — solid white with a subtle glossy top-to-bottom gradient */
+  /* Premium card — solid light with subtle glossy gradient */
   .t-card {
     background-image: linear-gradient(180deg, #ffffff, #f6f7fa);
     border: 1px solid rgb(0 0 0 / 0.06);
@@ -227,7 +139,7 @@
   }
   .dark .t-card {
     background-image: none;
-    background-color: #0b1424;
+    background-color: #1e293b;
     border-color: rgb(255 255 255 / 0.09);
     box-shadow: 0 16px 40px -24px rgb(0 0 0 / 0.6);
   }
@@ -235,138 +147,120 @@
     box-shadow: 0 24px 48px -22px rgb(0 0 0 / 0.7);
   }
 
-  /* Ambient gradient mesh background — Apple-style soft glow */
-  .glass-bg {
-    background:
-      radial-gradient(1200px 600px at 10% -10%, rgb(219 234 254 / 0.55) 0%, transparent 55%),
-      radial-gradient(900px 500px at 90% 110%, rgb(248 250 252 / 0.55) 0%, transparent 55%),
-      radial-gradient(700px 500px at 50% 40%, rgb(241 245 249 / 0.45) 0%, transparent 55%),
-      linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
-    backdrop-filter: blur(20px);
+  /* Uppercase micro label with wide letter-spacing */
+  .t-label {
+    font-size: 11px;
+    line-height: 1.4;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgb(15 23 42 / 0.65);
   }
-  .dark .glass-bg {
-    background:
-      radial-gradient(1200px 600px at 10% -10%, rgb(30 64 120 / 0.45) 0%, transparent 55%),
-      radial-gradient(900px 500px at 90% 110%, rgb(17 24 39 / 0.45) 0%, transparent 55%),
-      radial-gradient(700px 500px at 50% 40%, rgb(15 23 42 / 0.45) 0%, transparent 55%),
-      linear-gradient(180deg, #0b1424 0%, #0d1b2e 100%);
+  .dark .t-label {
+    color: rgb(255 255 255 / 0.65);
   }
 
-  /* Floating glass card system */
-  .glass-card {
-    border-radius: 20px;
-    border: 1px solid rgba(255, 255, 255, 0.6);
-    background: rgba(255, 255, 255, 0.85);
-    box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.07);
-    backdrop-filter: blur(18px);
-    transition: transform 0.25s ease, box-shadow 0.25s ease;
-  }
-  .glass-card:hover {
-    box-shadow: 0 24px 48px -16px rgba(0, 0, 0, 0.12);
-    transform: translateY(-2px);
-  }
-  .dark .glass-card {
-    background: rgba(255, 255, 255, 0.08);
-    border-color: rgba(255, 255, 255, 0.12);
-    box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.35);
-  }
-  .dark .glass-card:hover {
-    background: rgba(255, 255, 255, 0.12);
-    box-shadow: 0 24px 48px -16px rgba(0, 0, 0, 0.45);
-  }
-
-  /* Glassy icon chip/badge for icons/logos */
-  .glass-chip {
+  /* Primary filled pill button */
+  .t-btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    border-radius: 0.9rem;
-    background: rgba(255, 255, 255, 0.55);
-    border: 1px solid rgba(255, 255, 255, 0.65);
-    box-shadow: 0 10px 20px -12px rgba(0, 0, 0, 0.08);
-    backdrop-filter: blur(14px);
-  }
-  .dark .glass-chip {
-    background: rgba(255, 255, 255, 0.1);
-    border-color: rgba(255, 255, 255, 0.18);
-    box-shadow: 0 10px 20px -12px rgba(0, 0, 0, 0.25);
-  }
-
-  /* Dotted grid texture used on navy hero panels */
-  .t-grid {
-    background-image: radial-gradient(rgb(150 175 220 / 0.16) 1px, transparent 1px);
-    background-size: 22px 22px;
-  }
-
-  /* Full-page grid lines (Tesla blueprint feel) — light/dark variants */
-  .t-gridlines {
-    background-image:
-      linear-gradient(to right, rgb(13 27 46 / 0.12) 1px, transparent 1px),
-      linear-gradient(to bottom, rgb(13 27 46 / 0.12) 1px, transparent 1px);
-    background-size: 56px 56px;
-  }
-  .dark .t-gridlines {
-    background-image:
-      linear-gradient(to right, rgb(255 255 255 / 0.08) 1px, transparent 1px),
-      linear-gradient(to bottom, rgb(255 255 255 / 0.08) 1px, transparent 1px);
-  }
-
-  /* Diagonal light sweep across hero panels */
-  .t-sheen {
-    background: linear-gradient(120deg, transparent 20%, rgb(255 255 255 / 0.08) 45%, transparent 70%);
-  }
-  .dark .t-sheen {
-    background: linear-gradient(120deg, transparent 20%, rgb(255 255 255 / 0.06) 45%, transparent 70%);
-  }
-
-  /* Navy radial glow orb for hero accents */
-  .t-orb {
+    gap: 0.5rem;
     border-radius: 9999px;
-    background: radial-gradient(circle, rgb(120 160 235 / 0.3) 0%, transparent 70%);
+    padding: 0.625rem 1.5rem;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    color: #fff;
+    background-color: #0f172a;
+    background-image: linear-gradient(180deg, rgb(255 255 255 / 0.16), transparent 48%);
+    box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.14), 0 10px 24px -12px rgb(13 27 46 / 0.55);
+    transition: background-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
   }
-  .dark .t-orb {
-    background: radial-gradient(circle, rgb(120 160 235 / 0.38) 0%, transparent 70%);
+  .t-btn:hover {
+    background-color: #1e293b;
+    box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.14), 0 14px 30px -12px rgb(13 27 46 / 0.65);
+  }
+  .dark .t-btn {
+    color: #0f172a;
+    background-color: #fff;
+    background-image: linear-gradient(180deg, rgb(255 255 255 / 0.8), transparent 45%);
+    box-shadow: 0 10px 24px -12px rgb(0 0 0 / 0.3);
+  }
+  .dark .t-btn:hover {
+    background-color: #e2e8f0;
+  }
+
+  /* Secondary outline pill button */
+  .t-btn-ghost {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border-radius: 9999px;
+    padding: 0.625rem 1.5rem;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    color: #0f172a;
+    border: 1px solid rgb(15 23 42 / 0.2);
+    background: transparent;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+  }
+  .t-btn-ghost:hover {
+    background: rgb(15 23 42 / 0.05);
+    border-color: rgb(15 23 42 / 0.4);
+  }
+  .dark .t-btn-ghost {
+    color: #fff;
+    border-color: rgb(255 255 255 / 0.2);
+  }
+  .dark .t-btn-ghost:hover {
+    background: rgb(255 255 255 / 0.1);
+    border-color: rgb(255 255 255 / 0.4);
   }
 }
 
-/*
-  Dark mode cards: lighter grey with a glossy top edge (user preference —
-  the card styling belongs to dark mode, not light mode; no grid, lighter
-  shade, clearer text). The default light theme keeps its normal white cards.
-  Scoped to card surfaces — a radius + white surface, or `.t-card` — so plain
-  buttons, inputs and hero CTAs are untouched. Deliberately OUTSIDE any
-  @layer so this beats Tailwind's utility classes (`dark:bg-gray-900`,
-  `bg-gradient-to-b from-white ...`).
-*/
+/* Dark mode card surfaces — lighter slate with glossy edge */
 .dark :is(
   :is(.rounded-2xl, .rounded-xl, .rounded-lg).bg-white,
   :is(.rounded-2xl, .rounded-xl, .rounded-lg).from-white,
   .t-card
 ):not(.bg-clip-text) {
   background-image: none;
-  background-color: #3a4c68;
-  border-color: #4a5e7d;
+  background-color: #1e293b;
+  border-color: #334155;
   box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.1), 0 16px 40px -24px rgb(0 0 0 / 0.45);
 }
-/* Brighter card text on the lighter grey so everything stays readable. */
 .dark :is(
   :is(.rounded-2xl, .rounded-xl, .rounded-lg).bg-white,
   :is(.rounded-2xl, .rounded-xl, .rounded-lg).from-white,
   .t-card
 ):not(.bg-clip-text) :is(.text-black, .text-gray-900, .text-navy-950) {
-  color: #ffffff;
+  color: #f8fafc;
 }
 .dark :is(
   :is(.rounded-2xl, .rounded-xl, .rounded-lg).bg-white,
   :is(.rounded-2xl, .rounded-xl, .rounded-lg).from-white,
   .t-card
 ):not(.bg-clip-text) :is(.text-gray-700, .text-gray-600) {
-  color: #e8eef6;
+  color: #e2e8f0;
 }
 .dark :is(
   :is(.rounded-2xl, .rounded-xl, .rounded-lg).bg-white,
   :is(.rounded-2xl, .rounded-xl, .rounded-lg).from-white,
   .t-card
 ):not(.bg-clip-text) :is(.text-gray-500, .text-gray-400) {
-  color: #c3d0e0;
+  color: #94a3b8;
+}
+
+/* Auth/legal page theme */
+@layer components {
+  .page-auth,
+  .page-legal {
+    background:
+      radial-gradient(1200px 600px at 10% -10%, #1e293b 0%, #0000 55%),
+      radial-gradient(900px 500px at 90% 110%, #0f172a 0%, #0000 55%),
+      #020617;
+  }
 }
