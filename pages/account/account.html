@@ -222,6 +222,13 @@
         var notice = document.getElementById('saved-notice');
         if (!notice) return;
 
+        var btn = document.querySelector('button[type="submit"]');
+        var originalBtnText = btn ? btn.innerHTML : '';
+        if (btn) {
+          btn.disabled = true;
+          btn.innerHTML = '<span>Adding...</span>';
+        }
+
         var nameEl = document.getElementById('name');
         var emailEl = document.getElementById('email');
         var payload = {
@@ -275,6 +282,12 @@
             }
           }).catch(function () {
             alert('Network error. Please try again.');
+          }).finally(function () {
+            if (btn) {
+              btn.disabled = false;
+              btn.innerHTML = originalBtnText || 'Save Changes';
+              if (window.lucide) lucide.createIcons();
+            }
           });
         };
 
