@@ -17,6 +17,11 @@
     <!-- Tailwind CSS (compiled locally — rebuild with `npm run build` or `npm run dev`) -->
     <link rel="stylesheet" href="/dist/tailwind.css" />
 
+    <style>
+      /* Force landing page to load at the top without smooth autoscroll */
+      html { scroll-behavior: auto !important; }
+    </style>
+
     <!-- Set theme before paint to avoid a flash of the wrong theme -->
     <script>
       (function () {
@@ -26,9 +31,7 @@
       })();
     </script>
   </head>
-
-  <body class="font-sans antialiased bg-gray-300 text-black dark:bg-navy-950 dark:text-white">
-    <!-- Fixed background: grid lines -->
+  <body class="font-sans antialiased bg-navy-950 text-gray-200 dark:text-gray-200">
     <div aria-hidden="true" class="pointer-events-none fixed inset-0 -z-10 t-gridlines"></div>
     <!-- ============ Top Navigation ============ -->
     <nav class="fixed top-0 left-0 right-0 z-50 border-b border-white/10 bg-navy-950">
