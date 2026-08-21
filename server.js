@@ -74,7 +74,7 @@ function publicUser(u) {
 
 /* ----------------------------- middleware ----------------------------- */
 
-app.use(express.json({ limit: '100kb' }));
+app.use(express.json({ limit: '10mb' }));
 app.use(function (req, res, next) {
   res.set('X-Content-Type-Options', 'nosniff');
   res.set('X-Frame-Options', 'DENY');
