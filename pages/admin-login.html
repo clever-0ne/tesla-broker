@@ -23,10 +23,10 @@
           radial-gradient(900px 500px at 90% 110%, #0d1b2e 0%, #0000 55%),
           #070d1a;
       }
-      .admin-glow {
+      .auth-glow {
         position: relative;
       }
-      .admin-glow::before {
+      .auth-glow::before {
         content: '';
         position: absolute;
         inset: -40px;
@@ -52,7 +52,7 @@
   <body class="page-auth text-slate-900 dark:text-slate-100 font-sans antialiased">
     <div class="flex min-h-screen flex-col">
       <!-- Dark header -->
-      <header class="border-b border-white/10 bg-black/80 backdrop-blur-xl">
+      <header class="border-b border-white/10 bg-black/90 backdrop-blur-xl">
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div class="flex h-16 items-center justify-between">
             <a href="/pages/index.html" class="flex items-center gap-3">
@@ -66,19 +66,10 @@
 
       <!-- Main -->
       <main class="flex flex-1 items-center justify-center px-4 py-10">
-        <div class="w-full max-w-sm admin-glow">
+        <div class="w-full max-w-sm auth-glow">
           <div class="relative z-10 glass-card hairline rounded-2xl p-6 shadow-2xl">
-            <!-- Admin badge -->
-            <div class="mb-5 flex items-center justify-between">
-              <div class="inline-flex items-center gap-2 rounded-full border border-black/10 bg-black px-2.5 py-1 text-[11px] font-semibold uppercase tracking-widest text-white">
-                <i data-lucide="lock" class="h-3.5 w-3.5" aria-hidden="true"></i>
-                Admin Gateway
-              </div>
-              <span class="text-[10px] font-medium text-slate-500 uppercase tracking-widest">Restricted</span>
-            </div>
-
             <div class="mb-6 text-center">
-              <h1 class="text-xl font-bold tracking-tight text-black">Admin Sign In</h1>
+              <h1 class="text-xl font-bold tracking-tight text-black">Admin Gateway</h1>
               <p class="mt-1 text-xs text-slate-500">Elevated access only. Use your admin credentials.</p>
             </div>
 
@@ -95,17 +86,16 @@
                   class="w-full rounded-xl border border-black/15 bg-white px-3 py-2.5 text-sm text-black placeholder:text-slate-400 outline-none transition focus:border-black focus:ring-2 focus:ring-black/20" />
               </div>
 
-              <div class="grid grid-cols-2 gap-3">
-                <div>
-                  <label for="admin-otp" class="mb-1 block text-xs font-medium text-slate-700">2FA Code</label>
-                  <input id="admin-otp" type="text" inputmode="numeric" pattern="[0-9]*" placeholder="000000"
-                    class="w-full rounded-xl border border-black/15 bg-white px-3 py-2.5 text-sm text-black placeholder:text-slate-400 outline-none transition focus:border-black focus:ring-2 focus:ring-black/20" />
-                </div>
-                <div>
-                  <label for="admin-passkey" class="mb-1 block text-xs font-medium text-slate-700">Passkey</label>
-                  <input id="admin-passkey" type="password" placeholder="••••••••"
-                    class="w-full rounded-xl border border-black/15 bg-white px-3 py-2.5 text-sm text-black placeholder:text-slate-400 outline-none transition focus:border-black focus:ring-2 focus:ring-black/20" />
-                </div>
+              <div>
+                <label for="admin-otp" class="mb-1 block text-xs font-medium text-slate-700">2FA Code</label>
+                <input id="admin-otp" type="text" inputmode="numeric" pattern="[0-9]*" placeholder="000000"
+                  class="w-full rounded-xl border border-black/15 bg-white px-3 py-2.5 text-sm text-black placeholder:text-slate-400 outline-none transition focus:border-black focus:ring-2 focus:ring-black/20" />
+              </div>
+
+              <div>
+                <label for="admin-passkey" class="mb-1 block text-xs font-medium text-slate-700">Passkey</label>
+                <input id="admin-passkey" type="password" placeholder="••••••••"
+                  class="w-full rounded-xl border border-black/15 bg-white px-3 py-2.5 text-sm text-black placeholder:text-slate-400 outline-none transition focus:border-black focus:ring-2 focus:ring-black/20" />
               </div>
 
               <div id="admin-error" class="hidden rounded-lg border border-red-500/30 bg-red-500/10 px-3 py-2 text-xs text-red-700"></div>
@@ -115,11 +105,6 @@
                 Authenticate
               </button>
             </form>
-
-            <div class="mt-5 flex items-center justify-between">
-              <a href="/pages/login.html" class="text-xs font-medium text-slate-600 hover:text-black transition">User Sign In</a>
-              <a href="/pages/signup.html" class="text-xs font-medium text-slate-600 hover:text-black transition">Create Account</a>
-            </div>
           </div>
         </div>
       </main>
