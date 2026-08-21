@@ -57,7 +57,7 @@
               <i data-lucide="moon" id="theme-moon" class="w-5 h-5"></i>
             </button>
 
-            <a href="#auth" id="nav-signin" class="rounded-full bg-gray-200 px-5 py-2 text-sm font-medium text-navy-950 shadow-lg transition hover:bg-gray-300">
+            <a href="/pages/login.html" id="nav-signin" class="rounded-full bg-gray-200 px-5 py-2 text-sm font-medium text-navy-950 shadow-lg transition hover:bg-gray-300">
               Sign In
             </a>
 
@@ -596,112 +596,19 @@
         </div>
       </section>
 
-      <!-- ============ Sign In / Sign Up ============ -->
+      <!-- ============ Account Access ============ -->
       <section id="auth" class="bg-navy-950 py-16 text-white" aria-labelledby="auth-heading">
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div class="mb-8 text-center">
-            <h2 id="auth-heading" class="text-xl font-semibold sm:text-2xl">Your account</h2>
-            <p class="mt-1 text-sm text-gray-400">Sign in or create a new account to get started.</p>
-          </div>
-
-          <div class="mx-auto max-w-md">
-            <div class="overflow-hidden rounded-2xl bg-gradient-to-b from-white to-gray-50 text-black shadow-2xl dark:bg-gray-900 dark:text-white">
-              <!-- Tabs -->
-              <div class="flex border-b border-gray-200 dark:border-white/10" role="tablist" aria-label="Authentication tabs">
-                <button type="button" role="tab" data-tab="login" aria-selected="true" aria-controls="tab-login"
-                        class="flex-1 py-4 text-sm font-medium border-b-2 border-tesla text-tesla transition-colors">
-                  Sign In
-                </button>
-                <button type="button" role="tab" data-tab="signup" aria-selected="false" aria-controls="tab-signup"
-                        class="flex-1 py-4 text-sm font-medium border-b-2 border-transparent text-gray-400 transition-colors hover:text-gray-600 dark:hover:text-gray-200">
-                  Create Account
-                </button>
-              </div>
-
-              <!-- Login form -->
-              <form id="tab-login" class="p-8 space-y-5" novalidate>
-                <div>
-                  <h3 class="text-lg font-semibold">Welcome back</h3>
-                  <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Sign in to access your account.</p>
-                </div>
-
-                <div id="login-error" class="hidden rounded-xl border border-[#fecaca] bg-[#fef2f2] px-4 py-3 text-sm text-[#b91c1c] dark:border-[#ef4444]/30 dark:bg-[#ef4444]/10 dark:text-[#f87171]"></div>
-
-                <div>
-                  <label for="login-email" class="mb-1.5 block text-xs font-medium text-gray-700 dark:text-gray-300">Email address</label>
-                  <input type="email" id="login-email" name="email" required autocomplete="email" placeholder="you@example.com"
-                         class="w-full rounded-xl border border-gray-300 px-3 py-2.5 text-sm text-black placeholder-gray-400 focus:border-tesla focus:outline-none focus:ring-1 focus:ring-tesla dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:placeholder-gray-500" />
-                </div>
-
-                <div>
-                  <label for="login-password" class="mb-1.5 block text-xs font-medium text-gray-700 dark:text-gray-300">Password</label>
-                  <input type="password" id="login-password" name="password" required autocomplete="current-password" placeholder="••••••••"
-                         class="w-full rounded-xl border border-gray-300 px-3 py-2.5 text-sm text-black placeholder-gray-400 focus:border-tesla focus:outline-none focus:ring-1 focus:ring-tesla dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:placeholder-gray-500" />
-                </div>
-
-                <div class="flex items-center justify-between">
-                  <label class="flex items-center text-sm text-gray-600 dark:text-gray-400">
-                    <input type="checkbox" name="remember" class="mr-2 rounded border-gray-300 text-tesla focus:ring-tesla dark:border-gray-600 dark:bg-gray-800" />
-                    Remember me
-                  </label>
-                  <a href="/pages/support/support.html" class="text-sm font-medium text-[#2563eb] hover:underline">Forgot password?</a>
-                </div>
-
-                <button type="submit" id="login-submit"
-                        class="w-full rounded-full bg-gray-200 px-4 py-2.5 text-sm font-medium text-navy-950 shadow-lg transition hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-tesla focus:ring-offset-2">
-                  Sign In
-                </button>
-              </form>
-
-              <!-- Sign up form -->
-              <form id="tab-signup" class="hidden p-8 space-y-5" novalidate>
-                <div>
-                  <h3 class="text-lg font-semibold">Create your account</h3>
-                  <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Join and start building your portfolio.</p>
-                </div>
-
-                <div id="signup-error" class="hidden rounded-xl border border-[#fecaca] bg-[#fef2f2] px-4 py-3 text-sm text-[#b91c1c] dark:border-[#ef4444]/30 dark:bg-[#ef4444]/10 dark:text-[#f87171]"></div>
-
-                <div>
-                  <label for="signup-name" class="mb-1.5 block text-xs font-medium text-gray-700 dark:text-gray-300">Full name</label>
-                  <input type="text" id="signup-name" name="name" required autocomplete="name" placeholder="Wilson Jefferson"
-                         class="w-full rounded-xl border border-gray-300 px-3 py-2.5 text-sm text-black placeholder-gray-400 focus:border-tesla focus:outline-none focus:ring-1 focus:ring-tesla dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:placeholder-gray-500" />
-                </div>
-
-                <div>
-                  <label for="signup-email" class="mb-1.5 block text-xs font-medium text-gray-700 dark:text-gray-300">Email address</label>
-                  <input type="email" id="signup-email" name="email" required autocomplete="email" placeholder="you@example.com"
-                         class="w-full rounded-xl border border-gray-300 px-3 py-2.5 text-sm text-black placeholder-gray-400 focus:border-tesla focus:outline-none focus:ring-1 focus:ring-tesla dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:placeholder-gray-500" />
-                </div>
-
-                <div>
-                  <label for="signup-password" class="mb-1.5 block text-xs font-medium text-gray-700 dark:text-gray-300">Password</label>
-                  <input type="password" id="signup-password" name="password" required autocomplete="new-password" placeholder="At least 8 characters"
-                         class="w-full rounded-xl border border-gray-300 px-3 py-2.5 text-sm text-black placeholder-gray-400 focus:border-tesla focus:outline-none focus:ring-1 focus:ring-tesla dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:placeholder-gray-500" />
-                  <p class="mt-1 text-xs text-gray-400 dark:text-gray-500">8–72 characters. Store it somewhere safe — it cannot be recovered.</p>
-                </div>
-
-                <div>
-                  <label for="signup-password-confirm" class="mb-1.5 block text-xs font-medium text-gray-700 dark:text-gray-300">Confirm password</label>
-                  <input type="password" id="signup-password-confirm" name="password_confirmation" required autocomplete="new-password" placeholder="Re-enter your password"
-                         class="w-full rounded-xl border border-gray-300 px-3 py-2.5 text-sm text-black placeholder-gray-400 focus:border-tesla focus:outline-none focus:ring-1 focus:ring-tesla dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:placeholder-gray-500" />
-                </div>
-
-                <label class="flex items-start text-sm text-gray-600 dark:text-gray-400">
-                  <input type="checkbox" id="signup-terms" required class="mt-0.5 mr-2 rounded border-gray-300 text-tesla focus:ring-tesla dark:border-gray-600 dark:bg-gray-800" />
-                  <span>
-                    I agree to the
-                    <a href="/pages/terms.html" class="font-medium text-[#2563eb] hover:underline">Terms</a>
-                    and
-                    <a href="/pages/privacy.html" class="font-medium text-[#2563eb] hover:underline">Privacy Policy</a>.
-                  </span>
-                </label>
-
-                <button type="submit" id="signup-submit"
-                        class="w-full rounded-full bg-gray-200 px-4 py-2.5 text-sm font-medium text-navy-950 shadow-lg transition hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-tesla focus:ring-offset-2">
-                  Create Account
-                </button>
-              </form>
+          <div class="mx-auto max-w-md rounded-2xl border border-white/10 bg-navy-900/50 p-8 text-center shadow-2xl backdrop-blur">
+            <h2 id="auth-heading" class="text-2xl font-bold tracking-tight">Your account</h2>
+            <p class="mt-2 text-sm text-gray-400">Sign in to access your dashboard, or create a new account.</p>
+            <div class="mt-6 flex flex-col gap-3 sm:flex-row sm:justify-center">
+              <a href="/pages/login.html" class="inline-flex items-center justify-center rounded-full bg-gray-200 px-6 py-2.5 text-sm font-semibold text-navy-950 shadow-lg transition hover:bg-gray-300">
+                Sign In
+              </a>
+              <a href="/pages/index.html#auth" class="inline-flex items-center justify-center rounded-full bg-tesla px-6 py-2.5 text-sm font-semibold text-navy-950 shadow-lg transition hover:brightness-110">
+                Create Account
+              </a>
             </div>
           </div>
         </div>

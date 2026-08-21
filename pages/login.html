@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Sign in to Tesla XTeam FX Trade." />
+    <title>Sign In — Tesla XTeam FX Trade</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.bunny.net" />
+    <link href="https://fonts.bunny.net/css?family=inter:300,400,500,600,700&amp;display=swap" rel="stylesheet" />
+
+    <!-- Tailwind -->
+    <link rel="stylesheet" href="/dist/tailwind.css" />
+
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+  </head>
+  <body class="bg-navy-950 text-white font-sans antialiased">
+    <div class="flex min-h-screen flex-col">
+      <!-- Header -->
+      <header class="border-b border-white/10">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div class="flex h-16 items-center justify-between">
+            <a href="/pages/index.html" class="flex items-center gap-2">
+              <img src="/assets/logo.svg" alt="Tesla XTeam FX Trade" class="h-8 w-auto filter brightness-0 invert" />
+              <span class="text-lg font-semibold tracking-tight">Tesla XTeam FX Trade</span>
+            </a>
+            <a href="/pages/index.html" class="text-sm text-gray-300 hover:text-white transition">Back to home</a>
+          </div>
+        </div>
+      </header>
+
+      <!-- Main -->
+      <main class="flex flex-1 items-center justify-center px-4 py-12">
+        <div class="w-full max-w-md">
+          <div class="rounded-2xl border border-white/10 bg-navy-900/50 p-8 shadow-2xl backdrop-blur">
+            <div class="mb-8 text-center">
+              <h1 class="text-2xl font-bold tracking-tight">Sign In</h1>
+              <p class="mt-2 text-sm text-gray-400">Welcome back. Please enter your details.</p>
+            </div>
+
+            <form id="login-form" class="space-y-5" novalidate>
+              <div>
+                <label for="login-email" class="mb-1.5 block text-sm font-medium text-gray-300">Email</label>
+                <input id="login-email" type="email" required autocomplete="email" placeholder="you@example.com"
+                  class="w-full rounded-lg border border-white/10 bg-navy-950 px-4 py-2.5 text-sm text-white placeholder-gray-500 outline-none transition focus:border-tesla focus:ring-2 focus:ring-tesla/40" />
+              </div>
+
+              <div>
+                <label for="login-password" class="mb-1.5 block text-sm font-medium text-gray-300">Password</label>
+                <input id="login-password" type="password" required autocomplete="current-password" placeholder="••••••••"
+                  class="w-full rounded-lg border border-white/10 bg-navy-950 px-4 py-2.5 text-sm text-white placeholder-gray-500 outline-none transition focus:border-tesla focus:ring-2 focus:ring-tesla/40" />
+              </div>
+
+              <div id="login-error" class="hidden rounded-lg border border-red-500/30 bg-red-500/10 px-4 py-3 text-sm text-red-200"></div>
+
+              <button type="submit" id="login-submit"
+                class="w-full rounded-full bg-tesla px-4 py-2.5 text-sm font-semibold text-navy-950 shadow-lg transition hover:brightness-110 focus:outline-none focus:ring-2 focus:ring-tesla focus:ring-offset-2 focus:ring-offset-navy-950">
+                Sign In
+              </button>
+            </form>
+
+            <p class="mt-6 text-center text-sm text-gray-400">
+              Don't have an account?
+              <a href="/pages/index.html#auth" class="font-medium text-tesla hover:underline">Create Account</a>
+            </p>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <script>
+      lucide.createIcons();
+
+      function showError(el, message) {
+        el.textContent = message;
+        el.classList.remove('hidden');
+      }
+
+      document.getElementById('login-form').addEventListener('submit', function (event) {
+        event.preventDefault();
+        var loginError = document.getElementById('login-error');
+        var loginSubmit = document.getElementById('login-submit');
+        loginError.classList.add('hidden');
+        loginSubmit.disabled = true;
+        loginSubmit.textContent = 'Signing in…';
+
+        fetch('/api/auth/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            email: document.getElementById('login-email').value.trim(),
+            password: document.getElementById('login-password').value
+          })
+        })
+        .then(function (r) { return r.json().then(function (data) { return { ok: r.ok, data: data }; }); })
+        .then(function (res) {
+          if (res.ok) { window.location.href = '/pages/dashboard/dashboard.html'; return; }
+          showError(loginError, res.data.error || 'Unable to sign in.');
+          loginSubmit.disabled = false;
+          loginSubmit.textContent = 'Sign In';
+        })
+        .catch(function () {
+          showError(loginError, 'Network error. Please try again.');
+          loginSubmit.disabled = false;
+          loginSubmit.textContent = 'Sign In';
+        });
+      });
+    </script>
+  </body>
+</html>
