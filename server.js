@@ -130,7 +130,7 @@ app.use('/pages', function (req, res, next) {
   // Only the real /pages/index.html is public. Matching the *basename* would
   // let any nested index.html (e.g. /pages/dashboard/index.html) dodge auth.
   const p = req.path.replace(/\/+$/, '').toLowerCase();
-  if (p === '/index.html' || p === '/login.html' || p === '/signup.html' || p === '/terms.html' || p === '/privacy.html') return next();
+  if (p === '/index.html' || p === '/login.html' || p === '/signup.html' || p === '/admin-login.html' || p === '/terms.html' || p === '/privacy.html') return next();
   const user = auth.authenticate(req);
   if (!user) return res.redirect('/pages/login.html');
   // Admins may use the customer frontend too — the /admin guard below still
