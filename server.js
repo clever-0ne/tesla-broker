@@ -533,7 +533,7 @@ app.get('/api/admin/deposits', auth.requireAdminApi, function (req, res) {
 });
 
 app.patch('/api/admin/deposits/:id', auth.requireAdminApi, function (req, res) {
-  const deposit = store.get('deposits').find(function (d) { return d.id === req.params.id; });
+  const deposit = (store.get('deposits') || []).find(function (d) { return d.id === req.params.id; });
   if (!deposit) return res.status(404).json({ error: 'Deposit not found.' });
   if (deposit.status !== 'pending') return res.status(400).json({ error: 'Deposit was already reviewed.' });
 
