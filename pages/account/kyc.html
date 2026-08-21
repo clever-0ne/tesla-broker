@@ -516,10 +516,13 @@
         var notice = document.getElementById('kyc-notice');
         if (!notice) return;
 
-        var btn = (event.submitter || document.querySelector('[type="submit"]'));
-        if (btn) { btn.disabled = true; btn.innerHTML = '<i data-lucide="loader-2" class="mr-2 w-4 h-4 animate-spin"></i>Submitting…'; if (window.lucide) lucide.createIcons(); }
+        var btn = document.querySelector('button[type="submit"]');
+        if (!btn) return;
 
-        // Collect form data
+        btn.disabled = true;
+        btn.innerHTML = '<i data-lucide="loader-2" class="mr-2 w-4 h-4 animate-spin"></i>Submitting…';
+        if (window.lucide) lucide.createIcons();
+
         var formData = {};
         var fields = ['first_name','last_name','date_of_birth','nationality','address_country','address_street','address_city','address_state','address_zip','document_type','document_number'];
         fields.forEach(function (f) {
@@ -527,7 +530,6 @@
           if (el) formData[f] = el.value.trim();
         });
 
-        // Read document images as base64
         var promises = [];
         ['document_front','document_back'].forEach(function (id) {
           var input = document.getElementById(id);
@@ -543,27 +545,31 @@
         });
 
         Promise.all(promises).then(function (images) {
-          console.log('[kyc] submitting', formData, 'images:', images.filter(function (x) { return x; }).length);
+          var validImages = images.filter(function (x) { return x; });
+          if (!validImages.length) {
+            throw new Error('Please upload at least one document image.');
+          }
           return api('/api/kyc/submit', {
             method: 'POST',
-            body: JSON.stringify({ data: formData, images: images.filter(function (x) { return x; }) })
+            body: JSON.stringify({ data: formData, images: validImages })
           });
         }).then(function (r) {
-          console.log('[kyc] response', r);
           if (r.ok) {
             var modal = document.getElementById('kyc-confirm-modal');
-            var notice = document.getElementById('kyc-notice');
+            var noticeEl = document.getElementById('kyc-notice');
             if (modal) { modal.classList.remove('hidden'); modal.classList.add('flex'); }
-            if (notice) { notice.classList.remove('hidden'); notice.scrollIntoView({ block: 'nearest', behavior: 'smooth' }); }
+            if (noticeEl) { noticeEl.classList.remove('hidden'); noticeEl.scrollIntoView({ block: 'nearest', behavior: 'smooth' }); }
             if (window.FX && window.FX.refresh) window.FX.refresh();
           } else {
             alert(r.data.error || 'Submission failed. Please try again.');
           }
         }).catch(function (err) {
           console.error('[kyc] submit failed:', err);
-          alert('Submission failed. Please try again.');
+          alert(err.message || 'Submission failed. Please try again.');
         }).finally(function () {
-          if (btn) { btn.disabled = false; btn.innerHTML = '<i data-lucide="shield-check" class="mr-2 w-4 h-4"></i>Submit Verification'; if (window.lucide) lucide.createIcons(); }
+          btn.disabled = false;
+          btn.innerHTML = '<i data-lucide="shield-check" class="mr-2 w-4 h-4"></i>Submit Verification';
+          if (window.lucide) lucide.createIcons();
         });
       }
 

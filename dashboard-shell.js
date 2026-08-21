@@ -261,6 +261,7 @@
       });
     });
   }
+  window.api = api;
 
   function setBalance(value) {
     BALANCE_CACHE = Math.round((Number(value) || 0) * 100) / 100;
