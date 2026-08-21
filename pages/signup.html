@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Create your Tesla XTeam FX Trade account." />
+    <title>Create Account — Tesla XTeam FX Trade</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.bunny.net" />
+    <link href="https://fonts.bunny.net/css?family=inter:300,400,500,600,700&display=swap" rel="stylesheet" />
+
+    <!-- Tailwind -->
+    <link rel="stylesheet" href="/dist/tailwind.css" />
+
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+  </head>
+  <body class="bg-navy-950 text-white font-sans antialiased">
+    <div class="flex min-h-screen flex-col">
+      <!-- Header -->
+      <header class="border-b border-white/10">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div class="flex h-16 items-center justify-between">
+            <a href="/pages/index.html" class="flex items-center">
+              <img src="/assets/logo.svg" alt="Tesla XTeam FX Trade" class="h-6 w-auto filter brightness-0 invert" />
+            </a>
+            <a href="/pages/index.html" class="text-sm text-gray-300 hover:text-white transition">Back to home</a>
+          </div>
+        </div>
+      </header>
+
+      <!-- Main -->
+      <main class="flex flex-1 items-center justify-center px-4 py-10">
+        <div class="w-full max-w-sm">
+          <div class="rounded-2xl border border-white/10 bg-navy-900/50 p-6 shadow-2xl backdrop-blur">
+            <div class="mb-6 text-center">
+              <h1 class="text-xl font-bold tracking-tight">Create Account</h1>
+              <p class="mt-1 text-xs text-gray-400">Start your journey in minutes.</p>
+            </div>
+
+            <form id="signup-form" class="space-y-4" novalidate>
+              <div>
+                <label for="signup-name" class="mb-1 block text-xs font-medium text-gray-300">Full Name</label>
+                <input id="signup-name" type="text" required autocomplete="name" placeholder="Your full name"
+                  class="w-full rounded-lg border border-white/10 bg-navy-950 px-3 py-2 text-xs text-white placeholder-gray-500 outline-none transition focus:border-tesla focus:ring-2 focus:ring-tesla/40" />
+              </div>
+
+              <div>
+                <label for="signup-email" class="mb-1 block text-xs font-medium text-gray-300">Email</label>
+                <input id="signup-email" type="email" required autocomplete="email" placeholder="you@example.com"
+                  class="w-full rounded-lg border border-white/10 bg-navy-950 px-3 py-2 text-xs text-white placeholder-gray-500 outline-none transition focus:border-tesla focus:ring-2 focus:ring-tesla/40" />
+              </div>
+
+              <div>
+                <label for="signup-password" class="mb-1 block text-xs font-medium text-gray-300">Password</label>
+                <input id="signup-password" type="password" required autocomplete="new-password" placeholder="Min 8 characters"
+                  class="w-full rounded-lg border border-white/10 bg-navy-950 px-3 py-2 text-xs text-white placeholder-gray-500 outline-none transition focus:border-tesla focus:ring-2 focus:ring-tesla/40" />
+              </div>
+
+              <div>
+                <label for="signup-password-confirm" class="mb-1 block text-xs font-medium text-gray-300">Confirm Password</label>
+                <input id="signup-password-confirm" type="password" required autocomplete="new-password" placeholder="Repeat password"
+                  class="w-full rounded-lg border border-white/10 bg-navy-950 px-3 py-2 text-xs text-white placeholder-gray-500 outline-none transition focus:border-tesla focus:ring-2 focus:ring-tesla/40" />
+              </div>
+
+              <div class="flex items-start gap-2">
+                <input id="signup-terms" type="checkbox" required class="mt-0.5 h-4 w-4 rounded border-white/20 bg-navy-950 text-tesla focus:ring-tesla" />
+                <label for="signup-terms" class="text-xs text-gray-300">
+                  I agree to the <a href="/pages/terms.html" class="text-tesla hover:underline">Terms</a> and <a href="/pages/privacy.html" class="text-tesla hover:underline">Privacy Policy</a>.
+                </label>
+              </div>
+
+              <div id="signup-error" class="hidden rounded-lg border border-red-500/30 bg-red-500/10 px-3 py-2 text-xs text-red-200"></div>
+
+              <button type="submit" id="signup-submit"
+                class="w-full rounded-full bg-tesla px-4 py-2 text-xs font-semibold text-navy-950 shadow-lg transition hover:brightness-110 focus:outline-none focus:ring-2 focus:ring-tesla focus:ring-offset-2 focus:ring-offset-navy-950">
+                Create Account
+              </button>
+            </form>
+
+            <p class="mt-4 text-center text-xs text-gray-400">
+              Already have an account?
+              <a href="/pages/login.html" class="font-medium text-tesla hover:underline">Sign In</a>
+            </p>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <script>
+      lucide.createIcons();
+
+      function showError(el, message) {
+        el.textContent = message;
+        el.classList.remove('hidden');
+      }
+
+      document.getElementById('signup-form').addEventListener('submit', function (event) {
+        event.preventDefault();
+        var signupError = document.getElementById('signup-error');
+        var signupSubmit = document.getElementById('signup-submit');
+        signupError.classList.add('hidden');
+        signupSubmit.disabled = true;
+        signupSubmit.textContent = 'Creating account…';
+
+        var name = document.getElementById('signup-name').value.trim();
+        var email = document.getElementById('signup-email').value.trim();
+        var password = document.getElementById('signup-password').value;
+        var confirm = document.getElementById('signup-password-confirm').value;
+        var terms = document.getElementById('signup-terms').checked;
+
+        if (name.length < 2) {
+          showError(signupError, 'Please enter your full name.');
+          signupSubmit.disabled = false;
+          signupSubmit.textContent = 'Create Account';
+          return;
+        }
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) {
+          showError(signupError, 'Please enter a valid email address.');
+          signupSubmit.disabled = false;
+          signupSubmit.textContent = 'Create Account';
+          return;
+        }
+        if (password.length < 8) {
+          showError(signupError, 'Password must be at least 8 characters.');
+          signupSubmit.disabled = false;
+          signupSubmit.textContent = 'Create Account';
+          return;
+        }
+        if (password !== confirm) {
+          showError(signupError, 'Passwords do not match.');
+          signupSubmit.disabled = false;
+          signupSubmit.textContent = 'Create Account';
+          return;
+        }
+        if (!terms) {
+          showError(signupError, 'Please accept the Terms and Privacy Policy.');
+          signupSubmit.disabled = false;
+          signupSubmit.textContent = 'Create Account';
+          return;
+        }
+
+        fetch('/api/auth/signup', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name: name, email: email, password: password })
+        })
+        .then(function (r) { return r.json().then(function (data) { return { ok: r.ok, data: data }; }); })
+        .then(function (res) {
+          if (res.ok) { window.location.href = '/pages/dashboard/dashboard.html'; return; }
+          showError(signupError, res.data.error || 'Unable to create your account.');
+          signupSubmit.disabled = false;
+          signupSubmit.textContent = 'Create Account';
+        })
+        .catch(function () {
+          showError(signupError, 'Network error. Please try again.');
+          signupSubmit.disabled = false;
+          signupSubmit.textContent = 'Create Account';
+        });
+      });
+    </script>
+  </body>
+</html>

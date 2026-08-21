@@ -132,7 +132,7 @@ app.use('/pages', function (req, res, next) {
   const p = req.path.replace(/\/+$/, '').toLowerCase();
   if (p === '/index.html' || p === '/login.html' || p === '/terms.html' || p === '/privacy.html') return next();
   const user = auth.authenticate(req);
-  if (!user) return res.redirect('/pages/index.html#auth');
+  if (!user) return res.redirect('/pages/login.html');
   // Admins may use the customer frontend too — the /admin guard below still
   // limits the console to admin accounts, so both areas work from one session.
   next();
