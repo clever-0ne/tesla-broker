@@ -160,6 +160,24 @@
     color: rgb(255 255 255 / 0.65);
   }
 
+  /* Premium gradient glow hero card */
+  .premium-hero-card {
+    background:
+      linear-gradient(135deg, #0f172a 0%, #312e81 55%, #1f1225 100%);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 20px;
+    box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+  }
+  .premium-hero-card * {
+    color: #ffffff;
+  }
+  .premium-hero-card .text-slate-500,
+  .premium-hero-card .text-slate-400 {
+    color: #cbd5e1 !important;
+  }
+
   /* Primary filled pill button */
   .t-btn {
     display: inline-flex;
