@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Admin gateway for Tesla Capital." />
+    <title>Admin Gateway — Tesla Capital</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.bunny.net" />
+    <link href="https://fonts.bunny.net/css?family=inter:300,400,500,600,700&display=swap" rel="stylesheet" />
+
+    <!-- Tailwind -->
+    <link rel="stylesheet" href="/dist/tailwind.css" />
+
+    <!-- Lucide -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+
+    <style>
+      .page-auth {
+        background:
+          radial-gradient(1200px 600px at 10% -10%, #0f1f38 0%, #0000 55%),
+          radial-gradient(900px 500px at 90% 110%, #0d1b2e 0%, #0000 55%),
+          #070d1a;
+      }
+      .admin-glow {
+        position: relative;
+      }
+      .admin-glow::before {
+        content: '';
+        position: absolute;
+        inset: -40px;
+        background:
+          radial-gradient(1200px 500px at 10% 0%, rgba(232, 33, 39, 0.35) 0%, #0000 45%),
+          radial-gradient(900px 500px at 90% 100%, rgba(30, 60, 220, 0.35) 0%, #0000 45%),
+          radial-gradient(700px 400px at 50% 50%, rgba(255, 160, 80, 0.18) 0%, #0000 50%);
+        filter: blur(40px);
+        opacity: 0.85;
+        z-index: 0;
+        pointer-events: none;
+      }
+      .glass-card {
+        background: rgba(255, 255, 255, 0.85);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+      }
+      .hairline {
+        border: 1px solid rgba(0, 0, 0, 0.12);
+      }
+    </style>
+  </head>
+  <body class="page-auth text-slate-900 dark:text-slate-100 font-sans antialiased">
+    <div class="flex min-h-screen flex-col">
+      <!-- Dark header -->
+      <header class="border-b border-white/10 bg-black/80 backdrop-blur-xl">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div class="flex h-16 items-center justify-between">
+            <a href="/pages/index.html" class="flex items-center gap-3">
+              <img src="/assets/tesla-t.svg" alt="Tesla Capital" class="h-7 w-auto invert" />
+              <span class="text-sm font-semibold tracking-tight text-white">Tesla Capital</span>
+            </a>
+            <a href="/pages/login.html" class="text-xs font-medium text-slate-300 transition hover:text-white">User Sign In</a>
+          </div>
+        </div>
+      </header>
+
+      <!-- Main -->
+      <main class="flex flex-1 items-center justify-center px-4 py-10">
+        <div class="w-full max-w-sm admin-glow">
+          <div class="relative z-10 glass-card hairline rounded-2xl p-6 shadow-2xl">
+            <!-- Admin badge -->
+            <div class="mb-5 flex items-center justify-between">
+              <div class="inline-flex items-center gap-2 rounded-full border border-black/10 bg-black px-2.5 py-1 text-[11px] font-semibold uppercase tracking-widest text-white">
+                <i data-lucide="lock" class="h-3.5 w-3.5" aria-hidden="true"></i>
+                Admin Gateway
+              </div>
+              <span class="text-[10px] font-medium text-slate-500 uppercase tracking-widest">Restricted</span>
+            </div>
+
+            <div class="mb-6 text-center">
+              <h1 class="text-xl font-bold tracking-tight text-black">Admin Sign In</h1>
+              <p class="mt-1 text-xs text-slate-500">Elevated access only. Use your admin credentials.</p>
+            </div>
+
+            <form id="admin-login-form" class="space-y-4" novalidate>
+              <div>
+                <label for="admin-email" class="mb-1 block text-xs font-medium text-slate-700">Admin Email</label>
+                <input id="admin-email" type="email" required autocomplete="email" placeholder="admin@teslacapital.com"
+                  class="w-full rounded-xl border border-black/15 bg-white px-3 py-2.5 text-sm text-black placeholder:text-slate-400 outline-none transition focus:border-black focus:ring-2 focus:ring-black/20" />
+              </div>
+
+              <div>
+                <label for="admin-password" class="mb-1 block text-xs font-medium text-slate-700">Password</label>
+                <input id="admin-password" type="password" required autocomplete="current-password" placeholder="••••••••"
+                  class="w-full rounded-xl border border-black/15 bg-white px-3 py-2.5 text-sm text-black placeholder:text-slate-400 outline-none transition focus:border-black focus:ring-2 focus:ring-black/20" />
+              </div>
+
+              <div class="grid grid-cols-2 gap-3">
+                <div>
+                  <label for="admin-otp" class="mb-1 block text-xs font-medium text-slate-700">2FA Code</label>
+                  <input id="admin-otp" type="text" inputmode="numeric" pattern="[0-9]*" placeholder="000000"
+                    class="w-full rounded-xl border border-black/15 bg-white px-3 py-2.5 text-sm text-black placeholder:text-slate-400 outline-none transition focus:border-black focus:ring-2 focus:ring-black/20" />
+                </div>
+                <div>
+                  <label for="admin-passkey" class="mb-1 block text-xs font-medium text-slate-700">Passkey</label>
+                  <input id="admin-passkey" type="password" placeholder="••••••••"
+                    class="w-full rounded-xl border border-black/15 bg-white px-3 py-2.5 text-sm text-black placeholder:text-slate-400 outline-none transition focus:border-black focus:ring-2 focus:ring-black/20" />
+                </div>
+              </div>
+
+              <div id="admin-error" class="hidden rounded-lg border border-red-500/30 bg-red-500/10 px-3 py-2 text-xs text-red-700"></div>
+
+              <button type="submit" id="admin-submit"
+                class="w-full rounded-xl bg-black px-4 py-2.5 text-sm font-semibold text-white shadow-lg transition hover:brightness-110 focus:outline-none focus:ring-2 focus:ring-black/40 focus:ring-offset-2 focus:ring-offset-white">
+                Authenticate
+              </button>
+            </form>
+
+            <div class="mt-5 flex items-center justify-between">
+              <a href="/pages/login.html" class="text-xs font-medium text-slate-600 hover:text-black transition">User Sign In</a>
+              <a href="/pages/signup.html" class="text-xs font-medium text-slate-600 hover:text-black transition">Create Account</a>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <script>
+      lucide.createIcons();
+
+      function showError(el, message) {
+        el.textContent = message;
+        el.classList.remove('hidden');
+      }
+
+      document.getElementById('admin-login-form').addEventListener('submit', function (event) {
+        event.preventDefault();
+        var err = document.getElementById('admin-error');
+        var submit = document.getElementById('admin-submit');
+        err.classList.add('hidden');
+        submit.disabled = true;
+        submit.textContent = 'Authenticating…';
+
+        fetch('/api/admin/auth/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            email: document.getElementById('admin-email').value.trim(),
+            password: document.getElementById('admin-password').value,
+            otp: document.getElementById('admin-otp').value.trim(),
+            passkey: document.getElementById('admin-passkey').value
+          })
+        })
+        .then(function (r) { return r.json().then(function (data) { return { ok: r.ok, data: data }; }); })
+        .then(function (res) {
+          if (res.ok) { window.location.href = '/admin'; return; }
+          showError(err, res.data.error || 'Admin authentication failed.');
+          submit.disabled = false;
+          submit.textContent = 'Authenticate';
+        })
+        .catch(function () {
+          showError(err, 'Network error. Please try again.');
+          submit.disabled = false;
+          submit.textContent = 'Authenticate';
+        });
+      });
+    </script>
+  </body>
+</html>

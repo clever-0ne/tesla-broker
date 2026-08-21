@@ -1,4 +1,4 @@
-# Tesla XTeam FX Trade
+# Tesla Capital
 
 Self-contained trading website: Node.js + Express, Neon Postgres (or JSON file
 storage), Tailwind CSS. No other external services.

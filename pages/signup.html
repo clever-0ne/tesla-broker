@@ -3,8 +3,8 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="Create your Tesla XTeam FX Trade account." />
-    <title>Create Account — Tesla XTeam FX Trade</title>
+    <meta name="description" content="Create your Tesla Capital account." />
+    <title>Create Account — Tesla Capital</title>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net" />
@@ -13,75 +13,109 @@
     <!-- Tailwind -->
     <link rel="stylesheet" href="/dist/tailwind.css" />
 
-    <!-- Icons -->
-    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Lucide -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+
+    <style>
+      .page-auth {
+        background:
+          radial-gradient(1200px 600px at 10% -10%, #0f1f38 0%, #0000 55%),
+          radial-gradient(900px 500px at 90% 110%, #0d1b2e 0%, #0000 55%),
+          #070d1a;
+      }
+      .auth-glow {
+        position: relative;
+      }
+      .auth-glow::before {
+        content: '';
+        position: absolute;
+        inset: -40px;
+        background:
+          radial-gradient(1200px 500px at 10% 0%, rgba(232, 33, 39, 0.35) 0%, #0000 45%),
+          radial-gradient(900px 500px at 90% 100%, rgba(30, 60, 220, 0.35) 0%, #0000 45%),
+          radial-gradient(700px 400px at 50% 50%, rgba(255, 160, 80, 0.18) 0%, #0000 50%);
+        filter: blur(40px);
+        opacity: 0.85;
+        z-index: 0;
+        pointer-events: none;
+      }
+      .glass-card {
+        background: rgba(255, 255, 255, 0.85);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+      }
+      .hairline {
+        border: 1px solid rgba(0, 0, 0, 0.12);
+      }
+    </style>
   </head>
-  <body class="bg-slate-950 text-white font-sans antialiased">
+  <body class="page-auth text-slate-900 dark:text-slate-100 font-sans antialiased">
     <div class="flex min-h-screen flex-col">
-      <!-- Header -->
-      <header class="border-b border-slate-200/60 dark:border-white/10">
+      <!-- Dark header -->
+      <header class="border-b border-white/10 bg-black/90 backdrop-blur-xl">
         <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div class="flex h-16 items-center justify-between">
-            <a href="/pages/index.html" class="flex items-center">
-              <img src="/assets/logo.svg" alt="Tesla XTeam FX Trade" class="h-6 w-auto filter brightness-0 invert" />
+            <a href="/pages/index.html" class="flex items-center gap-3">
+              <img src="/assets/tesla-t.svg" alt="Tesla Capital" class="h-7 w-auto invert" />
+              <span class="text-sm font-semibold tracking-tight text-white">Tesla Capital</span>
             </a>
-            <a href="/pages/index.html" class="text-sm text-slate-500 hover:text-slate-900 transition dark:text-slate-400 dark:hover:text-white">Back to home</a>
+            <a href="/pages/index.html" class="text-xs font-medium text-slate-300 transition hover:text-white">Back to home</a>
           </div>
         </div>
       </header>
 
       <!-- Main -->
       <main class="flex flex-1 items-center justify-center px-4 py-10">
-        <div class="w-full max-w-sm">
-          <div class="glass-card p-6">
+        <div class="w-full max-w-sm auth-glow">
+          <div class="relative z-10 glass-card hairline rounded-2xl p-6 shadow-2xl">
             <div class="mb-6 text-center">
-              <h1 class="text-xl font-bold tracking-tight">Create Account</h1>
-              <p class="mt-1 text-xs text-slate-400">Start your journey in minutes.</p>
+              <h1 class="text-xl font-bold tracking-tight text-black">Create Account</h1>
+              <p class="mt-1 text-xs text-slate-500">Start your journey in minutes.</p>
             </div>
 
             <form id="signup-form" class="space-y-4" novalidate>
               <div>
-                <label for="signup-name" class="mb-1 block text-xs font-medium text-slate-500">Full Name</label>
+                <label for="signup-name" class="mb-1 block text-xs font-medium text-slate-700">Full Name</label>
                 <input id="signup-name" type="text" required autocomplete="name" placeholder="Your full name"
-                  class="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-xs text-slate-900 placeholder:text-slate-400 outline-none transition focus:border-slate-900 focus:ring-2 focus:ring-slate-200" />
+                  class="w-full rounded-xl border border-black/15 bg-white px-3 py-2.5 text-sm text-black placeholder:text-slate-400 outline-none transition focus:border-black focus:ring-2 focus:ring-black/20" />
               </div>
 
               <div>
-                <label for="signup-email" class="mb-1 block text-xs font-medium text-slate-500">Email</label>
+                <label for="signup-email" class="mb-1 block text-xs font-medium text-slate-700">Email</label>
                 <input id="signup-email" type="email" required autocomplete="email" placeholder="you@example.com"
-                  class="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-xs text-slate-900 placeholder:text-slate-400 outline-none transition focus:border-slate-900 focus:ring-2 focus:ring-slate-200" />
+                  class="w-full rounded-xl border border-black/15 bg-white px-3 py-2.5 text-sm text-black placeholder:text-slate-400 outline-none transition focus:border-black focus:ring-2 focus:ring-black/20" />
               </div>
 
               <div>
-                <label for="signup-password" class="mb-1 block text-xs font-medium text-slate-500">Password</label>
+                <label for="signup-password" class="mb-1 block text-xs font-medium text-slate-700">Password</label>
                 <input id="signup-password" type="password" required autocomplete="new-password" placeholder="Min 8 characters"
-                  class="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-xs text-slate-900 placeholder:text-slate-400 outline-none transition focus:border-slate-900 focus:ring-2 focus:ring-slate-200" />
+                  class="w-full rounded-xl border border-black/15 bg-white px-3 py-2.5 text-sm text-black placeholder:text-slate-400 outline-none transition focus:border-black focus:ring-2 focus:ring-black/20" />
               </div>
 
               <div>
-                <label for="signup-password-confirm" class="mb-1 block text-xs font-medium text-slate-500">Confirm Password</label>
+                <label for="signup-password-confirm" class="mb-1 block text-xs font-medium text-slate-700">Confirm Password</label>
                 <input id="signup-password-confirm" type="password" required autocomplete="new-password" placeholder="Repeat password"
-                  class="w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-xs text-slate-900 placeholder:text-slate-400 outline-none transition focus:border-slate-900 focus:ring-2 focus:ring-slate-200" />
+                  class="w-full rounded-xl border border-black/15 bg-white px-3 py-2.5 text-sm text-black placeholder:text-slate-400 outline-none transition focus:border-black focus:ring-2 focus:ring-black/20" />
               </div>
 
               <div class="flex items-start gap-2">
-                <input id="signup-terms" type="checkbox" required class="mt-0.5 h-4 w-4 rounded border-slate-300 bg-white text-slate-900 focus:ring-tesla" />
-                <label for="signup-terms" class="text-xs text-slate-500">
-                  I agree to the <a href="/pages/terms.html" class="text-slate-900 hover:underline dark:text-white">Terms</a> and <a href="/pages/privacy.html" class="text-slate-900 hover:underline dark:text-white">Privacy Policy</a>.
+                <input id="signup-terms" type="checkbox" required class="mt-0.5 h-4 w-4 rounded border-slate-300 bg-white text-black focus:ring-black" />
+                <label for="signup-terms" class="text-xs text-slate-600">
+                  I agree to the <a href="/pages/terms.html" class="text-black hover:underline">Terms</a> and <a href="/pages/privacy.html" class="text-black hover:underline">Privacy Policy</a>.
                 </label>
               </div>
 
-              <div id="signup-error" class="hidden rounded-lg border border-red-500/30 bg-red-500/10 px-3 py-2 text-xs text-red-200"></div>
+              <div id="signup-error" class="hidden rounded-lg border border-red-500/30 bg-red-500/10 px-3 py-2 text-xs text-red-700"></div>
 
               <button type="submit" id="signup-submit"
-                class="w-full rounded-full bg-slate-900 text-white px-4 py-2 text-xs font-semibold shadow-lg transition hover:brightness-110 focus:outline-none focus:ring-2 focus:ring-tesla focus:ring-offset-2 focus:ring-offset-navy-950">
+                class="w-full rounded-xl bg-black px-4 py-2.5 text-sm font-semibold text-white shadow-lg transition hover:brightness-110 focus:outline-none focus:ring-2 focus:ring-black/40 focus:ring-offset-2 focus:ring-offset-white">
                 Create Account
               </button>
             </form>
 
-            <p class="mt-4 text-center text-xs text-slate-400">
+            <p class="mt-4 text-center text-xs text-slate-500">
               Already have an account?
-              <a href="/pages/login.html" class="font-medium text-slate-900 hover:underline dark:text-white">Sign In</a>
+              <a href="/pages/login.html" class="font-medium text-black hover:underline">Sign In</a>
             </p>
           </div>
         </div>

@@ -2,7 +2,7 @@
   "name": "xteam-website",
   "version": "0.1.0",
   "private": true,
-  "description": "Tesla XTeam FX Trade — new website",
+  "description": "Tesla Capital — new website",
   "scripts": {
     "build": "tailwindcss -i input.css -o dist/tailwind.css --minify",
     "dev": "tailwindcss -i input.css -o dist/tailwind.css --watch",

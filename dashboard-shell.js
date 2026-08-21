@@ -1,5 +1,5 @@
 /*
-  Tesla XTeam FX Trade — Dashboard Shell
+  Tesla Capital — Dashboard Shell
   --------------------------------------
   Renders the shared sidebar, top bar, mobile bottom navigation, and the
   crypto-only payment modal for every dashboard page. Include this script
@@ -83,7 +83,7 @@
       '<div class="flex flex-col h-full">' +
         '<div class="flex items-center justify-between h-16 px-6 border-b border-slate-200/60 dark:border-white/10">' +
           '<a href="' + url('/pages/index.html') + '" class="flex items-center">' +
-            '<img src="' + url('/assets/logo.svg') + '" alt="Tesla XTeam FX Trade" class="h-2 w-auto" />' +
+            '<img src="' + url('/assets/logo.svg') + '" alt="Tesla Capital" class="h-2 w-auto" />' +
           '</a>' +
           '<button onclick="toggleSidebar()" class="p-1.5 rounded-full text-slate-500 transition hover:bg-slate-100 dark:hover:bg-white/10 lg:hidden" aria-label="Close menu">' +
             '<i data-lucide="x" class="w-4 h-4"></i>' +
@@ -133,8 +133,8 @@
           '<button onclick="toggleSidebar()" class="mr-3 rounded-full p-1.5 text-slate-500 transition hover:bg-black/5 lg:hidden" aria-label="Open menu">' +
             '<i data-lucide="menu" class="w-5 h-5"></i>' +
           '</button>' +
-          '<a href="' + url('/pages/dashboard/dashboard.html') + '" class="mr-3 flex items-center" aria-label="Tesla XTeam FX Trade">' +
-            '<img src="' + url('/assets/logo.svg') + '" alt="Tesla XTeam FX Trade" class="h-2 w-auto" />' +
+          '<a href="' + url('/pages/dashboard/dashboard.html') + '" class="mr-3 flex items-center" aria-label="Tesla Capital">' +
+            '<img src="' + url('/assets/logo.svg') + '" alt="Tesla Capital" class="h-2 w-auto" />' +
           '</a>' +
           '<div class="hidden text-lg font-semibold text-slate-900 sm:block">' + TITLE + '</div>' +
         '</div>' +
@@ -512,7 +512,7 @@
     '<footer class="border-t border-white/10 bg-slate-900 mt-auto">' +
       '<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">' +
         '<div class="flex flex-col md:flex-row items-center justify-between gap-3">' +
-          '<p class="text-xs text-gray-500">&copy; 2026 Tesla XTeam FX Trade. All rights reserved.</p>' +
+          '<p class="text-xs text-gray-500">&copy; 2026 Tesla Capital. All rights reserved.</p>' +
           '<div class="flex items-center gap-4 text-xs text-gray-500">' +
             '<a href="/pages/terms.html" class="transition hover:text-tesla">Terms of Service</a>' +
             '<a href="/pages/privacy.html" class="transition hover:text-tesla">Privacy Policy</a>' +
