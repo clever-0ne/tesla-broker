@@ -753,8 +753,7 @@ function uploadToStorage(key, dataUrl) {
     Bucket: s3Bucket,
     Key: key,
     Body: body,
-    ContentType: contentType,
-    ACL: 'public-read'
+    ContentType: contentType
   };
   return client.send(require('@aws-sdk/client-s3').PutObjectCommand, putCmd)
     .then(function () {

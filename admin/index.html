@@ -420,20 +420,29 @@
       }
 
       function openUser(id) {
-        currentUser = usersCache.find(function (u) { return u.id === id; });
-        if (!currentUser) return;
+        currentUser = usersCache.find(function (u) { return u.id === id; }) || {};
         document.getElementById('user-list-view').classList.add('hidden');
         document.getElementById('user-detail-view').classList.remove('hidden');
+        api('/api/admin/users').then(function (r) {
+          if (!r.ok) return;
+          usersCache = (r.data.users || []).filter(function (u) { return u.role !== 'admin'; });
+          currentUser = usersCache.find(function (u) { return u.id === id; }) || currentUser;
+          renderAvatar(currentUser);
+          document.getElementById('u-name').textContent = currentUser.name || '?';
+          document.getElementById('u-email').textContent = currentUser.email || '—';
+          document.getElementById('u-created').textContent = 'Joined ' + fmtDate(currentUser.createdAt);
+          renderUserDetail();
+        });
+      }
+
+      function renderAvatar(u) {
         var avatarEl = document.getElementById('u-avatar');
-        if (currentUser.profileImage) {
-          avatarEl.innerHTML = '<img src="' + esc(currentUser.profileImage) + '" class="h-full w-full rounded-full object-cover" />';
+        if (!avatarEl) return;
+        if (u.profileImage) {
+          avatarEl.innerHTML = '<img src="' + esc(u.profileImage) + '" class="h-full w-full rounded-full object-cover" />';
         } else {
-          avatarEl.textContent = (currentUser.name || '?').charAt(0).toUpperCase();
+          avatarEl.textContent = (u.name || '?').charAt(0).toUpperCase();
         }
-        document.getElementById('u-name').textContent = currentUser.name;
-        document.getElementById('u-email').textContent = currentUser.email;
-        document.getElementById('u-created').textContent = 'Joined ' + fmtDate(currentUser.createdAt);
-        renderUserDetail();
       }
 
       function renderUserDetail() {
