@@ -16,9 +16,430 @@
     <!-- Tailwind CSS -->
     <link rel="stylesheet" href="/dist/tailwind.css" />
 
+    <!-- Set theme before paint to avoid a flash of the wrong theme -->
+    <script>
+      (function () {
+        var stored = localStorage.getItem('theme');
+        var dark = stored === 'dark';
+        if (dark) document.documentElement.classList.add('dark');
+      })();
+    </script>
+  </head>
+
+  <body class="font-sans antialiased bg-[#f8fafc] text-slate-900 dark:bg-slate-950 dark:text-slate-100">
+    <!-- ============ Top Navigation ============ -->
+    <nav class="fixed top-0 left-0 right-0 z-50 border-b border-slate-200/80 bg-white/80 backdrop-blur-xl dark:border-white/10 dark:bg-slate-950/80">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="flex h-16 items-center justify-between">
+          <!-- Logo -->
+          <a href="#top" class="flex items-center gap-2">
+            <img src="/assets/tesla-t.svg" alt="Tesla Capital" class="h-7 w-auto text-[#e82127]" />
+            <span class="text-base font-semibold tracking-tight text-slate-900 dark:text-white">Tesla Capital</span>
+          </a>
+
+          <!-- Primary Nav -->
+          <div class="hidden md:flex items-center gap-8">
+            <a href="#features" class="text-sm font-medium text-slate-600 transition hover:text-slate-900 dark:text-slate-400 dark:hover:text-white">Features</a>
+            <a href="#performance" class="text-sm font-medium text-slate-600 transition hover:text-slate-900 dark:text-slate-400 dark:hover:text-white">Performance</a>
+            <a href="#trust" class="text-sm font-medium text-slate-600 transition hover:text-slate-900 dark:text-slate-400 dark:hover:text-white">Trust & Security</a>
+            <a href="/pages/inventory.html" class="text-sm font-medium text-slate-600 transition hover:text-slate-900 dark:text-slate-400 dark:hover:text-white">Fleet</a>
+          </div>
+
+          <!-- Right Side -->
+          <div class="flex items-center gap-3">
+            <!-- Theme toggle -->
+            <button type="button" id="theme-toggle" class="p-2 rounded-full text-slate-500 transition hover:bg-slate-100 dark:hover:bg-white/10" aria-label="Toggle dark mode">
+              <i data-lucide="sun" id="theme-sun" class="w-5 h-5 hidden"></i>
+              <i data-lucide="moon" id="theme-moon" class="w-5 h-5"></i>
+            </button>
+
+            <a href="/pages/login.html" id="nav-signin" class="rounded-full bg-slate-900 px-5 py-2 text-sm font-medium text-white shadow-lg transition hover:bg-slate-800 dark:bg-white dark:text-slate-900 dark:hover:bg-gray-200">
+              Sign In
+            </a>
+
+            <!-- Mobile menu button -->
+            <button type="button" class="md:hidden p-2 text-slate-500 rounded-full transition hover:bg-slate-100" id="mobile-menu-button" aria-label="Open menu">
+              <i data-lucide="menu" class="w-5 h-5" id="menu-icon"></i>
+              <i data-lucide="x" class="w-5 h-5 hidden" id="close-icon"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mobile Menu -->
+      <div class="md:hidden hidden border-t border-slate-200 dark:border-white/10" id="mobile-menu">
+        <div class="px-4 pt-2 pb-4 space-y-1 bg-white dark:bg-slate-950">
+          <a href="#features" class="block px-3 py-2 text-sm font-medium text-slate-700 rounded hover:bg-slate-50 dark:text-slate-300 dark:hover:bg-white/5">Features</a>
+          <a href="#performance" class="block px-3 py-2 text-sm font-medium text-slate-700 rounded hover:bg-slate-50 dark:text-slate-300 dark:hover:bg-white/5">Performance</a>
+          <a href="#trust" class="block px-3 py-2 text-sm font-medium text-slate-700 rounded hover:bg-slate-50 dark:text-slate-300 dark:hover:bg-white/5">Trust & Security</a>
+          <a href="/pages/inventory.html" class="block px-3 py-2 text-sm font-medium text-slate-700 rounded hover:bg-slate-50 dark:text-slate-300 dark:hover:bg-white/5">Fleet</a>
+          <div class="border-t border-slate-200 mt-2 pt-2 dark:border-white/10">
+            <a href="/pages/login.html" class="block px-3 py-2 text-sm font-medium text-slate-700 rounded hover:bg-slate-50 dark:text-slate-300 dark:hover:bg-white/5">Sign In</a>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- ============ Hero ============ -->
+    <main id="top" class="relative overflow-hidden pt-16">
+      <!-- Soft blurred background graphics -->
+      <div class="pointer-events-none absolute inset-0 z-0" aria-hidden="true">
+        <div class="absolute -top-24 -left-24 h-96 w-96 rounded-full bg-[#e82127]/10 blur-[100px]"></div>
+        <div class="absolute top-1/3 -right-24 h-[28rem] w-[28rem] rounded-full bg-blue-500/10 blur-[120px]"></div>
+        <div class="absolute -bottom-24 left-1/3 h-80 w-80 rounded-full bg-slate-900/5 blur-[100px] dark:bg-white/5"></div>
+        <img src="/assets/tesla-hero.jpg" alt="" class="absolute inset-0 h-full w-full object-cover opacity-[0.07] blur-[20px]" loading="eager" decoding="async" />
+      </div>
+
+      <div class="relative z-10">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-20 lg:py-28">
+          <div class="grid grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-16">
+            <div>
+              <div class="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-3 py-1 text-xs font-medium text-slate-700 shadow-sm dark:border-white/10 dark:bg-slate-900 dark:text-slate-200">
+                <span class="inline-flex h-2 w-2 rounded-full bg-[#e82127]"></span>
+                Premium investment platform
+              </div>
+              <h1 class="mt-6 text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl text-slate-900 dark:text-white">
+                Invest in Tesla.<br />
+                <span class="text-[#e82127]">Own the road.</span>
+              </h1>
+              <p class="mt-6 max-w-xl text-base leading-relaxed text-slate-600 dark:text-slate-400">
+                Trade Tesla-aligned investments, build EV fleet portfolios, and fund with crypto — all from one premium dashboard built for serious investors.
+              </p>
+
+              <div class="mt-8 flex flex-col gap-3 sm:flex-row">
+                <a href="/pages/login.html" data-open="signup" class="inline-flex items-center justify-center rounded-full bg-slate-900 px-6 py-3 text-sm font-semibold text-white shadow-lg transition hover:bg-slate-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-900/40 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:bg-white dark:text-slate-900 dark:hover:bg-gray-200 dark:focus-visible:ring-white/40">
+                  <i data-lucide="trending-up" class="mr-2 h-4 w-4" aria-hidden="true"></i>
+                  Get Started
+                </a>
+                <a href="/pages/inventory.html" class="inline-flex items-center justify-center rounded-full border border-slate-300 px-6 py-3 text-sm font-semibold text-slate-900 transition hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-900/40 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:border-white/20 dark:text-white dark:hover:bg-white/10 dark:focus-visible:ring-white/40">
+                  <i data-lucide="car" class="mr-2 h-4 w-4" aria-hidden="true"></i>
+                  Explore Fleet
+                </a>
+              </div>
+
+              <div class="mt-10 grid grid-cols-3 gap-6">
+                <div>
+                  <p class="text-2xl font-semibold text-slate-900 dark:text-white">$2.4B+</p>
+                  <p class="mt-1 text-xs text-slate-500 dark:text-slate-400">Portfolio value</p>
+                </div>
+                <div>
+                  <p class="text-2xl font-semibold text-slate-900 dark:text-white">18.4%</p>
+                  <p class="mt-1 text-xs text-slate-500 dark:text-slate-400">Avg. annual yield</p>
+                </div>
+                <div>
+                  <p class="text-2xl font-semibold text-slate-900 dark:text-white">150K+</p>
+                  <p class="mt-1 text-xs text-slate-500 dark:text-slate-400">Active investors</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="relative">
+              <div class="relative overflow-hidden rounded-3xl border border-slate-200 bg-white p-6 shadow-2xl shadow-slate-900/5 dark:border-white/10 dark:bg-slate-900">
+                <div class="pointer-events-none absolute inset-0" aria-hidden="true">
+                  <div class="absolute inset-0 bg-gradient-to-br from-white/40 via-transparent to-transparent"></div>
+                </div>
+                <div class="relative z-10">
+                  <div class="flex items-center justify-between">
+                    <div>
+                      <p class="text-xs font-medium text-slate-500 dark:text-slate-400">Portfolio Value</p>
+                      <p class="mt-1 text-3xl font-semibold text-slate-900 dark:text-white">$124,592.00</p>
+                      <p class="mt-1 text-xs font-medium text-emerald-600">+$3,240.00 (+2.67%)</p>
+                    </div>
+                    <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-[#e82127]/10">
+                      <i data-lucide="trending-up" class="h-6 w-6 text-[#e82127]"></i>
+                    </div>
+                  </div>
+
+                  <div class="mt-6 grid grid-cols-2 gap-4">
+                    <div class="rounded-2xl border border-slate-200 bg-slate-50 p-4 dark:border-white/10 dark:bg-slate-800">
+                      <p class="text-xs text-slate-500 dark:text-slate-400">Tesla Shares</p>
+                      <p class="mt-1 text-lg font-semibold text-slate-900 dark:text-white">142</p>
+                      <p class="text-xs text-slate-500 dark:text-slate-400">+1.2% today</p>
+                    </div>
+                    <div class="rounded-2xl border border-slate-200 bg-slate-50 p-4 dark:border-white/10 dark:bg-slate-800">
+                      <p class="text-xs text-slate-500 dark:text-slate-400">Fleet Yield</p>
+                      <p class="mt-1 text-lg font-semibold text-slate-900 dark:text-white">8.4%</p>
+                      <p class="text-xs text-slate-500 dark:text-slate-400">Monthly payout</p>
+                    </div>
+                  </div>
+
+                  <div class="mt-4 rounded-2xl border border-slate-200 bg-slate-50 p-4 dark:border-white/10 dark:bg-slate-800">
+                    <div class="flex items-center justify-between">
+                      <div>
+                        <p class="text-xs text-slate-500 dark:text-slate-400">Crypto Wallet</p>
+                        <p class="mt-1 text-lg font-semibold text-slate-900 dark:text-white">$12,480.00</p>
+                      </div>
+                      <span class="inline-flex items-center rounded-full bg-emerald-50 px-2 py-1 text-xs font-medium text-emerald-700 dark:bg-emerald-500/10 dark:text-emerald-400">Active</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- ============ Features ============ -->
+    <section id="features" class="relative py-20">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="text-center">
+          <p class="text-sm font-semibold uppercase tracking-widest text-[#e82127]">Features</p>
+          <h2 class="mt-3 text-3xl font-semibold tracking-tight text-slate-900 dark:text-white sm:text-4xl">Built for the Tesla economy</h2>
+          <p class="mt-4 max-w-2xl mx-auto text-base text-slate-600 dark:text-slate-400">One platform for investing, trading, and managing premium EV assets — powered by real-time data and bank-grade security.</p>
+        </div>
+
+        <div class="mt-16 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+          <div class="group rounded-3xl border border-slate-200 bg-white p-6 shadow-sm transition hover:shadow-xl hover:shadow-slate-900/5 dark:border-white/10 dark:bg-slate-900">
+            <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-blue-50 dark:bg-blue-500/10">
+              <i data-lucide="activity" class="h-6 w-6 text-blue-600 dark:text-blue-400"></i>
+            </div>
+            <h3 class="mt-5 text-lg font-semibold text-slate-900 dark:text-white">Realtime Portfolio Tracking</h3>
+            <p class="mt-2 text-sm text-slate-600 dark:text-slate-400">Live P&L, asset allocation, and performance analytics updated every second.</p>
+          </div>
+
+          <div class="group rounded-3xl border border-slate-200 bg-white p-6 shadow-sm transition hover:shadow-xl hover:shadow-slate-900/5 dark:border-white/10 dark:bg-slate-900">
+            <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-50 dark:bg-emerald-500/10">
+              <i data-lucide="bitcoin" class="h-6 w-6 text-emerald-600 dark:text-emerald-400"></i>
+            </div>
+            <h3 class="mt-5 text-lg font-semibold text-slate-900 dark:text-white">Crypto Funding</h3>
+            <p class="mt-2 text-sm text-slate-600 dark:text-slate-400">Fund your account with BTC, ETH, USDT and more. Fast settlement, low fees.</p>
+          </div>
+
+          <div class="group rounded-3xl border border-slate-200 bg-white p-6 shadow-sm transition hover:shadow-xl hover:shadow-slate-900/5 dark:border-white/10 dark:bg-slate-900">
+            <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#e82127]/10">
+              <i data-lucide="car" class="h-6 w-6 text-[#e82127]"></i>
+            </div>
+            <h3 class="mt-5 text-lg font-semibold text-slate-900 dark:text-white">Fleet Yield</h3>
+            <p class="mt-2 text-sm text-slate-600 dark:text-slate-400">Earn yield on Tesla vehicle inventory. Fleet-backed returns with transparent tracking.</p>
+          </div>
+
+          <div class="group rounded-3xl border border-slate-200 bg-white p-6 shadow-sm transition hover:shadow-xl hover:shadow-slate-900/5 dark:border-white/10 dark:bg-slate-900">
+            <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-purple-50 dark:bg-purple-500/10">
+              <i data-lucide="pie-chart" class="h-6 w-6 text-purple-600 dark:text-purple-400"></i>
+            </div>
+            <h3 class="mt-5 text-lg font-semibold text-slate-900 dark:text-white">Smart Diversification</h3>
+            <p class="mt-2 text-sm text-slate-600 dark:text-slate-400">Auto-balanced exposure across Tesla equity, crypto, and EV fleet assets.</p>
+          </div>
+
+          <div class="group rounded-3xl border border-slate-200 bg-white p-6 shadow-sm transition hover:shadow-xl hover:shadow-slate-900/5 dark:border-white/10 dark:bg-slate-900">
+            <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-amber-50 dark:bg-amber-500/10">
+              <i data-lucide="shield-check" class="h-6 w-6 text-amber-600 dark:text-amber-400"></i>
+            </div>
+            <h3 class="mt-5 text-lg font-semibold text-slate-900 dark:text-white">Risk Controls</h3>
+            <p class="mt-2 text-sm text-slate-600 dark:text-slate-400">Built-in guardrails, stop-loss automation, and real-time risk monitoring.</p>
+          </div>
+
+          <div class="group rounded-3xl border border-slate-200 bg-white p-6 shadow-sm transition hover:shadow-xl hover:shadow-slate-900/5 dark:border-white/10 dark:bg-slate-900">
+            <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-sky-50 dark:bg-sky-500/10">
+              <i data-lucide="zap" class="h-6 w-6 text-sky-600 dark:text-sky-400"></i>
+            </div>
+            <h3 class="mt-5 text-lg font-semibold text-slate-900 dark:text-white">Instant Execution</h3>
+            <p class="mt-2 text-sm text-slate-600 dark:text-slate-400">Lightning-fast order execution with institutional-grade liquidity and routing.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ Performance ============ -->
+    <section id="performance" class="relative py-20">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="rounded-[32px] border border-slate-200 bg-white p-8 shadow-xl shadow-slate-900/5 dark:border-white/10 dark:bg-slate-900 sm:p-12">
+          <div class="grid grid-cols-1 gap-10 lg:grid-cols-2 lg:gap-16">
+            <div>
+              <p class="text-sm font-semibold uppercase tracking-widest text-[#e82127]">Performance</p>
+              <h2 class="mt-3 text-3xl font-semibold tracking-tight text-slate-900 dark:text-white sm:text-4xl">Numbers that speak for themselves</h2>
+              <p class="mt-4 text-base text-slate-600 dark:text-slate-400">Our platform delivers measurable results for investors who want exposure to Tesla, EV fleets, and crypto — all in one place.</p>
+
+              <div class="mt-8 space-y-6">
+                <div>
+                  <div class="flex items-center justify-between">
+                    <p class="text-sm font-medium text-slate-700 dark:text-slate-300">Tesla Equity Exposure</p>
+                    <p class="text-sm font-semibold text-slate-900 dark:text-white">+24.1%</p>
+                  </div>
+                  <div class="mt-2 h-2 rounded-full bg-slate-100 dark:bg-white/10">
+                    <div class="h-2 rounded-full bg-[#e82127]" style="width: 82%"></div>
+                  </div>
+                </div>
+
+                <div>
+                  <div class="flex items-center justify-between">
+                    <p class="text-sm font-medium text-slate-700 dark:text-slate-300">Crypto Funding Volume</p>
+                    <p class="text-sm font-semibold text-slate-900 dark:text-white">$18.4M</p>
+                  </div>
+                  <div class="mt-2 h-2 rounded-full bg-slate-100 dark:bg-white/10">
+                    <div class="h-2 rounded-full bg-blue-600" style="width: 68%"></div>
+                  </div>
+                </div>
+
+                <div>
+                  <div class="flex items-center justify-between">
+                    <p class="text-sm font-medium text-slate-700 dark:text-slate-300">Fleet Utilization</p>
+                    <p class="text-sm font-semibold text-slate-900 dark:text-white">94.2%</p>
+                  </div>
+                  <div class="mt-2 h-2 rounded-full bg-slate-100 dark:bg-white/10">
+                    <div class="h-2 rounded-full bg-emerald-500" style="width: 94%"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-4">
+              <div class="rounded-2xl border border-slate-200 bg-slate-50 p-5 dark:border-white/10 dark:bg-slate-800">
+                <p className="text-xs text-slate-500 dark:text-slate-400">Active Users</p>
+                <p className="mt-2 text-2xl font-semibold text-slate-900 dark:text-white">150K+</p>
+                <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">Across 42 countries</p>
+              </div>
+              <div class="rounded-2xl border border-slate-200 bg-slate-50 p-5 dark:border-white/10 dark:bg-slate-800">
+                <p className="text-xs text-slate-500 dark:text-slate-400">Uptime</p>
+                <p className="mt-2 text-2xl font-semibold text-slate-900 dark:text-white">99.98%</p>
+                <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">Last 12 months</p>
+              </div>
+              <div class="rounded-2xl border border-slate-200 bg-slate-50 p-5 dark:border-white/10 dark:bg-slate-800">
+                <p className="text-xs text-slate-500 dark:text-slate-400">Avg. Funding</p>
+                <p className="mt-2 text-2xl font-semibold text-slate-900 dark:text-white">$4,200</p>
+                <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">Per investor</p>
+              </div>
+              <div class="rounded-2xl border border-slate-200 bg-slate-50 p-5 dark:border-white/10 dark:bg-slate-800">
+                <p className="text-xs text-slate-500 dark:text-slate-400">Support</p>
+                <p className="mt-2 text-2xl font-semibold text-slate-900 dark:text-white">24/7</p>
+                <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">Live chat + email</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ Trust & Security ============ -->
+    <section id="trust" class="relative py-20">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="text-center">
+          <p class="text-sm font-semibold uppercase tracking-widest text-[#e82127]">Trust & Security</p>
+          <h2 class="mt-3 text-3xl font-semibold tracking-tight text-slate-900 dark:text-white sm:text-4xl">Investor-grade protection</h2>
+          <p class="mt-4 max-w-2xl mx-auto text-base text-slate-600 dark:text-slate-400">We combine Tesla-grade engineering with financial-market security standards.</p>
+        </div>
+
+        <div class="mt-16 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
+          <div class="rounded-3xl border border-slate-200 bg-white p-6 text-center shadow-sm dark:border-white/10 dark:bg-slate-900">
+            <div class="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-slate-100 dark:bg-white/10">
+              <i data-lucide="lock" class="h-6 w-6 text-slate-900 dark:text-white"></i>
+            </div>
+            <h3 class="mt-4 text-base font-semibold text-slate-900 dark:text-white">256-bit Encryption</h3>
+            <p class="mt-2 text-xs text-slate-600 dark:text-slate-400">End-to-end encryption for all transactions and personal data.</p>
+          </div>
+
+          <div class="rounded-3xl border border-slate-200 bg-white p-6 text-center shadow-sm dark:border-white/10 dark:bg-slate-900">
+            <div class="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-slate-100 dark:bg-white/10">
+              <i data-lucide="shield-check" class="h-6 w-6 text-slate-900 dark:text-white"></i>
+            </div>
+            <h3 class="mt-4 text-base font-semibold text-slate-900 dark:text-white">Regulated Operations</h3>
+            <p class="mt-2 text-xs text-slate-600 dark:text-slate-400">Compliant with global financial standards and audit requirements.</p>
+          </div>
+
+          <div class="rounded-3xl border border-slate-200 bg-white p-6 text-center shadow-sm dark:border-white/10 dark:bg-slate-900">
+            <div class="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-slate-100 dark:bg-white/10">
+              <i data-lucide="eye" class="h-6 w-6 text-slate-900 dark:text-white"></i>
+            </div>
+            <h3 class="mt-4 text-base font-semibold text-slate-900 dark:text-white">Transparent Reporting</h3>
+            <p class="mt-2 text-xs text-slate-600 dark:text-slate-400">Real-time dashboards, audited yield calculations, and clear fee disclosure.</p>
+          </div>
+
+          <div class="rounded-3xl border border-slate-200 bg-white p-6 text-center shadow-sm dark:border-white/10 dark:bg-slate-900">
+            <div class="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-slate-100 dark:bg-white/10">
+              <i data-lucide="headphones" class="h-6 w-6 text-slate-900 dark:text-white"></i>
+            </div>
+            <h3 class="mt-4 text-base font-semibold text-slate-900 dark:text-white">Dedicated Support</h3>
+            <p class="mt-2 text-xs text-slate-600 dark:text-slate-400">Priority support for investors, plus dedicated account specialists.</p>
+          </div>
+        </div>
+
+        <!-- Testimonial -->
+        <div class="mt-16 rounded-[32px] border border-slate-200 bg-white p-8 shadow-xl shadow-slate-900/5 dark:border-white/10 dark:bg-slate-900 sm:p-12">
+          <div class="grid grid-cols-1 gap-8 lg:grid-cols-3 lg:gap-12">
+            <div class="lg:col-span-2">
+              <p class="text-lg leading-relaxed text-slate-700 dark:text-slate-300 sm:text-xl">“Finally a platform that treats Tesla investing with the seriousness it deserves. The portfolio analytics are best-in-class and the crypto funding is seamless.”</p>
+              <div class="mt-6 flex items-center gap-3">
+                <div class="flex h-10 w-10 items-center justify-center rounded-full bg-slate-900 text-sm font-semibold text-white dark:bg-white dark:text-slate-900">AK</div>
+                <div>
+                  <p class="text-sm font-semibold text-slate-900 dark:text-white">Amara K.</p>
+                  <p class="text-xs text-slate-500 dark:text-slate-400">Portfolio investor since 2024</p>
+                </div>
+              </div>
+            </div>
+            <div class="flex flex-col justify-between gap-6">
+              <div>
+                <p className="text-xs text-slate-500 dark:text-slate-400">Total portfolio value</p>
+                <p className="mt-1 text-2xl font-semibold text-slate-900 dark:text-white">$842,100</p>
+              </div>
+              <div>
+                <p className="text-xs text-slate-500 dark:text-slate-400">Annualized return</p>
+                <p className="mt-1 text-2xl font-semibold text-emerald-600">+21.4%</p>
+              </div>
+              <a href="/pages/login.html" data-open="signup" class="inline-flex items-center justify-center rounded-full bg-[#e82127] px-5 py-2.5 text-sm font-semibold text-white shadow-lg transition hover:bg-[#c71b22]">Start Investing</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CTA ============ -->
+    <section class="relative py-20">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div class="relative overflow-hidden rounded-[32px] bg-slate-900 px-8 py-16 sm:px-16 sm:py-20">
+          <div class="pointer-events-none absolute inset-0" aria-hidden="true">
+            <div class="absolute inset-0 bg-gradient-to-br from-[#e82127]/30 via-transparent to-blue-600/20"></div>
+          </div>
+          <div class="relative z-10 text-center">
+            <h2 class="text-3xl font-semibold tracking-tight text-white sm:text-4xl">Ready to invest in the future?</h2>
+            <p class="mt-4 max-w-2xl mx-auto text-base text-slate-300">Join thousands of investors already trading Tesla-aligned assets and building EV-backed portfolios.</p>
+            <div class="mt-8 flex flex-col gap-3 sm:flex-row sm:justify-center">
+              <a href="/pages/login.html" data-open="signup" class="inline-flex items-center justify-center rounded-full bg-white px-6 py-3 text-sm font-semibold text-slate-900 transition hover:bg-gray-100">Create Free Account</a>
+              <a href="/pages/inventory.html" class="inline-flex items-center justify-center rounded-full border border-white/30 px-6 py-3 text-sm font-semibold text-white transition hover:bg-white/10">Explore Fleet</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ Footer ============ -->
+    <footer class="border-t border-slate-200 bg-white dark:border-white/10 dark:bg-slate-950">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
+        <div class="flex flex-col gap-8 md:flex-row md:items-center md:justify-between">
+          <div>
+            <div class="flex items-center gap-2">
+              <img src="/assets/tesla-t.svg" alt="Tesla Capital" class="h-7 w-auto text-[#e82127]" />
+              <span class="text-base font-semibold tracking-tight text-slate-900 dark:text-white">Tesla Capital</span>
+            </div>
+            <p class="mt-2 text-xs text-slate-500 dark:text-slate-400">Premium Tesla investment platform.</p>
+          </div>
+          <div class="flex flex-wrap gap-6">
+            <a href="/pages/terms.html" class="text-sm text-slate-500 transition hover:text-slate-900 dark:hover:text-white">Terms of Service</a>
+            <a href="/pages/privacy.html" class="text-sm text-slate-500 transition hover:text-slate-900 dark:hover:text-white">Privacy Policy</a>
+            <a href="/pages/support/support.html" class="text-sm text-slate-500 transition hover:text-slate-900 dark:hover:text-white">Support</a>
+          </div>
+        </div>
+        <div class="mt-8 border-t border-slate-200 pt-8 dark:border-white/10">
+          <p class="text-center text-xs text-slate-500 dark:text-slate-400"> Tesla, honored by performance, protected by security.</p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="/dashboard-shell.js"></script>
     <script>
       // Theme toggle
-      
+      var themeToggle = document.getElementById('theme-toggle');
+      if (themeToggle) {
+        themeToggle.addEventListener('click', function () {
+          var isDark = document.documentElement.classList.contains('dark');
+          if (isDark) {
+            document.documentElement.classList.remove('dark');
+            localStorage.setItem('theme', 'light');
+          } else {
+            document.documentElement.classList.add('dark');
+            localStorage.setItem('theme', 'dark');
+          }
+        });
       }
 
       // Mobile menu
@@ -46,11 +467,5 @@
       // Re-init lucide icons
       if (window.lucide) lucide.createIcons();
     </script>
-      \n
-
-    
-<script src="/theme-toggle.js"></script>
-<script src="/theme-toggle.js"></script>
-<script src="/theme-toggle.js"></script>
-</body>
+  </body>
 </html>

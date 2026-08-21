@@ -16,9 +16,15 @@
     <!-- Tailwind CSS -->
     <link rel="stylesheet" href="/dist/tailwind.css" />
 
-      <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
-</head>
+    <!-- Set theme before paint to avoid a flash of the wrong theme -->
+    <script>
+      (function () {
+        var stored = localStorage.getItem('theme');
+        var dark = stored === 'dark';
+        if (dark) document.documentElement.classList.add('dark');
+      })();
+    </script>
+  </head>
 
   <body data-page="orders" data-title="Orders" class="font-sans antialiased bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100">
     <div id="app" class="min-h-screen flex">
@@ -180,7 +186,5 @@
         }
       });
     </script>
-      <script src="/theme-toggle.js"></script>
-\n<button type="button" id="theme-toggle">🌙</button>
-</body>
+  </body>
 </html>
