@@ -765,10 +765,24 @@ function uploadToStorage(key, dataUrl) {
       }
       return null;
     })
-    .catch(function (e) {
-      console.error('[s3] upload failed:', e.message);
-      return null;
+    .catch(function (err) {
+      throw new Error('s3-upload-failed:' + err.message);
     });
+}
+
+function saveKycImagesToDisk(userId, images) {
+  const dir = userKycDir(userId);
+  return images.map(function (img, i) {
+    try {
+      const base = String(img || '').split(',')[1] || img;
+      const ext = (String(img || '').match(/^data:([^;]+);/) || [,'image/jpeg'])[1].split('/')[1].split(';')[0] || 'jpg';
+      const file = path.join(dir, 'img_' + Date.now() + '_' + i + '.' + ext);
+      fs.writeFileSync(file, Buffer.from(base, 'base64'));
+      return '/data/kyc/' + userId + '/' + path.basename(file);
+    } catch (e) {
+      return null;
+    }
+  }).filter(Boolean);
 }
 
 // Last line of defence: return JSON for API errors, never a stack trace or the
