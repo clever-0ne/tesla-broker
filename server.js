@@ -584,7 +584,6 @@ app.put('/api/admin/settings', auth.requireAdminApi, function (req, res) {
 /* ---------------------------- KYC media proxy -------------------------- */
 
 const { S3Client, PutObjectCommand, GetObjectCommand } = require('@aws-sdk/client-s3');
-const { getSignedUrl } = require('@aws-sdk/s3-request-presigner');
 
 function buildS3Client() {
   if (!process.env.S3_BUCKET || !process.env.S3_ACCESS_KEY || !process.env.S3_SECRET_KEY) return null;
@@ -630,18 +629,6 @@ async function uploadToStorage(key, dataUrl) {
     return r2ObjectUrl(key);
   } catch (err) {
     throw new Error('s3-upload-failed:' + err.message);
-  }
-}
-
-async function getSignedR2Url(key, expiresIn) {
-  if (!s3Client || !key) return null;
-  expiresIn = expiresIn || 300;
-  var cmd = new GetObjectCommand({ Bucket: s3Bucket, Key: key });
-  try {
-    return await getSignedUrl(s3Client, cmd, { expiresIn });
-  } catch (err) {
-    console.error('[kyc] presign failed:', err.message);
-    return null;
   }
 }
 
