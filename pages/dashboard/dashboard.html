@@ -548,17 +548,26 @@
             if (!(ds.bonus > 0)) ds.bonus = 0;
             window.FX.dashboardStats = ds;
           }
+          statsComputed = true;
           renderDashboardStats();
         });
 
       // Load admin-controlled dashboard stats independently of auth flow.
+      // Only apply global defaults if local stats have not been computed yet.
+      var statsComputed = false;
       fetch('/api/settings').then(function (r) {
         if (!r.ok) return;
         return r.json();
       }).then(function (data) {
         if (!data || !data.dashboardStats) return;
+        if (statsComputed) return;
         window.FX.dashboardStats = data.dashboardStats;
         renderDashboardStats();
+      });
+
+      // Ensure stats render on fresh page load even if no balance event fires.
+      document.addEventListener('DOMContentLoaded', function () {
+        setTimeout(renderDashboardStats, 0);
       });
     </script>
   </body>
