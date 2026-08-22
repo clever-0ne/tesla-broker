@@ -420,11 +420,12 @@
           b.classList.toggle('text-slate-500', !active);
           b.classList.toggle('dark:text-gray-300', !active);
         });
-        ['users', 'settings'].forEach(function (p) {
+        ['users', 'settings', 'chat'].forEach(function (p) {
           document.getElementById('panel-' + p).classList.toggle('hidden', p !== name);
         });
         if (name === 'users') loadUsers();
         if (name === 'settings') loadSettings();
+        if (name === 'chat') loadChats();
       }
       setTab('users');
 
