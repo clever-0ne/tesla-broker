@@ -272,16 +272,22 @@
   window.FX = {
     balance: function () { return BALANCE_CACHE; },
     user: function () { return ME; },
+    dashboardStats: { totalProfit: 0, bonus: 0, totalDeposit: 0, totalWithdrawal: 0 },
     // Re-fetch the current user + balance from the backend.
     refresh: function () {
       return api('/api/me').then(function (r) {
         if (!r.ok) { setBalance(0); return false; }
         ME = r.data.user;
-        // Admins can browse the customer frontend too; the console stays
-        // gated to admins by the server, so both areas work from one session.
         setBalance(ME.balance);
         applyUserToSidebar();
         return true;
+      }).then(function (ok) {
+        if (ok) return api('/api/settings');
+        return Promise.resolve({ ok: false });
+      }).then(function (r) {
+        if (r && r.ok && r.data && r.data.dashboardStats) {
+          window.FX.dashboardStats = r.data.dashboardStats;
+        }
       });
     },
     // Record a purchase/order — debits the balance server-side.

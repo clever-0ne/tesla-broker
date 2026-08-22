@@ -50,7 +50,13 @@ const DEFAULT_SETTINGS = {
     sol: 'XTeamFXTradeSolanaDepositPlaceholderAddress0001'
   },
   coinRates: { btc: 67420.15, eth: 3510.80, usdt: 1.0, sol: 172.35 },
-  coins: COINS
+  coins: COINS,
+  dashboardStats: {
+    totalProfit: 0,
+    bonus: 0,
+    totalDeposit: 0,
+    totalWithdrawal: 0
+  }
 };
 
 function getSettings() {
@@ -59,7 +65,8 @@ function getSettings() {
     siteName: s.siteName || DEFAULT_SETTINGS.siteName,
     depositAddresses: Object.assign({}, DEFAULT_SETTINGS.depositAddresses, s.depositAddresses || {}),
     coinRates: Object.assign({}, DEFAULT_SETTINGS.coinRates, s.coinRates || {}),
-    coins: COINS
+    coins: COINS,
+    dashboardStats: Object.assign({}, DEFAULT_SETTINGS.dashboardStats, s.dashboardStats || {})
   };
 }
 
@@ -224,6 +231,20 @@ app.get('/api/me', auth.requireAuthApi, function (req, res) {
 
 app.get('/api/settings', function (req, res) {
   res.json(getSettings());
+});
+
+app.post('/api/admin/settings/dashboard-stats', auth.requireAdminApi, function (req, res) {
+  req.body = req.body || {};
+  var stats = store.get('settings').dashboardStats || {};
+  var next = {};
+  next.totalProfit = round2(req.body.totalProfit == null ? stats.totalProfit : Number(req.body.totalProfit));
+  next.bonus = round2(req.body.bonus == null ? stats.bonus : Number(req.body.bonus));
+  next.totalDeposit = round2(req.body.totalDeposit == null ? stats.totalDeposit : Number(req.body.totalDeposit));
+  next.totalWithdrawal = round2(req.body.totalWithdrawal == null ? stats.totalWithdrawal : Number(req.body.totalWithdrawal));
+  var s = store.get('settings');
+  s.dashboardStats = next;
+  store.set('settings', s);
+  res.json({ ok: true, dashboardStats: next });
 });
 
 /* --------------------------- user routes ----------------------------- */

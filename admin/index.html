@@ -237,6 +237,39 @@
             Save Settings
           </button>
         </div>
+
+        <div class="glass-card p-6 mt-6">
+          <h3 class="mb-1 text-base font-medium text-black dark:text-slate-900 dark:text-white">Dashboard Stats</h3>
+          <p class="mb-6 text-xs text-slate-500 dark:text-slate-400">
+            Control the numbers shown on the user dashboard overview cards.
+          </p>
+
+          <div id="stats-message" class="mb-4 hidden rounded-xl border border-[#bbf7d0] bg-[#f0fdf4] px-4 py-3 text-sm text-[#15803d] dark:border-[#22c55e]/30 dark:bg-[#22c55e]/10 dark:text-[#4ade80]"></div>
+
+          <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
+            <div>
+              <label class="mb-1 block text-xs font-medium text-slate-600 dark:text-slate-500">Total Profit</label>
+              <input id="stat-totalProfit" type="number" step="0.01" class="w-full rounded-xl border border-gray-300 bg-white px-3 py-2 text-sm text-black focus:border-tesla focus:outline-none dark:border-gray-600 dark:bg-gray-800 dark:text-slate-900 dark:text-white" />
+            </div>
+            <div>
+              <label class="mb-1 block text-xs font-medium text-slate-600 dark:text-slate-500">Bonus / Rewards &amp; Promotions</label>
+              <input id="stat-bonus" type="number" step="0.01" class="w-full rounded-xl border border-gray-300 bg-white px-3 py-2 text-sm text-black focus:border-tesla focus:outline-none dark:border-gray-600 dark:bg-gray-800 dark:text-slate-900 dark:text-white" />
+            </div>
+            <div>
+              <label class="mb-1 block text-xs font-medium text-slate-600 dark:text-slate-500">Total Deposit</label>
+              <input id="stat-totalDeposit" type="number" step="0.01" class="w-full rounded-xl border border-gray-300 bg-white px-3 py-2 text-sm text-black focus:border-tesla focus:outline-none dark:border-gray-600 dark:bg-gray-800 dark:text-slate-900 dark:text-white" />
+            </div>
+            <div>
+              <label class="mb-1 block text-xs font-medium text-slate-600 dark:text-slate-500">Total Withdrawal</label>
+              <input id="stat-totalWithdrawal" type="number" step="0.01" class="w-full rounded-xl border border-gray-300 bg-white px-3 py-2 text-sm text-black focus:border-tesla focus:outline-none dark:border-gray-600 dark:bg-gray-800 dark:text-slate-900 dark:text-white" />
+            </div>
+          </div>
+
+          <button type="button" onclick="saveDashboardStats()"
+                  class="mt-6 rounded-full bg-gray-200 px-6 py-2.5 text-sm font-medium text-slate-900 shadow-lg transition hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-tesla focus:ring-offset-2">
+            Save Dashboard Stats
+          </button>
+        </div>
       </section>
     </main>
 
@@ -778,6 +811,13 @@
               '<input id="rate-' + c.id + '" type="number" min="0.00000001" step="any" value="' + (rates[c.id] || '') + '" class="w-full rounded-xl border border-gray-300 bg-white px-3 py-2 text-sm text-black focus:border-tesla focus:outline-none dark:border-gray-600 dark:bg-gray-800 dark:text-slate-900 dark:text-white" />' +
               '</div>';
           }).join('');
+
+          var stats = settings.dashboardStats || {};
+          var fields = ['totalProfit', 'bonus', 'totalDeposit', 'totalWithdrawal'];
+          fields.forEach(function (k) {
+            var el = document.getElementById('stat-' + k);
+            if (el) el.value = Number(stats[k] || 0).toFixed(2);
+          });
         });
       }
 
@@ -802,6 +842,29 @@
           var msg = document.getElementById('settings-message');
           if (r.ok) {
             msg.textContent = 'Settings saved. The deposit modal now shows the updated addresses and rates.';
+            msg.className = 'mb-4 rounded-xl border border-[#bbf7d0] bg-[#f0fdf4] px-4 py-3 text-sm text-[#15803d] dark:border-[#22c55e]/30 dark:bg-[#22c55e]/10 dark:text-[#4ade80]';
+          } else {
+            msg.textContent = r.data.error || 'Save failed.';
+            msg.className = 'mb-4 rounded-xl border border-[#fecaca] bg-[#fef2f2] px-4 py-3 text-sm text-[#b91c1c] dark:border-[#ef4444]/30 dark:bg-[#ef4444]/10 dark:text-danger';
+          }
+          msg.classList.remove('hidden');
+        });
+      }
+
+      function saveDashboardStats() {
+        var body = {
+          totalProfit: document.getElementById('stat-totalProfit').value,
+          bonus: document.getElementById('stat-bonus').value,
+          totalDeposit: document.getElementById('stat-totalDeposit').value,
+          totalWithdrawal: document.getElementById('stat-totalWithdrawal').value
+        };
+        api('/api/admin/settings/dashboard-stats', {
+          method: 'POST',
+          body: JSON.stringify(body)
+        }).then(function (r) {
+          var msg = document.getElementById('stats-message');
+          if (r.ok) {
+            msg.textContent = 'Dashboard stats saved.';
             msg.className = 'mb-4 rounded-xl border border-[#bbf7d0] bg-[#f0fdf4] px-4 py-3 text-sm text-[#15803d] dark:border-[#22c55e]/30 dark:bg-[#22c55e]/10 dark:text-[#4ade80]';
           } else {
             msg.textContent = r.data.error || 'Save failed.';

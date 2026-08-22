@@ -81,8 +81,8 @@
               <div class="glass-card p-4">
                 <div class="flex items-center justify-between">
                   <div class="flex-1">
-                    <p class="mb-1 text-xs font-medium text-slate-500">Portfolio Value</p>
-                    <p class="mb-1 text-lg font-semibold text-slate-900" id="stat-portfolio">$0</p>
+                    <p class="mb-1 text-xs font-medium text-slate-500">Total Profit</p>
+                    <p class="mb-1 text-lg font-semibold text-slate-900" id="stat-profit">$0</p>
                     <p class="text-xs font-medium text-emerald-600">+0.0% this month</p>
                   </div>
                   <div class="flex h-10 w-10 items-center justify-center rounded-xl glass-chip">
@@ -94,12 +94,12 @@
               <div class="glass-card p-4">
                 <div class="flex items-center justify-between">
                   <div class="flex-1">
-                    <p class="mb-1 text-xs font-medium text-slate-500">Investments</p>
-                    <p class="mb-1 text-lg font-semibold text-slate-900" id="stat-invested">$0</p>
-                    <p class="text-xs font-medium text-blue-600">0 active investments</p>
+                    <p class="mb-1 text-xs font-medium text-slate-500">Bonus<br />Rewards &amp; Promotions</p>
+                    <p class="mb-1 text-lg font-semibold text-slate-900" id="stat-bonus">$0</p>
+                    <p class="text-xs font-medium text-blue-600">Rewards</p>
                   </div>
                   <div class="flex h-10 w-10 items-center justify-center rounded-xl glass-chip">
-                    <i data-lucide="pie-chart" class="w-5 h-5 text-blue-600"></i>
+                    <i data-lucide="gift" class="w-5 h-5 text-blue-600"></i>
                   </div>
                 </div>
               </div>
@@ -107,12 +107,12 @@
               <div class="glass-card p-4">
                 <div class="flex items-center justify-between">
                   <div class="flex-1">
-                    <p class="mb-1 text-xs font-medium text-slate-500">Crypto Holdings</p>
-                    <p class="mb-1 text-lg font-semibold text-slate-900" id="stat-crypto">$0</p>
-                    <p class="text-xs font-medium text-purple-600">0 crypto positions</p>
+                    <p class="mb-1 text-xs font-medium text-slate-500">Total Deposit</p>
+                    <p class="mb-1 text-lg font-semibold text-slate-900" id="stat-deposit">$0</p>
+                    <p class="text-xs font-medium text-purple-600">Deposits</p>
                   </div>
                   <div class="flex h-10 w-10 items-center justify-center rounded-xl glass-chip">
-                    <i data-lucide="bitcoin" class="w-5 h-5 text-purple-600"></i>
+                    <i data-lucide="arrow-down-circle" class="w-5 h-5 text-purple-600"></i>
                   </div>
                 </div>
               </div>
@@ -120,12 +120,12 @@
               <div class="glass-card p-4">
                 <div class="flex items-center justify-between">
                   <div class="flex-1">
-                    <p class="mb-1 text-xs font-medium text-slate-500">Tesla Vehicles</p>
-                    <p class="mb-1 text-lg font-semibold text-slate-900" id="stat-vehicles">0</p>
-                    <p class="text-xs font-medium text-rose-600">Electric fleet</p>
+                    <p class="mb-1 text-xs font-medium text-slate-500">Total Withdrawal</p>
+                    <p class="mb-1 text-lg font-semibold text-slate-900" id="stat-withdrawal">$0</p>
+                    <p class="text-xs font-medium text-rose-600">Withdrawals</p>
                   </div>
                   <div class="flex h-10 w-10 items-center justify-center rounded-xl glass-chip">
-                    <i data-lucide="car" class="w-5 h-5 text-rose-600"></i>
+                    <i data-lucide="arrow-up-circle" class="w-5 h-5 text-rose-600"></i>
                   </div>
                 </div>
               </div>
@@ -481,19 +481,19 @@
         });
       }
 
-      var DASH = { balance: 0, invested: 0, crypto: 0, vehicles: 0, total: 0 };
+      var DASH = { balance: 0 };
 
       function renderDashboardStats() {
         var balance = (window.FX && FX.balance) ? FX.balance() : 0;
         var el;
-        el = document.getElementById('stat-portfolio');
-        if (el) el.textContent = '$' + fmtMoney(balance + DASH.total);
-        el = document.getElementById('stat-invested');
-        if (el) el.textContent = '$' + fmtMoney(DASH.invested);
-        el = document.getElementById('stat-crypto');
-        if (el) el.textContent = '$' + fmtMoney(DASH.crypto);
-        el = document.getElementById('stat-vehicles');
-        if (el) el.textContent = DASH.vehicles;
+        el = document.getElementById('stat-profit');
+        if (el) el.textContent = '$' + fmtMoney((window.FX && FX.dashboardStats && FX.dashboardStats.totalProfit) || 0);
+        el = document.getElementById('stat-bonus');
+        if (el) el.textContent = '$' + fmtMoney((window.FX && FX.dashboardStats && FX.dashboardStats.bonus) || 0);
+        el = document.getElementById('stat-deposit');
+        if (el) el.textContent = '$' + fmtMoney((window.FX && FX.dashboardStats && FX.dashboardStats.totalDeposit) || 0);
+        el = document.getElementById('stat-withdrawal');
+        if (el) el.textContent = '$' + fmtMoney((window.FX && FX.dashboardStats && FX.dashboardStats.totalWithdrawal) || 0);
       }
       window.addEventListener('fxbalancechange', renderDashboardStats);
 
