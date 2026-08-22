@@ -727,7 +727,10 @@
   FX.refresh().then(function (ok) {
     console.log('[dashboard] FX.refresh ok=', ok, 'ME=', ME);
     if (!ok) window.location.href = url('/pages/index.html#auth');
-    else window.loadNotifications();
+    else {
+      window.loadNotifications();
+      window.dispatchEvent(new Event('fxuserchange'));
+    }
   }).catch(function (err) {
     console.error('[dashboard] FX.refresh error', err);
     window.location.href = url('/pages/index.html#auth');

@@ -496,6 +496,7 @@
         if (el) el.textContent = '$' + fmtMoney((window.FX && FX.dashboardStats && FX.dashboardStats.totalWithdrawal) || 0);
       }
       window.addEventListener('fxbalancechange', renderDashboardStats);
+      window.addEventListener('fxuserchange', renderDashboardStats);
 
       // Greeting + stats + recent orders from the backend.
       var nameTimer = setInterval(function () {
