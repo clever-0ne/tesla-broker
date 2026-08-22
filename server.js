@@ -18,6 +18,9 @@ const fs = require('fs');
 const path = require('path');
 const crypto = require('crypto');
 const express = require('express');
+const { createServer } = require('http');
+const { Server } = require('socket.io');
+const chatStore = require('./lib/chatStore');
 const store = require('./lib/store');
 const auth = require('./lib/auth');
 
@@ -25,6 +28,11 @@ const ROOT = __dirname;
 const PORT = process.env.PORT || 3000;
 
 const app = express();
+const server = createServer(app);
+const io = new Server(server, {
+  cors: { origin: true, credentials: true },
+  transports: ['websocket', 'polling']
+});
 // Hide the Express fingerprint header.
 app.disable('x-powered-by');
 // Render sits behind a reverse proxy. Without this, req.ip is always the
@@ -160,6 +168,7 @@ app.use('/admin', function (req, res, next) {
 app.get('/', function (req, res) { res.redirect('/pages/index.html'); });
 app.use('/assets', express.static(path.join(ROOT, 'assets')));
 app.use('/dist', express.static(path.join(ROOT, 'dist')));
+app.use('/chat-widget.js', express.static(path.join(ROOT, 'public', 'chat-widget.js')));
 
 // Public root-level JS files (no sensitive data inside).
 const ROOT_FILES = ['dashboard-shell.js', 'cars-data.js', 'crypto-data.js'];
@@ -851,11 +860,135 @@ app.use(function (err, req, res, next) {
 
 // Await storage init before touching data (Postgres mode connects + hydrates
 // here; JSON mode is a no-op). A broken DATABASE_URL fails the boot loudly.
+/* ----------------------- support chat socket.io ----------------------- */
+
+// Visitor session tracking: socket.id -> { visitorKey, chatId }
+const socketVisitorMap = new Map();
+
+function getVisitorKey(socket) {
+  const user = socket.user;
+  if (user) return 'u:' + user.id;
+  return 'v:' + (socket.handshake.auth.visitorKey || socket.id);
+}
+
+// Attach auth middleware so logged-in users get their role on socket connect.
+io.use(function (socket, next) {
+  const cookieHeader = socket.handshake.headers.cookie || '';
+  const m = new RegExp('(?:^|;\\s*)sid=([^;]*)').exec(cookieHeader);
+  if (m) {
+    try {
+      const rec = auth.getSession(decodeURIComponent(m[1]));
+      if (rec) {
+        const u = auth.findUserById(rec.userId);
+        if (u && !u.blocked) socket.user = u;
+      }
+    } catch (e) { /* ignore */ }
+  }
+  next();
+});
+
+io.on('connection', function (socket) {
+  const visitorKey = getVisitorKey(socket);
+  const user = socket.user || null;
+  const chat = chatStore.getOrCreateChat(visitorKey, user);
+
+  socketVisitorMap.set(socket.id, { visitorKey: visitorKey, chatId: chat.id });
+  socket.join('visitor:' + chat.id);
+
+  if (user && user.role === 'admin') {
+    socket.join('admin');
+  }
+
+  socket.on('chatMessage', function (data) {
+    const text = String(data && data.text || '').trim();
+    if (!text) return;
+    const msg = chatStore.addMessage(chat.id, 'visitor', text, {
+      visitorName: data.name || chat.userName,
+      visitorEmail: data.email || chat.userEmail
+    });
+    io.to('visitor:' + chat.id).emit('chatMessage', msg);
+    io.to('admin').emit('chatUpdate', { chatId: chat.id, lastMessage: msg, unread: chat.unread + 1 });
+  });
+
+  socket.on('quickReply', function (data) {
+    const text = String(data && data.text || '').trim();
+    if (!text) return;
+    const msg = chatStore.addMessage(chat.id, 'visitor', text, {
+      quickReply: true, visitorName: chat.userName, visitorEmail: chat.userEmail
+    });
+    io.to('visitor:' + chat.id).emit('chatMessage', msg);
+    io.to('admin').emit('chatUpdate', { chatId: chat.id, lastMessage: msg, unread: chat.unread + 1 });
+  });
+
+  socket.on('joinChat', function (data) {
+    if (!user || user.role !== 'admin') return;
+    const chatId = data && data.chatId;
+    if (!chatId) return;
+    socket.join('chat:' + chatId);
+    chatStore.markRead(chatId);
+    io.to('visitor:' + chatId).emit('chatRead');
+  });
+
+  socket.on('agentReply', function (data) {
+    if (!user || user.role !== 'admin') return;
+    const chatId = data && data.chatId;
+    const text = String(data && data.text || '').trim();
+    if (!chatId || !text) return;
+    const msg = chatStore.addMessage(chatId, 'agent', text);
+    io.to('chat:' + chatId).emit('chatMessage', msg);
+    io.to('visitor:' + chatId).emit('chatMessage', msg);
+    io.to('visitor:' + chatId).emit('chatRead');
+  });
+
+  socket.on('loadHistory', function () {
+    socket.emit('chatHistory', chat.messages || []);
+  });
+
+  socket.on('loadChat', function (data) {
+    if (!user || user.role !== 'admin') return;
+    const chatId = data && data.chatId;
+    if (!chatId) return;
+    const allChats = store.get('chats');
+    const c = allChats.find(function (c2) { return c2.id === chatId; });
+    if (c) socket.emit('chatHistory', c.messages || []);
+  });
+
+  socket.on('typing', function () {
+    if (user && user.role === 'admin') {
+      io.to('visitor:' + chat.id).emit('agentTyping');
+    } else {
+      socket.to('chat:' + chat.id).emit('visitorTyping');
+    }
+  });
+
+  socket.on('disconnect', function () {
+    socketVisitorMap.delete(socket.id);
+  });
+});
+
+// HTTP API: list all chats (admin only)
+app.get('/api/chat/chats', auth.requireAdminApi, function (req, res) {
+  res.json({ chats: chatStore.getAllChats() });
+});
+
+app.get('/api/chat/:chatId/messages', auth.requireAdminApi, function (req, res) {
+  const c = store.get('chats').find(function (c2) { return c2.id === req.params.chatId; });
+  if (!c) return res.status(404).json({ error: 'Chat not found.' });
+  res.json({ messages: c.messages || [], chat: c });
+});
+
+app.get('/api/chat/visitor-key', function (req, res) {
+  const user = auth.authenticate(req);
+  if (user) return res.json({ visitorKey: 'u:' + user.id, name: user.name, email: user.email });
+  const key = crypto.randomBytes(8).toString('hex');
+  res.json({ visitorKey: 'v:' + key, name: '', email: '' });
+});
+
 store.init()
   .then(function () {
     auth.hydrateSessions();
     auth.seedAdmin();
-    app.listen(PORT, function () {
+    server.listen(PORT, function () {
       const backend = process.env.DATABASE_URL ? 'Postgres' : 'JSON files';
       console.log('[server] Tesla XTeam FX Trade running at http://localhost:' + PORT + ' (storage: ' + backend + ')');
     });
