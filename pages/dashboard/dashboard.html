@@ -537,6 +537,16 @@
             if (window.lucide) lucide.createIcons();
           }
         });
+
+      // Load admin-controlled dashboard stats independently of auth flow.
+      fetch('/api/settings').then(function (r) {
+        if (!r.ok) return;
+        return r.json();
+      }).then(function (data) {
+        if (!data || !data.dashboardStats) return;
+        window.FX.dashboardStats = data.dashboardStats;
+        renderDashboardStats();
+      });
     </script>
   </body>
 </html>

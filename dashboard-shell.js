@@ -281,13 +281,6 @@
         setBalance(ME.balance);
         applyUserToSidebar();
         return true;
-      }).then(function (ok) {
-        if (ok) return api('/api/settings');
-        return Promise.resolve({ ok: false });
-      }).then(function (r) {
-        if (r && r.ok && r.data && r.data.dashboardStats) {
-          window.FX.dashboardStats = r.data.dashboardStats;
-        }
       });
     },
     // Record a purchase/order — debits the balance server-side.
