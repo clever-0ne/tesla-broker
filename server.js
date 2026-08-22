@@ -842,6 +842,23 @@ app.get('/api/admin/users/:id/kyc-files', auth.requireAdminApi, function (req, r
 // Serve saved KYC files from disk.
 app.use('/kyc', express.static(KYC_DIR));
 
+app.get('/api/chat/chats', auth.requireAdminApi, function (req, res) {
+  res.json({ chats: chatStore.getAllChats() });
+});
+
+app.get('/api/chat/:chatId/messages', auth.requireAdminApi, function (req, res) {
+  const c = store.get('chats').find(function (c2) { return c2.id === req.params.chatId; });
+  if (!c) return res.status(404).json({ error: 'Chat not found.' });
+  res.json({ messages: c.messages || [], chat: c });
+});
+
+app.get('/api/chat/visitor-key', function (req, res) {
+  const user = auth.authenticate(req);
+  if (user) return res.json({ visitorKey: 'u:' + user.id, name: user.name, email: user.email });
+  const key = crypto.randomBytes(8).toString('hex');
+  res.json({ visitorKey: 'v:' + key, name: '', email: '' });
+});
+
 /* ------------------------------ 404 / boot ---------------------------- */
 
 app.use('/api', function (req, res) { res.status(404).json({ error: 'Not found' }); });
@@ -967,23 +984,6 @@ io.on('connection', function (socket) {
 });
 
 // HTTP API: list all chats (admin only)
-app.get('/api/chat/chats', auth.requireAdminApi, function (req, res) {
-  res.json({ chats: chatStore.getAllChats() });
-});
-
-app.get('/api/chat/:chatId/messages', auth.requireAdminApi, function (req, res) {
-  const c = store.get('chats').find(function (c2) { return c2.id === req.params.chatId; });
-  if (!c) return res.status(404).json({ error: 'Chat not found.' });
-  res.json({ messages: c.messages || [], chat: c });
-});
-
-app.get('/api/chat/visitor-key', function (req, res) {
-  const user = auth.authenticate(req);
-  if (user) return res.json({ visitorKey: 'u:' + user.id, name: user.name, email: user.email });
-  const key = crypto.randomBytes(8).toString('hex');
-  res.json({ visitorKey: 'v:' + key, name: '', email: '' });
-});
-
 store.init()
   .then(function () {
     auth.hydrateSessions();
