@@ -852,14 +852,25 @@ app.get('/api/chat/:chatId/messages', auth.requireAdminApi, function (req, res) 
   res.json({ messages: c.messages || [], chat: c });
 });
 
-app.get('/api/chat/visitor-key', function (req, res) {
-  const user = auth.authenticate(req);
-  if (user) return res.json({ visitorKey: 'u:' + user.id, name: user.name, email: user.email });
-  const key = crypto.randomBytes(8).toString('hex');
-  res.json({ visitorKey: 'v:' + key, name: '', email: '' });
+app.get('/api/chat/visitor-key', auth.requireAuthApi, function (req, res) {
+  const user = req.user;
+  res.json({ visitorKey: 'u:' + user.id, name: user.name, email: user.email });
 });
 
 /* ------------------------------ 404 / boot ---------------------------- */
+
+
+// Delete all chats for a specific user (admin only).
+app.delete('/api/chat/user/:userId', auth.requireAdminApi, function (req, res) {
+  chatStore.deleteUserChats(req.params.userId);
+  res.json({ ok: true });
+});
+
+// Delete a single chat (admin only).
+app.delete('/api/chat/:chatId', auth.requireAdminApi, function (req, res) {
+  chatStore.deleteChat(req.params.chatId);
+  res.json({ ok: true });
+});
 
 app.use('/api', function (req, res) { res.status(404).json({ error: 'Not found' }); });
 

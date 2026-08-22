@@ -32,8 +32,6 @@
   }
 
   // --- Tab handling ---
-  // The existing setTab function already toggles panels and calls loadUsers/loadSettings.
-  // We hook into it for the 'chat' tab.
   var origSetTab = window.setTab;
   window.setTab = function (name) {
     if (origSetTab) origSetTab(name);
@@ -47,8 +45,10 @@
     api('/api/chat/chats').then(function (r) {
       if (!r.ok) return;
       chats = r.data.chats || [];
-      document.getElementById('chat-unread-summary').textContent =
-        chats.length + (chats.length === 1 ? ' chat' : ' chats');
+      if (document.getElementById('chat-unread-summary')) {
+        document.getElementById('chat-unread-summary').textContent =
+          chats.length + (chats.length === 1 ? ' chat' : ' chats');
+      }
       renderChatList();
     });
   }
@@ -63,65 +63,88 @@
     list.innerHTML = chats.map(function (c) {
       var lastMsg = c.messages && c.messages.length ? c.messages[c.messages.length - 1] : null;
       var timeStr = lastMsg ? fmtTime(lastMsg.createdAt) : fmtTime(c.lastActivity);
-      var lastText = lastMsg ? esc(lastMsg.text.substring(0, 60)) : '<span class="text-slate-400">No messages yet</span>';
-      var unreadBadge = c.unread > 0 ? ' <span class="ml-2 inline-block rounded-full bg-[#e82127] px-2 py-0.5 text-[10px] font-semibold text-white">' + c.unread + '</span>' : '';
-      return '<div class="rounded-xl border border-slate-200 bg-white p-3 cursor-pointer transition hover:bg-gray-50 dark:border-white/10 dark:bg-slate-800 dark:hover:bg-white/5" onclick="window.adminChat.openChat(\'' + c.id + '\')">' +
+      var lastText = lastMsg ? esc(lastMsg.text.substring(0, 60)) : 'No messages yet';
+      var unreadBadge = c.unread > 0 ? ' <span class="ml-2 inline-block rounded-full bg-red-500 px-2 py-0.5 text-[10px] font-semibold text-white">' + c.unread + '</span>' : '';
+      var clearBtn = '';
+      var quote = String.fromCharCode(39);
+      if (c.userId) {
+        clearBtn = ' <button type="button" onclick="window.adminChat.clearUser(' + quote + c.userId + quote + ')" class="rounded bg-red-100 px-2 py-1 text-xs text-red-700 hover:bg-red-200">Clear</button>';
+      }
+      var userIdLine = c.userId ? '<p class="text-xs text-slate-500 dark:text-slate-400 truncate">ID: ' + esc(c.userId) + '</p>' : '';
+      var divOpen = '<div class="rounded-xl border border-slate-200 bg-white p-3 cursor-pointer transition hover:bg-gray-50 dark:border-white/10 dark:bg-slate-800 dark:hover:bg-white/5 mb-2" onclick="window.adminChat.openChat(' + quote + c.id + quote + ')">';
+      return divOpen +
         '<div class="flex items-center justify-between">' +
           '<div class="flex-1 min-w-0">' +
             '<p class="text-sm font-medium text-black dark:text-white">' + esc(c.userName || 'Guest') + unreadBadge + '</p>' +
+            userIdLine +
             (c.userEmail ? '<p class="text-xs text-slate-500 dark:text-slate-400 truncate">' + esc(c.userEmail) + '</p>' : '') +
           '</div>' +
-          '<span class="text-[10px] text-slate-400 shrink-0 ml-2">' + timeStr + '</span>' +
+          clearBtn +
         '</div>' +
-        '<p class="mt-1 text-xs text-slate-500 dark:text-slate-400 truncate">' + lastText + '</p>' +
+        '<p class="mt-1 text-xs text-slate-500 dark:text-slate-400 truncate">' + esc(lastText) + ' <span class="text-slate-400">' + timeStr + '</span></p>' +
       '</div>';
     }).join('');
   }
 
-  // Expose globally so inline onclick handlers work (matching the existing pattern)
+  // Expose globally so inline onclick handlers work
   window.adminChat = {
     openChat: function (chatId) {
       activeChatId = chatId;
       var chat = chats.find(function (c) { return c.id === chatId; });
       if (!chat) return;
 
-      // Close the list, open the conversation view
       var listView = document.getElementById('chat-list');
       if (listView) listView.classList.add('hidden');
 
-      // Create conversation view if not exists
       var convEl = document.getElementById('chat-conversation');
       if (!convEl) {
         convEl = document.createElement('div');
         convEl.id = 'chat-conversation';
         convEl.className = 'flex-1 flex flex-col';
-        convEl.innerHTML =
-          '<div class="flex items-center justify-between mb-3">' +
-            '<button type="button" onclick="window.adminChat.backToList()" class="inline-flex items-center text-xs font-medium text-slate-500 hover:text-black dark:text-slate-400 dark:hover:text-white">' +
-              '<i data-lucide="arrow-left" class="mr-1 w-3.5 h-3.5"></i>Back to conversations' +
-            '</button>' +
-            '<button type="button" onclick="window.adminChat.closeChat()" class="text-xs text-slate-400 hover:text-red-500">Close</button>' +
-          '</div>' +
-          '<div id="chat-messages" class="flex-1 overflow-y-auto space-y-2 mb-3"></div>' +
-          '<div class="flex gap-2">' +
-            '<input id="chat-reply-input" type="text" placeholder="Type your reply..." class="flex-1 rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm text-black focus:border-tesla focus:outline-none dark:border-white/10 dark:bg-slate-800 dark:text-white">' +
-            '<button onclick="window.adminChat.sendReply()" class="rounded-full bg-tesla px-4 py-2 text-xs font-medium text-white">Send</button>' +
-          '</div>';
         var panel = document.getElementById('panel-chat');
         if (panel) panel.appendChild(convEl);
       }
 
-      convEl.classList.remove('hidden');
-      document.getElementById('chat-messages').innerHTML = '';
+      var quote = String.fromCharCode(39);
+      var clearBtn = '';
+      if (chat.userId) {
+        clearBtn = '<button type="button" onclick="window.adminChat.clearUser(' + quote + chat.userId + quote + ')" class="rounded bg-red-100 px-3 py-1 text-xs text-red-700 hover:bg-red-200">Clear Chat</button>';
+      }
+      var headerHtml = '<div class="flex items-center justify-between mb-3">' +
+        '<div class="flex-1 min-w-0">' +
+          '<p class="text-lg font-medium text-black dark:text-white">' + esc(chat.userName || 'Guest') + '</p>' +
+          (chat.userId ? '<p class="text-xs text-slate-500 dark:text-slate-400">ID: ' + esc(chat.userId) + '</p>' : '') +
+          (chat.userEmail ? '<p class="text-xs text-slate-500 dark:text-slate-400 truncate">' + esc(chat.userEmail) + '</p>' : '') +
+        '</div>' +
+        clearBtn +
+      '</div>';
 
-      // Join the chat room and mark as read
-      if (socket && socket.connected) {
-        socket.emit('joinChat', { chatId: chatId });
+      var existingHeader = document.getElementById('chat-conv-header');
+      if (existingHeader) existingHeader.remove();
+      var headerDiv = document.createElement('div');
+      headerDiv.id = 'chat-conv-header';
+      headerDiv.innerHTML = headerHtml;
+      convEl.insertBefore(headerDiv, convEl.firstChild);
+
+      convEl.classList.remove('hidden');
+
+      var msgContainer = document.getElementById('chat-messages');
+      if (!msgContainer) {
+        var msgsDiv = document.createElement('div');
+        msgsDiv.id = 'chat-messages';
+        msgsDiv.className = 'flex-1 overflow-y-auto space-y-2 mb-3';
+        convEl.appendChild(msgsDiv);
+
+        var inputArea = document.createElement('div');
+        inputArea.className = 'flex gap-2';
+        inputArea.innerHTML =
+          '<input id="chat-reply-input" type="text" placeholder="Type your reply..." class="flex-1 rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm text-black focus:border-tesla focus:outline-none dark:border-white/10 dark:bg-slate-800 dark:text-white">' +
+          '<button onclick="window.adminChat.sendReply()" class="rounded-full bg-tesla px-4 py-2 text-xs font-medium text-white">Send</button>';
+        convEl.appendChild(inputArea);
       }
 
-      // Render message history
+      msgContainer.innerHTML = '';
       var msgs = chat.messages || [];
-      var msgContainer = document.getElementById('chat-messages');
       msgs.forEach(function (m) {
         var div = document.createElement('div');
         div.className = 'flex ' + (m.role === 'visitor' ? 'justify-end' : 'justify-start');
@@ -131,16 +154,15 @@
         msgContainer.appendChild(div);
       });
       msgContainer.scrollTop = msgContainer.scrollHeight;
+
+      if (socket && socket.connected) socket.emit('joinChat', { chatId: chatId });
     },
 
     sendReply: function () {
       var input = document.getElementById('chat-reply-input');
       var text = (input ? input.value.trim() : '');
       if (!text || !activeChatId) return;
-      if (socket && socket.connected) {
-        socket.emit('agentReply', { chatId: activeChatId, text: text });
-      }
-      // Optimistically add the message
+      if (socket && socket.connected) socket.emit('agentReply', { chatId: activeChatId, text: text });
       var msgs = document.getElementById('chat-messages');
       if (msgs) {
         var div = document.createElement('div');
@@ -159,7 +181,7 @@
       if (conv) conv.remove();
       var list = document.getElementById('chat-list');
       if (list) { list.classList.remove('hidden'); list.innerHTML = ''; }
-      document.getElementById('chat-unread-summary').textContent = chats.length + (chats.length === 1 ? ' chat' : ' chats');
+      loadChats();
     },
 
     closeChat: function () {
@@ -167,32 +189,37 @@
         if (socket && socket.connected) socket.emit('closeChat', { chatId: activeChatId });
       }
       window.adminChat.backToList();
+    },
+
+    clearUser: function (userId) {
+      if (!confirm('Clear all chat history for user ID ' + userId + '? This cannot be undone.')) return;
+      var _this = this;
+      fetch('/api/chat/user/' + userId, {
+        method: 'DELETE',
+        credentials: 'same-origin'
+      }).then(function (r) {
+        return r.json().catch(function () { return {}; });
+      }).then(function (data) {
+        if (activeChatId) { _this.backToList(); } else { loadChats(); }
+      });
     }
   };
 
   // --- Socket.io init ---
   function initSocket() {
     if (typeof io === 'undefined') { console.warn('[admin-chat] socket.io not loaded'); return; }
-
     socket = io(window.location.origin, {
       transports: ['websocket'],
       auth: { token: '' }
     });
-
-    socket.on('connect', function () {
-      // Refresh chat list
-      loadChats();
-    });
-
-    // New message arrives
+    socket.on('connect', function () { loadChats(); });
     socket.on('chatMessage', function (data) {
-      if (!data.chatId && activeChatId !== data.chatId) {
-        // Message for a different chat — just refresh the list
+      if (!activeChatId || activeChatId !== (data.chatId || activeChatId)) {
         loadChats();
         return;
       }
       var msgContainer = document.getElementById('chat-messages');
-      if (msgContainer && activeChatId === (data.chatId || activeChatId)) {
+      if (msgContainer) {
         var div = document.createElement('div');
         div.className = 'flex ' + (data.role === 'visitor' ? 'justify-end' : 'justify-start');
         div.innerHTML = '<div class="max-w-[80%] rounded-xl px-3 py-2 text-xs ' +
@@ -203,18 +230,10 @@
       }
       loadChats();
     });
-
-    // Live update — new chat arrived or status changed
-    socket.on('chatUpdate', function (data) {
-      loadChats();
-    });
-
-    socket.on('disconnect', function () {
-      console.warn('[admin-chat] disconnected from server');
-    });
+    socket.on('chatUpdate', function (data) { loadChats(); });
+    socket.on('disconnect', function () { console.warn('[admin-chat] disconnected'); });
   }
 
-  // Initialize when the DOM is ready
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', initSocket);
   } else {

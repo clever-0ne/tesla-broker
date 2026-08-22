@@ -20,6 +20,19 @@
   const USE_TAWK = config.useTawk !== false;
 
   let socket = null;
+  let currentUserId = null;
+
+  function checkAuth() {
+    return fetch("/api/me", { credentials: "same-origin" })
+      .then(function (res) {
+        if (!res.ok) throw new Error("login required");
+        return res.json();
+      })
+      .then(function (data) {
+        currentUserId = data.user ? data.user.id : null;
+        return data;
+      });
+  }
   let open = localStorage.getItem(SITE_KEY) === '1';
   let visitorKey = localStorage.getItem(VISITOR_KEY_STORAGE);
   let messages = [];
@@ -187,8 +200,15 @@
   function initSocket() {
     if (!USE_TAWK) return;
     if (socket) socket.disconnect();
-    fetch('/api/chat/visitor-key')
-      .then(function (r) { return r.json(); })
+    // Only logged-in users can access support chat.
+    checkAuth()
+      .then(function () {
+        return fetch('/api/chat/visitor-key', { credentials: 'same-origin' });
+      })
+      .then(function (r) {
+        if (!r.ok) throw new Error('not authenticated');
+        return r.json();
+      })
       .then(function (data) {
         visitorKey = data.visitorKey;
         localStorage.setItem(VISITOR_KEY_STORAGE, visitorKey);
