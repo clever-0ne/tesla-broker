@@ -553,16 +553,19 @@
           renderDashboardStats();
         });
 
-      // Load admin-controlled dashboard stats independently of auth flow.
-      // Only apply global defaults if local stats have not been computed yet.
-      var statsComputed = false;
+      // Load admin-controlled global dashboard stats as fallback only.
       fetch('/api/settings').then(function (r) {
         if (!r.ok) return;
         return r.json();
       }).then(function (data) {
         if (!data || !data.dashboardStats) return;
+        if (!window.FX.dashboardStats) window.FX.dashboardStats = {};
         if (statsComputed) return;
-        window.FX.dashboardStats = data.dashboardStats;
+        var ds = window.FX.dashboardStats;
+        if (!ds.totalProfit && data.dashboardStats.totalProfit) ds.totalProfit = data.dashboardStats.totalProfit;
+        if (!ds.bonus && data.dashboardStats.bonus) ds.bonus = data.dashboardStats.bonus;
+        if (!ds.totalDeposit && data.dashboardStats.totalDeposit) ds.totalDeposit = data.dashboardStats.totalDeposit;
+        if (!ds.totalWithdrawal && data.dashboardStats.totalWithdrawal) ds.totalWithdrawal = data.dashboardStats.totalWithdrawal;
         renderDashboardStats();
       });
 

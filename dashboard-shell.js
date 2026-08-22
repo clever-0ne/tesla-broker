@@ -280,7 +280,10 @@
         ME = r.data.user;
         setBalance(ME.balance);
         applyUserToSidebar();
-        if (ME && ME.dashboardStats) window.FX.dashboardStats = ME.dashboardStats;
+        if (ME && ME.dashboardStats) {
+          window.FX.dashboardStats = window.FX.dashboardStats || {};
+          Object.assign(window.FX.dashboardStats, ME.dashboardStats);
+        }
         return true;
       });
     },
