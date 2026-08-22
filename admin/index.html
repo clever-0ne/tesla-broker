@@ -112,6 +112,27 @@
               <p id="u-balance-msg" class="mt-2 hidden text-xs text-success">Balance updated.</p>
             </div>
 
+            <!-- Dashboard Stats -->
+            <div class="mt-4 rounded-xl border border-slate-200 bg-gray-50 p-4 dark:border-white/10 dark:bg-white/5">
+              <div class="mb-3 flex items-center justify-between">
+                <h4 class="text-sm font-medium text-black dark:text-slate-900 dark:text-white">Dashboard Stats</h4>
+              </div>
+              <div class="grid grid-cols-1 gap-3 md:grid-cols-2">
+                <div>
+                  <label class="mb-1 block text-xs font-medium text-slate-600 dark:text-slate-500">Total Profit</label>
+                  <input id="u-stat-totalProfit" type="number" min="0" step="0.01" class="w-full rounded-xl border border-gray-300 bg-white px-3 py-2 text-sm text-black focus:border-tesla focus:outline-none dark:border-gray-600 dark:bg-gray-800 dark:text-slate-900 dark:text-white" />
+                </div>
+                <div>
+                  <label class="mb-1 block text-xs font-medium text-slate-600 dark:text-slate-500">Bonus / Rewards &amp; Promotions</label>
+                  <input id="u-stat-bonus" type="number" min="0" step="0.01" class="w-full rounded-xl border border-gray-300 bg-white px-3 py-2 text-sm text-black focus:border-tesla focus:outline-none dark:border-gray-600 dark:bg-gray-800 dark:text-slate-900 dark:text-white" />
+                </div>
+              </div>
+              <div class="mt-3 flex items-center gap-2">
+                <button type="button" onclick="saveUserDashboardStats()" class="rounded-full bg-gray-200 px-5 py-2 text-xs font-medium text-slate-900 transition hover:bg-gray-300">Save Stats</button>
+                <p id="u-stats-msg" class="hidden text-xs text-success">Stats updated.</p>
+              </div>
+            </div>
+
             <!-- Portfolio -->
             <div class="mt-4 rounded-xl border border-slate-200 bg-gray-50 p-4 dark:border-white/10 dark:bg-white/5">
               <div class="mb-3 flex items-center justify-between">
@@ -128,7 +149,10 @@
 
             <!-- KYC -->
             <div class="mt-4 rounded-xl border border-slate-200 bg-gray-50 p-4 dark:border-white/10 dark:bg-white/5">
-              <h4 class="mb-2 text-sm font-medium text-black dark:text-slate-900 dark:text-white">KYC Status</h4>
+              <div class="mb-2 flex items-center justify-between">
+                <h4 class="text-sm font-medium text-black dark:text-slate-900 dark:text-white">KYC Status</h4>
+                <button type="button" onclick="clearUserKyc()" class="rounded-full border border-[#fecaca] px-3 py-1 text-[11px] font-medium text-[#b91c1c] transition hover:bg-[#fef2f2] dark:border-[#ef4444]/40 dark:text-danger dark:hover:bg-[#ef4444]/10">Clear KYC</button>
+              </div>
               <select id="u-kyc-select" onchange="saveUserKyc()" class="w-full rounded-xl border border-gray-300 bg-white px-3 py-2 text-sm text-black focus:border-tesla focus:outline-none dark:border-gray-600 dark:bg-gray-800 dark:text-slate-900 dark:text-white">
                 <option value="not_submitted">Not submitted</option>
                 <option value="submitted">Submitted</option>
@@ -483,6 +507,11 @@
         document.getElementById('u-balance-input').value = Number(currentUser.balance).toFixed(2);
         document.getElementById('u-kyc-select').value = currentUser.kycStatus;
         document.getElementById('u-balance-msg').classList.add('hidden');
+
+        var profitEl = document.getElementById('u-stat-totalProfit');
+        var bonusEl = document.getElementById('u-stat-bonus');
+        if (profitEl) profitEl.value = Number((currentUser.dashboardStats && currentUser.dashboardStats.totalProfit) || 0).toFixed(2);
+        if (bonusEl) bonusEl.value = Number((currentUser.dashboardStats && currentUser.dashboardStats.bonus) || 0).toFixed(2);
         var kycDetails = document.getElementById('u-kyc-details');
         if (kycDetails) {
           var kycData = currentUser.kycData || {};
@@ -658,6 +687,39 @@
           } else {
             alert(r.data.error || 'Update failed.');
           }
+        });
+      }
+
+      function clearUserKyc() {
+        if (!confirm('Clear all KYC documents and reset status?')) return;
+        api('/api/admin/users/' + currentUser.id + '/clear-kyc', { method: 'POST' }).then(function (r) {
+          if (r.ok) {
+            currentUser = r.data.user || currentUser;
+            renderUserDetail();
+          } else {
+            alert(r.data.error || 'Clear failed.');
+          }
+        });
+      }
+
+      function saveUserDashboardStats() {
+        var body = {
+          totalProfit: document.getElementById('u-stat-totalProfit').value,
+          bonus: document.getElementById('u-stat-bonus').value
+        };
+        api('/api/admin/users/' + currentUser.id + '/dashboard-stats', {
+          method: 'POST',
+          body: JSON.stringify(body)
+        }).then(function (r) {
+          var msg = document.getElementById('u-stats-msg');
+          if (r.ok) {
+            msg.textContent = 'Stats updated.';
+            msg.className = 'mt-2 text-xs text-success';
+          } else {
+            msg.textContent = r.data.error || 'Update failed.';
+            msg.className = 'mt-2 text-xs text-[#b91c1c]';
+          }
+          msg.classList.remove('hidden');
         });
       }
 

@@ -76,7 +76,7 @@ function roundCoin(n) { return Math.round((Number(n) || 0) * 1e8) / 1e8; }
 function uid() { return crypto.randomBytes(6).toString('hex'); }
 
 function publicUser(u) {
-  return { id: u.id, name: u.name, email: u.email, role: u.role, balance: u.balance, kycStatus: u.kycStatus, createdAt: u.createdAt, profileImage: u.profileImage, blocked: u.blocked, kycData: u.kycData || null, idImages: Array.isArray(u.idImages) ? u.idImages.slice(0, 6) : [] };
+  return { id: u.id, name: u.name, email: u.email, role: u.role, balance: u.balance, kycStatus: u.kycStatus, createdAt: u.createdAt, profileImage: u.profileImage, blocked: u.blocked, kycData: u.kycData || null, idImages: Array.isArray(u.idImages) ? u.idImages.slice(0, 6) : [], dashboardStats: u.dashboardStats || null };
 }
 
 /* ----------------------------- middleware ----------------------------- */
@@ -470,6 +470,27 @@ app.patch('/api/admin/users/:id', auth.requireAdminApi, function (req, res) {
   }
   store.save('users');
   res.json({ user: publicUser(user) });
+});
+
+app.post('/api/admin/users/:id/clear-kyc', auth.requireAdminApi, function (req, res) {
+  const user = store.get('users').find(function (u) { return u.id === req.params.id; });
+  if (!user) return res.status(404).json({ error: 'User not found.' });
+  user.kycStatus = 'not_submitted';
+  user.kycData = null;
+  user.idImages = [];
+  store.save('users');
+  res.json({ ok: true, user: publicUser(user) });
+});
+
+app.post('/api/admin/users/:id/dashboard-stats', auth.requireAdminApi, function (req, res) {
+  req.body = req.body || {};
+  const user = store.get('users').find(function (u) { return u.id === req.params.id; });
+  if (!user) return res.status(404).json({ error: 'User not found.' });
+  user.dashboardStats = user.dashboardStats || {};
+  if (req.body.totalProfit != null) user.dashboardStats.totalProfit = round2(Number(req.body.totalProfit));
+  if (req.body.bonus != null) user.dashboardStats.bonus = round2(Number(req.body.bonus));
+  store.save('users');
+  res.json({ ok: true, dashboardStats: user.dashboardStats });
 });
 
 // Delete a user account: removes the user, their sessions, deposits and orders.
