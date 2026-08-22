@@ -505,7 +505,7 @@
         }
       }, 250);
 
-      Promise.all([fetch('/api/orders'), fetch('/api/deposits')])
+      Promise.all([fetch('/api/orders'), fetch('/api/deposits'), fetch('/api/withdrawals')])
         .then(function (resps) {
           return Promise.all(resps.map(function (r) { return r.json().catch(function () { return {}; }); }));
         })
@@ -536,6 +536,19 @@
             }).join('');
             if (window.lucide) lucide.createIcons();
           }
+
+          var withdrawals = (data[2].withdrawals || []).filter(function (w) { return w.status === 'approved'; });
+          var totalWithdrawal = withdrawals.reduce(function (s, w) { return s + w.amount; }, 0);
+
+          if (window.FX && FX.dashboardStats) {
+            var ds = window.FX.dashboardStats;
+            if (!(ds.totalProfit > 0)) ds.totalProfit = Math.max(0, invested - totalWithdrawal);
+            if (!(ds.totalDeposit > 0)) ds.totalDeposit = (data[1].deposits || []).filter(function (d) { return d.status === 'approved'; }).reduce(function (s, d) { return s + d.amount; }, 0);
+            if (!(ds.totalWithdrawal > 0)) ds.totalWithdrawal = totalWithdrawal;
+            if (!(ds.bonus > 0)) ds.bonus = 0;
+            window.FX.dashboardStats = ds;
+          }
+          renderDashboardStats();
         });
 
       // Load admin-controlled dashboard stats independently of auth flow.
