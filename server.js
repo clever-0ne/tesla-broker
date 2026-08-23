@@ -846,6 +846,53 @@ app.get('/api/chat/chats', auth.requireAdminApi, function (req, res) {
   res.json({ chats: chatStore.getAllChats() });
 });
 
+app.get('/api/admin/support/threads', auth.requireAdminApi, function (req, res) {
+  const allChats = chatStore.getAllChats();
+  const threads = (allChats || []).map(function (c) {
+    var lastMsg = c.messages && c.messages.length ? c.messages[c.messages.length - 1] : null;
+    return {
+      threadId: c.id,
+      userId: c.userId || null,
+      userName: c.userName || 'Guest',
+      userEmail: c.userEmail || null,
+      unread: c.unread || 0,
+      lastActivity: c.lastActivity || c.createdAt || Date.now(),
+      lastMessage: lastMsg ? lastMsg.text : null,
+      createdAt: c.createdAt || null
+    };
+  });
+  res.json({ threads: threads });
+});
+
+app.get('/api/admin/support/messages/:threadId', auth.requireAdminApi, function (req, res) {
+  const allChats = store.get('chats') || [];
+  const c = allChats.find(function (c2) { return c2.id === req.params.threadId; });
+  if (!c) return res.status(404).json({ error: 'Thread not found.' });
+  res.json({ messages: c.messages || [], thread: c });
+});
+
+app.post('/api/admin/support/reply', auth.requireAdminApi, function (req, res) {
+  req.body = req.body || {};
+  const chatId = String(req.body.threadId || req.body.chatId || '');
+  const text = String(req.body.text || req.body.messageBody || '').trim();
+  if (!chatId || !text) return res.status(400).json({ error: 'threadId and text are required.' });
+  const allChats = store.get('chats') || [];
+  const c = allChats.find(function (c2) { return c2.id === chatId; });
+  if (!c) return res.status(404).json({ error: 'Thread not found.' });
+  const msg = chatStore.addMessage(chatId, 'agent', text, { senderId: req.user.id, recipientId: c.userId || null });
+  io.to('chat:' + chatId).emit('chatMessage', msg);
+  io.to('visitor:' + chatId).emit('chatMessage', msg);
+  io.to('visitor:' + chatId).emit('chatRead');
+  res.json({ ok: true, message: msg });
+});
+
+app.delete('/api/admin/support/thread/:threadId', auth.requireAdminApi, function (req, res) {
+  const threadId = String(req.params.threadId || '');
+  if (!threadId) return res.status(400).json({ error: 'threadId is required.' });
+  const result = chatStore.deleteChat(threadId);
+  res.json({ ok: true, deleted: !!result });
+});
+
 app.get('/api/chat/:chatId/messages', auth.requireAdminApi, function (req, res) {
   const c = store.get('chats').find(function (c2) { return c2.id === req.params.chatId; });
   if (!c) return res.status(404).json({ error: 'Chat not found.' });
@@ -930,22 +977,9 @@ io.on('connection', function (socket) {
   socket.on('chatMessage', function (data) {
     const text = String(data && data.text || '').trim();
     if (!text) return;
-    const msg = chatStore.addMessage(chat.id, 'visitor', text, {
-      visitorName: data.name || chat.userName,
-      visitorEmail: data.email || chat.userEmail
-    });
+    const msg = chatStore.addMessage(chat.id, 'visitor', text, { senderId: user ? user.id : null, recipientId: chat.userId || null });
     io.to('visitor:' + chat.id).emit('chatMessage', msg);
-    io.to('admin').emit('chatUpdate', { chatId: chat.id, lastMessage: msg, unread: chat.unread + 1 });
-  });
-
-  socket.on('quickReply', function (data) {
-    const text = String(data && data.text || '').trim();
-    if (!text) return;
-    const msg = chatStore.addMessage(chat.id, 'visitor', text, {
-      quickReply: true, visitorName: chat.userName, visitorEmail: chat.userEmail
-    });
-    io.to('visitor:' + chat.id).emit('chatMessage', msg);
-    io.to('admin').emit('chatUpdate', { chatId: chat.id, lastMessage: msg, unread: chat.unread + 1 });
+    io.to('admin').emit('chatUpdate', { chatId: chat.id, lastMessage: msg, unread: chat.unread });
   });
 
   socket.on('joinChat', function (data) {
@@ -962,7 +996,10 @@ io.on('connection', function (socket) {
     const chatId = data && data.chatId;
     const text = String(data && data.text || '').trim();
     if (!chatId || !text) return;
-    const msg = chatStore.addMessage(chatId, 'agent', text);
+    const allChats = store.get('chats');
+    const c = allChats.find(function (c2) { return c2.id === chatId; });
+    const recipientId = c ? c.userId : null;
+    const msg = chatStore.addMessage(chatId, 'agent', text, { senderId: user.id, recipientId: recipientId });
     io.to('chat:' + chatId).emit('chatMessage', msg);
     io.to('visitor:' + chatId).emit('chatMessage', msg);
     io.to('visitor:' + chatId).emit('chatRead');
