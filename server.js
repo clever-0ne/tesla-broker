@@ -171,7 +171,7 @@ app.use('/dist', express.static(path.join(ROOT, 'dist')));
 app.use('/chat-widget.js', express.static(path.join(ROOT, 'public', 'chat-widget.js')));
 
 // Public root-level JS files (no sensitive data inside).
-const ROOT_FILES = ['dashboard-shell.js', 'cars-data.js', 'crypto-data.js'];
+const ROOT_FILES = ['dashboard-shell.js', 'cars-data.js', 'crypto-data.js', 'google97eaa26324968d90.html'];
 app.get('/:file', function (req, res) {
   if (ROOT_FILES.indexOf(req.params.file) === -1) {
     return res.status(404).type('text/plain').send('Not found');
@@ -902,7 +902,7 @@ function getVisitorKey(socket) {
 // Attach auth middleware so logged-in users get their role on socket connect.
 io.use(function (socket, next) {
   const cookieHeader = socket.handshake.headers.cookie || '';
-  const m = new RegExp('(?:^|;\\s*)sid=([^;]*)').exec(cookieHeader);
+  const m = /(?:^|;\s*)sid=([^;]*)/.exec(cookieHeader);
   if (m) {
     try {
       const rec = auth.getSession(decodeURIComponent(m[1]));

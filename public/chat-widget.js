@@ -96,7 +96,7 @@
 
     let header = document.createElement('div');
     header.className = 'xteam-chat-header';
-    header.innerHTML = '<img src="/assets/tesla-logo.svg" alt="Tesla Support"><span>Support Chat</span>';
+    header.innerHTML = '<img src="/assets/tesla-t.svg" alt="Tesla Support" style="width:32px;height:32px;color:#e82127"><span>Support Chat</span>';
     panel.appendChild(header);
 
     messagesEl = document.createElement('div');
