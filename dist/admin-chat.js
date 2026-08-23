@@ -63,18 +63,20 @@
       var lastMsg = c.lastMessage ? c.lastMessage.substring(0, 60) : 'No messages yet';
       var timeStr = c.lastActivity ? fmtDate(c.lastActivity) : '—';
       var unreadBadge = c.unread > 0 ? ' <span class="ml-2 inline-block rounded-full bg-red-500 px-2 py-0.5 text-[10px] font-semibold text-white">' + c.unread + ' new</span>' : '';
+      var resolvedBadge = c.resolved ? ' <span class="ml-1 inline-block rounded-full bg-green-100 px-2 py-0.5 text-[10px] font-semibold text-green-700">Resolved</span>' : '';
       var emailLine = c.userEmail ? '<p class="text-xs font-medium text-slate-600 dark:text-slate-300 truncate">' + esc(c.userEmail) + '</p>' : '';
       var respondBtn = ' <button type="button" onclick="event.stopPropagation(); window.adminChat.openChat(' + quote + c.threadId + quote + ')" class="shrink-0 rounded-full bg-tesla px-3 py-1 text-xs font-medium text-white transition hover:bg-tesla-600">Respond</button>';
       var clearBtn = ' <button type="button" onclick="event.stopPropagation(); window.adminChat.confirmDelete(' + quote + c.threadId + quote + ', ' + quote + esc(c.userEmail || c.threadId) + quote + ')" class="shrink-0 rounded-full bg-red-100 px-3 py-1 text-xs font-medium text-red-700 transition hover:bg-red-200">Delete</button>';
-      return '<div class="rounded-xl border border-slate-200 bg-white p-3 transition hover:bg-gray-50 dark:border-white/10 dark:bg-slate-800 dark:hover:bg-white/5 mb-2">' +
+      var resolveBtn = c.resolved ? '' : ' <button type="button" onclick="event.stopPropagation(); window.adminChat.confirmResolve(' + quote + c.threadId + quote + ', ' + quote + esc(c.userEmail || c.threadId) + quote + ')" class="shrink-0 rounded-full bg-yellow-100 px-3 py-1 text-xs font-medium text-yellow-700 transition hover:bg-yellow-200">Resolve</button>';
+      return '<div class="rounded-xl border border-slate-200 bg-white p-3 transition hover:bg-gray-50 dark:border-white/10 dark:bg-slate-800 dark:hover:bg-white/5 mb-2' + (c.resolved ? ' opacity-75' : '') + '">' +
         '<div class="flex items-center justify-between">' +
           '<div class="flex-1 min-w-0 cursor-pointer" onclick="window.adminChat.openChat(' + quote + c.threadId + quote + ')">' +
-            '<p class="text-sm font-medium text-black dark:text-white">' + esc(c.userName || 'Guest') + unreadBadge + '</p>' +
+            '<p class="text-sm font-medium text-black dark:text-white">' + esc(c.userName || 'Guest') + unreadBadge + resolvedBadge + '</p>' +
             emailLine +
             '<p class="text-xs text-slate-500 dark:text-slate-400 truncate">' + esc(lastMsg) + '</p>' +
             '<p class="text-[11px] text-slate-400">' + timeStr + '</p>' +
           '</div>' +
-          '<div class="ml-2 flex items-center gap-2">' + respondBtn + clearBtn + '</div>' +
+          '<div class="ml-2 flex items-center gap-2">' + respondBtn + resolveBtn + clearBtn + '</div>' +
         '</div>' +
       '</div>';
     }).join('');
@@ -90,15 +92,6 @@
         var listView = document.getElementById('chat-list');
         if (listView) listView.classList.add('hidden');
 
-        var convEl = document.getElementById('chat-conversation');
-        if (!convEl) {
-          convEl = document.createElement('div');
-          convEl.id = 'chat-conversation';
-          convEl.className = 'flex-1 flex flex-col';
-          var panel = document.getElementById('panel-chat');
-          if (panel) panel.appendChild(convEl);
-        }
-
         var quote = String.fromCharCode(39);
         var headerHtml = '<div class="flex items-center justify-between mb-3">' +
           '<div class="flex-1 min-w-0">' +
@@ -109,6 +102,7 @@
           '<div class="flex items-center gap-2">' +
             '<button type="button" onclick="window.adminChat.backToList()" class="rounded bg-gray-200 px-3 py-1 text-xs text-slate-900 hover:bg-gray-300">Back</button>' +
             '<button type="button" onclick="window.adminChat.confirmDelete(' + quote + threadId + quote + ', ' + quote + esc(chat.userEmail || chat.userId || 'thread') + quote + ')" class="rounded bg-red-100 px-3 py-1 text-xs text-red-700 hover:bg-red-200">Delete Thread</button>' +
+            '<button type="button" onclick="window.adminChat.confirmResolve(' + quote + threadId + quote + ', ' + quote + esc(chat.userEmail || chat.userId || 'thread') + quote + ')" class="rounded bg-yellow-100 px-3 py-1 text-xs text-yellow-700 hover:bg-yellow-200">Resolve</button>' +
           '</div>' +
         '</div>';
 
@@ -166,7 +160,7 @@
     backToList: function () {
       activeChatId = null;
       var conv = document.getElementById('chat-conversation');
-      if (conv) conv.remove();
+      if (conv) conv.classList.add('hidden');
       var list = document.getElementById('chat-list');
       if (list) { list.classList.remove('hidden'); list.innerHTML = ''; }
       loadChats();
@@ -175,6 +169,15 @@
     confirmDelete: function (threadId, label) {
       if (!confirm('Delete support thread for ' + label + '? This cannot be undone.')) return;
       fetch('/api/admin/support/thread/' + threadId, { method: 'DELETE', credentials: 'same-origin' }).then(function (r) {
+        if (!r.ok) return;
+        if (activeChatId) window.adminChat.backToList();
+        else loadChats();
+      });
+    },
+
+    confirmResolve: function (threadId, label) {
+      if (!confirm('Mark support thread for ' + label + ' as resolved? This cannot be undone.')) return;
+      fetch('/api/admin/support/thread/' + threadId + '/resolve', { method: 'POST', credentials: 'same-origin' }).then(function (r) {
         if (!r.ok) return;
         if (activeChatId) window.adminChat.backToList();
         else loadChats();

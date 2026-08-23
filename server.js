@@ -893,6 +893,13 @@ app.delete('/api/admin/support/thread/:threadId', auth.requireAdminApi, function
   res.json({ ok: true, deleted: !!result });
 });
 
+app.post('/api/admin/support/thread/:threadId/resolve', auth.requireAdminApi, function (req, res) {
+  const threadId = String(req.params.threadId || '');
+  if (!threadId) return res.status(400).json({ error: 'threadId is required.' });
+  const result = chatStore.resolveChat(threadId);
+  res.json({ ok: true, resolved: !!result });
+});
+
 app.get('/api/chat/:chatId/messages', auth.requireAdminApi, function (req, res) {
   const c = store.get('chats').find(function (c2) { return c2.id === req.params.chatId; });
   if (!c) return res.status(404).json({ error: 'Chat not found.' });
