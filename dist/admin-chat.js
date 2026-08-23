@@ -92,6 +92,9 @@
         var listView = document.getElementById('chat-list');
         if (listView) listView.classList.add('hidden');
 
+        var convEl = document.getElementById('chat-conversation');
+        if (convEl) convEl.classList.remove('hidden');
+
         var quote = String.fromCharCode(39);
         var headerHtml = '<div class="flex items-center justify-between mb-3">' +
           '<div class="flex-1 min-w-0">' +
