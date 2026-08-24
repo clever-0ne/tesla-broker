@@ -168,7 +168,6 @@ app.use('/admin', function (req, res, next) {
 app.get('/', function (req, res) { res.redirect('/pages/index.html'); });
 app.use('/assets', express.static(path.join(ROOT, 'assets')));
 app.use('/dist', express.static(path.join(ROOT, 'dist')));
-app.use('/chat-widget.js', express.static(path.join(ROOT, 'public', 'chat-widget.js')));
 
 // Public root-level JS files (no sensitive data inside).
 const ROOT_FILES = ['dashboard-shell.js', 'cars-data.js', 'crypto-data.js', 'google97eaa26324968d90.html'];
