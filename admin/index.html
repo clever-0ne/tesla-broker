@@ -349,6 +349,7 @@
       function api(url, opts) {
         opts = opts || {};
         opts.headers = Object.assign({ 'Content-Type': 'application/json' }, opts.headers || {});
+        opts.credentials = 'include';
         return fetch(url, opts).then(function (res) {
           return res.json().catch(function () { return {}; }).then(function (data) {
             return { ok: res.ok, status: res.status, data: data };
