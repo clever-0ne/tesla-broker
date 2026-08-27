@@ -133,12 +133,12 @@ function rateLimit(req, res, next) {
 /* ------------------------------- static ------------------------------- */
 
 // Public marketing / auth pages only. Every other page requires login.
-app.use('/pages', function (req, res, next) {
+app.use('/pages', async function (req, res, next) {
   // Only the real /pages/index.html is public. Matching the *basename* would
   // let any nested index.html (e.g. /pages/dashboard/index.html) dodge auth.
   const p = req.path.replace(/\/+$/, '').toLowerCase();
   if (p === '/index.html' || p === '/login.html' || p === '/signup.html' || p === '/admin-login.html' || p === '/terms.html' || p === '/privacy.html') return next();
-  const user = auth.authenticate(req);
+  const user = await auth.authenticate(req);
   if (!user) return res.redirect('/pages/login.html');
   // Admins may use the customer frontend too — the /admin guard below still
   // limits the console to admin accounts, so both areas work from one session.
@@ -149,10 +149,10 @@ app.use('/pages', function (req, res, next) {
 // Only /admin/login.html is reachable without a session; everything else
 // under /admin requires an admin account.
 const ADMIN_DIR = path.join(ROOT, 'admin');
-app.use('/admin', function (req, res, next) {
+app.use('/admin', async function (req, res, next) {
   const p = req.path.replace(/\/+$/, '').toLowerCase();
   if (p === '/login.html' || p === '/favicon.ico') return next();
-  const user = auth.authenticate(req);
+  const user = await auth.authenticate(req);
   if (!user || user.role !== 'admin') return res.redirect('/admin/login.html');
   next();
 }, express.static(ADMIN_DIR, { index: 'index.html' }));
@@ -167,7 +167,7 @@ app.use(express.static(path.join(ROOT, 'public')));
 
 /* ---------------------------- auth routes ----------------------------- */
 
-app.post('/api/auth/signup', rateLimit, function (req, res) {
+app.post('/api/auth/signup', rateLimit, async function (req, res) {
   req.body = req.body || {};
   const name = String(req.body.name || '').trim();
   const email = String(req.body.email || '').trim().toLowerCase();
@@ -181,11 +181,11 @@ app.post('/api/auth/signup', rateLimit, function (req, res) {
   const users = store.get('users');
   const role = users.length === 0 ? 'admin' : 'user'; // first account = admin
   const user = auth.createUser({ name: name, email: email, password: password, role: role });
-  auth.setSessionCookie(res, auth.createSession(user.id));
+  auth.setSessionCookie(res, await auth.createSession(user.id));
   res.status(201).json({ user: publicUser(user) });
 });
 
-app.post('/api/auth/login', rateLimit, function (req, res) {
+app.post('/api/auth/login', rateLimit, async function (req, res) {
   req.body = req.body || {};
   const email = String(req.body.email || '').trim().toLowerCase();
   const password = String(req.body.password || '');
@@ -196,7 +196,7 @@ app.post('/api/auth/login', rateLimit, function (req, res) {
   if (user.blocked) {
     return res.status(403).json({ error: 'Your account has been blocked. Please contact support for assistance.' });
   }
-  auth.setSessionCookie(res, auth.createSession(user.id));
+  auth.setSessionCookie(res, await auth.createSession(user.id));
   res.json({ user: publicUser(user) });
 });
 
@@ -207,14 +207,14 @@ app.post('/api/auth/logout', function (req, res) {
 });
 
 // Admin console login — password only (no username/email prompt).
-app.post('/api/admin/login', rateLimit, function (req, res) {
+app.post('/api/admin/login', rateLimit, async function (req, res) {
   req.body = req.body || {};
   const password = String(req.body.password || '');
   const admin = store.get('users').find(function (u) { return u.role === 'admin'; });
   if (!admin || !auth.verifyPassword(admin, password)) {
     return res.status(401).json({ error: 'Invalid admin password.' });
   }
-  auth.setSessionCookie(res, auth.createSession(admin.id));
+  auth.setSessionCookie(res, await auth.createSession(admin.id));
   res.json({ user: publicUser(admin) });
 });
 
