@@ -3,5 +3,15 @@
   "buildCommand": "npm run build",
   "rewrites": [
     { "source": "/(.*)", "destination": "/api" }
-  ]
+  ],
+  "functions": {
+    "api/index.js": {
+      "includeFiles": [
+        "dashboard-shell.js",
+        "cars-data.js",
+        "crypto-data.js",
+        "google97eaa26324968d90.html"
+      ]
+    }
+  }
 }
