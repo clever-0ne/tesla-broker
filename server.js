@@ -18,9 +18,6 @@ const fs = require('fs');
 const path = require('path');
 const crypto = require('crypto');
 const express = require('express');
-const { createServer } = require('http');
-const { Server } = require('socket.io');
-const chatStore = require('./lib/chatStore');
 const store = require('./lib/store');
 const auth = require('./lib/auth');
 
@@ -28,11 +25,6 @@ const ROOT = __dirname;
 const PORT = process.env.PORT || 3000;
 
 const app = express();
-const server = createServer(app);
-const io = new Server(server, {
-  cors: { origin: true, credentials: true },
-  transports: ['websocket', 'polling']
-});
 // Hide the Express fingerprint header.
 app.disable('x-powered-by');
 // Render sits behind a reverse proxy. Without this, req.ip is always the
@@ -843,19 +835,6 @@ app.use('/kyc', express.static(KYC_DIR));
 
 /* ------------------------------ 404 / boot ---------------------------- */
 
-
-// Delete all chats for a specific user (admin only).
-app.delete('/api/chat/user/:userId', auth.requireAdminApi, function (req, res) {
-  chatStore.deleteUserChats(req.params.userId);
-  res.json({ ok: true });
-});
-
-// Delete a single chat (admin only).
-app.delete('/api/chat/:chatId', auth.requireAdminApi, function (req, res) {
-  chatStore.deleteChat(req.params.chatId);
-  res.json({ ok: true });
-});
-
 app.use('/api', function (req, res) { res.status(404).json({ error: 'Not found' }); });
 
 // S3/R2/KYC storage is initialized above in the KYC media proxy section.
@@ -870,115 +849,26 @@ app.use(function (err, req, res, next) {
   res.status(status).type('text/plain').send(msg);
 });
 
-// Await storage init before touching data (Postgres mode connects + hydrates
-// here; JSON mode is a no-op). A broken DATABASE_URL fails the boot loudly.
-/* ----------------------- support chat socket.io ----------------------- */
+// (Live support chat removed — the site now uses the Tawk.to widget.)
 
-// Visitor session tracking: socket.id -> { visitorKey, chatId }
-const socketVisitorMap = new Map();
-
-function getVisitorKey(socket) {
-  const user = socket.user;
-  if (user) return 'u:' + user.id;
-  return 'v:' + (socket.handshake.auth.visitorKey || socket.id);
+// Boot storage, then start listening. On Vercel this module is required by
+// api/index.js (which calls the exported app directly), so the listen() call
+// is skipped there — a serverless function never binds a port.
+if (require.main === module) {
+  store.init()
+    .then(function () {
+      auth.hydrateSessions();
+      auth.seedAdmin();
+      app.listen(PORT, function () {
+        const backend = process.env.DATABASE_URL ? 'Postgres' : 'JSON files';
+        console.log('[server] Tesla XTeam FX Trade running at http://localhost:' + PORT + ' (storage: ' + backend + ')');
+      });
+    })
+    .catch(function (err) {
+      console.error('[server] Failed to initialise storage: ' + err.message);
+      process.exit(1);
+    });
 }
 
-// Attach auth middleware so logged-in users get their role on socket connect.
-io.use(function (socket, next) {
-  const cookieHeader = socket.handshake.headers.cookie || '';
-  const m = /(?:^|;\s*)sid=([^;]*)/.exec(cookieHeader);
-  if (m) {
-    try {
-      const rec = auth.getSession(decodeURIComponent(m[1]));
-      if (rec) {
-        const u = auth.findUserById(rec.userId);
-        if (u && !u.blocked) socket.user = u;
-      }
-    } catch (e) { /* ignore */ }
-  }
-  next();
-});
-
-io.on('connection', function (socket) {
-  const visitorKey = getVisitorKey(socket);
-  const user = socket.user || null;
-  const chat = chatStore.getOrCreateChat(visitorKey, user);
-
-  socketVisitorMap.set(socket.id, { visitorKey: visitorKey, chatId: chat.id });
-  socket.join('visitor:' + chat.id);
-
-  if (user && user.role === 'admin') {
-    socket.join('admin');
-  }
-
-  socket.on('chatMessage', function (data) {
-    const text = String(data && data.text || '').trim();
-    if (!text) return;
-    const msg = chatStore.addMessage(chat.id, 'visitor', text, { senderId: user ? user.id : null, recipientId: chat.userId || null });
-    io.to('visitor:' + chat.id).emit('chatMessage', msg);
-    io.to('admin').emit('chatUpdate', { chatId: chat.id, lastMessage: msg, unread: chat.unread });
-  });
-
-  socket.on('joinChat', function (data) {
-    if (!user || user.role !== 'admin') return;
-    const chatId = data && data.chatId;
-    if (!chatId) return;
-    socket.join('chat:' + chatId);
-    chatStore.markRead(chatId);
-    io.to('visitor:' + chatId).emit('chatRead');
-  });
-
-  socket.on('agentReply', function (data) {
-    if (!user || user.role !== 'admin') return;
-    const chatId = data && data.chatId;
-    const text = String(data && data.text || '').trim();
-    if (!chatId || !text) return;
-    const allChats = store.get('chats');
-    const c = allChats.find(function (c2) { return c2.id === chatId; });
-    const recipientId = c ? c.userId : null;
-    const msg = chatStore.addMessage(chatId, 'agent', text, { senderId: user.id, recipientId: recipientId });
-    io.to('chat:' + chatId).emit('chatMessage', msg);
-    io.to('visitor:' + chatId).emit('chatMessage', msg);
-    io.to('visitor:' + chatId).emit('chatRead');
-  });
-
-  socket.on('loadHistory', function () {
-    socket.emit('chatHistory', chat.messages || []);
-  });
-
-  socket.on('loadChat', function (data) {
-    if (!user || user.role !== 'admin') return;
-    const chatId = data && data.chatId;
-    if (!chatId) return;
-    const allChats = store.get('chats');
-    const c = allChats.find(function (c2) { return c2.id === chatId; });
-    if (c) socket.emit('chatHistory', c.messages || []);
-  });
-
-  socket.on('typing', function () {
-    if (user && user.role === 'admin') {
-      io.to('visitor:' + chat.id).emit('agentTyping');
-    } else {
-      socket.to('chat:' + chat.id).emit('visitorTyping');
-    }
-  });
-
-  socket.on('disconnect', function () {
-    socketVisitorMap.delete(socket.id);
-  });
-});
-
-// HTTP API: list all chats (admin only)
-store.init()
-  .then(function () {
-    auth.hydrateSessions();
-    auth.seedAdmin();
-    server.listen(PORT, function () {
-      const backend = process.env.DATABASE_URL ? 'Postgres' : 'JSON files';
-      console.log('[server] Tesla XTeam FX Trade running at http://localhost:' + PORT + ' (storage: ' + backend + ')');
-    });
-  })
-  .catch(function (err) {
-    console.error('[server] Failed to initialise storage: ' + err.message);
-    process.exit(1);
-  });
+// Export the Express app for serverless hosts (Vercel).
+module.exports = app;
