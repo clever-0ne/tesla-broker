@@ -5,12 +5,7 @@
   ],
   "functions": {
     "api/index.js": {
-      "includeFiles": [
-        "dashboard-shell.js",
-        "cars-data.js",
-        "crypto-data.js",
-        "google97eaa26324968d90.html"
-      ]
+      "includeFiles": "public/**"
     }
   }
 }

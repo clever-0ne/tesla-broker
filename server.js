@@ -161,14 +161,9 @@ app.get('/', function (req, res) { res.redirect('/pages/index.html'); });
 app.use('/assets', express.static(path.join(ROOT, 'assets')));
 app.use('/dist', express.static(path.join(ROOT, 'dist')));
 
-// Public root-level JS files (no sensitive data inside).
-const ROOT_FILES = ['dashboard-shell.js', 'cars-data.js', 'crypto-data.js', 'google97eaa26324968d90.html'];
-app.get('/:file', function (req, res) {
-  if (ROOT_FILES.indexOf(req.params.file) === -1) {
-    return res.status(404).type('text/plain').send('Not found');
-  }
-  res.sendFile(path.join(ROOT, req.params.file));
-});
+// Public root-level files — served from public/ so serverless hosts (Vercel)
+// bundle and serve them statically instead of needing res.sendFile at runtime.
+app.use(express.static(path.join(ROOT, 'public')));
 
 /* ---------------------------- auth routes ----------------------------- */
 
