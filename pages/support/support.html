@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/assets/tesla-logo.svg" />
+    <meta name="description" content="Contact Tesla Capital support." />
+    <title>Support — Tesla Capital</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.bunny.net" />
+    <link href="https://fonts.bunny.net/css?family=inter:300,400,500,600,700&display=swap" rel="stylesheet" />
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+
+    <!-- Tailwind CSS -->
+    <link rel="stylesheet" href="/dist/tailwind.css" />
+
+    <!-- Set theme before paint to avoid a flash of the wrong theme -->
+    <script>
+      (function () {
+        var stored = localStorage.getItem('theme');
+        var dark = stored === 'dark';
+        if (dark) document.documentElement.classList.add('dark');
+      })();
+    </script>
+  </head>
+
+  <body data-page="support" data-title="Support" class="font-sans antialiased bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100">
+    <div id="app" class="min-h-screen flex">
+      <div id="page-content" class="flex-1 flex flex-col min-h-screen overflow-hidden lg:ml-72">
+        <main class="flex-1 overflow-y-auto p-4 pb-24 sm:p-6 lg:pb-6">
+          <div class="mx-auto max-w-2xl">
+            <!-- Hero -->
+            <div class="relative mb-6 overflow-hidden premium-hero-card rounded-[20px] border border-white/15 bg-slate-900/40 p-6 shadow-[0_20px_40px_-15px_rgba(0,0,0,0.35)]">
+              <div class="pointer-events-none absolute inset-0" aria-hidden="true">
+                <div class="absolute inset-0 bg-gradient-to-br from-slate-200/70 via-slate-100/40 to-slate-200/20"></div>
+              </div>
+
+              <div class="relative z-10">
+                <p class="mb-2 text-[11px] font-semibold tracking-widest uppercase text-slate-500">Tesla Capital</p>
+                <h1 class="mb-1 text-xl font-light">Support</h1>
+                <p class="text-sm text-slate-500">We're here to help with your account, deposits, and trades.</p>
+              </div>
+            </div>
+
+            <!-- Live chat -->
+            <div class="glass-card p-6 mb-6">
+              <div class="flex items-start space-x-4">
+                <div class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-tesla/10">
+                  <i data-lucide="message-circle" class="w-5 h-5 text-tesla"></i>
+                </div>
+                <div class="flex-1">
+                  <h3 class="mb-1 text-sm font-medium text-black dark:text-white">Live chat</h3>
+                  <p class="mb-3 text-xs leading-relaxed text-gray-500 dark:text-gray-400">Click the chat bubble in the corner to talk to a support agent in real time.</p>
+                  <button type="button" onclick="if(window.Tawk_API&&Tawk_API.maximize){Tawk_API.maximize()}" class="rounded-full bg-slate-900 px-4 py-2 text-xs font-medium text-white transition hover:bg-slate-800 dark:bg-white dark:text-black dark:hover:bg-slate-200">Open chat</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Email -->
+            <div class="glass-card p-6">
+              <div class="flex items-start space-x-4">
+                <div class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-tesla/10">
+                  <i data-lucide="mail" class="w-5 h-5 text-tesla"></i>
+                </div>
+                <div class="flex-1">
+                  <h3 class="mb-1 text-sm font-medium text-black dark:text-white">Email us</h3>
+                  <p class="mb-2 text-xs leading-relaxed text-gray-500 dark:text-gray-400">Prefer email? Send us a message and we'll reply within 24 hours.</p>
+                  <a href="mailto:support@teslaxteamfxtrade.com" class="text-sm font-medium text-tesla">support@teslaxteamfxtrade.com</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+
+    <script src="/dashboard-shell.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        if (window.lucide) lucide.createIcons();
+      });
+    </script>
+  <!--Start of Tawk.to Script-->
+  <script type="text/javascript">
+  var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+  (function(){
+  var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+  s1.async=true;
+  s1.src='https://embed.tawk.to/6a890c07d5f46b34423f0492/default';
+  s1.charset='UTF-8';
+  s1.setAttribute('crossorigin','*');
+  s0.parentNode.insertBefore(s1,s0);
+  })();
+  </script>
+  <!--End of Tawk.to Script-->
+  </body>
+</html>
