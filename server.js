@@ -73,12 +73,12 @@ function computeUserStats(user) {
   const deposits = store.get('deposits').filter(function (d) { return d.userId === user.id; });
   const withdrawals = store.get('withdrawals').filter(function (w) { return w.userId === user.id; });
   const orders = store.get('orders').filter(function (o) { return o.userId === user.id; });
-  const totalDeposit = round2(sumApproved(deposits));
+  const totalDeposit = round2(sumApproved(deposits) - sumApproved(withdrawals));
   const totalWithdrawal = round2(sumApproved(withdrawals));
   const totalOrders = round2(orders.reduce(function (sum, o) { return sum + (Number(o.amount) || 0); }, 0));
   const bonus = (user.dashboardStats && user.dashboardStats.bonus) ? round2(Number(user.dashboardStats.bonus)) : 0;
   return {
-    totalProfit: round2(Math.max(0, totalDeposit - totalWithdrawal - totalOrders)),
+    totalProfit: round2(Math.max(0, totalDeposit - totalOrders)),
     bonus: bonus,
     totalDeposit: totalDeposit,
     totalWithdrawal: totalWithdrawal
@@ -87,13 +87,13 @@ function computeUserStats(user) {
 
 // Same numbers aggregated across every user (for the global /api/settings).
 function computeGlobalStats() {
-  const totalDeposit = round2(sumApproved(store.get('deposits')));
+  const totalDeposit = round2(sumApproved(store.get('deposits')) - sumApproved(store.get('withdrawals')));
   const totalWithdrawal = round2(sumApproved(store.get('withdrawals')));
   const totalOrders = round2(store.get('orders').reduce(function (sum, o) { return sum + (Number(o.amount) || 0); }, 0));
   const s = store.get('settings');
   const bonus = (s.dashboardStats && s.dashboardStats.bonus) ? round2(Number(s.dashboardStats.bonus)) : 0;
   return {
-    totalProfit: round2(Math.max(0, totalDeposit - totalWithdrawal - totalOrders)),
+    totalProfit: round2(Math.max(0, totalDeposit - totalOrders)),
     bonus: bonus,
     totalDeposit: totalDeposit,
     totalWithdrawal: totalWithdrawal
