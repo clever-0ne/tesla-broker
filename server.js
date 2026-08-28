@@ -434,17 +434,17 @@ app.get('/api/admin/withdrawals', auth.requireAdminApi, function (req, res) {
   res.json({ withdrawals: store.get('withdrawals').slice().reverse() });
 });
 
-app.patch('/api/admin/withdrawals/:id', auth.requireAdminApi, function (req, res) {
-  const withdrawal = store.get('withdrawals').find(function (w) { return w.id === req.params.id; });
+app.patch('/api/admin/withdrawals/:id', auth.requireAdminApi, async function (req, res) {
+  const withdrawal = (await store.getFresh('withdrawals')).find(function (w) { return w.id === req.params.id; });
   if (!withdrawal) return res.status(404).json({ error: 'Withdrawal not found.' });
   if (withdrawal.status !== 'pending') return res.status(400).json({ error: 'Withdrawal was already reviewed.' });
 
-  const status = req.body.status;
+  const status = req.body && req.body.status;
   if (status !== 'approved' && status !== 'rejected') return res.status(400).json({ error: 'Invalid status.' });
 
   let user = null;
   if (status === 'approved') {
-    user = store.get('users').find(function (u) { return u.id === withdrawal.userId; });
+    user = (await store.getFresh('users')).find(function (u) { return u.id === withdrawal.userId; });
     if (!user) return res.status(404).json({ error: 'User no longer exists.' });
     if (user.balance < withdrawal.amount) return res.status(400).json({ error: 'User balance is insufficient for this withdrawal.' });
   }
@@ -460,6 +460,7 @@ app.patch('/api/admin/withdrawals/:id', auth.requireAdminApi, function (req, res
     notify(withdrawal.userId, 'withdrawal', 'Withdrawal rejected', 'Your ' + withdrawal.coin.toUpperCase() + ' withdrawal of $' + withdrawal.amount.toFixed(2) + ' was rejected.');
   }
   store.save('withdrawals');
+  await store.flush();
   res.json({ withdrawal: withdrawal });
 });
 
@@ -606,19 +607,19 @@ app.get('/api/admin/deposits', auth.requireAdminApi, function (req, res) {
   res.json({ deposits: store.get('deposits').slice().reverse() });
 });
 
-app.patch('/api/admin/deposits/:id', auth.requireAdminApi, function (req, res) {
-  const deposit = (store.get('deposits') || []).find(function (d) { return d.id === req.params.id; });
+app.patch('/api/admin/deposits/:id', auth.requireAdminApi, async function (req, res) {
+  const deposit = (await store.getFresh('deposits')).find(function (d) { return d.id === req.params.id; });
   if (!deposit) return res.status(404).json({ error: 'Deposit not found.' });
   if (deposit.status !== 'pending') return res.status(400).json({ error: 'Deposit was already reviewed.' });
 
-  const status = req.body.status;
+  const status = req.body && req.body.status;
   if (status !== 'approved' && status !== 'rejected') return res.status(400).json({ error: 'Invalid status.' });
 
   deposit.status = status;
   deposit.reviewedAt = Date.now();
 
   if (status === 'approved') {
-    const user = store.get('users').find(function (u) { return u.id === deposit.userId; });
+    const user = (await store.getFresh('users')).find(function (u) { return u.id === deposit.userId; });
     if (user) {
       user.balance = round2(user.balance + deposit.amount);
       store.save('users');
@@ -628,6 +629,7 @@ app.patch('/api/admin/deposits/:id', auth.requireAdminApi, function (req, res) {
     notify(deposit.userId, 'deposit', 'Deposit rejected', 'Your ' + deposit.coin.toUpperCase() + ' deposit of $' + deposit.amount.toFixed(2) + ' was rejected.');
   }
   store.save('deposits');
+  await store.flush();
   res.json({ deposit: deposit });
 });
 
