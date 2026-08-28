@@ -59,6 +59,45 @@ const DEFAULT_SETTINGS = {
   }
 };
 
+// Sum approved deposit/withdrawal amounts (only 'approved' counts).
+function sumApproved(list) {
+  return list.reduce(function (sum, item) {
+    return sum + (item.status === 'approved' ? (Number(item.amount) || 0) : 0);
+  }, 0);
+}
+
+// Auto-computed dashboard stats for one user. "Total profit" is trading gains:
+// current balance minus net deposits (approved deposits - approved withdrawals).
+// "bonus" stays manual (set by the admin per user).
+function computeUserStats(user) {
+  const deposits = store.get('deposits').filter(function (d) { return d.userId === user.id; });
+  const withdrawals = store.get('withdrawals').filter(function (w) { return w.userId === user.id; });
+  const totalDeposit = round2(sumApproved(deposits));
+  const totalWithdrawal = round2(sumApproved(withdrawals));
+  const bonus = (user.dashboardStats && user.dashboardStats.bonus) ? round2(Number(user.dashboardStats.bonus)) : 0;
+  return {
+    totalProfit: round2((Number(user.balance) || 0) - (totalDeposit - totalWithdrawal)),
+    bonus: bonus,
+    totalDeposit: totalDeposit,
+    totalWithdrawal: totalWithdrawal
+  };
+}
+
+// Same numbers aggregated across every user (for the global /api/settings).
+function computeGlobalStats() {
+  const totalDeposit = round2(sumApproved(store.get('deposits')));
+  const totalWithdrawal = round2(sumApproved(store.get('withdrawals')));
+  const totalBalance = round2(store.get('users').reduce(function (sum, u) { return sum + (Number(u.balance) || 0); }, 0));
+  const s = store.get('settings');
+  const bonus = (s.dashboardStats && s.dashboardStats.bonus) ? round2(Number(s.dashboardStats.bonus)) : 0;
+  return {
+    totalProfit: round2(totalBalance - (totalDeposit - totalWithdrawal)),
+    bonus: bonus,
+    totalDeposit: totalDeposit,
+    totalWithdrawal: totalWithdrawal
+  };
+}
+
 function getSettings() {
   const s = store.get('settings');
   return {
@@ -66,7 +105,7 @@ function getSettings() {
     depositAddresses: Object.assign({}, DEFAULT_SETTINGS.depositAddresses, s.depositAddresses || {}),
     coinRates: Object.assign({}, DEFAULT_SETTINGS.coinRates, s.coinRates || {}),
     coins: COINS,
-    dashboardStats: Object.assign({}, DEFAULT_SETTINGS.dashboardStats, s.dashboardStats || {})
+    dashboardStats: computeGlobalStats()
   };
 }
 
@@ -76,7 +115,7 @@ function roundCoin(n) { return Math.round((Number(n) || 0) * 1e8) / 1e8; }
 function uid() { return crypto.randomBytes(6).toString('hex'); }
 
 function publicUser(u) {
-  return { id: u.id, name: u.name, email: u.email, role: u.role, balance: u.balance, kycStatus: u.kycStatus, createdAt: u.createdAt, profileImage: u.profileImage, blocked: u.blocked, kycData: u.kycData || null, idImages: Array.isArray(u.idImages) ? u.idImages.slice(0, 6) : [], dashboardStats: u.dashboardStats || null };
+  return { id: u.id, name: u.name, email: u.email, role: u.role, balance: u.balance, kycStatus: u.kycStatus, createdAt: u.createdAt, profileImage: u.profileImage, blocked: u.blocked, kycData: u.kycData || null, idImages: Array.isArray(u.idImages) ? u.idImages.slice(0, 6) : [], dashboardStats: computeUserStats(u) };
 }
 
 /* ----------------------------- middleware ----------------------------- */

@@ -546,8 +546,9 @@
 
           if (window.FX && FX.dashboardStats) {
             var ds = window.FX.dashboardStats;
-            if (!(ds.totalProfit > 0)) ds.totalProfit = Math.max(0, invested - totalWithdrawal);
-            if (!(ds.totalDeposit > 0)) ds.totalDeposit = (data[1].deposits || []).filter(function (d) { return d.status === 'approved'; }).reduce(function (s, d) { return s + d.amount; }, 0);
+            var totalDeposit = (data[1].deposits || []).filter(function (d) { return d.status === 'approved'; }).reduce(function (s, d) { return s + d.amount; }, 0);
+            if (!(ds.totalProfit > 0)) ds.totalProfit = Math.max(0, (window.FX.balance() || 0) - (totalDeposit - totalWithdrawal));
+            if (!(ds.totalDeposit > 0)) ds.totalDeposit = totalDeposit;
             if (!(ds.totalWithdrawal > 0)) ds.totalWithdrawal = totalWithdrawal;
             if (!(ds.bonus > 0)) ds.bonus = 0;
             window.FX.dashboardStats = ds;
