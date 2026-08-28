@@ -286,7 +286,7 @@ app.get('/api/deposits', auth.requireAuthApi, function (req, res) {
   res.json({ deposits: list.reverse() });
 });
 
-app.post('/api/deposits', auth.requireAuthApi, function (req, res) {
+app.post('/api/deposits', auth.requireAuthApi, async function (req, res) {
   req.body = req.body || {};
   const amount = round2(req.body.amount);
   const coin = String(req.body.coin || '').toLowerCase();
@@ -313,6 +313,7 @@ app.post('/api/deposits', auth.requireAuthApi, function (req, res) {
   };
   store.push('deposits', deposit);
   notify(req.user.id, 'deposit', 'Deposit submitted', 'Your ' + coin.toUpperCase() + ' deposit of $' + amount.toFixed(2) + ' is awaiting approval.');
+  await store.flush();
   res.status(201).json({ deposit: deposit });
 });
 
@@ -435,8 +436,8 @@ app.post('/api/withdrawals', auth.requireAuthApi, async function (req, res) {
   res.status(201).json({ withdrawal: withdrawal, balance: req.user.balance });
 });
 
-app.get('/api/admin/withdrawals', auth.requireAdminApi, function (req, res) {
-  res.json({ withdrawals: store.get('withdrawals').slice().reverse() });
+app.get('/api/admin/withdrawals', auth.requireAdminApi, async function (req, res) {
+  res.json({ withdrawals: (await store.getFresh('withdrawals')).slice().reverse() });
 });
 
 app.patch('/api/admin/withdrawals/:id', auth.requireAdminApi, async function (req, res) {
@@ -468,8 +469,8 @@ app.patch('/api/admin/withdrawals/:id', auth.requireAdminApi, async function (re
 
 /* --------------------------- admin routes ----------------------------- */
 
-app.get('/api/admin/users', auth.requireAdminApi, function (req, res) {
-  res.json({ users: store.get('users').map(publicUser) });
+app.get('/api/admin/users', auth.requireAdminApi, async function (req, res) {
+  res.json({ users: (await store.getFresh('users')).map(publicUser) });
 });
 
 app.patch('/api/admin/users/:id', auth.requireAdminApi, function (req, res) {
@@ -605,8 +606,8 @@ app.patch('/api/admin/users/:id/block', auth.requireAdminApi, function (req, res
   res.json({ user: publicUser(user) });
 });
 
-app.get('/api/admin/deposits', auth.requireAdminApi, function (req, res) {
-  res.json({ deposits: store.get('deposits').slice().reverse() });
+app.get('/api/admin/deposits', auth.requireAdminApi, async function (req, res) {
+  res.json({ deposits: (await store.getFresh('deposits')).slice().reverse() });
 });
 
 app.patch('/api/admin/deposits/:id', auth.requireAdminApi, async function (req, res) {
@@ -635,8 +636,8 @@ app.patch('/api/admin/deposits/:id', auth.requireAdminApi, async function (req, 
   res.json({ deposit: deposit });
 });
 
-app.get('/api/admin/orders', auth.requireAdminApi, function (req, res) {
-  res.json({ orders: store.get('orders').slice(-200).reverse() });
+app.get('/api/admin/orders', auth.requireAdminApi, async function (req, res) {
+  res.json({ orders: (await store.getFresh('orders')).slice(-200).reverse() });
 });
 
 app.put('/api/admin/settings', auth.requireAdminApi, function (req, res) {
