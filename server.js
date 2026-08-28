@@ -66,9 +66,8 @@ function sumApproved(list) {
   }, 0);
 }
 
-// Auto-computed dashboard stats for one user. "Total profit" is trading gains:
-// current balance minus net deposits (approved deposits - approved withdrawals).
-// "bonus" stays manual (set by the admin per user).
+// Auto-computed dashboard stats for one user. "Total profit" is net deposits:
+// approved deposits minus approved withdrawals. "bonus" stays manual.
 function computeUserStats(user) {
   const deposits = store.get('deposits').filter(function (d) { return d.userId === user.id; });
   const withdrawals = store.get('withdrawals').filter(function (w) { return w.userId === user.id; });
@@ -76,7 +75,7 @@ function computeUserStats(user) {
   const totalWithdrawal = round2(sumApproved(withdrawals));
   const bonus = (user.dashboardStats && user.dashboardStats.bonus) ? round2(Number(user.dashboardStats.bonus)) : 0;
   return {
-    totalProfit: round2((Number(user.balance) || 0) - (totalDeposit - totalWithdrawal)),
+    totalProfit: round2(totalDeposit - totalWithdrawal),
     bonus: bonus,
     totalDeposit: totalDeposit,
     totalWithdrawal: totalWithdrawal
@@ -87,11 +86,10 @@ function computeUserStats(user) {
 function computeGlobalStats() {
   const totalDeposit = round2(sumApproved(store.get('deposits')));
   const totalWithdrawal = round2(sumApproved(store.get('withdrawals')));
-  const totalBalance = round2(store.get('users').reduce(function (sum, u) { return sum + (Number(u.balance) || 0); }, 0));
   const s = store.get('settings');
   const bonus = (s.dashboardStats && s.dashboardStats.bonus) ? round2(Number(s.dashboardStats.bonus)) : 0;
   return {
-    totalProfit: round2(totalBalance - (totalDeposit - totalWithdrawal)),
+    totalProfit: round2(totalDeposit - totalWithdrawal),
     bonus: bonus,
     totalDeposit: totalDeposit,
     totalWithdrawal: totalWithdrawal
