@@ -402,7 +402,7 @@ app.get('/api/withdrawals', auth.requireAuthApi, function (req, res) {
 });
 
 // Withdrawal request — debits the balance only after admin approval.
-app.post('/api/withdrawals', auth.requireAuthApi, function (req, res) {
+app.post('/api/withdrawals', auth.requireAuthApi, async function (req, res) {
   req.body = req.body || {};
   const amount = round2(req.body.amount);
   const coin = String(req.body.coin || '').toLowerCase();
@@ -414,6 +414,10 @@ app.post('/api/withdrawals', auth.requireAuthApi, function (req, res) {
     return res.status(400).json({ error: 'Unsupported cryptocurrency.' });
   }
   if (address.length < 8) return res.status(400).json({ error: 'Enter a valid wallet address.' });
+
+  // Hold the funds immediately so the balance reflects the pending withdrawal.
+  req.user.balance = round2(req.user.balance - amount);
+  store.save('users');
 
   const withdrawal = {
     id: uid(),
@@ -427,7 +431,8 @@ app.post('/api/withdrawals', auth.requireAuthApi, function (req, res) {
   };
   store.push('withdrawals', withdrawal);
   notify(req.user.id, 'withdrawal', 'Withdrawal requested', 'Your ' + coin.toUpperCase() + ' withdrawal of $' + amount.toFixed(2) + ' is awaiting approval.');
-  res.status(201).json({ withdrawal: withdrawal });
+  await store.flush();
+  res.status(201).json({ withdrawal: withdrawal, balance: req.user.balance });
 });
 
 app.get('/api/admin/withdrawals', auth.requireAdminApi, function (req, res) {
@@ -442,22 +447,19 @@ app.patch('/api/admin/withdrawals/:id', auth.requireAdminApi, async function (re
   const status = req.body && req.body.status;
   if (status !== 'approved' && status !== 'rejected') return res.status(400).json({ error: 'Invalid status.' });
 
-  let user = null;
-  if (status === 'approved') {
-    user = (await store.getFresh('users')).find(function (u) { return u.id === withdrawal.userId; });
-    if (!user) return res.status(404).json({ error: 'User no longer exists.' });
-    if (user.balance < withdrawal.amount) return res.status(400).json({ error: 'User balance is insufficient for this withdrawal.' });
-  }
-
   withdrawal.status = status;
   withdrawal.reviewedAt = Date.now();
 
-  if (status === 'approved') {
-    user.balance = round2(user.balance - withdrawal.amount);
-    store.save('users');
-    notify(withdrawal.userId, 'withdrawal', 'Withdrawal approved', 'Your ' + withdrawal.coin.toUpperCase() + ' withdrawal of $' + withdrawal.amount.toFixed(2) + ' was processed.');
-  } else {
+  if (status === 'rejected') {
+    // Funds were held at request time — refund them on rejection.
+    const user = (await store.getFresh('users')).find(function (u) { return u.id === withdrawal.userId; });
+    if (user) {
+      user.balance = round2(user.balance + withdrawal.amount);
+      store.save('users');
+    }
     notify(withdrawal.userId, 'withdrawal', 'Withdrawal rejected', 'Your ' + withdrawal.coin.toUpperCase() + ' withdrawal of $' + withdrawal.amount.toFixed(2) + ' was rejected.');
+  } else {
+    notify(withdrawal.userId, 'withdrawal', 'Withdrawal approved', 'Your ' + withdrawal.coin.toUpperCase() + ' withdrawal of $' + withdrawal.amount.toFixed(2) + ' was processed.');
   }
   store.save('withdrawals');
   await store.flush();
