@@ -66,26 +66,7 @@ function sumApproved(list) {
   }, 0);
 }
 
-// Auto-computed dashboard stats for one user. "Total profit" is net deposits
-// minus purchases (approved deposits - approved withdrawals - orders).
-// "bonus" stays manual.
-function computeUserStats(user) {
-  const deposits = store.get('deposits').filter(function (d) { return d.userId === user.id; });
-  const withdrawals = store.get('withdrawals').filter(function (w) { return w.userId === user.id; });
-  const orders = store.get('orders').filter(function (o) { return o.userId === user.id; });
-  const totalDeposit = round2(sumApproved(deposits));
-  const totalWithdrawal = round2(sumApproved(withdrawals));
-  const totalOrders = round2(orders.reduce(function (sum, o) { return sum + (Number(o.amount) || 0); }, 0));
-  const bonus = (user.dashboardStats && user.dashboardStats.bonus) ? round2(Number(user.dashboardStats.bonus)) : 0;
-  return {
-    totalProfit: round2(Math.max(0, totalDeposit - totalWithdrawal - totalOrders)),
-    bonus: bonus,
-    totalDeposit: totalDeposit,
-    totalWithdrawal: totalWithdrawal
-  };
-}
-
-// Same numbers aggregated across every user (for the global /api/settings).
+// Site-wide dashboard stats (used by /api/settings and every user's dashboard).
 function computeGlobalStats() {
   const totalDeposit = round2(sumApproved(store.get('deposits')));
   const totalWithdrawal = round2(sumApproved(store.get('withdrawals')));
@@ -117,7 +98,7 @@ function roundCoin(n) { return Math.round((Number(n) || 0) * 1e8) / 1e8; }
 function uid() { return crypto.randomBytes(6).toString('hex'); }
 
 function publicUser(u) {
-  return { id: u.id, name: u.name, email: u.email, role: u.role, balance: u.balance, kycStatus: u.kycStatus, createdAt: u.createdAt, profileImage: u.profileImage, blocked: u.blocked, kycData: u.kycData || null, idImages: Array.isArray(u.idImages) ? u.idImages.slice(0, 6) : [], dashboardStats: computeUserStats(u) };
+  return { id: u.id, name: u.name, email: u.email, role: u.role, balance: u.balance, kycStatus: u.kycStatus, createdAt: u.createdAt, profileImage: u.profileImage, blocked: u.blocked, kycData: u.kycData || null, idImages: Array.isArray(u.idImages) ? u.idImages.slice(0, 6) : [], dashboardStats: computeGlobalStats() };
 }
 
 /* ----------------------------- middleware ----------------------------- */
@@ -327,7 +308,7 @@ app.get('/api/orders', auth.requireAuthApi, function (req, res) {
 });
 
 // Purchase / investment / crypto order — debits the balance immediately.
-app.post('/api/orders', auth.requireAuthApi, function (req, res) {
+app.post('/api/orders', auth.requireAuthApi, async function (req, res) {
   req.body = req.body || {};
   const type = String(req.body.type || '').toLowerCase();
   const item = String(req.body.item || '').slice(0, 200);
@@ -354,6 +335,7 @@ app.post('/api/orders', auth.requireAuthApi, function (req, res) {
 
   var orderNote = { investment: 'Investment confirmed', crypto: 'Trade executed', vehicle: 'Purchase confirmed' };
   notify(req.user.id, 'order', orderNote[type] || 'Order confirmed', 'You paid $' + amount.toFixed(2) + ' for ' + item + '.');
+  await store.flush();
   res.status(201).json({ order: order, balance: req.user.balance });
 });
 
